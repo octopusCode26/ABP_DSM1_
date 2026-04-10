@@ -35,8 +35,7 @@ e DML), e organização do trabalho por Scrum e práticas ágeis básicas.</p>
 | RF - 2                 | O login no sistema deve ser realizado exclusivamente por meio de CPF e senha.                                         | #   |
 | RF - 3                 | Para cada nível, o sistema deve selecionar aleatoriamente 10 questões a partir de um banco com 30 questões daquele nível, respeitando a classificação de dificuldade.    | #   |
 | RF - 4                 | As questões de cada nível devem ser classificadas em três graus de dificuldade: fáceis, médias e difíceis.          | #   |
-| RF - 5                 |  Cada avaliação de nível apresentada ao usuário deve ser composta obrigatoriamente por 3 questões fáceis, 4 questões médias e 3 questões difíceis, selecionadas de forma aleatória dentro 
-de cada categoria. | # # |
+| RF - 5                 |  Cada avaliação de nível apresentada ao usuário deve ser composta obrigatoriamente por 3 questões fáceis, 4 questões médias e 3 questões difíceis, selecionadas de forma aleatória | # # |
 | RF - 6                 |  O usuário deve poder realizar no máximo 2 tentativas por nível.                                                    | #   |
 | RF - 7                 | Para cada nível, a nota final do usuário deve ser a maior nota obtida entre as tentativas realizadas.               | #   |
 | RF - 8                 | O sistema deve calcular o resultado final do usuário como a média das notas finais obtidas em cada nível.           | # # |
@@ -65,8 +64,7 @@ de cada categoria. | # # |
 |----------------------------|-----------------------------------------------------------------------------------------------------|-------------|
 | RP - 1                    |  O front-end deve ser desenvolvido utilizando HTML, CSS e JavaScript, sem frameworks.                |-------------|
 | RP - 2                    |  O banco de dados deve ser PostgreSQL, com uso explícito de DDL (criação de tabelas) e DML (inserção/consulta/atualização). |-------------|
-| RP - 3                    |  O back-end deve implementar a comunicação com o PostgreSQL e expor as funcionalidades necessárias ao front-end (por páginas dinâmicas e/ou endpoints HTTP), utilizando tecnologia 
-compatível com aplicações web modernas. |-------------|
+| RP - 3                    |  O back-end deve implementar a comunicação com o PostgreSQL e expor as funcionalidades necessárias ao front-end (por páginas dinâmicas e/ou endpoints HTTP)|-------------|
 | RP - 4                    |  O sistema deve armazenar, no banco de dados, usuários, níveis, questões, alternativas, tentativas e resultados. |-------------|
 | RP - 5                    |  O escopo do projeto deverá ser compatível com o tempo disponível para desenvolvimento ao longo do semestre, priorizando um MVP funcional.  |-------------|
 
