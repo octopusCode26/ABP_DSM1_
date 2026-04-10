@@ -55,10 +55,12 @@ de cada categoria. | # # |
 | RNF - 3                    |  Os dados pessoais (nome, e-mail e CPF) devem ser tratados em conformidade com a LGPD, com armazenamento e acesso restritos ao necessário. |-----       |
 | RNF - 4                    | O sistema deve evitar fraudes triviais, garantindo que a contagem de tentativas e o cálculo das notas não possam ser alterados apenas por manipulação no front-end.   | ----       |
 | RNF - 5                    | O projeto deverá adotar práticas básicas de desenvolvimento ágil, incluindo gestão de backlog, planejamento em sprints, versionamento de código e definição de critérios de pronto (DoD).|--|
-| RNF - 6                    | Deve existir documentação mínima do projeto (modelo de dados, instruções de execução 
-e descrição das rotas/funcionalidades).  | #02✔ #03✔ |
+| RNF - 6                    | Deve existir documentação mínima do projeto (modelo de dados, instruções de execução e descrição das rotas/funcionalidades).  |--------  |
 
 <br>
+
+### RESTRIÇÕES
+
 |RESTRIÇÕES DE PROJETO | REQUISITOS                                                                                          | CHECK     |
 |----------------------------|-----------------------------------------------------------------------------------------------------|-------------|
 | RP - 1                    |  O front-end deve ser desenvolvido utilizando HTML, CSS e JavaScript, sem frameworks.                |-------------|
@@ -69,4 +71,3 @@ compatível com aplicações web modernas. |-------------|
 | RP - 5                    |  O escopo do projeto deverá ser compatível com o tempo disponível para desenvolvimento ao longo do semestre, priorizando um MVP funcional.  |-------------|
 
 
-## :page_with_curl: USER STORIES
