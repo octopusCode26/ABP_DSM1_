@@ -71,8 +71,6 @@ e DML), e organização do trabalho por Scrum e práticas ágeis básicas.</p>
 
 ## FIRST SPRINT BACKLOG
 
-# First Sprint Backlog
-
 | Tarefa                          | Número do Requisito | Prioridades | Pontuação Poker Planning | Descrição do Requisito                                                                 | Responsável                  | Status Iniciada | Status Concluída |
 |--------------------------------|---------------------|-------------|--------------------------|----------------------------------------------------------------------------------------|------------------------------|------------------|------------------|
 | Prototipação                   | RNF01 / RF12        | 0           | 13                       | Figma: Prototipação do fluxo central de todo site (Mobile-first: celular, desktop).   | Renan, Enzo, Thiago, Vitor   | 1                |                  |
