@@ -69,3 +69,15 @@ e DML), e organização do trabalho por Scrum e práticas ágeis básicas.</p>
 | RP - 5                    |  O escopo do projeto deverá ser compatível com o tempo disponível para desenvolvimento ao longo do semestre, priorizando um MVP funcional.  |-------------|
 
 
+## FIRST SPRINT BACKLOG
+
+| Tarefa                          | Número do Requisito | Prioridades | Pontuação Poker Planning | Descrição do Requisito                                                                 | Responsável                  | Status Iniciada | Status Concluída |
+|--------------------------------|---------------------|-------------|--------------------------|----------------------------------------------------------------------------------------|------------------------------|------------------|------------------|
+| Definição de conteúdo          | RF00                | 1           | 2,5                      | DOCs: Definir como o conteúdo será apresentado (título, textos e imagens dos 5 níveis, intro e desfecho). | Vitor                        | 1                |                  |
+| Prototipação                   |                     | 0           | 13                       | Figma: Prototipação do fluxo central de todo site (Mobile-first: celular, desktop).   | Renan, Enzo, Thiago, Vitor   | 1                |                  |
+| Organizar Arquitetura          |                     | 2           | 5                        | Organização das pastas (Visual Studio), subir na main branch, teste de funcionamento. | Cauã, Igor, Lorenzo          | 1                |                  |
+| Diagrama Caso de Uso           |                     | 0           | 5                        | Desenvolver o diagrama de casos de uso em UML.                                         | Alef                         | 1                |                  |
+| Nível 1                        | RFN01 / RNF02       | 8           | 3                        | Front-end: HTML e texto contendo o conteúdo a ser ensinado referente ao nível.        | Renan, Thiago, Cauã, Enzo    | 1                |                  |
+| Diagrama de Classe             |                     | 5           | 5                        | Definir diagrama de Classe utilizando UML.                                             | Igor, Lorenzo                |                  |                  |
+| Diagramas Sequência            |                     | 8           | 5                        | Definir diagrama de Sequência utilizando UML.                                          | Vitor, Lorenzo, Igor         |                  |                  |
+| Organizar Ambiente virtual     |                     |             |                          | Organizar Kanban e demais abas no GitHub.                                              |                              |                  |                  |
