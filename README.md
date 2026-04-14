@@ -71,13 +71,15 @@ e DML), e organização do trabalho por Scrum e práticas ágeis básicas.</p>
 
 ## FIRST SPRINT BACKLOG
 
+# First Sprint Backlog
+
 | Tarefa                          | Número do Requisito | Prioridades | Pontuação Poker Planning | Descrição do Requisito                                                                 | Responsável                  | Status Iniciada | Status Concluída |
 |--------------------------------|---------------------|-------------|--------------------------|----------------------------------------------------------------------------------------|------------------------------|------------------|------------------|
+| Prototipação                   | RNF01 / RF12        | 0           | 13                       | Figma: Prototipação do fluxo central de todo site (Mobile-first: celular, desktop).   | Renan, Enzo, Thiago, Vitor   | 1                |                  |
+| Diagrama Caso de Uso           | RNF06               | 0           | 5                        | Desenvolver o diagrama de casos de uso em UML.                                         | Alef                         | 1                |                  |
+| Organizar Ambiente virtual     | RNF06 / RNF05       | 0           | 1                        | Organizar Kanban e demais abas no GitHub.                                              |                              |                  |                  |
 | Definição de conteúdo          | RF00                | 1           | 2,5                      | DOCs: Definir como o conteúdo será apresentado (título, textos e imagens dos 5 níveis, intro e desfecho). | Vitor                        | 1                |                  |
-| Prototipação                   |                     | 0           | 13                       | Figma: Prototipação do fluxo central de todo site (Mobile-first: celular, desktop).   | Renan, Enzo, Thiago, Vitor   | 1                |                  |
-| Organizar Arquitetura          |                     | 2           | 5                        | Organização das pastas (Visual Studio), subir na main branch, teste de funcionamento. | Cauã, Igor, Lorenzo          | 1                |                  |
-| Diagrama Caso de Uso           |                     | 0           | 5                        | Desenvolver o diagrama de casos de uso em UML.                                         | Alef                         | 1                |                  |
+| Organizar Arquitetura          | RNF05 / RNF06       | 2           | 5                        | Organização das pastas (Visual Studio), subir na main branch, teste de funcionamento. | Cauã, Igor, Lorenzo          | 1                |                  |
+| Diagrama de Classe             | RNF06               | 5           | 5                        | Definir diagrama de Classe utilizando UML.                                             | Igor, Lorenzo                |                  |                  |
 | Nível 1                        | RFN01 / RNF02       | 8           | 3                        | Front-end: HTML e texto contendo o conteúdo a ser ensinado referente ao nível.        | Renan, Thiago, Cauã, Enzo    | 1                |                  |
-| Diagrama de Classe             |                     | 5           | 5                        | Definir diagrama de Classe utilizando UML.                                             | Igor, Lorenzo                |                  |                  |
-| Diagramas Sequência            |                     | 8           | 5                        | Definir diagrama de Sequência utilizando UML.                                          | Vitor, Lorenzo, Igor         |                  |                  |
-| Organizar Ambiente virtual     |                     |             |                          | Organizar Kanban e demais abas no GitHub.                                              |                              |                  |                  |
+| Diagramas Sequência            | RNF06               | 8           | 5                        | Definir diagrama de Sequência utilizando UML.                                          | Vitor, Lorenzo, Igor         |                  |                  |
