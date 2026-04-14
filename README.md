@@ -73,7 +73,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 | Sprint | Link        | Início      | Entrega     | Status |
 |--------|-------------|-------------|-------------|--------|
-| 01     | [Sprint 01]() | 13/04/2026  | 30/04/2026  |  -   |
+| 01     | [Sprint 01](#sprint-1) | 13/04/2026  | 30/04/2026  |  -   |
 | 02     | [Sprint 02]() | 04/05/2026  | 21/05/2026  |  -   |
 | 03     | [Sprint 03]() | 25/05/2026  | 11/06/2026  |  -   |
 
@@ -126,6 +126,11 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 | RP - 4                    |  O sistema deve armazenar, no banco de dados, usuários, níveis, questões, alternativas, tentativas e resultados. |-------------|
 | RP - 5                    |  O escopo do projeto deverá ser compatível com o tempo disponível para desenvolvimento ao longo do semestre, priorizando um MVP funcional.  |-------------|
 
+<br>
+
+<span id="sprint-1">
+ 
+<br>
 
 ## FIRST SPRINT BACKLOG
 
