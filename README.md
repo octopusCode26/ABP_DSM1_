@@ -84,6 +84,13 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 </table>
 
 
+## 🚀 Acesso Rápido
+
+
+| 📂 Documentação | 🛠️ Desenvolvimento | 📈 Gestão |
+| :--- | :--- | :--- |
+| [![Figma](https://img.shields.io/badge/Protótipo_Figma-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/design/96DMn9UVu2MT9xJIi5pBiQ/Prototipo_Scrum-Dungeon?node-id=339-285&t=fwhH3XZlBJEq1fdK-0) | [![Repo](https://img.shields.io/badge/Repositório_GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/octopusCode26/ABP_DSM1_) | ![Kanban](https://img.shields.io/badge/Quadro_Kanban-Em_processo-lightgrey?style=flat-square&logo=github-project) |
+
 
 
 ## SPRINTS
