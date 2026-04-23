@@ -3,15 +3,18 @@ const pool = require("../database/db");
 
 // importando o respectivo arquivos que está dentro de um json.
 const { randomBytes } = require("crypto");
+const { hashPassword } = require("../utils/password");
 
 // insere um novo usuário no banco de dados (pgAdmin).
 async function insertUsuario(client, nome, email, cpf, senha) {
   const certificado_hash = randomBytes(24).toString("hex");
+  const senhaCodificada = hashPassword(senha);
+
   const result = await client.query(
     `INSERT INTO usuarios (nome, email, cpf, senha, certificado_hash)
          VALUES ($1, $2, $3, $4, $5)
          RETURNING id_usuario, nome, email, cpf, certificado_hash`,
-    [nome, email, cpf, senha, certificado_hash]
+    [nome, email, cpf, senhaCodificada, certificado_hash]
   );
 
   return result.rows[0] || null;
@@ -94,7 +97,113 @@ async function createUsuario(nome, email, cpf, senha) {
   }
 }
 
+async function updateUsuarioCpf(idUsuario, cpf) {
+  const result = await pool.query(
+    `
+    UPDATE usuarios
+    SET cpf = $1
+    WHERE id_usuario = $2
+    RETURNING id_usuario
+    `,
+    [cpf, idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function updateUsuarioNome(idUsuario, nome) {
+  const result = await pool.query(
+    `
+    UPDATE usuarios
+    SET nome = $1
+    WHERE id_usuario = $2
+    RETURNING id_usuario
+    `,
+    [nome, idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function updateUsuarioEmail(idUsuario, email) {
+  const result = await pool.query(
+    `
+    UPDATE usuarios
+    SET email = $1
+    WHERE id_usuario = $2
+    RETURNING id_usuario
+    `,
+    [email, idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function updateUsuarioSenha(idUsuario, senha) {
+  const senhaCodificada = hashPassword(senha);
+  const result = await pool.query(
+    `
+    UPDATE usuarios
+    SET senha = $1
+    WHERE id_usuario = $2
+    RETURNING id_usuario
+    `,
+    [senhaCodificada, idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function findUsuarioById(idUsuario) {
+  const result = await pool.query(
+    `
+    SELECT id_usuario, nome, email, cpf
+    FROM usuarios
+    WHERE id_usuario = $1
+    `,
+    [idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+async function findUsuarioByCpfAndSenha(cpf, senha){
+  const result = await pool.query(
+    `
+    SELECT id_usuario, nome, email, cpf, senha
+    FROM usuarios
+    WHERE cpf = $1
+    `,
+    [cpf],
+  );
+
+  const usuario = result.rows[0];
+
+  if ( !usuario ){
+    throw new Error("usuário inexistente");
+  }
+
+  const senhaValida = verifyPassword(senha, usuario.senha);
+  if ( !senhaValida ){
+    throw new Error("dados de login incorretos");
+  }
+
+  return {
+    id_usuario: usuario.id_usuario, 
+    nome: usuario.nome, 
+    email: usuario.email, 
+    cpf: usuario.cpf
+  }
+
+}
+
 // exportando a respectiva função para outros arquivos.
 module.exports = {
   createUsuario,
+  updateUsuarioCpf,
+  findUsuarioById,
+  updateUsuarioNome,
+  updateUsuarioEmail,
+  updateUsuarioSenha,
+  findUsuarioByCpfAndSenha
 };

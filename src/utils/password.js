@@ -27,7 +27,7 @@ function verifyPassword(password, storedPassword) {
     return timingSafeEqual(hash, storedHashBuffer);
 }
 
-// exportando a respectiva função para outros arquivos.
+// exportando as respectivas funções para outros arquivos.
 module.exports = {
     hashPassword,
     verifyPassword,
