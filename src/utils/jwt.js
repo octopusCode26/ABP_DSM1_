@@ -21,6 +21,10 @@ function createToken(payload) {
     );
 }
 
+function verifyToken(token){
+    return jwt.verify(token, process.env.JWT_SECRET);
+}
+
 // exportando a respectiva função para outros arquivos.
 module.exports = {
     createToken,

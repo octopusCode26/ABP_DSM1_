@@ -49,13 +49,14 @@ router.post("/", async function (req, res) {
 
 // PATCH /api/usuarios/10/cpf
 /*
-curl -X PATCH http://localhost:3000/api/usuarios/36/cpf \
+curl -X PATCH http://localhost:3000/api/usuarios/cpf \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN" \
   -d '{"cpf":"11122233344"}'
 */
 
-router.patch("/:idUsuario/cpf", async function (req, res) {
-  const idUsuario = getIdUsuario(req.params);
+router.patch("/cpf", async function (req, res) {
+  const idUsuario = req.usuario.idUsuario;
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })
@@ -89,17 +90,14 @@ router.patch("/:idUsuario/cpf", async function (req, res) {
 });
 
 /*
-curl -X PATCH http://localhost:3000/api/usuarios/37/nome \
+curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN" \
   -d '{"nome":"Maria"}'
 */
 
-router.patch("/:idUsuario/nome", async function (req, res) {
-  const idUsuario = getIdUsuario(req.params);
-
-  if (!idUsuario) {
-    return res.status(400).json({ message: "id_usuario inválido" })
-  }
+router.patch("/nome", async function (req, res) {
+  const idUsuario = req.usuario.idUsuario;
 
   const { nome } = req.body;
   if ( !nome ) {
@@ -124,17 +122,14 @@ router.patch("/:idUsuario/nome", async function (req, res) {
 });
 
 /*
-curl -X PATCH http://localhost:3000/api/usuarios/37/email \
+curl -X PATCH http://localhost:3000/api/usuarios/email \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN" \
   -d '{"email":"ana.clara@teste.com"}'
 */
 
-router.patch("/:idUsuario/email", async function (req, res) {
-  const idUsuario = getIdUsuario(req.params);
-
-  if (!idUsuario) {
-    return res.status(400).json({ message: "id_usuario inválido" })
-  }
+router.patch("/email", async function (req, res) {
+  const idUsuario = req.usuario.idUsuario;
 
   const { email } = req.body;
   if ( !email ) {
@@ -164,13 +159,14 @@ router.patch("/:idUsuario/email", async function (req, res) {
 });
 
 /*
-curl -X PATCH http://localhost:3000/api/usuarios/37/senha \
+curl -X PATCH http://localhost:3000/api/usuarios/senha \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer SEU_TOKEN" \
   -d '{"senha":"123aaa"}'
 */
 
-router.patch("/:idUsuario/senha", async function (req, res) {
-  const idUsuario = getIdUsuario(req.params);
+router.patch("/senha", async function (req, res) {
+  const idUsuario = req.usuario.idUsuario
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })

@@ -25,14 +25,27 @@ router.post("/login", async function (req, res) {
 
   // cria um token de autenticação.
   try {
-    const result = await findUsuarioByCpfAndSenha(cpf, senha);
-    return res.status(200).json(result);
+    const usuario = await findUsuarioByCpfAndSenha(cpf, senha);
+    const token = createToken({id_usuario: usuario.id_usuario})
+    return res.status(200).json({
+        token,
+        nome: usuario.nome
+    });
   } catch (e) {
     return res.status(500).json({
       message: e.message,
     });
   }
 });
+
+function verifyToken(token){
+  return jwt.verify(token, process.env.JWT_SECRET);
+}
+
+module.exports = {
+  createToken,
+  verifyToken
+};
 
 // exporta o "router" para outros arquivos.
 module.exports = router;
