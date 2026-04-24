@@ -1,27 +1,21 @@
 {
-  "name": "abp_dsm1_",
+  "name": "abp",
   "version": "1.0.0",
-  "description": "<h1 align=\"center\">Fatec Jacareí- ABP DSM 1º SEMESTRE</h1>",
-  "main": "index.js",
+  "description": "",
+  "main": "src/server.js",
   "scripts": {
     "start": "node ./src/server",
-    "dev": "node --watch ./src/server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/octopusCode26/ABP_DSM1_.git"
+    "dev": "node --watch ./src/server",
+    "db:init": "node ./src/infra/run-sql"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/octopusCode26/ABP_DSM1_/issues"
-  },
-  "homepage": "https://github.com/octopusCode26/ABP_DSM1_#readme",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0"
   }
 }
