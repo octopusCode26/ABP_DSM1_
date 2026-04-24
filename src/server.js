@@ -6,8 +6,8 @@ const path = require("path");
 const router = require("./routes/usuarios.routes");
 
 console.log({
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD
 });
 
 const PORT = process.env.PORT;
@@ -24,10 +24,10 @@ app.use("/assets", express.static(assetsPath));
 
 app.use("/api", router);
 
-app.use(function(_req,res){
+app.use(function (_req, res) {
     res.redirect("not-found.html")
 });
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
 });
