@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/index.css" />
     <title>Bem-Vindo | Scrum Dungeon</title>
   </head>
 
@@ -111,5 +111,150 @@
         <p>< OCTOPUS_CODE ></p>
       </div>
     </footer>
+
+    <!-- PAINEL LATERAL DE LOGIN E CADASTRO -->
+    <div class="overlay_escuro" id="overlayEscuro"></div>
+    <div class="painel_auth" id="painelAuth">
+      <div class="painel_auth_conteudo">
+        <!-- BOTÃO FECHAR -->
+        <button class="botao_fechar" id="fecharAuth">
+          <img src="../assets/img/icone_voltar.png" alt="Fechar painel" />
+        </button>
+
+        <!-- FORMULÁRIO LOGIN -->
+        <div class="conteudo_aba" id="formLogin">
+          <h2>LOGIN</h2>
+          <br>
+          <p class="subtitulo_formulario">
+            Como é bom tê-lo de volta, seja bem-vindo! Suas tarefas foram preservadas
+            durante sua ausência. Deseja retoma-las?
+          </p>
+
+          <br>
+
+          <form>
+            <div class="campos_login">
+              <div class="campo_formulario">
+                <label for="loginCpf">CPF</label>
+                <input
+                  type="text"
+                  id="loginCpf"
+                  placeholder="Insira seu cpf"
+                  required
+                />
+              </div>
+
+              <div class="campo_formulario">
+                <label for="loginSenha">SENHA</label>
+                <input
+                  type="password"
+                  id="loginSenha"
+                  placeholder="Insira sua senha"
+                  required
+                />
+              </div>
+            </div>
+            <div class="opcao_checkbox">
+              <input type="checkbox" id="manterConectado" />
+              <label for="manterConectado">Manter conectado</label>
+            </div>
+
+            <button type="submit" class="botao_primario">ENTRAR</button>
+            
+            <br>
+
+            <!-- pensar melhor nisso (talvez n tenha essa parte no projeto, AINDA) -->
+            <!-- arruamr no css o espaçamento desse botão -->
+            <a href="#" class="link_esqueceu">Esqueceu sua senha?</a>
+          </form>
+
+          <p class="rodape_painel">
+            Não possui um cadastro?
+            <!-- deixar botão funcional -->
+            <a href="#" class="link_trocar_aba" data-aba="cadastro"
+              >Cadastre-se aqui</a
+            >
+          </p>
+        </div>
+
+        <!-- FORMULÁRIO CADASTRO -->
+        <div class="conteudo_aba" id="formCadastro" style="display: none">
+          <h2>CADASTRO</h2>
+          <br>
+          <p class="subtitulo_formulario">
+            <!-- Preencha o cadastro para criar uma conta e iniciar sua jornada -->
+            Antes de iniciar sua nova jornada, precisamos de algumas informações
+            para criar sua ficha de aventureiro. Insira as informações abaixo e
+            prossiga!
+          </p>
+
+          <br>
+          
+          <form>
+            <div class="campos_cadastro">
+              <div class="campo_formulario">
+                <label for="cadastroNome">NOME COMPLETO</label>
+                <input
+                  type="text"
+                  id="cadastroNome"
+                  placeholder="Seu nome"
+                  required
+                />
+              </div>
+
+              <div class="campo_formulario">
+                <label for="cadastroCpf">CPF</label>
+                <input
+                  type="text"
+                  id="cadastroCpf"
+                  placeholder="Insira seu cpf"
+                  required
+                />
+              </div>
+
+              <div class="campo_formulario">
+                <label for="cadastroEmail">EMAIL</label>
+                <input
+                  type="email"
+                  id="cadastroEmail"
+                  placeholder="Seu email"
+                  required
+                />
+              </div>
+
+              <div class="campo_formulario">
+                <label for="cadastroSenha">CRIE UMA SENHA</label>
+                <input
+                  type="password"
+                  id="cadastroSenha"
+                  placeholder="Mínimo 6 caracteres"
+                  required
+                />
+              </div>
+
+              <div class="campo_formulario">
+                <label for="cadastroSenhaConf">CONFIRME A SENHA</label>
+                <input
+                  type="password"
+                  id="cadastroSenhaConf"
+                  placeholder="Confirme a senha"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" class="botao_primario">CADASTRAR</button>
+          </form>
+
+          <p class="rodape_painel">
+            Já possui um cadastro?
+            <!-- deixar botão funcional -->
+            <a href="#" class="link_trocar_aba" data-aba="login"
+              >Realize o Login</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/js/index.js"></script>
   </body>
 </html>
