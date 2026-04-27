@@ -6,6 +6,8 @@ const overlayEscuro = document.getElementById('overlayEscuro');
 const botaoFechar = document.getElementById('fecharAuth');
 const formLogin = document.getElementById('formLogin');
 const formCadastro = document.getElementById('formCadastro');
+const botaoCadastreseAqui = document.getElementById('cadastreseaqui');
+const botaoRealizeoLogin = document.getElementById('realizeologin');
 
 
 // FUNÇÃO PARA ABRIR O PAINEL de Login ou cadastro
@@ -44,4 +46,12 @@ botaoFechar.addEventListener('click', function () {
 
 overlayEscuro.addEventListener('click', function () {
     fecharPainel();
+});
+
+botaoCadastreseAqui.addEventListener('click', function () {
+    abrirPainel('cadastro');
+});
+
+botaoRealizeoLogin.addEventListener('click', function () {
+    abrirPainel('login');
 });

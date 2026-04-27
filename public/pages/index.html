@@ -47,13 +47,13 @@
                 <button class="button_novo_cadastro" id="ir_cadastro">
                   Retomar jornada
                 </button>
-                <span class="span">Primeira vez aqui?</span>
+                <span class="span">Continuar jogo?</span>
               </div>
               <div class="area_button_login">
                 <button class="button_login_cadastro" id="ir_login">
                   Nova jornada
                 </button>
-                <span class="span">Continuar jogo?</span>
+                <span class="span">Primeira vez aqui?</span>
               </div>
             </div>
           </div>
@@ -124,13 +124,13 @@
         <!-- FORMULÁRIO LOGIN -->
         <div class="conteudo_aba" id="formLogin">
           <h2>LOGIN</h2>
-          <br>
+          <br />
           <p class="subtitulo_formulario">
-            Como é bom tê-lo de volta, seja bem-vindo! Suas tarefas foram preservadas
-            durante sua ausência. Deseja retoma-las?
+            Como é bom tê-lo de volta, seja bem-vindo! Suas tarefas foram
+            preservadas durante sua ausência. Deseja retoma-las?
           </p>
 
-          <br>
+          <br />
 
           <form>
             <div class="campos_login">
@@ -154,24 +154,29 @@
                 />
               </div>
             </div>
-            <div class="opcao_checkbox">
-              <input type="checkbox" id="manterConectado" />
-              <label for="manterConectado">Manter conectado</label>
+            <div class="esqueci_senha_inline">
+              <div class="opcao_checkbox">
+                <input type="checkbox" id="manterConectado" />
+                <label for="manterConectado">Manter conectado</label>
+              </div>
+              <a href="#" class="link_esqueceu">Esqueceu sua senha?</a>
             </div>
-
             <button type="submit" class="botao_primario">ENTRAR</button>
-            
-            <br>
+
+            <br />
 
             <!-- pensar melhor nisso (talvez n tenha essa parte no projeto, AINDA) -->
             <!-- arruamr no css o espaçamento desse botão -->
-            <a href="#" class="link_esqueceu">Esqueceu sua senha?</a>
           </form>
 
           <p class="rodape_painel">
             Não possui um cadastro?
             <!-- deixar botão funcional -->
-            <a href="#" class="link_trocar_aba" data-aba="cadastro"
+            <a
+              href="#"
+              class="link_trocar_aba"
+              data-aba="cadastro"
+              id="cadastreseaqui"
               >Cadastre-se aqui</a
             >
           </p>
@@ -180,7 +185,7 @@
         <!-- FORMULÁRIO CADASTRO -->
         <div class="conteudo_aba" id="formCadastro" style="display: none">
           <h2>CADASTRO</h2>
-          <br>
+          <br />
           <p class="subtitulo_formulario">
             <!-- Preencha o cadastro para criar uma conta e iniciar sua jornada -->
             Antes de iniciar sua nova jornada, precisamos de algumas informações
@@ -188,8 +193,8 @@
             prossiga!
           </p>
 
-          <br>
-          
+          <br />
+
           <form>
             <div class="campos_cadastro">
               <div class="campo_formulario">
@@ -248,7 +253,11 @@
           <p class="rodape_painel">
             Já possui um cadastro?
             <!-- deixar botão funcional -->
-            <a href="#" class="link_trocar_aba" data-aba="login"
+            <a
+              href="#"
+              class="link_trocar_aba"
+              data-aba="login"
+              id="realizeologin"
               >Realize o Login</a
             >
           </p>
