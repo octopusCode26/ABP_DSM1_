@@ -1,0 +1,614 @@
+/* RESET GLOBAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* ================= HEADER ================= */
+header {
+    width: 100%;
+    height: 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.header_conteudo {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #0f0a05;
+    color: #fff;
+    border-bottom: 3px solid #996B0F;
+}
+
+.logo_header {
+    width: 3.5rem;
+    height: auto;
+    margin-right: 5rem;
+    margin-left: 2rem;
+}
+
+.nav_header ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    gap: 2.75rem;
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav_header ul li a {
+    color: #fff;
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav_header ul li a:hover {
+    text-shadow: 0px 0px 5px #efaf00, 0px 0px 10px #efaf00, 0px 0px 15px #efaf00, 0px 0px 20px #efaf00;
+    color: #efaf00;
+    transition: 0.3s;
+}
+
+/* ================= INTRODUÇÃO ================= */
+.introducao {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 4rem);
+    padding: 4rem 2rem;
+    gap: 4rem;
+    background-image: url("../img/imagem_fundo_inicio.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.introducao::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.area_introducao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 75vh;
+    max-height: calc(96vh - 4rem);
+    min-width: 80vw;
+    margin: 0rem 6rem;
+    padding: 1.5vw;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.logo_introducao {
+    width: auto;
+    height: auto;
+}
+
+.introducao_conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    min-width: 460px;
+    max-width: 65%;
+    color: #ffffff;
+}
+
+.introducao_conteudo h1 {
+    font-family: cinzel;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.introducao_conteudo p {
+    font-family: serif;
+    font-size: 32px;
+    font-weight: medium;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.area_button_cadastro,
+.area_button_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.button_novo_cadastro,
+.button_login_cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0px;
+    margin-bottom: 0.5vw;
+    min-width: 220px;
+    height: auto;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    font-size: 32px;
+    font-family: serif;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #f4d03f;
+    border-radius: 10px;
+}
+
+/* ================= SOBRE O PROJETO ================= */
+.sobre_projeto {
+    position: relative;
+    min-height: 100vh;
+    background-color: #121214;
+    overflow: hidden;
+}
+
+.area_sobre_projeto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 4rem 5%;
+    box-sizing: border-box;
+}
+
+.titulo_sobre_projeto {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 2.5rem auto;
+    max-width: fit-content;
+    color: white;
+}
+
+.titulo_sobre_projeto h2 {
+    font-size: 52px;
+    font-family: cinzel;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: 1px solid #f4d03f;
+    border-radius: 10px;
+    outline: 2px solid #f4d03f;
+    outline-offset: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* CAIXA DE TEXTO MAIOR */
+.texto_sobre_projeto {
+    position: relative;
+    z-index: 1;
+    width: 85%;
+    max-width: 1250px;
+    background-color: rgba(18, 17, 16, 0.92);
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(244, 208, 63, 0.15);
+
+    /* Reserva espaço à direita para o corvo sobrepor sem encobrir o texto */
+    padding: 3rem 380px 3rem 3rem;
+}
+
+.texto_sobre_projeto p {
+    font-size: 26px;
+    font-family: serif;
+    line-height: 2.8rem;
+    color: #e8e6e3;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.texto_sobre_projeto p:last-child {
+    margin-bottom: 0;
+}
+
+/* CORVO SOBREPOSTO E DESTACADO */
+.corvo_sobre_projeto {
+    position: absolute;
+    bottom: 4rem;
+    right: 7%;
+    width: 480px;
+    max-width: 35vw;
+    z-index: 2;
+    filter: drop-shadow(0 0 25px rgba(90, 40, 160, 0.85)) drop-shadow(0 0 50px rgba(255, 200, 60, 0.35));
+}
+
+/* ================= RODAPÉ ================= */
+.footer_conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3vh;
+    min-height: 200px;
+    color: #8C7347;
+    background-color: #0F0A05;
+    border-top: 3px solid #996B0F;
+}
+
+.footer_conteudo p {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    font-family: serif;
+}
+
+.logo_footer {
+    width: 10rem;
+    margin-bottom: 1rem;
+}
+
+
+
+/* ================= PAINEL DE AUTENTICAÇÃO ================= */
+
+
+.painel_auth {
+    position: fixed;
+    right: 0;
+    top: 4rem;
+    bottom: 4rem;
+    width: 50%;
+    height: auto;
+    z-index: 100;
+    display: none;
+}
+
+.overlay_escuro {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: none;
+}
+
+
+@keyframes animacao_painel_auth {
+    0% {
+        /* Estado inicial */
+        transform: translateX(100%);
+    }
+
+    100% {
+        /* Estado final */
+        transform: translateX(0);
+    }
+}
+
+
+/* Painel principal */
+.painel_auth {
+    background-color: #EDD6A6;
+    border-left: 5px solid #d9bd85;
+    border-top: 5px solid #d9bd85;
+    border-bottom: 5px solid #d9bd85;
+    border-radius: 16px 0 0 16px;
+    animation: animacao_painel_auth 0.2s ease-in-out;
+}
+
+/* Conteúdo interno do painel */
+.painel_auth_conteudo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Estilo das abas (login e cadastro) */
+.conteudo_aba {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.conteudo_aba h2 {
+    font-size: 32px;
+    font-family: cinzel;
+    font-weight: bold;
+    color: #473014;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+
+.campos_login,
+.campos_cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem
+}
+
+/* Subtítulo do formulário */
+.subtitulo_formulario {
+    font-size: 22px;
+    color: #473014;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Campo individual do formulário */
+.campo_formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.campo_formulario label {
+    font-size: 14px;
+    font-weight: 800;
+    color: #473014;
+    font-family: 'Source Serif 4', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.campo_formulario input {
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background-color: #D9BD85;
+    border: 2px solid #d9bd85;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Source Serif 4', serif;
+    color: #473014;
+    transition: border-color 0.3s, background-color 0.3s;
+    position: relative;
+}
+
+.campo_formulario input:focus {
+    outline: none;
+    border-color: #473014;
+    background-color: #fff8e7;
+}
+
+.campo_formulario input::placeholder {
+    color: #473014;
+    opacity: 0.7;
+}
+
+/* Ícones nos inputs - CPF */
+/* Ícone no input - CPF (versão alternativa) */
+#loginCpf,
+#cadastroCpf {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23473014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="2"></circle><path d="M6.5 14a2.5 2.5 0 0 1 5 0"></path><path d="M14 9h4"></path><path d="M14 13h4"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+    background-size: 18px 18px;
+    padding-left: 2.5rem;
+}
+
+
+/* Ícones nos inputs - Senha */
+#loginSenha,
+#cadastroSenha,
+#cadastroSenhaConf {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23473014" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+    background-size: 18px 18px;
+    padding-left: 2.5rem;
+}
+
+#cadastroEmail {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23473014" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect><path d="M3 7l9 6 9-6"></path></svg>');
+    background-position: 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    padding-left: 2.5rem;
+}
+
+#cadastroNome {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23473014" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>');
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+    background-size: 18px 18px;
+    padding-left: 2.5rem;
+}
+
+/* Checkbox de "Manter conectado" */
+.opcao_checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.opcao_checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #473014;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #d9bd85;
+    border: 2px solid #473014;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.opcao_checkbox input[type="checkbox"]:checked {
+    background-color: #d9bd85;
+}
+
+.opcao_checkbox input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #473014;
+    font-weight: bold;
+}
+
+.opcao_checkbox label {
+    font-size: 14px;
+    color: #473014;
+    font-family: 'Source Serif 4', serif;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: normal;
+    margin: 0;
+}
+
+/* Links de "Esqueceu a senha" e trocar aba */
+.link_esqueceu,
+.link_trocar_aba {
+    font-size: 14px;
+    color: #473014;
+    text-decoration: underline;
+    font-family: 'Source Serif 4', serif;
+    transition: color 0.3s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.link_esqueceu:hover,
+.link_trocar_aba:hover {
+    color: #1a3a5c;
+}
+
+
+
+/* inline do "esqueceu a senha" e do "manter conectado?"*/
+.esqueci_senha_inline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+/* Botão primário do formulário */
+.botao_primario {
+    padding: 0.75rem 2rem;
+    background-color: #1a3a5c;
+    color: #edd6a6;
+    border: none;
+    border-radius: 24px;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Source Serif 4', serif;
+    text-transform: capitalize;
+    letter-spacing: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 1rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.botao_primario:hover {
+    background-color: #0f2a45;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.botao_primario:active {
+    transform: translateY(0);
+}
+
+/* Rodapé do painel (texto e link para trocar aba) */
+.rodape_painel {
+    font-size: 22px;
+    color: #473014;
+    font-family: 'Source Serif 4', serif;
+    text-align: center;
+    margin-top: 1.5rem;
+    background-color: #d9bd85;
+    padding: 0.75rem 1.5rem;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rodape_painel .link_trocar_aba {
+    color: #1a3a5c;
+    font-weight: 500;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.rodape_painel .link_trocar_aba:hover {
+    text-decoration: underline;
+}
+
+/* Botão fechar */
+.botao_fechar {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    z-index: 10;
+    padding: 0;
+}
+
+.botao_fechar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: filter 0.3s;
+}
+
+.botao_fechar:hover img {
+    filter: brightness(1.2);
+}
+
+
+/* ================= RESPONSIVO - MOBILE ================= */
+@media (max-width: 768px) {
+    .painel_auth {
+        position: fixed;
+        right: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 500px;
+        height: auto;
+        max-height: 90vh;
+        bottom: auto;
+        border-radius: 16px;
+        border-left: 5px solid #d9bd85;
+        border-right: 5px solid #d9bd85;
+        border-top: 5px solid #d9bd85;
+        border-bottom: 5px solid #d9bd85;
+    }
+
+    .painel_auth_conteudo {
+        max-height: calc(90vh - 4rem);
+        overflow-y: auto;
+    }
+
+    .overlay_escuro {
+        background: rgba(0, 0, 0, 0.7);
+    }
+}

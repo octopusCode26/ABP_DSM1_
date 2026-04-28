@@ -224,4 +224,5 @@ curl -X POST http://localhost:3000/api \
 curl -X POST http://localhost:3000/api \
     -H "Content-Type: application/json" \
     -d '{"emal":"ana@email.com","cpf":"12345678901","senha":"123","grupo":1}'
+>>>>>>> 8f051a6 (index.html (pagina introdutoria) e css)
 */

@@ -1,173 +1,303 @@
-<h1 align="center">Fatec Jacareí- ABP DSM 1º SEMESTRE</h1>
+<div align="center">
 
-# Portal de Certificação em Metodologias Ágeis
-## Sobre o Projeto
-### <p align="justify"> O presente projeto surge através do desafio de criar um portal web voltado à certificação interna em metodologias ágeis, no qual o usuário se cadastra e raliza avaliações por níveis de dificuldade.  </p>
+<br>
 
-### <p align="justify"> O objetivo educacional é integrar, em um único projeto, os conteúdos do semestre: construção de 
-páginas com HTML, CSS e JavaScript (sem frameworks), persistência de dados em PostgreSQL (DDL 
-e DML), e organização do trabalho por Scrum e práticas ágeis básicas.</p>
+<img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/images/logo%202.png?raw=true" width="450" alt="Scrum Dungeon"/>
 
- ## 🤝 Colaboradores
+<br>
 
-Agradecemos às seguintes pessoas que contribuíram para este projeto:
+<div align="center">
+
+
+<div align="center">
+
+> *"Aventureiro... os segredos do Scrum Master aguardam além desta porta.*
+> *Você tem coragem de enfrentar a dungeon?"*
+>
+> — **O Corvo**
+
+</div>
+
+
+</div>
+
+<br>
+
+[![▶ Entrar na Dungeon](https://img.shields.io/badge/▶_Entrar_na_Dungeon-7B4FBF?style=plastic)](https://github.com/octopusCode26/ABP_DSM1_)
+[![Protótipo](https://img.shields.io/badge/Ver_Protótipo-c8922a?style=plastic&logo=figma&logoColor=white)](https://www.figma.com/design/96DMn9UVu2MT9xJIi5pBiQ/Prototipo_Scrum-Dungeon)
+[![Sprint 1](https://img.shields.io/badge/Sprint_1_·_Em_Andamento-5865F2?style=plastic)]()
+
+</div>
+
+---
+
+<div align="center">
+
+### 🧭 Sumário
+
+[Sobre o Projeto](#-sobre-o-projeto) · [Como Funciona](#-como-funciona) · [Tecnologias](#-tecnologias) · [Sprints](#-sprints) · [Como Executar](#-como-executar) · [Requisitos](#-requisitos) · [Os Aventureiros](#-os-aventureiros)
+
+</div>
+
+<span id="-sobre-o-projeto">
+
+---
+
+## <img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc155%201.png?raw=true" width="22" valign="middle"/> Sobre o Projeto
+
+Scrum Dungeon é um RPG educativo desenvolvido como projeto integrador do 1º semestre do curso de **Desenvolvimento de Software Multiplataforma na FATEC Jacareí**, sob orientação do **Prof. Antonio Egydio São Thiago Graça** e com acompanhamento do **Prof. Marcelo Augusto Sudo**.
+
+O projeto propõe uma **abordagem diferente** para o aprendizado de metodologias ágeis: em vez de memorizar conceitos isolados, o usuário os **vivencia** dentro de uma narrativa interativa. Cada mecânica do sistema foi pensada para refletir um aspecto real do Scrum — as regras do jogo são as regras do framework.
+
+Desenvolvido em três sprints pelo grupo **Octopus Code**, o projeto aplica na prática a mesma metodologia que ensina.
+
+---
+
+<span id="-como-funciona">
+
+## <img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc1841%201.png?raw=true" width="22" valign="middle"/> Como Funciona
+
+A dungeon é composta por 5 níveis progressivos, cada um abordando um conjunto de conceitos do Scrum. O jogador avança de sala em sala respondendo questões — e só conquista o próximo nível ao demonstrar que dominou o anterior.
+
+```
+ENTRADA
+   │
+   ▼
++----------+   +----------+   +----------+   +----------+   +----------+
+|  NIVEL I |-->| NIVEL II |-->| NIVEL III|-->| NIVEL IV |-->|  NIVEL V |
+|          |   |          |   |          |   |          |   |          |
+|Fundamentos|  | Papéis e |   | Cerimôni-|   | Artefatos|   |  Ciclo   |
+|  do Scrum|   |  Times   |   |    as    |   |  e Fluxo |   | Completo |
++----------+   +----------+   +----------+   +----------+   +----------+
+                                                                  |
+                                                                  v
+                                                          [CERTIFICADO]
+```
+
+**Regras da dungeon:**
+
+| Regra | Detalhe |
+|-------|---------|
+| Questões por nível | 10 sorteadas de um banco de 30 |
+| Composição | 3 fáceis · 4 médias · 3 difíceis |
+| Tentativas | Máximo de 2 por nível |
+| Nota do nível | A maior entre as tentativas |
+| Resultado final | Média das melhores notas |
+| Recompensa | Certificado digital ao completar os 5 níveis |
+
+---
+
+<span id="-tecnologias">
+
+## <img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc950%201.png?raw=true" width="22" valign="middle"/> Tecnologias
+
+<div align="center">
+<img src="https://skillicons.dev/icons?i=html,css,js,nodejs,postgresql,git,figma" height="45"/>
+</div>
+
+<br>
+
+O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de frameworks ou bibliotecas de UI. O back-end utiliza **Node.js com Express** para gerenciar as rotas da aplicação, centralizando toda a lógica de negócio no servidor — cálculo de notas, controle de tentativas e emissão do certificado são processados exclusivamente no back-end. O banco de dados é **PostgreSQL**, manipulado com instruções DDL e DML escritas diretamente, sem o uso de ORMs. O versionamento adota **Git Flow adaptado**, com integração de código via Pull Request revisado. O design foi prototipado no **Figma**.
+
+---
+
+<span id="-sprints">
+
+## 🕰️ Sprints
+
+| Sprint | Período | O que será entregue | Status |
+|--------|---------|---------------------|--------|
+| **Sprint 1** | 13/04 — 30/04/2026 | Prototipação · Diagramas UML · Arquitetura · Nível 1 | 🔄 Em andamento |
+| **Sprint 2** | 04/05 — 21/05/2026 | Cadastro · Login · Banco de questões · Sistema de avaliação | ⏳ Aguardando |
+| **Sprint 3** | 25/05 — 11/06/2026 | Certificado · Histórico · Resultado final | ⏳ Aguardando |
+| **Apresentação** | 22/06/2026 | Entrega e demonstração na FATEC Jacareí | ⏳ Aguardando |
+
+<details>
+<summary>📌 Sprint 1 — Backlog de tarefas</summary>
+<br>
+
+[![Kanban](https://img.shields.io/badge/Acompanhar_Kanban-163451?style=plastic&logo=github&logoColor=white)](https://github.com/users/octopusCode26/projects/8)
+
+| Tarefa | Responsável | Iniciada | Concluída |
+|--------|-------------|:--------:|:---------:|
+| Prototipação (Figma) | Renan, Enzo, Thiago, Vitor | ✔️ | — |
+| Diagrama de Caso de Uso | Alef | ✔️ | ✔️ |
+| Organizar Ambiente Virtual | Lorenzo | ✔️ | ✔️ |
+| Definição de Conteúdo | Vitor | ✔️ | ✔️ |
+| Organizar Arquitetura | Cauã, Igor, Lorenzo | ✔️ | ✔️ |
+| Diagrama de Classe | Igor, Lorenzo | ✔️ | ✔️ |
+| Nível 1 (Front-end) | Renan, Thiago, Cauã, Enzo | ✔️ | — |
+| Diagramas de Sequência | Vitor, Lorenzo, Igor | ✔️ | ✔️ |
+
+</details>
+
+---
+
+<span id="-como-executar">
+
+## <img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc16%201.png?raw=true" width="22" valign="middle"/> Como Executar
+
+> **Pré-requisitos:** Node.js e PostgreSQL instalados.
+
+```bash
+git clone https://github.com/octopusCode26/ABP_DSM1_.git
+cd ABP_DSM1_
+npm install
+```
+
+Crie um arquivo `.env` na raiz:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_NAME=scrum_dungeon
+```
+
+```bash
+npm start
+```
+
+> Instruções detalhadas de configuração do banco serão adicionadas ao longo das sprints.
+
+---
+
+<span id="-requisitos">
+
+## 📜 Requisitos
+
+<details>
+<summary>Funcionais</summary>
+<br>
+
+| ID | Requisito |
+|----|-----------|
+| RF-1 | Cadastro com CPF, nome, e-mail e senha |
+| RF-2 | Login por CPF e senha |
+| RF-3 | Sorteio de 10 questões por nível (banco de 30) |
+| RF-4 | Questões em três dificuldades: fácil, médio e difícil |
+| RF-5 | Composição: 3 fáceis · 4 médias · 3 difíceis |
+| RF-6 | Máximo de 2 tentativas por nível |
+| RF-7 | Nota do nível = maior entre as tentativas |
+| RF-8 | Resultado final = média das notas por nível |
+| RF-9 | Certificado digital com nome, CPF, e-mail, data e notas |
+| RF-10 | Histórico de tentativas com data, hora e pontuação |
+| RF-11 | Consulta de progresso em tempo real |
+| RF-12 | *(Opcional)* Área administrativa de questões |
+
+</details>
+
+<details>
+<summary>Não funcionais</summary>
+<br>
+
+| ID | Requisito |
+|----|-----------|
+| RNF-1 | Interface simples, clara e responsiva |
+| RNF-2 | Tempo de resposta adequado |
+| RNF-3 | Conformidade com a LGPD |
+| RNF-4 | Notas e tentativas não manipuláveis via front-end |
+| RNF-5 | Backlog, sprints, versionamento e DoD documentados |
+| RNF-6 | Documentação mínima: modelo de dados, rotas e instruções |
+
+</details>
+
+<details>
+<summary>Restrições de Projeto</summary>
+<br>
+
+| ID | Restrição |
+|----|-----------|
+| RP-01 | O front-end deve ser desenvolvido exclusivamente com HTML, CSS e JavaScript puro — sem uso de frameworks ou bibliotecas de UI |
+| RP-02 | O banco de dados é exclusivamente PostgreSQL, com DDL e DML explícitos — sem uso de ORMs |
+| RP-03 | O sistema deve ser entregue e funcional dentro do prazo das 3 sprints definidas no cronograma |
+| RP-04 | Toda a lógica de negócio (cálculo de notas, controle de tentativas) deve residir no back-end, nunca no front-end |
+| RP-05 | O versionamento deve seguir o fluxo Git Flow adaptado, com contribuições via Pull Request aprovado |
+
+</details>
+
+---
+
+<span id="-os-aventureiros">
+
+## <img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc5%201.png?raw=true" width="22" valign="middle"/> Os Aventureiros
+
+<div align="center">
+
+<img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/images/Layer%200%201.png?raw=true" width="100" height="100" alt="Octopus Code"/>
+
+**`< OCTOPUS_CODE >;`**
+
+<br>
 
 <table>
   <tr>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/VtecturboBr" title="GitHub">
-        <img src="https://github.com/user-attachments/assets/918a9362-28f0-4e59-9a9b-b7652fc39c76" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Alef Oliveira"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Alef Oliveira</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/VtecturboBr">
+        <img src="https://github.com/user-attachments/assets/918a9362-28f0-4e59-9a9b-b7652fc39c76" width="72" style="border-radius:50%"/><br>
+        <sub><b>Alef Oliveira</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/Cauaisq" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/Cauaisq" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Cauã Silva"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Cauã Silva</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/Cauaisq">
+        <img src="https://avatars.githubusercontent.com/Cauaisq" width="72" style="border-radius:50%"/><br>
+        <sub><b>Cauã Silva</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/EnzoSuzukiProkopas" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/EnzoSuzukiProkopas" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Enzo Prokopas"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Enzo Prokopas</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/EnzoSuzukiProkopas">
+        <img src="https://avatars.githubusercontent.com/EnzoSuzukiProkopas" width="72" style="border-radius:50%"/><br>
+        <sub><b>Enzo Prokopas</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/igoriansen" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/u/124407006?v=4" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Igor Iansen"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Igor Iansen</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/igoriansen">
+        <img src="https://avatars.githubusercontent.com/u/124407006?v=4" width="72" style="border-radius:50%"/><br>
+        <sub><b>Igor Iansen</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
   </tr>
   <tr>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/LorenzoOMN" title="GitHub">
-        <img src="https://github.com/thiagosantos-17/fotos_abp/blob/main/lorenzo.jpeg?raw=true" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Lorenzo Nogueira"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Lorenzo Nogueira</strong>
-      </a><br>
-       Scrum Master
-      <br>
+    <td align="center">
+      <a href="https://github.com/LorenzoOMN">
+        <img src="https://github.com/thiagosantos-17/fotos_abp/blob/main/lorenzo.jpeg?raw=true" width="72" height="72" style="border-radius:50%"/><br>
+        <sub><b>Lorenzo Nogueira</b></sub>
+      </a><br><sub>Scrum Master</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/renanrmsantos14" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/renanrmsantos14" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Renan Santos"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Renan Santos</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/renanrmsantos14">
+        <img src="https://avatars.githubusercontent.com/renanrmsantos14" width="72" style="border-radius:50%"/><br>
+        <sub><b>Renan Santos</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/thiagosantos-17" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/u/205100877?v=4" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Thiago Santos"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Thiago Santos</strong>
-      </a><br>
-       Desenvolvedor
-      <br>
+    <td align="center">
+      <a href="https://github.com/thiagosantos-17">
+        <img src="https://avatars.githubusercontent.com/u/205100877?v=4" width="72" style="border-radius:50%"/><br>
+        <sub><b>Thiago Santos</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
-    <td align="center" style="padding: 12px;">
-      <a href="https://github.com/vitorhirch" title="GitHub">
-        <img src="https://avatars.githubusercontent.com/u/173676857?v=4" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" alt="Vitor Hirch"/><br>
-        <strong style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 12px;">Vitor Hirch</strong>
-      </a><br>
-       Product Owner
-      <br>
+    <td align="center">
+      <a href="https://github.com/vitorhirch">
+        <img src="https://avatars.githubusercontent.com/u/173676857?v=4" width="72" style="border-radius:50%"/><br>
+        <sub><b>Vitor Hirch</b></sub>
+      </a><br><sub>Product Owner</sub>
     </td>
   </tr>
 </table>
 
+</div>
 
-## 🚀 Acesso Rápido
+---
 
+<div align="center">
 
-| 📂 Documentação | 🛠️ Desenvolvimento | 📈 Gestão |
-| :--- | :--- | :--- |
-| [![Figma](https://img.shields.io/badge/Protótipo_Figma-F24E1E?style=flat-square&logo=figma&logoColor=white)](https://www.figma.com/design/96DMn9UVu2MT9xJIi5pBiQ/Prototipo_Scrum-Dungeon?node-id=339-285&t=fwhH3XZlBJEq1fdK-0) | [![Repo](https://img.shields.io/badge/Repositório_GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/octopusCode26/ABP_DSM1_) | ![Kanban](https://img.shields.io/badge/Quadro_Kanban-Em_processo-lightgrey?style=flat-square&logo=github-project) |
-
-
-
-## SPRINTS
-
-| Sprint | Link        | Início      | Entrega     | Status |
-|--------|-------------|-------------|-------------|--------|
-| 01     | [Sprint 01](#sprint-1) | 13/04/2026  | 30/04/2026  |  -   |
-| 02     | [Sprint 02]() | 04/05/2026  | 21/05/2026  |  -   |
-| 03     | [Sprint 03]() | 25/05/2026  | 11/06/2026  |  -   |
+<img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/images/corvo%201.png?raw=true" width="80" alt="O Corvo"/>
 
 <br>
 
-<span id="backlog">
+*"A dungeon foi conquistada. Até a próxima jornada."*
 
-<br>
+`1DSM · FATEC Jacareí · 2026/1`
 
-## :page_with_curl: Product Backlog
-
-### REQUISITOS FUNCIONAIS
-
-| REQUISITO FUNCIONAL_ID | REQUISITOS                                                                                                 | SPRINTS |
-|------------------------|------------------------------------------------------------------------------------------------------------|---------|
-| RF - 1                 | O sistema deve permitir o cadastro do usuário utilizando CPF (como identificador único), nome completo, e-mail e senha.| #   |
-| RF - 2                 | O login no sistema deve ser realizado exclusivamente por meio de CPF e senha.                                         | #   |
-| RF - 3                 | Para cada nível, o sistema deve selecionar aleatoriamente 10 questões a partir de um banco com 30 questões daquele nível, respeitando a classificação de dificuldade.    | #   |
-| RF - 4                 | As questões de cada nível devem ser classificadas em três graus de dificuldade: fáceis, médias e difíceis.          | #   |
-| RF - 5                 |  Cada avaliação de nível apresentada ao usuário deve ser composta obrigatoriamente por 3 questões fáceis, 4 questões médias e 3 questões difíceis, selecionadas de forma aleatória | # # |
-| RF - 6                 |  O usuário deve poder realizar no máximo 2 tentativas por nível.                                                    | #   |
-| RF - 7                 | Para cada nível, a nota final do usuário deve ser a maior nota obtida entre as tentativas realizadas.               | #   |
-| RF - 8                 | O sistema deve calcular o resultado final do usuário como a média das notas finais obtidas em cada nível.           | # # |
-| RF - 9                 |  O sistema deve emitir um certificado final contendo, no mínimo: nome completo, CPF, e mail, data de emissão, e a média final (com discriminação das notas por nível, se desejável).  | # # |
-| RF - 10                |  O sistema deve manter histórico das tentativas por nível (data/hora, pontuação, questões sorteadas) para auditoria e acompanhamento.  | # # |
-| RF - 11                |   O sistema deve permitir a consulta do progresso do usuário (níveis concluídos, tentativas restantes, melhor nota por nível).| # # |
-| RF - 12                |   (opcional – extensão): O sistema pode disponibilizar uma área administrativa para cadastro e manutenção das questões, níveis e imagens.| # # |
-
-
-### REQUISITOS NÃO FUNCIONAIS
-
-| REQUISITO NÃO_FUNCIONAL_ID | REQUISITOS                                                                                          | SPRINTS     |
-|----------------------------|-----------------------------------------------------------------------------------------------------|-------------|
-| RNF - 1                    | A interface deve ser simples, clara e responsiva, e responsiva.                                     |-------------|
-| RNF - 2                    |  A aplicação deve apresentar tempo de resposta adequado para carregamento de páginas e registro de respostas.  | ------|
-| RNF - 3                    |  Os dados pessoais (nome, e-mail e CPF) devem ser tratados em conformidade com a LGPD, com armazenamento e acesso restritos ao necessário. |-----       |
-| RNF - 4                    | O sistema deve evitar fraudes triviais, garantindo que a contagem de tentativas e o cálculo das notas não possam ser alterados apenas por manipulação no front-end.   | ----       |
-| RNF - 5                    | O projeto deverá adotar práticas básicas de desenvolvimento ágil, incluindo gestão de backlog, planejamento em sprints, versionamento de código e definição de critérios de pronto (DoD).|--|
-| RNF - 6                    | Deve existir documentação mínima do projeto (modelo de dados, instruções de execução e descrição das rotas/funcionalidades).  |--------  |
-
-<br>
-
-### RESTRIÇÕES
-
-|RESTRIÇÕES DE PROJETO | REQUISITOS                                                                                          | CHECK     |
-|----------------------------|-----------------------------------------------------------------------------------------------------|-------------|
-| RP - 1                    |  O front-end deve ser desenvolvido utilizando HTML, CSS e JavaScript, sem frameworks.                |-------------|
-| RP - 2                    |  O banco de dados deve ser PostgreSQL, com uso explícito de DDL (criação de tabelas) e DML (inserção/consulta/atualização). |-------------|
-| RP - 3                    |  O back-end deve implementar a comunicação com o PostgreSQL e expor as funcionalidades necessárias ao front-end (por páginas dinâmicas e/ou endpoints HTTP)|-------------|
-| RP - 4                    |  O sistema deve armazenar, no banco de dados, usuários, níveis, questões, alternativas, tentativas e resultados. |-------------|
-| RP - 5                    |  O escopo do projeto deverá ser compatível com o tempo disponível para desenvolvimento ao longo do semestre, priorizando um MVP funcional.  |-------------|
-
-<br>
-
-<span id="sprint-1">
- 
-<br>
-
-## FIRST SPRINT BACKLOG
-
-| Tarefa                          | Número do Requisito | Prioridades | Pontuação Poker Planning | Descrição do Requisito                                                                 | Responsável                  | Status Iniciada | Status Concluída |
-|--------------------------------|---------------------|-------------|--------------------------|----------------------------------------------------------------------------------------|------------------------------|------------------|------------------|
-| Prototipação                   | RNF01 / RF12        | 0           | 13                       | Figma: Prototipação do fluxo central de todo site (Mobile-first: celular, desktop).   | Renan, Enzo, Thiago, Vitor   | 1                |                  |
-| Diagrama Caso de Uso           | RNF06               | 0           | 5                        | Desenvolver o diagrama de casos de uso em UML.                                         | Alef                         | 1                |                  |
-| Organizar Ambiente virtual     | RNF06 / RNF05       | 0           | 1                        | Organizar Kanban e demais abas no GitHub.                                              | Lorenzo                      | 1                | 1                |
-| Definição de conteúdo          | RF00                | 1           | 2,5                      | DOCs: Definir como o conteúdo será apresentado (título, textos e imagens dos 5 níveis, intro e desfecho). | Vitor                        | 1                |                  |
-| Organizar Arquitetura          | RNF05 / RNF06       | 2           | 5                        | Organização das pastas (Visual Studio), subir na main branch, teste de funcionamento. | Cauã, Igor, Lorenzo          | 1                |                  |
-| Diagrama de Classe             | RNF06               | 5           | 5                        | Definir diagrama de Classe utilizando UML.                                             | Igor, Lorenzo                |                  |                  |
-| Nível 1                        | RFN01 / RNF02       | 8           | 3                        | Front-end: HTML e texto contendo o conteúdo a ser ensinado referente ao nível.        | Renan, Thiago, Cauã, Enzo    | 1                |                  |
-| Diagramas Sequência            | RNF06               | 8           | 5                        | Definir diagrama de Sequência utilizando UML.                                          | Vitor, Lorenzo, Igor         |                  |                  |
-
-
-
+</div>
