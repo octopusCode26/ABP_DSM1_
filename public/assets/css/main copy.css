@@ -1,4 +1,4 @@
-/* ===== RESET ===== */
+﻿/* ===== RESET ===== */
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +32,7 @@ body {
     height: 100%;
 }
 
-/* ===== PÁGINAS ===== */
+/* ===== PAGINAS ===== */
 .part1,
 .part2,
 .part3,
@@ -100,7 +100,7 @@ body {
     filter: drop-shadow(0 0 10px #c9a44c);
 }
 
-/* ===== BOTÃO PERGAMINHO ===== */
+/* ===== BOTAO PERGAMINHO ===== */
 .button_pergaminho {
     margin-top: 20px;
     padding: 10px 20px;
@@ -165,7 +165,7 @@ body {
     margin-top: 5px;
 }
 
-/* ===== BOTÕES DE AÇÃO ===== */
+/* ===== BOTOES DE ACAO ===== */
 .btn_entrar,
 .btn_voltar {
     padding: 10px 20px;
@@ -249,3 +249,121 @@ body {
     opacity: 0.6;
     font-style: italic;
 }
+
+/* ================= RESPONSIVO (4 BREAKPOINTS) ================= */
+@media (max-width: 1200px) {
+    .livro {
+        width: 78%;
+        max-width: 760px;
+        font-size: 19px;
+    }
+
+    .pilares {
+        gap: 32px;
+    }
+}
+
+@media (max-width: 992px) {
+    .part1,
+    .part2,
+    .part3,
+    .part4,
+    .part5,
+    .part6,
+    .part7,
+    .part8,
+    .part9 {
+        padding: 48px 28px;
+    }
+
+    .livro {
+        width: 86%;
+        max-width: 720px;
+        padding: 26px;
+        font-size: 18px;
+        line-height: 1.75;
+    }
+
+    .pilares {
+        gap: 26px;
+    }
+
+    .pilar_img {
+        width: 84px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
+
+    .carrossel {
+        scroll-snap-type: none;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-direction: column;
+    }
+
+    .part1,
+    .part2,
+    .part3,
+    .part4,
+    .part5,
+    .part6,
+    .part7,
+    .part8,
+    .part9 {
+        min-width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 42px 20px;
+        text-align: left;
+    }
+
+    .livro {
+        width: 92%;
+        padding: 22px;
+        font-size: 17px;
+    }
+
+    .pilares {
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .porta {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .part1,
+    .part2,
+    .part3,
+    .part4,
+    .part5,
+    .part6,
+    .part7,
+    .part8,
+    .part9 {
+        padding: 34px 16px;
+    }
+
+    .livro {
+        width: 96%;
+        padding: 18px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+
+    .pilar_img {
+        width: 76px;
+    }
+
+    .seta {
+        font-size: 32px;
+        padding: 8px 12px;
+    }
+}
+

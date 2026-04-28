@@ -1,170 +1,225 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capítulo 1 | Scrum Quest</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/capitulo1.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Capítulo 1 | Scrum Quest</title>
-</head>
+  <body>
+    <!-- CABEÇALHO -->
+    <header>
+      <div class="header_conteudo">
+        <img
+          src="../assets/img/logo_scrum_simples.png"
+          alt="Logo do Scrum Quest"
+          class="logo_header"
+        />
+        <button
+          class="menu_toggle"
+          id="menuToggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="menuPrincipal"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav_header" id="menuPrincipal">
+          <ul>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-<header></header>
-
-<body>
-  <main>
-    <div class="conteudo">
-      <div class="part1">
-        Você desperta em um lugar misterioso, a sua frente uma lamparina
-        acesa, logo abaixo dela, uma folha de papel amarelada, contendo a
-        seguinte escrita: ”o tempo está acabando são 3 sprints, 5 requisitos…
-        Assinado: P.O ”
+    <main>
+      <!-- INTRODUÇÃO -->
+      <div class="introducao">
+        <div class="area_conteudo">
+          <div class="titulo_conteudo">
+            <h2>Capítulo 1: A lenda de Scrum</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="part2">
-        Você não consegue se lembrar do seu nome, de onde veio, ou o que está
-        fazendo ali. Mesmo estando confuso decide seguir por um grande
-        corredor à sua frente.
-      </div>
+      <div class="area_conteudo">
+        <div class="texto_container">
+          <div class="linha_inicial">
+            <div class="part1">
+              Você desperta em um lugar misterioso, a sua frente uma lamparina
+              acesa, logo abaixo dela, uma folha de papel amarelada, contendo a
+              seguinte escrita: ”o tempo está acabando são 3 sprints, 5
+              requisitos… Assinado: P.O ”
+            </div>
 
-      <div class="part3">
-        Enquanto você percorre o corredor, uma voz ecoa: “Este mundo é regido
-        por um método… um fluxo… uma ordem invisível… adapte-se”
-      </div>
+            <div class="carta" aria-label="Carta do Product Owner">
+              <p class="carta_texto">
+                o tempo está acabando são 3 sprints, 5 requisitos...
+              </p>
+              <p class="carta_assinatura">Assinado: P.O</p>
+            </div>
+          </div>
+          <div class="part3">
+            Você não consegue se lembrar do seu nome, de onde veio, ou o que
+            está fazendo ali. Mesmo estando confuso decide seguir por um grande
+            corredor à sua frente. Enquanto você percorre o corredor, uma voz
+            ecoa: “Este mundo é regido por um método… um fluxo… uma ordem
+            invisível… adapte-se”
+          </div>
+        </div>
 
-      <div class="part4">
-        Até que então você chega em uma grande sala redonda sustentada por
-        três grandes pilares.
-        <!-- (*inserir uma forma de clicar nos pilares) -->
-      </div>
-      <!-- ADICIONAR UM BUTTON (IR PARA SALA) -->
+        <div class="part4">
+          Até que então você chega em uma grande sala redonda sustentada por
+          três grandes pilares.
+          <!-- (*inserir uma forma de clicar nos pilares) -->
+        </div>
+        <!-- ADICIONAR UM BUTTON (IR PARA SALA) -->
 
-      <div class="part5">
-        Na base de cada um dos pilares há um entalhe:
-        <!-- Script para fazer o conteudo oculto aparecer -->
-        <!-- <script>
+        <div class="part5">
+          Na base de cada um dos pilares há um entalhe:
+          <!-- Script para fazer o conteudo oculto aparecer -->
+          <!-- <script>
             function toggleText(element) {
             element.classList.toggle('ativo');
             } -->
-        <div class="pilares">
-          <div class="pilar1" onclick="toggleText(this)">
-            <img src="pilar1.png" alt="" />
-            <div class="texto_oculto">
-              <!-- Pilar 1  -->
-              <p class="tipo_pilar">Transparência</p>
-              “Aspectos importantes do processo devem estar visíveis a todos
-              os envolvidos, promovendo uma compreensão comum, confiança e
-              comunicação aberta”
+          <div class="pilares">
+            <div class="pilar1" onclick="toggleText(this)">
+              <img src="pilar1.png" alt="" />
+              <div class="texto_oculto">
+                <!-- Pilar 1  -->
+                <p class="tipo_pilar">Transparência</p>
+                “Aspectos importantes do processo devem estar visíveis a todos
+                os envolvidos, promovendo uma compreensão comum, confiança e
+                comunicação aberta”
+              </div>
+            </div>
+
+            <div class="pilar2" onclick="toggleText(this)">
+              <img src="pilar2.png" alt="" />
+              <div class="texto_oculto">
+                <!-- Pilar 2  -->
+                <p class="tipo_pilar">Inspeção</p>
+                “O progresso, produtos e processos devem ser inspecionados
+                frequentemente para detectar variações ou problemas
+                indesejados.”
+              </div>
+            </div>
+
+            <div class="pilar3" onclick="toggleText(this)">
+              <img src="pilar3.png" alt="" />
+              <div class="texto_oculto">
+                <!-- Pilar 3  -->
+                <p class="tipo_pilar">Adaptação</p>
+                “Se um aspecto do processo desviar do aceitável, o ajuste deve
+                ser feito o mais rápido possível para minimizar desvios
+                futuros.”
+              </div>
             </div>
           </div>
 
-          <div class="pilar2" onclick="toggleText(this)">
-            <img src="pilar2.png" alt="" />
-            <div class="texto_oculto">
-              <!-- Pilar 2  -->
-              <p class="tipo_pilar">Inspeção</p>
-              “O progresso, produtos e processos devem ser inspecionados
-              frequentemente para detectar variações ou problemas
-              indesejados.”
-            </div>
-          </div>
+          <!-- ESSE BOTÃO ABAIXO SUBSTITUIRA TEMPORARIAMENTE O BOTÃO DE VIRAR PAGINA -->
+          <!-- FAZER COM QUE O BOTÃO SÓ APARECA APÓS TODAS OS PILARES SEREM "LIDOS" -->
+          <button class="button_pergaminho">Ler pergaminho</button>
+        </div>
+        <div class="part6">
+          <p class="titulo_pergaminho">Pergaminho da metodologia scrum</p>
+          “Há muitos e muitos anos atrás há meados dos longínquos anos 90, havia
+          caos, sistemas não documentados regiam o universo da magia dos
+          Softwares, na tentativa de estabelecer ordem, muitos criaram certos
+          sistemas fechados, mas a rigidez tornava os processos cansativos e
+          quebradiços, então grandes magos denominados os três amigos, criaram
+          algo diferente…. eles apresentaram ao mundo um método ágil e
+          adaptável, diziam “Scrum não é um processo rígido… É um framework ágil
+          baseado em adaptação e colaboração. Com isso a lenda de Scrum surgiu e
+          aquele que o dominasse seria… (rasgado)“
+        </div>
+        <div class="part7">
+          O final do pergaminho parece estar rasgado, não é possível ler as
+          últimas palavras.
+        </div>
+        <div class="part8">
+          Mesmo sem a continuação do pergaminho rasgado, decide avançar a
+          jornada em busca de respostas. Seguindo em frente e de cabeça erguida
+          avista a frente uma fogueira.
 
-          <div class="pilar3" onclick="toggleText(this)">
-            <img src="pilar3.png" alt="" />
-            <div class="texto_oculto">
-              <!-- Pilar 3  -->
-              <p class="tipo_pilar">Adaptação</p>
-              “Se um aspecto do processo desviar do aceitável, o ajuste deve
-              ser feito o mais rápido possível para minimizar desvios
-              futuros.”
+          <div class="area_burning_down">
+            <img src="burningdown.png" alt="" onclick="" />
+            <div class="conteudo_burning_down">
+              <p>Burning down: Aqui você pode verificar seu progresso.</p>
+              <!-- FAZER UM BOTÃO OU ALGO CLICAVEL PARA VERIFICAR PROGRESSO -->
+              <span
+                class="mostrar_progresso"
+                id="progresso"
+                style="display: none"
+              >
+                Progresso</span
+              >
             </div>
           </div>
         </div>
+        <div class="part9">
+          <div class="area_desafio">
+            <p class="titulo_desafio">Portas do Destino</p>
 
-        <!-- ESSE BOTÃO ABAIXO SUBSTITUIRA TEMPORARIAMENTE O BOTÃO DE VIRAR PAGINA -->
-        <!-- FAZER COM QUE O BOTÃO SÓ APARECA APÓS TODAS OS PILARES SEREM "LIDOS" -->
-        <button class="button_pergaminho">Ler pergaminho</button>
-      </div>
-      <div class="part6">
-        <p class="titulo_pergaminho">Pergaminho da metodologia scrum</p>
-        “Há muitos e muitos anos atrás há meados dos longínquos anos 90, havia
-        caos, sistemas não documentados regiam o universo da magia dos
-        Softwares, na tentativa de estabelecer ordem, muitos criaram certos
-        sistemas fechados, mas a rigidez tornava os processos cansativos e
-        quebradiços, então grandes magos denominados os três amigos, criaram
-        algo diferente…. eles apresentaram ao mundo um método ágil e
-        adaptável, diziam “Scrum não é um processo rígido… É um framework ágil
-        baseado em adaptação e colaboração. Com isso a lenda de Scrum surgiu e
-        aquele que o dominasse seria… (rasgado)“
-      </div>
-      <div class="part7">
-        O final do pergaminho parece estar rasgado, não é possível ler as
-        últimas palavras.
-      </div>
-      <div class="part8">
-        Mesmo sem a continuação do pergaminho rasgado, decide avançar a
-        jornada em busca de respostas. Seguindo em frente e de cabeça erguida
-        avista a frente uma fogueira.
+            <p class="descricao_desafio">
+              Há cinco grandes portas à sua frente... todas parecem trancadas,
+              exceto uma. Você pode entrar nela.
+            </p>
 
-        <div class="area_burning_down">
-          <img src="burningdown.png" alt="" onclick="" />
-          <div class="conteudo_burning_down">
-            <p>Burning down: Aqui você pode verificar seu progresso.</p>
-            <!-- FAZER UM BOTÃO OU ALGO CLICAVEL PARA VERIFICAR PROGRESSO -->
-            <span class="mostrar_progresso" id="progresso" style="display: none">
-              Progresso</span>
+            <div class="portas">
+              <div class="porta aberta">
+                🚪 Porta 1
+                <span class="status">Disponível</span>
+              </div>
+
+              <div class="porta trancada">
+                🔒 Porta 2
+                <span class="status">Trancada</span>
+              </div>
+
+              <div class="porta trancada">
+                🔒 Porta 3
+                <span class="status">Trancada</span>
+              </div>
+
+              <div class="porta trancada">
+                🔒 Porta 4
+                <span class="status">Trancada</span>
+              </div>
+
+              <div class="porta trancada">
+                🔒 Porta 5
+                <span class="status">Trancada</span>
+              </div>
+            </div>
+
+            <div class="acoes_desafio">
+              <button class="btn_entrar">Entrar</button>
+              <button class="btn_voltar">Voltar</button>
+            </div>
           </div>
         </div>
+        <div class="part10"></div>
       </div>
-      <div class="part9">
-        <div class="area_desafio">
-
-          <p class="titulo_desafio">Portas do Destino</p>
-
-          <p class="descricao_desafio">
-            Há cinco grandes portas à sua frente... todas parecem trancadas,
-            exceto uma. Você pode entrar nela.
-          </p>
-
-          <div class="portas">
-
-            <div class="porta aberta">
-              🚪 Porta 1
-              <span class="status">Disponível</span>
-            </div>
-
-            <div class="porta trancada">
-              🔒 Porta 2
-              <span class="status">Trancada</span>
-            </div>
-
-            <div class="porta trancada">
-              🔒 Porta 3
-              <span class="status">Trancada</span>
-            </div>
-
-            <div class="porta trancada">
-              🔒 Porta 4
-              <span class="status">Trancada</span>
-            </div>
-
-            <div class="porta trancada">
-              🔒 Porta 5
-              <span class="status">Trancada</span>
-            </div>
-
-          </div>
-
-          <div class="acoes_desafio">
-            <button class="btn_entrar">Entrar</button>
-            <button class="btn_voltar">Voltar</button>
-          </div>
-
-        </div>
+    </main>
+    <!-- RODAP� -->
+    <footer>
+      <div class="footer_conteudo">
+        <p>&copy; 2026 Scrum Dungeon - Todos os direitos reservados.</p>
+        <img
+          src="../assets/img/logo_grupo_octopuscode.png"
+          alt="Logo do Grupo OctopusCode"
+          class="logo_footer"
+        />
+        <p>< OCTOPUS_CODE ></p>
       </div>
-      <div class="part10"></div>
-    </div>
-  </main>
-</body>
-
-<footer></footer>
-
+    </footer>
+    <script src="../assets/js/main.js"></script>
+  </body>
 </html>
