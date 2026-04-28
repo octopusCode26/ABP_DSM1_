@@ -1,2 +1,223 @@
-/* MANTER NESTE CÓDIGO SOMENTE FUNÇÕES E VARIÁVEIS QUE SÃO USADAS EM MAIS DE UMA PÁGINA, 
-CASO CONTRÁRIO, COLOQUE O CÓDIGO NA RESPECTIVA PÁGINA HTML */
+﻿/* MANTER NESTE CODIGO SOMENTE FUNCOES E VARIAVEIS QUE Sï¿½O USADAS EM MAIS DE UMA PAGINA,
+CASO CONTRï¿½RIO, COLOQUE O CODIGO NA RESPECTIVA PAGINA HTML */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
+
+/* RESET GLOBAL */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    font-size: clamp(14px, 2vw, 16px);
+}
+
+body {
+    font-family: 'Source Serif 4', serif;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Cinzel', serif;
+}
+
+/* ================= HEADER ================= */
+header {
+    width: 100%;
+    height: clamp(3rem, 8vh, 4rem);
+    position: relative;
+    z-index: 10;
+}
+
+.header_conteudo {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem);
+    background-color: #0f0a05;
+    color: #fff;
+    border-bottom: 3px solid #996B0F;
+    height: 100%;
+}
+
+.logo_header {
+    width: clamp(2.5rem, 6vw, 3.5rem);
+    height: auto;
+    margin-right: clamp(1.5rem, 5vw, 5rem);
+    margin-left: clamp(1rem, 2vw, 2rem);
+    flex-shrink: 0;
+}
+
+.nav_header ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+    list-style: none;
+    text-decoration: none;
+}
+
+.nav_header ul li a {
+    color: #fff;
+    list-style: none;
+    text-decoration: none;
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.nav_header ul li a:hover {
+    text-shadow: 0px 0px 5px #f4d03f, 0px 0px 10px #f4d03f, 0px 0px 15px #f4d03f, 0px 0px 20px #f4d03f;
+    color: #f4d03f;
+}
+
+.menu_toggle {
+    display: none;
+    margin-left: auto;
+    width: clamp(2.2rem, 6vw, 2.6rem);
+    height: clamp(2.2rem, 6vw, 2.6rem);
+    border: 2px solid #996B0F;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: clamp(3px, 0.8vw, 5px);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.menu_toggle span {
+    width: clamp(16px, 4vw, 20px);
+    height: 2px;
+    background-color: #f7d27b;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.menu_toggle:focus-visible {
+    outline: 2px solid #f7d27b;
+    outline-offset: 2px;
+}
+
+.menu_toggle:hover {
+    background-color: rgba(247, 210, 123, 0.1);
+    border-color: #f7d27b;
+}
+/* ================= RODAPE ================= */
+.footer_conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(1.5rem, 3vh, 3rem);
+    min-height: clamp(150px, 25vh, 200px);
+    color: #8C7347;
+    background-color: #0F0A05;
+    border-top: 3px solid #996B0F;
+    gap: clamp(0.75rem, 1.5vh, 1rem);
+}
+
+.footer_conteudo p {
+    margin-bottom: clamp(0.5rem, 1vh, 1rem);
+    font-size: clamp(0.875rem, 2vw, 1.5rem);
+    font-family: 'Source Serif 4', serif;
+    text-align: center;
+}
+
+.logo_footer {
+    width: clamp(6rem, 15vw, 10rem);
+    height: auto;
+    margin-bottom: clamp(0.5rem, 1vh, 1rem);
+}
+
+/* ================= RESPONSIVO (4 BREAKPOINTS) ================= */
+@media (max-width: 1200px) {
+    .nav_header ul {
+        gap: clamp(1.5rem, 2.5vw, 2rem);
+    }
+}
+
+@media (max-width: 992px) {
+    .nav_header ul li a {
+        font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        height: clamp(3rem, 7vh, 4rem);
+    }
+
+    .menu_toggle {
+        display: inline-flex;
+    }
+
+    .nav_header {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: clamp(0.75rem, 1.5vw, 1rem);
+        background-color: #0f0a05;
+        border-bottom: 3px solid #996B0F;
+        max-height: calc(100vh - 100%);
+        overflow-y: auto;
+        animation: slideDown 0.3s ease-out;
+    }
+
+    .nav_header.ativo {
+        display: block;
+    }
+
+    .nav_header ul {
+        flex-direction: column;
+        gap: clamp(0.6rem, 1.2vw, 0.8rem);
+    }
+
+    .nav_header ul li a {
+        display: block;
+        padding: clamp(0.35rem, 0.7vw, 0.45rem) clamp(0.25rem, 0.5vw, 0.35rem);
+        font-size: clamp(0.8rem, 1.5vw, 1rem);
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .header_conteudo {
+        padding: clamp(0.5rem, 1vw, 0.65rem) clamp(0.75rem, 1.5vw, 0.85rem);
+    }
+
+    .logo_header {
+        margin-right: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .nav_header {
+        padding: clamp(0.5rem, 1vw, 0.75rem);
+    }
+
+    .nav_header ul li a {
+        font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+        padding: clamp(0.3rem, 0.6vw, 0.4rem) clamp(0.2rem, 0.4vw, 0.3rem);
+    }
+}
+
