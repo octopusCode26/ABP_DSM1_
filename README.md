@@ -217,6 +217,12 @@ npm start
 
 </details>
 
+<details>
+<summary>User Flow</summary>
+<br>
+<img src="./docs/Fluxo_principal_do_usuário_IMG.png">
+</details>
+
 ---
 
 <span id="-os-aventureiros">
