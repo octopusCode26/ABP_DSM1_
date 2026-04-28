@@ -1,12 +1,12 @@
 // importando os respectivos arquivos que está dentro de um json.
 const { Router } = require("express");
-const { createUsuario, 
-        updateUsuarioCpf, 
-        findUsuarioById, 
-        updateUsuarioNome, 
-        updateUsuarioEmail,
-        updateUsuarioSenha
-} = require("../repositories/usuarios.repositories");
+const {
+ createUsuarioService,
+ updateUsuarioCpfService,
+ updateUsuarioNomeService,
+ updateUsuarioEmailService,
+ updateUsuarioSenhaService
+} = require("../services/usuario.service");
 
 // importando as respectivas bibliotecas.
 const router = Router();
@@ -31,7 +31,7 @@ router.post("/", async function (req, res) {
 
   // verifica se já existe alguém com os dados informados.
   try {
-    const result = await createUsuario(nome, email, cpf, senha);
+    const result = await createUsuarioService(nome, email, cpf, senha);
 
     res.send(result);
   } catch (e) {
@@ -68,7 +68,7 @@ router.patch("/cpf", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioCpf(idUsuario, cpf);
+    const result = await updateUsuarioCpfService(idUsuario, cpf);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -105,7 +105,7 @@ router.patch("/nome", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioNome(idUsuario, nome);
+    const result = await updateUsuarioNomeService(idUsuario, nome);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -137,7 +137,7 @@ router.patch("/email", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioEmail(idUsuario, email);
+    const result = await updateUsuarioEmailService(idUsuario, email);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -184,7 +184,7 @@ router.patch("/senha", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioSenha(idUsuario, senha);
+    const result = await updateUsuarioSenhaService(idUsuario, senha);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
