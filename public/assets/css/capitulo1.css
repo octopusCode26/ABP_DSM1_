@@ -163,7 +163,7 @@ body {
   align-items: start;
 }
 
-.part1 {
+.part1, .part3 {
   width: auto;
   max-width: 64ch;
   padding: 1.25rem 1.1rem 1.25rem 1.35rem;
@@ -231,7 +231,7 @@ body {
   max-width: 620px;
   min-height: 320px;
   min-width: 300px;
-  margin: 0;
+  margin:  0;
   padding: 4.2rem 2.2rem 2.2rem;
   justify-self: end;
   transform: rotate(0.6deg);
@@ -294,15 +294,26 @@ body {
     gap: 1.2rem;
   }
 
-  .part1 {
+  .part1, .part3 {
     max-width: 100%;
     padding: 1rem 0.95rem 1rem 1.1rem;
     line-height: 1.75;
   }
 
+  .introducao {
+    height: calc(40vh - 4rem);
+  }
+
+  .titulo_conteudo h2 {
+    font-size: clamp(2.5rem, 6.2vw, 1.7rem);
+    outline-offset: 4px;
+  }
+
   .carta {
     min-width: 0;
     max-width: 100%;
+    min-height: 280px;
+    margin-top:  30px;
     justify-self: stretch;
     transform: none;
   }
@@ -321,7 +332,8 @@ body {
 
   .carta {
     width: 100%;
-    min-height: 280px;
+    min-height: 250px;
+     margin-top:  30px;
     padding: 3.6rem 1.25rem 1.5rem;
   }
 
@@ -336,11 +348,16 @@ body {
 
   .introducao {
     background: none;
-    height: calc(40vh - 4rem);
+    height: calc(20vh - 4rem);
     margin-bottom: 0;
   }
 
   .introducao::after {
+    height: 0;
+  }
+
+  
+  .introducao::before {
     height: 0;
   }
 
@@ -352,5 +369,143 @@ body {
   .carta_texto,
   .carta_assinatura {
     font-size: 21px;
+  }
+}
+
+/* ----------------------------------- LIMIAR NOVAS ALTERAÇÔES POR IA ------------------------------- */
+
+/* ================= STAGES ================= */
+.stage {
+  display: none;
+}
+
+.stage.active {
+  display: block;
+}
+
+/* Espaço para o menu fixo não cobrir conteúdo */
+main {
+  padding-bottom: 110px;
+}
+
+/* ================= MENU INFERIOR ================= */
+.bottom_nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 90%;
+  max-width: 900px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.6rem 1rem;
+
+  background: rgba(15, 10, 5, 0.85);
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(244, 208, 63, 0.3);
+  border-radius: 12px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  z-index: 9999;
+}
+
+/* BOTÕES */
+.btn_nav {
+  background: #f4d03f;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn_nav:hover {
+  transform: scale(1.05);
+}
+
+/* ICONES */
+.nav_icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav_icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+.nav_icon_img {
+  width: 26px;
+}
+
+.nav_icon:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.nav_icon.active {
+  opacity: 1;
+  color: #f4d03f;
+}
+
+/* ================= PERGAMINHO ================= */
+.pergaminho_expandido {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: #e6cf98;
+  color: #000;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* ================= FOGUEIRA ================= */
+.fogueira_img_container {
+  display: flex;
+  justify-content: center;
+}
+
+.fogueira_img {
+  max-width: 300px;
+  width: 100%;
+}
+
+/* ================= BOTÃO FOGUEIRA ================= */
+.button_fogueira {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background: #f4d03f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ================= RESPONSIVO EXTRA ================= */
+@media (max-width: 768px) {
+  .bottom_nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+
+  .nav_icons {
+    gap: 1rem;
+  }
+
+  .btn_nav {
+    width: 100%;
   }
 }
