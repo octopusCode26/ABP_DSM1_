@@ -86,6 +86,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 7vh;
+
   gap: 2rem;
 }
 
@@ -101,10 +103,10 @@ body {
   font-family: "Cinzel", serif;
   font-weight: bold;
   padding: 12px 24px;
-  border: 1px solid #f4d03f;
-  border-radius: 10px;
-  outline: 2px solid #f4d03f;
-  outline-offset: 8px;
+  border: 0.1px solid #f4d03f;
+  border-radius: 14px;
+  outline: 0.1px solid #f4d03f;
+  outline-offset: 18px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
@@ -386,6 +388,28 @@ body {
 /* Espaço para o menu fixo não cobrir conteúdo */
 main {
   padding-bottom: 110px;
+}
+
+/* ================= PILARES ================= */
+.salao_pilares {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  border-top: solid #996B0F 5px;
+  padding-top: 5vh;
+}
+
+.pilares {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.pilar {
+  display: flex;
+  flex-direction: column;
 }
 
 /* ================= MENU INFERIOR ================= */
