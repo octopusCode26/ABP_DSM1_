@@ -105,8 +105,8 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 
 ## 🕰️ Sprints
 
-| Sprint | Período | O que será entregue | Status |
-|--------|---------|---------------------|--------|
+| Sprint | Período | Entregas | Status |
+|--------|---------|----------|--------|
 | **Sprint 1** | 13/04 — 30/04/2026 | Prototipação · Diagramas UML · Arquitetura · Nível 1 | 🔄 Em andamento |
 | **Sprint 2** | 04/05 — 21/05/2026 | Cadastro · Login · Banco de questões · Sistema de avaliação | ⏳ Aguardando |
 | **Sprint 3** | 25/05 — 11/06/2026 | Certificado · Histórico · Resultado final | ⏳ Aguardando |
@@ -120,14 +120,16 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 
 | Tarefa | Responsável | Iniciada | Concluída |
 |--------|-------------|:--------:|:---------:|
-| Prototipação (Figma) | Renan, Enzo, Thiago, Vitor | ✔️ | — |
+| Prototipação (Figma) | Renan, Enzo, Thiago, Vitor | ✔️ | ✔️ |
 | Diagrama de Caso de Uso | Alef | ✔️ | ✔️ |
-| Organizar Ambiente Virtual | Lorenzo | ✔️ | ✔️ |
+| Organizar Ambiente Virtual | Lorenzo, Igor | ✔️ | ✔️ |
 | Definição de Conteúdo | Vitor | ✔️ | ✔️ |
 | Organizar Arquitetura | Cauã, Igor, Lorenzo | ✔️ | ✔️ |
-| Diagrama de Classe | Igor, Lorenzo | ✔️ | ✔️ |
-| Nível 1 (Front-end) | Renan, Thiago, Cauã, Enzo | ✔️ | — |
-| Diagramas de Sequência | Vitor, Lorenzo, Igor | ✔️ | ✔️ |
+| Diagrama de Classe | Alef | ✔️ | ✔️ |
+| Nível 1 (Front-end) | Renan, Thiago, Enzo, Lorenzo | ✔️ | ✔️ |
+| Diagramas de Sequência | Alef | ✔️ | ✔️ |
+| Fluxo Principal do Usuário | Vitor | ✔️ | ✔️ |
+| Histórias de Usuário | Alef | ✔️ | ✔️ |
 
 </details>
 
@@ -218,10 +220,27 @@ npm start
 </details>
 
 <details>
+   <summary>User Stories</summary>
+   <br>
+
+   | ID referência | Remetente | Instrução | Finalidade |
+   | ------------- | --------- | --------- | ---------- |
+   | RF-01 / RF-02 / RNF-03 | Usuário | Quero me cadastrar informando CPF, nome completo, e-mail e senha, e depois fazer login com CPF e senha. | Para criar minha conta e acessar o sistema de avaliações de forma segura. |
+   | RF-03 / RF-04 / RF-05 | Usuário | Quero receber uma prova com questões aleatórias classificadas por nível e dificuldade, com distribuição equilibrada. | Para testar meu conhecimento de forma justa e balanceada. |
+   | RF-04 / RNF-04 | Admin | Quero classificar as questões por nível e dificuldade, com as regras de cálculo protegidas no backend. | Para garantir avaliações equilibradas e evitar manipulações indevidas. |
+   | RF-06 / RF-07 | Usuário | Quero ter até 2 tentativas por nível, com a melhor nota sendo considerada. | Para melhorar meu desempenho e ter meu melhor resultado reconhecido. |
+   | RF-08 / RF-10 / RF-11 / RNF-01 / RNF-02 | Usuário | Quero visualizar minha média final, histórico de tentativas e progresso nos níveis, em qualquer dispositivo e com carregamento rápido. | Para acompanhar minha evolução de forma fluida e acessível. |
+   | RF-09 | Usuário | Quero gerar um certificado com meus dados e desempenho ao ser aprovado. | Para comprovar minha conclusão no sistema de avaliações. |
+   | RNF-05 / RNF-06 | Avaliador | Quero que a equipe utilize práticas ágeis e disponibilize documentação básica do projeto. | Para acompanhar a evolução do projeto e entender sua estrutura e funcionamento. |
+</details>
+
+<details>
 <summary>User Flow</summary>
 <br>
 <img src="./docs/Fluxo_principal_do_usuário_IMG.png">
 </details>
+
+
 
 ---
 
