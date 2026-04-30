@@ -133,11 +133,11 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 
 </details>
 
----
 ## 📺 Vídeo da 1° Spint
 
 📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint : <br>
 👉 https://youtu.be/0MVQDj3I3wc
+---
 ---
 
 <span id="-como-executar">
