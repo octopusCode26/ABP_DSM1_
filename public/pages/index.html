@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/css/index.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
     <title>Bem-Vindo | Scrum Dungeon</title>
   </head>
 
@@ -16,11 +17,22 @@
           alt="Logo do Scrum Quest"
           class="logo_header"
         />
-        <nav class="nav_header">
+        <button
+          class="menu_toggle"
+          id="menuToggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="menuPrincipal"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav_header" id="menuPrincipal">
           <ul>
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./index.html">Sobre</a></li>
+            <li><a href="./index.html">Contato</a></li>
           </ul>
         </nav>
       </div>
@@ -61,12 +73,12 @@
       </div>
 
       <!-- SOBRE O PROJETO -->
-      <div class="sobre_projeto">
-        <div class="area_sobre_projeto">
-          <div class="titulo_sobre_projeto">
+      <div class="conteudo">
+        <div class="area_conteudo">
+          <div class="titulo_conteudo">
             <h2>Sobre o Projeto</h2>
           </div>
-          <div class="texto_sobre_projeto">
+          <div class="texto_conteudo">
             <p>
               Scrum Dungeon é uma experiência interativa que transforma o
               aprendizado da metodologia Scrum em uma jornada imersiva inspirada
@@ -75,6 +87,7 @@
               e reunir artefatos enquanto aprende, na prática, os conceitos
               fundamentais do Scrum.
             </p>
+            <img src="../assets/img/corvo.png" class="corvo_sobre_projeto" />
             <p>
               Surge através do desafio proposto como metodologia de ensino no
               curso de Desenvolvimento de Software Multiplataforma da Fatec de
@@ -89,13 +102,10 @@
               PostgreSQL (DDL e DML), e organização do trabalho por Scrum e
               práticas ágeis básicas.
             </p>
+            <!-- <img src="../assets/img/corvo.png" class="corvo_sobre_projeto" /> -->
+            <!-- Dar um jeito de usar o corvo aqui embaixo para ajudar na respnsividade, mas caso não seja possivel manter ele ali onde está e implementar um javascript -->
           </div>
         </div>
-        <img
-          src="../assets/img/corvo.png"
-          alt="Corvo do Scrum Dungeon"
-          class="corvo_sobre_projeto"
-        />
       </div>
     </main>
 
@@ -264,6 +274,9 @@
         </div>
       </div>
     </div>
+    <script src="../assets/js/main.js"></script>
     <script src="../assets/js/index.js"></script>
   </body>
 </html>
+
+
