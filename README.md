@@ -136,7 +136,7 @@ Backlog de Tarefas
 
 ## 🗃️ Burndown da 1° Sprint
 <h5>📌 Acesse o burndown do que foi desenvolvido nessa 1° Sprint :</h5>
-<h5> <a href="https://github.com/octopusCode26/ABP_DSM1_/blob/develop/docs/burndown%20sprint1.png">Clique aqui</a> <h5>
+<h5> <a href="https://github.com/octopusCode26/ABP_DSM1_/blob/develop/docs/first%20sprint%20burndown.png">Clique aqui</a> <h5>
 
 ## 📺 Vídeo da 1° Spint
 
