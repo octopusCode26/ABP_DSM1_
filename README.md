@@ -25,7 +25,7 @@
 
 [![▶ Entrar na Dungeon](https://img.shields.io/badge/▶_Entrar_na_Dungeon-7B4FBF?style=plastic)](https://github.com/octopusCode26/ABP_DSM1_)
 [![Protótipo](https://img.shields.io/badge/Ver_Protótipo-c8922a?style=plastic&logo=figma&logoColor=white)](https://www.figma.com/design/96DMn9UVu2MT9xJIi5pBiQ/Prototipo_Scrum-Dungeon)
-[![Sprint 1](https://img.shields.io/badge/Sprint_1_·_Em_Andamento-5865F2?style=plastic)]()
+[![Sprint 1](https://img.shields.io/badge/Sprint_2_·_Aguardando-5865F2?style=plastic)]()
 
 </div>
 
