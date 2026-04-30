@@ -107,7 +107,7 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 
 | Sprint | Período | Entregas | Status |
 |--------|---------|----------|--------|
-| **Sprint 1** | 13/04 — 30/04/2026 | Prototipação · Diagramas UML · Arquitetura · Nível 1 | 🔄 Em andamento |
+| **Sprint 1** | 13/04 — 30/04/2026 | Prototipação · Diagramas UML · Arquitetura · Nível 1 | ✔️ Finalizada |
 | **Sprint 2** | 04/05 — 21/05/2026 | Cadastro · Login · Banco de questões · Sistema de avaliação | ⏳ Aguardando |
 | **Sprint 3** | 25/05 — 11/06/2026 | Certificado · Histórico · Resultado final | ⏳ Aguardando |
 | **Apresentação** | 22/06/2026 | Entrega e demonstração na FATEC Jacareí | ⏳ Aguardando |
