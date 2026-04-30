@@ -136,8 +136,8 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 ## 📺 Vídeo da 1° Spint
 
 <h5>📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint :</h5> 
-<h5>👉 https://youtu.be/0MVQDj3I3wc</h5>
----
+<h5><a href="https://youtu.be/0MVQDj3I3wc">Clique aqui</a> </h5>
+
 ---
 
 <span id="-como-executar">
