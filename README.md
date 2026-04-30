@@ -113,7 +113,10 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 | **Apresentação** | 22/06/2026 | Entrega e demonstração na FATEC Jacareí | ⏳ Aguardando |
 
 <details>
-<summary>📌 Sprint 1 — Backlog de tarefas</summary>
+<summary>📌 Sprint 1</summary>
+<br>
+
+Backlog de Tarefas
 <br>
 
 [![Kanban](https://img.shields.io/badge/Acompanhar_Kanban-163451?style=plastic&logo=github&logoColor=white)](https://github.com/users/octopusCode26/projects/8)
@@ -131,12 +134,16 @@ O front-end é desenvolvido com **HTML, CSS e JavaScript puro**, sem o uso de fr
 | Fluxo Principal do Usuário | Vitor | ✔️ | ✔️ |
 | Histórias de Usuário | Alef | ✔️ | ✔️ |
 
-</details>
+## 🗃️ Burndown da 1° Sprint
+<h5>📌 Acesse o burndown do que foi desenvolvido nessa 1° Sprint :</h5>
+<h5> <a href="https://github.com/octopusCode26/ABP_DSM1_/blob/develop/docs/burndown%20sprint1.png">Clique aqui</a> <h5>
 
 ## 📺 Vídeo da 1° Spint
 
 <h5>📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint :</h5> 
 <h5><a href="https://youtu.be/0MVQDj3I3wc">Clique aqui</a> </h5>
+
+</details>
 
 ---
 
