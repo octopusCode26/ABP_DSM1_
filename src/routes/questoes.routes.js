@@ -1,8 +1,7 @@
-const { findProximaQuestaoByUsuario } = require("../repositories/questoes.repositories");
 const { Router } = require("express");
 const authMiddlewares = require("../middlewares/auth.middlewares");
 const router = Router();
-
+const { findProximaQuestaoByUsuario } = require("../repositories/questoes.repositories");
 
 /*
 curl -X GET http://localhost:3000/api/questoes/proxima-questao \
