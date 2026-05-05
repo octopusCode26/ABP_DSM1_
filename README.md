@@ -321,6 +321,14 @@ npm start
       </a><br><sub>Product Owner</sub>
     </td>
   </tr>
+  <tr>
+    <td colspan="4" align="center">
+      <a href="https://github.com/PatyMaidana">
+        <img src="https://avatars.githubusercontent.com/u/155653067?v=4" width="72" style="border-radius:50%"/><br>
+        <sub><b>Patricia Maidana</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
+    </td>
+  </tr>
 </table>
 
 </div>
