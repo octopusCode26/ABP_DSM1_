@@ -42,13 +42,13 @@ function verifyToken(token){
   return jwt.verify(token, process.env.JWT_SECRET);
 }
 
-module.exports = {
-  createToken,
-  verifyToken
-};
-
 // exporta o "router" para outros arquivos.
 module.exports = router;
+
+/*module.exports = {
+  createToken,
+  verifyToken
+}; */
 
 // ignore o resto.
 

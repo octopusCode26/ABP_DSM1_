@@ -3,7 +3,7 @@ const pool = require("../database/db");
 
 // importando o respectivo arquivos que está dentro de um json.
 const { randomBytes } = require("crypto");
-const { hashPassword, verifyPassword } = require("../utils/password");
+const { hashPassword, verifyPassword} = require("../utils/password");
 
 // insere um novo usuário no banco de dados (pgAdmin).
 async function insertUsuario(client, nome, email, cpf, senha) {
