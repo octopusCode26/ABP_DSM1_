@@ -7,7 +7,7 @@ const auth = require("./auth.routes")
 const router = Router();
 
 // agrupa rotas do usuário.
-router.use("/usuários", usuarios);
+router.use("/usuarios", usuarios);
 
 router.use("/auth", auth);
 
