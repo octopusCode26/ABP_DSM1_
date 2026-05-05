@@ -162,15 +162,21 @@ npm install
 Crie um arquivo `.env` na raiz:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_NAME=scrum_dungeon
+PORT=3000
+
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=123
+POSTGRES_DB=abp
+POSTGRES_PORT=5432
+
+JWT_SECRET=@123_56@
+DEFAULT_EXPIRES_IN_SECONDS=600
+
 ```
 
 ```bash
-npm start
+npm run dev
 ```
 
 > Instruções detalhadas de configuração do banco serão adicionadas ao longo das sprints.
