@@ -2,13 +2,13 @@ const { verifyToken } = require("../utils/jwt");
 const { findUsuarioById } = require("../repositories/usuarios.repositories");
 
 async function authMiddlewares(req, res, next) {
-    const Authorization = req.headers.Authorization;
+    const authorization = req.headers.authorization;
 
-    if ( !Authorization ){
+    if ( !authorization ){
         return res.status(401).json({ message: "token não informado"});
     }
 
-    const [type, token] = Authorization.split(" ");
+    const [type, token] = authorization.split(" ");
 
     if ( type !== "Bearer" || !token ){
         return res.status(401).json({ message: "token inválido"});
@@ -25,7 +25,7 @@ async function authMiddlewares(req, res, next) {
         req.usuario = usuario;
 
         return next();
-        return res.json({ usuario });
+        //return res.json({ usuario });
     } catch(e) {
         return res.status(401).json({ message: "token inválido ou expirado"});
     }
