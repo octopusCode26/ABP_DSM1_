@@ -1,121 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/questionario1.css" />
     <title>Questionário 1 | Scrum Dungeon</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- CABEÇALHO -->
     <header>
-        <div class="header_conteudo">
-          <img
-            src="../assets/img/logo_scrum_simples.png"
-            alt="Logo do Scrum Quest"
-            class="logo_header"
-          />
-          <button
-            class="menu_toggle"
-            id="menuToggle"
-            aria-label="Abrir menu"
-            aria-expanded="false"
-            aria-controls="menuPrincipal"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <nav class="nav_header" id="menuPrincipal">
-            <ul>
-              <li><a href="./index.html">Início</a></li>
-              <li><a href="./index.html">Sobre</a></li>
-              <li><a href="./index.html">Contato</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <div class="header_conteudo">
+        <img
+          src="../assets/img/logo_scrum_simples.png"
+          alt="Logo do Scrum Quest"
+          class="logo_header"
+        />
+        <button
+          class="menu_toggle"
+          id="menuToggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="menuPrincipal"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav_header" id="menuPrincipal">
+          <ul>
+            <li><a href="./index.html">Início</a></li>
+            <li><a href="./index.html">Sobre</a></li>
+            <li><a href="./index.html">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="tela">
       <!-- Barra de progresso -->
-<div class="progresso-box">
-   <h1>QUESTÃO DE</h1> 
-</div>
+      <div class="progresso-box">
+        <h2>QUESTÃO DE</h2>
+      </div>
 
-    <!-- Caixa de Questão -->
-<div class="questao-box">
-    <h4 class="dificuldade">
-        Dificuldade
-    </h4>
-    <h2>
-        questão
-    </h2>
-</div>
-<div>
-    <h2 class="selecione">
-        Selecione a alternativa correta
-    </h2>
-</div>
-    <!-- Respostas -->
-    <div class="respostas">
-    <button>
-        <h2>
-            Resposta 1
-        </h2>
-    </button>
-    <button>
-        <h2>
-            Resposta 2
-        </h2>
-    </button>
+      <!-- Caixa de Questão -->
+      <div class="questao-box">
+        <p class="dificuldade">Dificuldade</p>
+        <div class="linha"></div>
+        <p>Questão</p>
+      </div>
+      <div>
+        <p class="selecione">Selecione a alternativa correta</p>
+      </div>
+
+      <!-- Respostas -->
+      <div class="respostas">
+        <button class="botaoresposta">
+          <p>A</p>
+        </button>
+        <button class="botaoresposta">
+          <p>B</p>
+        </button>
+
+        <button class="botaoresposta">
+          <p>C</p>
+        </button>
+        <button class="botaoresposta">
+          <p>D</p>
+        </button>
+      </div>
+
+      <!-- botões -->
+      <div class="botoes">
+        <button class="botao">Voltar</button>
+        <button class="botao">Pular</button>
+        <button class="confirmar botao">Confirmar Resposta</button>
+        <button class="botao">Enviar</button>
+      </div>
+
+      <!-- espaço vazio e botões principais -->
+      <div class="vazio"></div>
     </div>
-
-    <div  class="respostas">
-    <button>
-        <h2>
-            Resposta 3
-        </h2>
-    </button>
-    <button>
-        <h2>
-            Resposta 4
-        </h2>
-    </button>
-</div>
-    <!-- botões -->
-    <div class="botoes">
-    <button>
-        Voltar
-    </button>
-    <button>
-        Pular
-    </button>
-    <button class="confirmar">
-        Confirmar Resposta
-    </button>
-    <button>
-        Enviar
-    </button>
-</div>
-
- <!-- espaço vazio e botões principais -->
- <div class="vazio">
-
- </div>
-
-
-
-      <!-- RODAPÉ -->
+    <!-- RODAPÉ -->
     <footer>
-        <div class="footer_conteudo">
-          <p>&copy; 2026 Scrum Dungeon - Todos os direitos reservados.</p>
-          <img
-            src="../assets/img/logo_grupo_octopuscode.png"
-            alt="Logo do Grupo OctopusCode"
-            class="logo_footer"
-          />
-          <p>< OCTOPUS_CODE ></p>
-        </div>
-      </footer>
-</body>
+      <div class="footer_conteudo">
+        <p>&copy; 2026 Scrum Dungeon - Todos os direitos reservados.</p>
+        <img
+          src="../assets/img/logo_grupo_octopuscode.png"
+          alt="Logo do Grupo OctopusCode"
+          class="logo_footer"
+        />
+        <p>< OCTOPUS_CODE ></p>
+      </div>
+    </footer>
+  </body>
 </html>
