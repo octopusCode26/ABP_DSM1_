@@ -1,0 +1,77 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-image: url("../img/parede_de_tijolos.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+}
+
+
+
+.progresso-box {
+    word-spacing: 3rem;
+    background-color: #FDD085;
+    color: #2C2318;
+    margin: 1.5rem;
+    height: 5rem;
+    border-radius: 1.5rem;
+}
+
+.questao-box {
+    background-color: #FDD085;
+    color: #2C2318;
+    margin: 1.5rem;
+    border-radius: 1.5rem;
+    height: 16rem;
+}
+
+.dificuldade {
+    color: rgb(62, 178, 255);
+    margin-left: 3rem;
+    
+}
+
+.selecione {
+    color: yellow;
+    margin: 1.5rem;
+    margin-left: 4.3rem;
+}
+
+.respostas {
+    background-color: #2C2318;
+    color: #D4C49A;
+    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    margin: 4rem;
+    margin-left: 40rem;
+    margin-right: 40rem;
+    
+}
+
+.botoes {
+    margin: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+    margin-left: 16rem;
+    margin-right: 20rem;
+    border: none;
+}
+
+.confirmar {
+    margin-right: 30rem;
+    margin-left: 7rem;
+}
+
+.vazio {
+    height: 15rem;
+}
