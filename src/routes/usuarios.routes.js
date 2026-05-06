@@ -13,14 +13,14 @@ const { createUsuario,
 const router = Router();
 
 // define o cadastro do usuário
-router.post("/", async function (req, res) {
+router.post("/cadastro", async function (req, res) {
   const { nome, email, cpf, senha } = req.body;
 
   // verifica se as informações estão corretas.
-  if (!cpf || !nome || !senha) {
+  if (!cpf || !nome || !email || !senha) {
     return res
       .status(400)
-      .json({ message: "Nome, e-mail e senha são obrigatórios" });
+      .json({ message: "Nome, e-mail, CPF e senha são obrigatórios" });
   }
 
   // verifica se a senha tem ao menos 6 caracteres.
@@ -34,7 +34,7 @@ router.post("/", async function (req, res) {
   try {
     const result = await createUsuario(nome, email, cpf, senha);
 
-    res.send(result);
+    res.status(201).json(result);
   } catch (e) {
     if (e && e.code == "23505") {
       return res.status(409).json({
@@ -213,3 +213,5 @@ function getIdUsuario(params) {
 
 // exporta o "router" para outros arquivos.
 module.exports = router;
+
+
