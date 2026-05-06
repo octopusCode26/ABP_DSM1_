@@ -1,5 +1,6 @@
 // importando os respectivos arquivos que está dentro de um json.
 const { Router } = require("express");
+const authMiddlewares = require("../middlewares/auth.middlewares");
 const { createUsuario, 
         updateUsuarioCpf, 
         findUsuarioById, 
@@ -55,8 +56,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/cpf \
   -d '{"cpf":"11122233344"}'
 */
 
-router.patch("/cpf", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/cpf", authMiddlewares, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })
@@ -96,8 +97,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -d '{"nome":"Maria"}'
 */
 
-router.patch("/nome", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/nome", authMiddlewares, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   const { nome } = req.body;
   if ( !nome ) {
@@ -128,8 +129,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/email \
   -d '{"email":"ana.clara@teste.com"}'
 */
 
-router.patch("/email", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/email", authMiddlewares, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   const { email } = req.body;
   if ( !email ) {
@@ -165,8 +166,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/senha \
   -d '{"senha":"123aaa"}'
 */
 
-router.patch("/senha", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario
+router.patch("/senha", authMiddlewares, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })
@@ -214,15 +215,3 @@ function getIdUsuario(params) {
 module.exports = router;
 
 
-// ignore o resto.
-
-/*
-curl -X POST http://localhost:3000/api \
-    -H "Content-Type: application/json" \
-    -d '{"nome":"Ana","email":"ana@email.com","cpf":"12345678901","senha":"123","grupo":1}'
-
-curl -X POST http://localhost:3000/api \
-    -H "Content-Type: application/json" \
-    -d '{"emal":"ana@email.com","cpf":"12345678901","senha":"123","grupo":1}'
->>>>>>> 8f051a6 (index.html (pagina introdutoria) e css)
-*/

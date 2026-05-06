@@ -162,15 +162,21 @@ npm install
 Crie um arquivo `.env` na raiz:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_NAME=scrum_dungeon
+PORT=3000
+
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=123
+POSTGRES_DB=abp
+POSTGRES_PORT=5432
+
+JWT_SECRET=@123_56@
+DEFAULT_EXPIRES_IN_SECONDS=600
+
 ```
 
 ```bash
-npm start
+npm run dev
 ```
 
 > Instruções detalhadas de configuração do banco serão adicionadas ao longo das sprints.
@@ -319,6 +325,14 @@ npm start
         <img src="https://avatars.githubusercontent.com/u/173676857?v=4" width="72" style="border-radius:50%"/><br>
         <sub><b>Vitor Hirch</b></sub>
       </a><br><sub>Product Owner</sub>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center">
+      <a href="https://github.com/PatyMaidana">
+        <img src="https://avatars.githubusercontent.com/u/155653067?v=4" width="72" style="border-radius:50%"/><br>
+        <sub><b>Patricia Maidana</b></sub>
+      </a><br><sub>Desenvolvedor</sub>
     </td>
   </tr>
 </table>
