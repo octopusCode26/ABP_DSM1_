@@ -1,0 +1,69 @@
+<div class="conteudo_aba" id="formCadastro" style="display: none">
+  <h2>CADASTRO</h2>
+  <br />
+  <p class="subtitulo_formulario">
+    <!-- Preencha o cadastro para criar uma conta e iniciar sua jornada -->
+    Antes de iniciar sua nova jornada, precisamos de algumas informações para
+    criar sua ficha de aventureiro. Insira as informações abaixo e prossiga!
+  </p>
+
+  <br />
+
+  <form>
+    <div class="campos_cadastro">
+      <div class="campo_formulario">
+        <label for="cadastroNome">NOME COMPLETO</label>
+        <input type="text" id="cadastroNome" placeholder="Seu nome" required />
+      </div>
+
+      <div class="campo_formulario">
+        <label for="cadastroCpf">CPF</label>
+        <input
+          type="text"
+          id="cadastroCpf"
+          placeholder="Insira seu cpf"
+          required
+        />
+      </div>
+
+      <div class="campo_formulario">
+        <label for="cadastroEmail">EMAIL</label>
+        <input
+          type="email"
+          id="cadastroEmail"
+          placeholder="Seu email"
+          required
+        />
+      </div>
+
+      <div class="campo_formulario">
+        <label for="cadastroSenha">CRIE UMA SENHA</label>
+        <input
+          type="password"
+          id="cadastroSenha"
+          placeholder="Mínimo 6 caracteres"
+          required
+        />
+      </div>
+
+      <div class="campo_formulario">
+        <label for="cadastroSenhaConf">CONFIRME A SENHA</label>
+        <input
+          type="password"
+          id="cadastroSenhaConf"
+          placeholder="Confirme a senha"
+          required
+        />
+      </div>
+    </div>
+    <button type="submit" class="botao_primario">CADASTRAR</button>
+  </form>
+
+  <p class="rodape_painel">
+    Já possui um cadastro?
+    <!-- deixar botão funcional -->
+    <a href="#" class="link_trocar_aba" data-aba="login" id="realizeologin"
+      >Realize o Login</a
+    >
+  </p>
+</div>
