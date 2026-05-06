@@ -48,10 +48,12 @@ async function findGrupoAleatorio(client, idModulo) {
 async function insertExame(client, idModulo, idUsuario, grupo, tentativa) {
   const result = await client.query(
     `INSERT INTO exames (id_modulo, id_usuario, grupo, tentativa)
-         VALUES ($1, $2, $3, $4, $5)
+         VALUES ($1, $2, $3, $4)
          RETURNING id_exame`,
-    [client, idModulo, idUsuario, grupo, tentativa]
+    [idModulo, idUsuario, grupo, tentativa]
   );
+
+  return result.rows[0] || null;
 }
 
 // fluxo completo de criação de usuário + criação de exame inicial.
@@ -90,7 +92,7 @@ async function createUsuario(nome, email, cpf, senha) {
 
     return { id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email, cpf: usuario.cpf };
   } catch (e) {
-    client.query("ROLLBACK");
+    await client.query("ROLLBACK");
     throw e;
   } finally {
     client.release();

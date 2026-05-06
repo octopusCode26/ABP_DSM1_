@@ -55,3 +55,41 @@ botaoCadastreseAqui.addEventListener('click', function () {
 botaoRealizeoLogin.addEventListener('click', function () {
     abrirPainel('login');
 });
+
+// FUNÇÃO PARA ENVIAR OS DADOS DO FORMULÁRIO DE CADASTRO
+formCadastro.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('cadastroNome').value;
+    const cpf = document.getElementById('cadastroCpf').value;
+    const email = document.getElementById('cadastroEmail').value;
+    const senha = document.getElementById('cadastroSenha').value;
+    const senhaConf = document.getElementById('cadastroSenhaConf').value;
+
+    if (senha !== senhaConf) {
+        alert('As senhas não conferem.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/usuarios/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nome, cpf, email, senha }),
+        });
+
+        if (response.ok) {
+            alert('Usuário cadastrado com sucesso.');
+            event.target.reset();
+            abrirPainel('login');
+            return;
+        }
+
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
+    } catch (error) {
+        alert('Erro ao cadastrar usuário.');
+    }
+});
