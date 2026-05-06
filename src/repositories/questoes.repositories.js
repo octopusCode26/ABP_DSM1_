@@ -5,8 +5,8 @@ exclui as que já têm registro em respostas para aquele exame e retorna a próx
 por ordem de numero e id_questao.*/
 
 async function findProximaQuestaoByUsuario(idUsuario) {
-const result = await pool.query(
-`
+  const result = await pool.query(
+    `
 WITH exame_atual AS (
 SELECT id_exame, id_modulo, grupo
 FROM exames
@@ -39,16 +39,14 @@ AND r.id_questao = q.id_questao
 )
 ORDER BY q.numero ASC NULLS LAST, q.id_questao ASC
 LIMIT 1 `,
-[idUsuario],
-);
-return result.rows[0] || null;
+    [idUsuario],
+  );
+  return result.rows[0] || null;
 }
 
-
-
 async function findQuestaoDoExameByUsuario(idUsuario, idExame, idQuestao) {
-const result = await pool.query(
-`
+  const result = await pool.query(
+    `
 SELECT
 e.id_exame,
 q.id_questao,
@@ -62,11 +60,10 @@ AND e.id_exame = $2
 AND q.id_questao = $3
 LIMIT 1
 `,
-[idUsuario, idExame, idQuestao],
-);
-return result.rows[0] || null;
+    [idUsuario, idExame, idQuestao],
+  );
+  return result.rows[0] || null;
 }
-
 
 async function findRespostaByExameEQuestao(idExame, idQuestao) {
   const result = await pool.query(
@@ -93,18 +90,125 @@ async function inserirRespostaQuestao(id_exame, id_questao, resposta, nota) {
     `
     INSERT INTO respostas (id_exame, id_questao, nota, resposta)
     VALUES ($1,$2,$3,$4)
-    RETURNING id_resposta, id_exame, id_questao, nota',
+    RETURNING id_resposta, id_exame, id_questao, nota
    `,
     [id_exame, id_questao, nota, resposta],
   );
-  console.log("result", result)
+  console.log("result", result);
   return result.rows[0];
 }
 
+//checagem se o usuário concluiu módulo 
+
+async function usuarioConcluiuModuloAtual(idUsuario) {
+  const result = await pool.query(
+    ` 
+    WITH exame_atual AS ( 
+      SELECT 
+        id_exame, 
+        id_modulo, 
+        grupo 
+      FROM exames 
+      WHERE id_usuario = $1 
+      ORDER BY id_exame DESC 
+      LIMIT 1
+ ) 
+    SELECT NOT EXISTS ( 
+      SELECT 1 
+      FROM exame_atual e 
+      INNER JOIN questoes q 
+        ON q.id_modulo = e.id_modulo 
+       AND q.grupo IS NOT DISTINCT FROM e.grupo 
+      WHERE NOT EXISTS ( 
+        SELECT 1 
+        FROM respostas r 
+        WHERE r.id_exame = e.id_exame 
+          AND r.id_questao = q.id_questao 
+      ) 
+    ) AS concluido 
+    `,
+    [idUsuario],
+  );
+
+  return result.rows[0]?.concluido || false;
+}
+
+async function findModuloAtualByUsuario(idUsuario) {
+  const result = await pool.query(
+    ` 
+    SELECT 
+      e.id_exame, 
+      e.id_modulo, 
+      m.titulo, 
+      e.grupo, 
+      e.tentativa 
+    FROM exames e 
+    INNER JOIN modulos m 
+      ON m.id_modulo = e.id_modulo 
+    WHERE e.id_usuario = $1 
+    ORDER BY e.id_exame DESC 
+    LIMIT 1 
+    `,
+    [idUsuario],
+  );
+
+  return result.rows[0] || null;
+}
+
+//gera um novo grupo de questões, para segunda tentativa.
+
+async function findOutroGrupoAleatorio(idUsuario, idModulo) { 
+  const result = await pool.query( 
+    ` 
+    SELECT q.grupo 
+    FROM questoes q 
+    WHERE q.id_modulo = $1 
+      AND q.grupo IS NOT NULL 
+      AND q.grupo NOT IN ( 
+        SELECT e.grupo 
+        FROM exames e 
+        WHERE e.id_usuario = $2 
+          AND e.id_modulo = $1 
+          AND e.grupo IS NOT NULL 
+      ) 
+    GROUP BY q.grupo 
+    ORDER BY RANDOM() 
+    LIMIT 1 
+    `, 
+    [idModulo, idUsuario], 
+  ); 
+ 
+  return result.rows[0]?.grupo || null; 
+}
+
+//atualizar próxima tentativa
+async function updateProximaTentativa(idExame, grupo, tentativa) { 
+  const result = await pool.query( 
+    ` 
+    UPDATE exames 
+    SET 
+      grupo = $1, 
+      tentativa = $2 
+    WHERE id_exame = $3 
+    RETURNING 
+      id_exame, 
+      id_modulo, 
+      id_usuario, 
+      grupo, 
+      tentativa 
+    `, 
+    [grupo, tentativa, idExame], 
+  );
+    return result.rows[0] || null; 
+}
 
 module.exports = {
-findProximaQuestaoByUsuario,
-findQuestaoDoExameByUsuario,
-findRespostaByExameEQuestao,
-inserirRespostaQuestao
+  findProximaQuestaoByUsuario,
+  findQuestaoDoExameByUsuario,
+  findRespostaByExameEQuestao,
+  inserirRespostaQuestao,
+  usuarioConcluiuModuloAtual,
+  findModuloAtualByUsuario,
+  findOutroGrupoAleatorio,
+  updateProximaTentativa
 };
