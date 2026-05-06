@@ -14,13 +14,14 @@ const botaoRealizeoLogin = document.getElementById('realizeologin');
 function abrirPainel(tipo) {
     painelAuth.style.display = 'block';
     overlayEscuro.style.display = 'block';
+    painelAuth.setAttribute('aria-hidden', 'false');
 
     if (tipo === 'login') {
-        formLogin.style.display = 'block';
+        formLogin.style.display = 'flex';
         formCadastro.style.display = 'none';
     } else if (tipo === 'cadastro') {
         formLogin.style.display = 'none';
-        formCadastro.style.display = 'block';
+        formCadastro.style.display = 'flex';
     }
 };
 
@@ -28,6 +29,7 @@ function abrirPainel(tipo) {
 function fecharPainel() {
     painelAuth.style.display = 'none';
     overlayEscuro.style.display = 'none';
+    painelAuth.setAttribute('aria-hidden', 'true');
 }
 
 
@@ -48,10 +50,50 @@ overlayEscuro.addEventListener('click', function () {
     fecharPainel();
 });
 
-botaoCadastreseAqui.addEventListener('click', function () {
+botaoCadastreseAqui.addEventListener('click', function (event) {
+    event.preventDefault();
     abrirPainel('cadastro');
 });
 
-botaoRealizeoLogin.addEventListener('click', function () {
+botaoRealizeoLogin.addEventListener('click', function (event) {
+    event.preventDefault();
     abrirPainel('login');
+});
+
+// FUNÇÃO PARA ENVIAR OS DADOS DO FORMULÁRIO DE CADASTRO
+formCadastro.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('cadastroNome').value;
+    const cpf = document.getElementById('cadastroCpf').value;
+    const email = document.getElementById('cadastroEmail').value;
+    const senha = document.getElementById('cadastroSenha').value;
+    const senhaConf = document.getElementById('cadastroSenhaConf').value;
+
+    if (senha !== senhaConf) {
+        alert('As senhas não conferem.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/usuarios/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nome, cpf, email, senha }),
+        });
+
+        if (response.ok) {
+            alert('Usuário cadastrado com sucesso.');
+            event.target.reset();
+            abrirPainel('login');
+            return;
+        }
+
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
+    } catch (error) {
+        alert('Erro ao cadastrar usuário.');
+    }
 });
