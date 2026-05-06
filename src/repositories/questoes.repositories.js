@@ -44,7 +44,7 @@ LIMIT 1 `,
 return result.rows[0] || null;
 }
 
-/* validar se a questão pertence ao usuário logado.*/
+
 
 async function findQuestaoDoExameByUsuario(idUsuario, idExame, idQuestao) {
 const result = await pool.query(
@@ -67,6 +67,44 @@ LIMIT 1
 return result.rows[0] || null;
 }
 
+
+async function findRespostaByExameEQuestao(idExame, idQuestao) {
+  const result = await pool.query(
+    `
+    SELECT
+    id_resposta,
+    id_exame,
+    id_questao,
+    resposta,
+    nota,
+    respondido_em 
+  FROM respostas
+  WHERE id_exame = $1
+  AND id_questao = $2
+  LIMIT 1
+`,
+    [idExame, idQuestao],
+  );
+  return result.rows[0] || null;
+}
+
+async function inserirRespostaQuestao(id_exame, id_questao, resposta, nota) {
+  const result = await pool.query(
+    `
+    INSERT INTO respostas (id_exame, id_questao, nota, resposta)
+    VALUES ($1,$2,$3,$4)
+    RETURNING id_resposta, id_exame, id_questao, nota',
+   `,
+    [id_exame, id_questao, nota, resposta],
+  );
+  console.log("result", result)
+  return result.rows[0];
+}
+
+
 module.exports = {
-findProximaQuestaoByUsuario
+findProximaQuestaoByUsuario,
+findQuestaoDoExameByUsuario,
+findRespostaByExameEQuestao,
+inserirRespostaQuestao
 };
