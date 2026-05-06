@@ -10,7 +10,6 @@
 </head>
 
 <body>
-  <!-- CABEÇALHO -->
   <%- include('partials/header') %>
 
   <main>
@@ -18,7 +17,6 @@
     <!-- ===================== STAGE 1: INTRO + PILARES ===================== -->
     <section class="stage active" id="stage1">
 
-      <!-- INTRODUÇÃO COM IMAGEM DE FUNDO -->
       <div class="introducao">
         <div class="area_conteudo">
           <div class="titulo_conteudo">
@@ -27,7 +25,6 @@
         </div>
       </div>
 
-      <!-- TEXTO INICIAL -->
       <div class="area_conteudo">
         <div class="texto_container">
           <div class="linha_inicial">
@@ -37,15 +34,11 @@
               seguinte escrita: "o tempo está acabando são 3 sprints, 5
               requisitos… Assinado: P.O "
             </div>
-
             <div class="carta" aria-label="Carta do Product Owner">
-              <p class="carta_texto">
-                o tempo está acabando são 3 sprints, 5 requisitos...
-              </p>
+              <p class="carta_texto">o tempo está acabando são 3 sprints, 5 requisitos...</p>
               <p class="carta_assinatura">Assinado: P.O</p>
             </div>
           </div>
-
           <div class="part3">
             Você não consegue se lembrar do seu nome, de onde veio, ou o que
             está fazendo ali. Mesmo estando confuso decide seguir por um grande
@@ -56,60 +49,45 @@
         </div>
       </div>
 
-      <!-- SALÃO DOS PILARES -->
       <div class="salao_pilares">
-
         <div class="titulo_conteudo">
           <h2>Salão dos Pilares</h2>
         </div>
-
         <p class="part4">
           Então você chega em uma grande sala redonda sustentada por três grandes pilares.
         </p>
-
         <div class="part5">
           <p class="texto_pilares">na base de cada um dos pilares há um entalhe</p>
           <p class="leia_os">"Leia-os ..."</p>
-
           <div class="pilares">
             <div class="pilar" data-index="0" onclick="abrirPilar(this)">
-              <img src="pilar1.png" alt="Pilar da Transparência" />
+              <img src="../assets/img/pilar1.png" alt="Pilar da Transparência" />
               <span>Transparência</span>
             </div>
             <div class="pilar" data-index="1" onclick="abrirPilar(this)">
-              <img src="pilar2.png" alt="Pilar da Inspeção" />
+              <img src="../assets/img/pilar2.png" alt="Pilar da Inspeção" />
               <span>Inspeção</span>
             </div>
             <div class="pilar" data-index="2" onclick="abrirPilar(this)">
-              <img src="pilar3.png" alt="Pilar da Adaptação" />
+              <img src="../assets/img/pilar3.png" alt="Pilar da Adaptação" />
               <span>Adaptação</span>
             </div>
           </div>
-
-          <!-- Card do pilar selecionado -->
           <div class="pilar_conteudo_card" id="pilarCard" style="display:none;">
             <p class="pilar_card_titulo" id="pilarCardTitulo"></p>
             <p class="pilar_card_texto" id="pilarCardTexto"></p>
           </div>
         </div>
-
-        <!-- Botão só aparece após ler os 3 pilares -->
-        <div class="area_avancar_stage1">
-          <button class="button_avancar_stage" id="btnAvancarStage1" style="display:none;"
-            onclick="irParaStage(2)">Avançar</button>
-        </div>
-
       </div>
+
     </section>
 
 
     <!-- ===================== STAGE 2: PERGAMINHO ===================== -->
     <section class="stage" id="stage2">
 
-      <!-- Conteúdo do pergaminho -->
       <div class="pergaminho_section">
         <h2 class="section_title">O Pergaminho Scrum</h2>
-
         <p class="section_desc">
           Após ler as escrituras contida nos pilares o chão começa a tremer, eis que no
           centro da sala uma estrutura começa a surgir do chão
@@ -117,21 +95,16 @@
         <p class="section_desc">
           Ao centro há uma elevação central um pergaminho antigo repousa sobre ela..
         </p>
-
         <p class="ler_pergaminho_btn" id="lerPergaminhoBtn" onclick="lerPergaminho()">
           "Ler pergaminho..."
         </p>
-
         <div class="pergaminho_circulo">
           <img src="../assets/img/pergaminho_circulo.png" alt="Pergaminho antigo" class="pergaminho_img" />
         </div>
       </div>
 
-      <!-- Rolo expandido com o texto -->
       <div class="pergaminho_expandido" id="pergaminhoExpandido" style="display:none;">
-        <div class="scroll_rolo scroll_rolo_top">
-          <div class="scroll_rolo_faixa"></div>
-        </div>
+        <div class="scroll_rolo scroll_rolo_top"><div class="scroll_rolo_faixa"></div></div>
         <div class="scroll_corpo">
           <p class="part6">
             "Há muitos e muitos anos atrás há meados dos longínquos anos 90, havia
@@ -145,33 +118,7 @@
             e aquele que o dominasse seria… "
           </p>
         </div>
-        <div class="scroll_rolo scroll_rolo_bottom">
-          <div class="scroll_rolo_faixa"></div>
-        </div>
-      </div>
-
-      <!-- NAVEGAÇÃO INFERIOR -->
-      <div class="bottom_nav">
-        <button class="btn_nav btn_voltar" onclick="irParaStage(1)">Voltar</button>
-        <div class="nav_icons">
-          <div class="nav_icon">
-            <img src="../assets/img/icon_bestiario.png" alt="Bestiário" class="nav_icon_img" />
-            <span>Bestiário</span>
-          </div>
-          <div class="nav_icon">
-            <img src="../assets/img/icon_pergaminhos.png" alt="Pergaminhos" class="nav_icon_img" />
-            <span>Pergaminhos</span>
-          </div>
-          <div class="nav_icon">
-            <img src="../assets/img/icon_lendario.png" alt="Lendário" class="nav_icon_img" />
-            <span>Lendário</span>
-          </div>
-          <div class="nav_icon">
-            <img src="../assets/img/icon_perfil.png" alt="Perfil" class="nav_icon_img" />
-            <span>Perfil</span>
-          </div>
-        </div>
-        <button class="btn_nav btn_avancar" onclick="irParaStage(3)">Avançar</button>
+        <div class="scroll_rolo scroll_rolo_bottom"><div class="scroll_rolo_faixa"></div></div>
       </div>
 
     </section>
@@ -180,52 +127,56 @@
     <!-- ===================== STAGE 3: FOGUEIRA ===================== -->
     <section class="stage" id="stage3">
 
-      <!-- Conteúdo da fogueira -->
       <div class="fogueira_section">
         <h2 class="section_title">A Fogueira</h2>
-
         <p class="section_desc">
           Você mal acaba de ler a mensagem e o pergaminho se incendeia, bem diante de
           seus olhos, como mágica uma fogueira surge sobre a pedra, tudo aconteceu tão
           depressa que as últimas palavras não puderam ser lidas.
         </p>
-
         <div class="fogueira_img_container">
-          <img src="burningdown.png" alt="Fogueira" class="fogueira_img" />
+          <img src="../assets/img/burningdown.png" alt="Fogueira" class="fogueira_img" />
         </div>
-
         <button class="button_fogueira">Sentar-se próximo à fogueira</button>
-      </div>
-
-      <!-- NAVEGAÇÃO INFERIOR -->
-      <div class="bottom_nav">
-        <button class="btn_nav btn_voltar" onclick="irParaStage(2)">Voltar</button>
-        <div class="nav_icons">
-          <div class="nav_icon">
-            <img src="../assets/img/icon_bestiario.png" alt="Bestiário" class="nav_icon_img" />
-            <span>Bestiário</span>
-          </div>
-          <div class="nav_icon">
-            <img src="../assets/img/icon_pergaminhos.png" alt="Pergaminhos" class="nav_icon_img" />
-            <span>Pergaminhos</span>
-          </div>
-          <div class="nav_icon active">
-            <img src="../assets/img/icon_lendario.png" alt="Lendário" class="nav_icon_img" />
-            <span>Lendário</span>
-          </div>
-          <div class="nav_icon">
-            <img src="../assets/img/icon_perfil.png" alt="Perfil" class="nav_icon_img" />
-            <span>Perfil</span>
-          </div>
-        </div>
-        <button class="btn_nav btn_avancar" onclick="irParaStage(4)">Avançar</button>
       </div>
 
     </section>
 
   </main>
 
-  <!-- RODAPÉ -->
+  <!-- ===================== NAVEGAÇÃO INFERIOR — única e permanente ===================== -->
+  <nav class="bottom_nav" id="bottomNav" aria-label="Navegação do capítulo">
+
+    <button class="btn_nav btn_voltar" id="btnVoltar" onclick="navVoltar()">Voltar</button>
+
+    <div class="nav_icons">
+      <!--
+        data-icon   → identificador usado pelo JS para bloquear/desbloquear
+        Ícones sem classe extra começam desbloqueados se estiverem em ICONES_INICIAIS_DESBLOQUEADOS,
+        caso contrário recebem a classe "travado" automaticamente na inicialização.
+      -->
+      <button class="nav_icon" data-icon="desafio" onclick="clicarIcone(this)" aria-label="Desafio">
+        <img src="../assets/img/icon_desafio.png" alt="" class="nav_icon_img" />
+        <span>Desafio</span>
+      </button>
+      <button class="nav_icon" data-icon="progresso" onclick="clicarIcone(this)" aria-label="Progresso">
+        <img src="../assets/img/icon_progresso.png" alt="" class="nav_icon_img" />
+        <span>Progresso</span>
+      </button>
+      <button class="nav_icon" data-icon="artefatos" onclick="clicarIcone(this)" aria-label="Artefatos">
+        <img src="../assets/img/icon_artefatos.png" alt="" class="nav_icon_img" />
+        <span>Artefatos</span>
+      </button>
+      <button class="nav_icon" data-icon="perfil" onclick="clicarIcone(this)" aria-label="Perfil">
+        <img src="../assets/img/icon_perfil.png" alt="" class="nav_icon_img" />
+        <span>Perfil</span>
+      </button>
+    </div>
+
+    <button class="btn_nav btn_avancar" id="btnAvancar" onclick="navAvancar()">Avançar</button>
+
+  </nav>
+
   <footer>
     <div class="footer_conteudo">
       <p>&copy; 2026 Scrum Dungeon - Todos os direitos reservados.</p>
@@ -235,83 +186,7 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
-  <script>
-
-    /* ===================================================
-      DADOS DOS PILARES
-    =================================================== */
-    const pilaresData = [
-      {
-        titulo: "Transparência",
-        texto: "Aspectos importantes do processo devem estar visíveis a todos os envolvidos, promovendo uma compreensão comum, confiança e comunicação aberta"
-      },
-      {
-        titulo: "Inspeção",
-        texto: "O progresso, produtos e processos devem ser inspecionados frequentemente para detectar variações ou problemas indesejados."
-      },
-      {
-        titulo: "Adaptação",
-        texto: "Se um aspecto do processo desviar do aceitável, o ajuste deve ser feito o mais rápido possível para minimizar desvios futuros."
-      }
-    ];
-
-    const pilaresLidos = new Set();
-
-    /* ===================================================
-      NAVEGAÇÃO ENTRE STAGES
-    =================================================== */
-    function irParaStage(n) {
-      document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-      const destino = document.getElementById('stage' + n);
-      if (destino) {
-        destino.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    /* ===================================================
-      PILARES — abre card do pilar clicado
-    =================================================== */
-    function abrirPilar(el) {
-      const idx = parseInt(el.dataset.index);
-      const dados = pilaresData[idx];
-
-      document.getElementById('pilarCardTitulo').textContent = dados.titulo;
-      document.getElementById('pilarCardTexto').textContent = dados.texto;
-
-      const card = document.getElementById('pilarCard');
-      card.style.display = 'block';
-
-      // Destaca pilar selecionado
-      document.querySelectorAll('.pilar').forEach(p => p.classList.remove('selecionado'));
-      el.classList.add('selecionado');
-
-      // Registra leitura
-      pilaresLidos.add(idx);
-
-      // Exibe botão avançar apenas após ler os 3 pilares
-      if (pilaresLidos.size === 3) {
-        document.getElementById('btnAvancarStage1').style.display = 'inline-flex';
-      }
-    }
-
-    /* ===================================================
-      PERGAMINHO — abre/fecha o rolo
-    =================================================== */
-    function lerPergaminho() {
-      const expandido = document.getElementById('pergaminhoExpandido');
-      const btn = document.getElementById('lerPergaminhoBtn');
-
-      if (expandido.style.display === 'none') {
-        expandido.style.display = 'block';
-        btn.textContent = '"Fechar pergaminho..."';
-      } else {
-        expandido.style.display = 'none';
-        btn.textContent = '"Ler pergaminho..."';
-      }
-    }
-
-  </script>
+  <script src="../assets/js/capitulo1.js"></script>
 </body>
 
 </html>
