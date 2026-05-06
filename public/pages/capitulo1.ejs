@@ -144,46 +144,11 @@
 
   </main>
 
+  <!-- ===================== FOOTER ===================== -->
+  <%- include('partials/footer') %>
+
   <!-- ===================== NAVEGAÇÃO INFERIOR — única e permanente ===================== -->
-  <nav class="bottom_nav" id="bottomNav" aria-label="Navegação do capítulo">
-
-    <button class="btn_nav btn_voltar" id="btnVoltar" onclick="navVoltar()">Voltar</button>
-
-    <div class="nav_icons">
-      <!--
-        data-icon   → identificador usado pelo JS para bloquear/desbloquear
-        Ícones sem classe extra começam desbloqueados se estiverem em ICONES_INICIAIS_DESBLOQUEADOS,
-        caso contrário recebem a classe "travado" automaticamente na inicialização.
-      -->
-      <button class="nav_icon" data-icon="desafio" onclick="clicarIcone(this)" aria-label="Desafio">
-        <img src="../assets/img/icon_desafio.png" alt="" class="nav_icon_img" />
-        <span>Desafio</span>
-      </button>
-      <button class="nav_icon" data-icon="progresso" onclick="clicarIcone(this)" aria-label="Progresso">
-        <img src="../assets/img/icon_progresso.png" alt="" class="nav_icon_img" />
-        <span>Progresso</span>
-      </button>
-      <button class="nav_icon" data-icon="artefatos" onclick="clicarIcone(this)" aria-label="Artefatos">
-        <img src="../assets/img/icon_artefatos.png" alt="" class="nav_icon_img" />
-        <span>Artefatos</span>
-      </button>
-      <button class="nav_icon" data-icon="perfil" onclick="clicarIcone(this)" aria-label="Perfil">
-        <img src="../assets/img/icon_perfil.png" alt="" class="nav_icon_img" />
-        <span>Perfil</span>
-      </button>
-    </div>
-
-    <button class="btn_nav btn_avancar" id="btnAvancar" onclick="navAvancar()">Avançar</button>
-
-  </nav>
-
-  <footer>
-    <div class="footer_conteudo">
-      <p>&copy; 2026 Scrum Dungeon - Todos os direitos reservados.</p>
-      <img src="../assets/img/logo_grupo_octopuscode.png" alt="Logo do Grupo OctopusCode" class="logo_footer" />
-      <p>&lt; OCTOPUS_CODE &gt;</p>
-    </div>
-  </footer>
+  <%- include('partials/navegacao_inferior') %>
 
   <script src="../assets/js/main.js"></script>
   <script src="../assets/js/capitulo1.js"></script>

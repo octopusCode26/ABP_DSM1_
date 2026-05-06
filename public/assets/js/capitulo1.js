@@ -2,9 +2,6 @@
 /* ============================================================
 ★ CONFIGURAÇÃO DE DESBLOQUEIO DOS ÍCONES ★
 ─────────────────────────────────────────
-ICONES_INICIAIS_DESBLOQUEADOS
-    → Ícones disponíveis desde o início, em qualquer stage.
-
 DESBLOQUEAR_AO_ENTRAR_STAGE
     → Chave = número da stage.
     Valor  = array de ícones desbloqueados ao entrar nessa stage.
