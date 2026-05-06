@@ -8,6 +8,7 @@
     --cor-marrom: #473014;
     --cor-azul: #1a3a5c;
     --sombra-forte: 0 24px 70px rgba(0, 0, 0, 0.55);
+    --altura-header: clamp(3rem, 8vh, 4rem);
 }
 
 /* ================= INTRODUCAO ================= */
@@ -15,7 +16,8 @@
     position: relative;
     display: grid;
     place-items: center;
-    min-height: calc(100svh - clamp(3rem, 8vh, 4rem));
+    min-height: calc(100vh - var(--altura-header));
+    min-height: calc(100dvh - var(--altura-header));
     padding: clamp(2rem, 5vw, 5rem) clamp(1rem, 4vw, 4rem);
     background-image:
         linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.46)),
@@ -23,6 +25,22 @@
     background-size: cover;
     background-position: center;
     isolation: isolate;
+}
+
+.introducao::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: clamp(88px, 12vw, 170px);
+    background: linear-gradient(
+        180deg,
+        rgba(18, 18, 20, 0) 0%,
+        rgba(18, 18, 20, 0.2) 42%,
+        rgba(18, 18, 20, 0.62) 76%,
+        #151516 100%
+    );
+    pointer-events: none;
+    z-index: 0;
 }
 
 .area_introducao {
@@ -135,7 +153,6 @@
 .conteudo {
     position: relative;
     background:
-        radial-gradient(circle at 12% 8%, rgba(244, 208, 63, 0.08), transparent 26rem),
         linear-gradient(180deg, #151516 0%, var(--cor-fundo) 100%);
     overflow: hidden;
 }
@@ -206,58 +223,73 @@
     inset: 0;
     z-index: 99;
     display: none;
-    background: rgba(0, 0, 0, 0.58);
-    backdrop-filter: blur(2px);
+    background:
+        linear-gradient(180deg, rgba(9, 7, 5, 0.62), rgba(9, 7, 5, 0.78));
+    backdrop-filter: blur(4px);
 }
 
 .painel_auth {
     position: fixed;
-    top: 50%;
-    right: auto;
-    bottom: auto;
-    left: 50%;
+    top: calc(var(--altura-header) + 1rem);
+    right: 1rem;
+    bottom: 1rem;
+    left: auto;
     z-index: 100;
     display: none;
-    width: min(560px, calc(100vw - 2rem));
-    max-height: min(86svh, 760px);
+    width: min(680px, calc(100vw - 2rem));
+    min-width: 320px;
+    height: auto;
     overflow: hidden;
-    background-color: var(--cor-pergaminho);
-    border: 4px solid var(--cor-pergaminho-escuro);
-    border-radius: 16px;
-    box-shadow: var(--sombra-forte);
-    transform: translate(-50%, -50%);
-    animation: animacao_modal_auth 0.2s ease-out;
+    background:
+        linear-gradient(180deg, rgba(255, 249, 235, 0.2), transparent 22%),
+        linear-gradient(180deg, #f1dfb6 0%, var(--cor-pergaminho) 100%);
+    border: 1px solid rgba(71, 48, 20, 0.18);
+    border-radius: 22px;
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: none;
+    animation: animacao_modal_auth 0.24s ease-out;
 }
 
 @keyframes animacao_modal_auth {
     from {
         opacity: 0;
-        transform: translate(-50%, calc(-50% + 1rem));
+        transform: translateX(1.5rem);
     }
 
     to {
         opacity: 1;
-        transform: translate(-50%, -50%);
+        transform: translateX(0);
     }
 }
 
 .painel_auth_conteudo {
     position: relative;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    padding: clamp(2rem, 5vw, 3rem);
+    padding: clamp(1.5rem, 3vw, 2rem);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
 }
 
 .conteudo_aba {
+    display: flex;
     flex-direction: column;
-    gap: clamp(1rem, 3vw, 1.35rem);
+    gap: clamp(1rem, 2.2vw, 1.25rem);
+    width: min(100%, 470px);
+    margin: 0 auto;
+    padding: clamp(1.75rem, 4vw, 2.5rem) 0 0;
 }
 
 .conteudo_aba h2 {
     margin: 0;
     color: var(--cor-marrom);
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    line-height: 1.05;
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    line-height: 1;
+    text-align: center;
     text-transform: uppercase;
 }
 
@@ -266,27 +298,58 @@
 .campos_cadastro {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
+}
+
+#formCadastro {
+    gap: 0.95rem;
+}
+
+#formCadastro form {
+    gap: 0.85rem;
+}
+
+#formCadastro .subtitulo_formulario {
+    max-width: 44ch;
+    margin-inline: auto;
+}
+
+#formCadastro .campos_cadastro {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem 0.9rem;
+}
+
+#formCadastro .campos_cadastro .campo_formulario:first-child,
+#formCadastro .campos_cadastro .campo_formulario:nth-child(2),
+#formCadastro .campos_cadastro .campo_formulario:nth-child(3) {
+    grid-column: 1 / -1;
+}
+
+#formCadastro .botao_primario {
+    margin-top: 0.15rem;
 }
 
 .subtitulo_formulario {
     margin: 0;
     color: var(--cor-marrom);
     font-family: 'Source Serif 4', serif;
-    font-size: clamp(1rem, 2.7vw, 1.25rem);
-    line-height: 1.45;
+    font-size: clamp(0.98rem, 1.8vw, 1.15rem);
+    line-height: 1.5;
+    text-align: center;
+    text-wrap: balance;
 }
 
 .campo_formulario {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
 }
 
 .campo_formulario label {
     color: var(--cor-marrom);
     font-family: 'Source Serif 4', serif;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -294,12 +357,12 @@
 
 .campo_formulario input {
     width: 100%;
-    min-height: 2.9rem;
-    padding: 0.75rem 1rem 0.75rem 2.6rem;
+    min-height: 3rem;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
     color: var(--cor-marrom);
-    background-color: var(--cor-pergaminho-escuro);
-    border: 2px solid transparent;
-    border-radius: 6px;
+    background-color: rgba(217, 189, 133, 0.72);
+    border: 1px solid rgba(71, 48, 20, 0.12);
+    border-radius: 10px;
     font-family: 'Source Serif 4', serif;
     font-size: 1rem;
     transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
@@ -352,7 +415,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem 1rem;
+    gap: 0.85rem 1rem;
+    margin-top: 0.15rem;
 }
 
 .opcao_checkbox {
@@ -406,9 +470,9 @@
 
 .botao_primario {
     width: 100%;
-    min-height: 3.25rem;
-    padding: 0.75rem 1.5rem;
-    margin-top: 0.35rem;
+    min-height: 3.35rem;
+    padding: 0.85rem 1.5rem;
+    margin-top: 0.45rem;
     color: var(--cor-pergaminho);
     background-color: var(--cor-azul);
     border: 0;
@@ -437,13 +501,14 @@
     justify-content: center;
     align-items: center;
     gap: 0.35rem 0.5rem;
-    margin-top: clamp(1rem, 3vw, 1.5rem);
-    padding: 0.85rem 1rem;
+    margin-top: auto;
+    padding: 0.95rem 1rem;
     color: var(--cor-marrom);
-    background-color: var(--cor-pergaminho-escuro);
-    border-radius: 12px;
+    background-color: rgba(217, 189, 133, 0.78);
+    border: 1px solid rgba(71, 48, 20, 0.08);
+    border-radius: 14px;
     font-family: 'Source Serif 4', serif;
-    font-size: clamp(1rem, 2.7vw, 1.2rem);
+    font-size: clamp(0.98rem, 1.7vw, 1.08rem);
     text-align: center;
 }
 
@@ -459,37 +524,333 @@
 }
 
 .botao_fechar {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    z-index: 2;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 4;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    padding: 0.2rem;
-    background-color: rgba(217, 189, 133, 0.55);
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: -0.6rem;
+    padding: 0.3rem;
+    background: none;
     border: 0;
-    border-radius: 999px;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.1s ease-in-out;
 }
 
 .botao_fechar img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: filter 0.1s ease, transform 0.1s ease;
 }
 
-.botao_fechar:hover,
-.botao_fechar:focus-visible {
-    background-color: rgba(217, 189, 133, 0.95);
-    transform: translateX(-2px);
+.botao_fechar:hover {
+    transform: scale(1.08);
     outline: none;
 }
 
+.botao_fechar:hover img {
+    filter: brightness(1.18);
+}
+
 /* ================= RESPONSIVO ================= */
+@media (min-width: 1440px) {
+    .introducao {
+        padding: 3.5rem 3rem 4.5rem;
+        background-position: center top;
+    }
+
+    .area_introducao {
+        width: min(1320px, 100%);
+        gap: 1.75rem;
+        padding: 2.5rem 3rem;
+        border-radius: 28px;
+        background: rgba(12, 9, 6, 0.32);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .logo_introducao {
+        width: min(100%, 340px);
+    }
+
+    .introducao_conteudo {
+        gap: 1.2rem;
+    }
+
+    .introducao_conteudo h1 {
+        max-width: 14ch;
+        font-size: clamp(3.4rem, 4.4vw, 4.8rem);
+    }
+
+    .introducao_conteudo p {
+        max-width: 70ch;
+        font-size: clamp(1.2rem, 1.5vw, 1.55rem);
+        line-height: 1.6;
+    }
+
+    .botoes {
+        width: min(720px, 100%);
+        gap: 1.1rem;
+    }
+
+    .button_novo_cadastro,
+    .button_login_cadastro {
+        min-height: 3.6rem;
+        font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+    }
+
+    .span {
+        font-size: 1rem;
+    }
+
+    .area_conteudo {
+        width: min(1320px, 100%);
+        padding: 4rem 2.5rem 6rem;
+    }
+
+    .titulo_conteudo {
+        margin-bottom: 2.75rem;
+    }
+
+    .titulo_conteudo h2 {
+        font-size: clamp(2.6rem, 3vw, 3.5rem);
+        outline-offset: 9px;
+    }
+
+    .texto_conteudo {
+        padding: 2.5rem 2.75rem;
+        border-radius: 18px;
+    }
+
+    .texto_conteudo p {
+        font-size: clamp(1.16rem, 1.35vw, 1.42rem);
+        line-height: 1.8;
+    }
+
+    .corvo_sobre_projeto {
+        width: clamp(250px, 22vw, 360px);
+        max-width: 30%;
+        margin-left: 2.5rem;
+    }
+
+    .painel_auth {
+        top: calc(var(--altura-header) + 1.25rem);
+        right: 1.5rem;
+        bottom: 1.5rem;
+        width: min(720px, calc(100vw - 3rem));
+        height: auto;
+        border-radius: 24px;
+    }
+
+    .painel_auth_conteudo {
+        padding: 1.8rem 2.5rem 1.9rem;
+    }
+}
+
+@media (min-width: 1800px) {
+    .introducao {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    .area_introducao,
+    .area_conteudo {
+        width: min(1440px, 100%);
+    }
+
+    .introducao_conteudo h1 {
+        font-size: clamp(3.8rem, 4.2vw, 5.2rem);
+    }
+
+    .introducao_conteudo p {
+        max-width: 72ch;
+        font-size: clamp(1.24rem, 1.3vw, 1.6rem);
+    }
+
+    .texto_conteudo p {
+        font-size: clamp(1.2rem, 1.2vw, 1.48rem);
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 641px) {
+    .introducao {
+        padding: 1.75rem 1.5rem 2.5rem;
+    }
+
+    .area_introducao {
+        width: min(960px, 100%);
+        gap: 1.25rem;
+        padding: 1.5rem 1.75rem;
+        border-radius: 20px;
+    }
+
+    .logo_introducao {
+        width: min(100%, 250px);
+    }
+
+    .introducao_conteudo {
+        gap: 0.9rem;
+    }
+
+    .introducao_conteudo h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .introducao_conteudo p {
+        font-size: clamp(1rem, 1.8vw, 1.25rem);
+        line-height: 1.45;
+    }
+
+    .botoes {
+        width: min(560px, 100%);
+        gap: 0.85rem;
+    }
+
+    .button_novo_cadastro,
+    .button_login_cadastro {
+        min-height: 3rem;
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+    }
+
+    .area_conteudo {
+        padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .titulo_conteudo {
+        margin-bottom: 2rem;
+    }
+
+    .titulo_conteudo h2 {
+        font-size: clamp(1.85rem, 3vw, 2.6rem);
+    }
+
+    .texto_conteudo {
+        padding: 1.75rem;
+    }
+
+    .texto_conteudo p {
+        font-size: clamp(1rem, 1.65vw, 1.22rem);
+        line-height: 1.58;
+    }
+
+    .corvo_sobre_projeto {
+        width: clamp(190px, 24vw, 280px);
+        max-width: 34%;
+    }
+
+    .painel_auth {
+        top: calc(var(--altura-header) + 0.9rem);
+        right: 0.9rem;
+        bottom: 0.9rem;
+        width: min(600px, calc(100vw - 1.8rem));
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .painel_auth_conteudo {
+        padding: 1.4rem 1.4rem 1.3rem;
+    }
+
+    .conteudo_aba {
+        width: min(100%, 430px);
+        padding-top: 1.55rem;
+    }
+
+    .subtitulo_formulario {
+        font-size: clamp(0.95rem, 1.45vw, 1.04rem);
+    }
+}
+
+@media (max-height: 820px) and (min-width: 641px) {
+    .introducao {
+        padding-top: 1.25rem;
+        padding-bottom: 1.75rem;
+    }
+
+    .area_introducao {
+        gap: 1rem;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .logo_introducao {
+        width: min(100%, 210px);
+    }
+
+    .introducao_conteudo h1 {
+        font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    }
+
+    .introducao_conteudo p {
+        font-size: clamp(0.98rem, 1.55vw, 1.12rem);
+        line-height: 1.38;
+    }
+
+    .span {
+        font-size: 0.88rem;
+    }
+
+    .painel_auth {
+        top: 50%;
+        right: auto;
+        height: min(90dvh, 660px);
+        bottom: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: animacao_modal_auth_compacto 0.22s ease-out;
+    }
+
+    @keyframes animacao_modal_auth_compacto {
+        from {
+            opacity: 0;
+            transform: translate(-50%, calc(-50% + 1rem));
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .painel_auth_conteudo {
+        padding: 1.2rem 1.2rem 1rem;
+    }
+
+    .conteudo_aba h2 {
+        font-size: clamp(1.55rem, 2.6vw, 2rem);
+    }
+
+    .subtitulo_formulario {
+        font-size: clamp(0.95rem, 1.6vw, 1.08rem);
+        line-height: 1.35;
+    }
+
+    #formCadastro .campos_cadastro {
+        gap: 0.7rem 0.8rem;
+    }
+
+    .campo_formulario input {
+        min-height: 2.65rem;
+        padding-top: 0.72rem;
+        padding-bottom: 0.72rem;
+    }
+
+    .botao_primario {
+        min-height: 2.95rem;
+        font-size: clamp(1.1rem, 2vw, 1.45rem);
+    }
+
+    .rodape_painel {
+        margin-top: 0.85rem;
+        font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    }
+}
+
 @media (max-width: 640px) {
     .introducao {
         align-items: start;
@@ -542,11 +903,13 @@
     }
 
     .painel_auth {
-        width: 100vw;
-        max-height: 100svh;
+        width: min(100vw, 100%);
+        height: 95svh;
+        min-width: 0;
         border-right: 0;
         border-left: 0;
-        border-radius: 16px 16px 0 0;
+        border-bottom: 0;
+        border-radius: 22px 22px 0 0;
         top: auto;
         bottom: 0;
         left: 0;
@@ -556,7 +919,44 @@
 
     .painel_auth_conteudo {
         max-height: 100svh;
-        padding: 2.75rem 1rem 1.25rem;
+        padding: 1rem 1rem 1.1rem;
+    }
+
+    .conteudo_aba {
+        width: 100%;
+        padding-top: 1.25rem;
+    }
+
+    #formCadastro .subtitulo_formulario {
+        max-width: none;
+        margin-inline: 0;
+    }
+
+    #formCadastro .campos_cadastro {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    #formCadastro .campos_cadastro .campo_formulario:first-child,
+    #formCadastro .campos_cadastro .campo_formulario:nth-child(2)
+    #formCadastro .campos_cadastro .campo_formulario:nth-child(3) {
+        grid-column: auto;
+    }
+
+    .conteudo_aba h2,
+    .subtitulo_formulario {
+        text-align: left;
+        text-wrap: pretty;
+    }
+
+    .botao_fechar {
+        width: 2.35rem;
+        height: 2.35rem;
+        margin-bottom: 0;
+    }
+
+    .rodape_painel {
+        margin-top: 1rem;
     }
 
     @keyframes animacao_sheet_auth {
@@ -573,6 +973,15 @@
 }
 
 @media (max-width: 420px) {
+    .painel_auth {
+        border-radius: 18px 18px 0 0;
+    }
+
+    .painel_auth_conteudo {
+        padding-left: 0.85rem;
+        padding-right: 0.85rem;
+    }
+
     .titulo_conteudo h2 {
         outline-offset: 5px;
     }
@@ -580,5 +989,15 @@
     .esqueci_senha_inline {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .campo_formulario input {
+        min-height: 2.85rem;
+        font-size: 0.96rem;
+    }
+
+    .rodape_painel {
+        padding: 0.85rem 0.8rem;
+        font-size: 0.95rem;
     }
 }
