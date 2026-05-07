@@ -18,5 +18,16 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/octopusCode26/ABP_DSM1_.git"
+  },
+  "bugs": {
+    "url": "https://github.com/octopusCode26/ABP_DSM1_/issues"
+  },
+  "homepage": "https://github.com/octopusCode26/ABP_DSM1_#readme"
 }

@@ -1,7 +1,7 @@
 const { verifyToken } = require("../utils/jwt");
 const { findUsuarioById } = require("../repositories/usuarios.repositories");
 
-async function authMiddlewares(req, res, next) {
+async function authMiddleware(req, res, next) {
     const authorization = req.headers.authorization;
 
     if ( !authorization ){
@@ -31,6 +31,6 @@ async function authMiddlewares(req, res, next) {
     }
 }
 
-module.exports = authMiddlewares;
+module.exports = authMiddleware;
 
 { id_usuario:38 };
