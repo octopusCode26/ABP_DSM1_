@@ -1,13 +1,13 @@
 // importando os respectivos arquivos que está dentro de um json.
 const { Router } = require("express");
-const { findUsuarioById } = require("../repositories/usuarios.repositories");
-const {
- createUsuarioService,
- updateUsuarioCpfService,
- updateUsuarioNomeService,
- updateUsuarioEmailService,
- updateUsuarioSenhaService
-} = require("../service/usuarios.service");
+const authMiddleware = require("../middlewares/auth.middleware");
+const { createUsuario, 
+        updateUsuarioCpf, 
+        findUsuarioById, 
+        updateUsuarioNome, 
+        updateUsuarioEmail,
+        updateUsuarioSenha
+} = require("../repositories/usuarios.repositories");
 
 // importando as respectivas bibliotecas.
 const router = Router();
@@ -32,7 +32,7 @@ router.post("/cadastro", async function (req, res) {
 
   // verifica se já existe alguém com os dados informados.
   try {
-    const result = await createUsuarioService(nome, email, cpf, senha);
+    const result = await createUsuario(nome, email, cpf, senha);
 
     res.status(201).json(result);
   } catch (e) {
@@ -56,8 +56,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/cpf \
   -d '{"cpf":"11122233344"}'
 */
 
-router.patch("/cpf", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/cpf", authMiddleware, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })
@@ -69,7 +69,7 @@ router.patch("/cpf", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioCpfService(idUsuario, cpf);
+    const result = await updateUsuarioCpf(idUsuario, cpf);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -97,8 +97,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -d '{"nome":"Maria"}'
 */
 
-router.patch("/nome", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/nome", authMiddleware, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   const { nome } = req.body;
   if ( !nome ) {
@@ -106,7 +106,7 @@ router.patch("/nome", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioNomeService(idUsuario, nome);
+    const result = await updateUsuarioNome(idUsuario, nome);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -129,8 +129,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/email \
   -d '{"email":"ana.clara@teste.com"}'
 */
 
-router.patch("/email", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario;
+router.patch("/email", authMiddleware, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario;
 
   const { email } = req.body;
   if ( !email ) {
@@ -138,7 +138,7 @@ router.patch("/email", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioEmailService(idUsuario, email);
+    const result = await updateUsuarioEmail(idUsuario, email);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }
@@ -166,8 +166,8 @@ curl -X PATCH http://localhost:3000/api/usuarios/senha \
   -d '{"senha":"123aaa"}'
 */
 
-router.patch("/senha", async function (req, res) {
-  const idUsuario = req.usuario.idUsuario
+router.patch("/senha", authMiddleware, async function (req, res) {
+  const idUsuario = req.usuario.id_usuario
 
   if (!idUsuario) {
     return res.status(400).json({ message: "id_usuario inválido" })
@@ -185,7 +185,7 @@ router.patch("/senha", async function (req, res) {
   }
 
   try {
-    const result = await updateUsuarioSenhaService(idUsuario, senha);
+    const result = await updateUsuarioSenha(idUsuario, senha);
     if (!result) {
       return res.status(404).json({ message: "usuário não encontrado" })
     }

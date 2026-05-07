@@ -1,7 +1,7 @@
 //importando funções
 
 const { Router } = require("express");
-const authMiddlewares = require("../middlewares/auth.middlewares");
+const authMiddleware = require("../middlewares/auth.middleware");
 const router = Router();
 const {
   findProximaQuestaoByUsuario,
@@ -11,7 +11,10 @@ const {
   usuarioConcluiuModuloAtual,
   findModuloAtualByUsuario,
   findOutroGrupoAleatorio,
+  findProximoModuloByUsuario,
   updateProximaTentativa,
+  updateProximoModulo,
+  findModulosRespondidosByUsuario
 } = require("../repositories/questoes.repositories");
 
 /*
@@ -19,7 +22,7 @@ curl -X GET http://localhost:3000/api/questoes/proxima-questao \
 -H "Authorization: Bearer SEU_TOKEN"
 */
 
-router.get("/proxima-questao", authMiddlewares, async function (req, res) {
+router.get("/proxima-questao", authMiddleware, async function (req, res) {
   try {
     const questao = await findProximaQuestaoByUsuario(req.usuario.id_usuario);
 
@@ -29,7 +32,10 @@ router.get("/proxima-questao", authMiddlewares, async function (req, res) {
         .json({ message: "nenhuma questão pendente encontrada" });
     }
 
-    return res.status(200).json(questao);
+     return res.status(200).json({ 
+      ...questao, 
+      imagem: questao.imagem ? `/imagens/questoes/${questao.imagem}` : null, 
+    }); 
   } catch (e) {
     return res.status(500).json({
       message: "erro interno do servidor",
@@ -45,7 +51,7 @@ curl -X POST http://localhost:3000/api/questoes/responder \
 */
 
 //Sistema de encontrar questões, registrar e checar respostas do usuário
-router.post("/responder", authMiddlewares, async function (req, res) {
+router.post("/responder", authMiddleware, async function (req, res) {
   try {
     console.log("body", req.body);
     const { id_exame, id_questao, resposta } = req.body;
@@ -102,7 +108,7 @@ router.post("/responder", authMiddlewares, async function (req, res) {
 curl -X PATCH http://localhost:3000/api/questoes/proxima-tentativa \ 
   -H "Authorization: Bearer SEU_TOKEN" 
 */
-router.patch("/proxima-tentativa", authMiddlewares, async function (req, res) {
+router.patch("/proxima-tentativa", authMiddleware, async function (req, res) {
   try {
     const concluido = await usuarioConcluiuModuloAtual(req.usuario.id_usuario);
     if (!concluido) {
@@ -151,6 +157,80 @@ router.patch("/proxima-tentativa", authMiddlewares, async function (req, res) {
       message: "erro interno do servidor",
     });
   }
+});
+
+/* Implementando progressão de módulos
+curl -X PATCH http://localhost:3000/api/questoes/proximo-modulo \ 
+  -H "Authorization: Bearer SEU_TOKEN" 
+*/ 
+router.patch("/proximo-modulo", authMiddleware, async function (req, res) { 
+  try { 
+    const concluido = await usuarioConcluiuModuloAtual(req.usuario.id_usuario); 
+    if (!concluido) { 
+      return res.status(409).json({ 
+        message: "você ainda não concluiu todas as questões do módulo atual", 
+      }); 
+    } 
+
+    console.log("concuido", concluido);
+ 
+    const moduloAtual = await findModuloAtualByUsuario(req.usuario.id_usuario); 
+    if (!moduloAtual) { 
+      return res.status(404).json({ 
+        message: "módulo atual não encontrado", 
+      }); 
+    } 
+
+    console.log ("moduloAtual", moduloAtual);
+ 
+    const modulo = await findProximoModuloByUsuario(req.usuario.id_usuario); 
+    if (!modulo) { 
+      return res.status(404).json({ 
+        message: "você concluiu todos os módulos",
+            }); 
+    } 
+ 
+    console.log ("modulo", modulo);
+
+    const grupo = await findOutroGrupoAleatorio(req.usuario.id_usuario, modulo); 
+    if( !grupo ){ 
+      return res.status(404).json({ 
+        message: "nenhum grupo disponível para o próximo módulo", 
+      }); 
+    } 
+ 
+console.log ("grupo", grupo);
+
+    const exame = await updateProximoModulo(moduloAtual.id_exame, modulo, grupo, 
+1); 
+    if (!exame) { 
+      return res.status(404).json({ 
+        message: "exame não encontrado para atualização", 
+      }); 
+    } 
+ 
+    return res.status(200).json(exame); 
+  } catch (e) { 
+    return res.status(500).json({ 
+      message: "erro interno do servidor", 
+    }); 
+  } 
+}); 
+
+/* Acompanhar progresso
+curl -X GET http://localhost:3000/api/questoes/modulos-respondidos \ 
+  -H "Authorization: Bearer SEU_TOKEN" 
+*/ 
+router.get("/modulos-respondidos", authMiddleware, async function (req, res) { 
+  try {
+   const modulos = await findModulosRespondidosByUsuario(req.usuario.id_usuario); 
+ 
+    return res.status(200).json(modulos); 
+  } catch (e) { 
+    return res.status(500).json({ 
+      message: "erro interno do servidor", 
+    }); 
+  } 
 });
 
 // exporta o "router" para outros arquivos.

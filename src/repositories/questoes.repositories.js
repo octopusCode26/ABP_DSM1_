@@ -210,5 +210,8 @@ module.exports = {
   usuarioConcluiuModuloAtual,
   findModuloAtualByUsuario,
   findOutroGrupoAleatorio,
-  updateProximaTentativa
+  updateProximaTentativa,
+  findProximoModuloByUsuario,
+  updateProximoModulo,
+  findModulosRespondidosByUsuario
 };
