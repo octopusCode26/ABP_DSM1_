@@ -1,5 +1,5 @@
-// MANTER NESTE CÓDIGO SOMENTE FUNÇÕES E VARIÁVEIS QUE SÃO USADAS EM MAIS DE UMA PÁGINA,
-// CASO CONTRÁRIO, COLOQUE O CÓDIGO NA RESPECTIVA PÁGINA HTML
+// MANTER NESTE Cï¿½DIGO SOMENTE FUNï¿½ï¿½ES E VARIï¿½VEIS QUE Sï¿½O USADAS EM MAIS DE UMA Pï¿½GINA,
+// CASO CONTRï¿½RIO, COLOQUE O Cï¿½DIGO NA RESPECTIVA Pï¿½GINA HTML
 
 (function () {
     const menuToggle = document.getElementById('menuToggle');
@@ -28,3 +28,18 @@
         }
     });
 })();
+
+function mostrarAlerta(mensagem) {
+  const alerta = document.getElementById("custom-alert");
+  const texto = document.getElementById("custom-alert-message");
+
+  texto.innerText = mensagem;
+
+  alerta.classList.remove("hidden");
+}
+
+function fecharAlerta() {
+  document
+    .getElementById("custom-alert")
+    .classList.add("hidden");
+}

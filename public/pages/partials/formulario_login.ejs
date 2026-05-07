@@ -1,0 +1,48 @@
+<div class="conteudo_aba" id="formLogin">
+  <h2>Login</h2>
+  <p class="subtitulo_formulario">
+    Como é bom tê-lo de volta, seja bem-vindo! Suas tarefas foram preservadas
+    durante sua ausência. Deseja retomá-las?
+  </p>
+
+  <form action="/capitulo1" method="get">
+    <div class="campos_login">
+      <div class="campo_formulario">
+        <label for="loginCpf">CPF</label>
+        <input
+          type="text"
+          id="loginCpf"
+          placeholder="Insira seu CPF"
+          required
+        />
+      </div>
+
+      <div class="campo_formulario">
+        <label for="loginSenha">Senha</label>
+        <input
+          type="password"
+          id="loginSenha"
+          placeholder="Insira sua senha"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="esqueci_senha_inline">
+      <div class="opcao_checkbox">
+        <input type="checkbox" id="manterConectado" />
+        <label for="manterConectado">Manter conectado</label>
+      </div>
+      <a href="#" class="link_esqueceu">Esqueceu sua senha?</a>
+    </div>
+
+    <button type="submit" class="botao_primario">Entrar</button>
+  </form>
+
+  <p class="rodape_painel">
+    Não possui um cadastro?
+    <a href="#" class="link_trocar_aba" data-aba="cadastro" id="cadastreseaqui"
+      >Cadastre-se aqui</a
+    >
+  </p>
+</div>
