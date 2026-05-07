@@ -1,6 +1,6 @@
 // importando os respectivos arquivos que está dentro de um json.
 const { Router } = require("express");
-const authMiddlewares = require("../middlewares/auth.middlewares");
+const authMiddleware = require("../middlewares/auth.middleware");
 const { createUsuario, 
         updateUsuarioCpf, 
         findUsuarioById, 
@@ -56,7 +56,7 @@ curl -X PATCH http://localhost:3000/api/usuarios/cpf \
   -d '{"cpf":"11122233344"}'
 */
 
-router.patch("/cpf", authMiddlewares, async function (req, res) {
+router.patch("/cpf", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   if (!idUsuario) {
@@ -97,7 +97,7 @@ curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -d '{"nome":"Maria"}'
 */
 
-router.patch("/nome", authMiddlewares, async function (req, res) {
+router.patch("/nome", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   const { nome } = req.body;
@@ -129,7 +129,7 @@ curl -X PATCH http://localhost:3000/api/usuarios/email \
   -d '{"email":"ana.clara@teste.com"}'
 */
 
-router.patch("/email", authMiddlewares, async function (req, res) {
+router.patch("/email", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   const { email } = req.body;
@@ -166,7 +166,7 @@ curl -X PATCH http://localhost:3000/api/usuarios/senha \
   -d '{"senha":"123aaa"}'
 */
 
-router.patch("/senha", authMiddlewares, async function (req, res) {
+router.patch("/senha", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario
 
   if (!idUsuario) {

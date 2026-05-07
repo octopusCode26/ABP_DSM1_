@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const path = require("path");
 const router = require("./routes");
+
 // mostra o usuário e a senha no pgAdmin no terminal.
 console.log({
     user: process.env.POSTGRES_USER,
@@ -13,13 +14,24 @@ console.log({
 const PORT = process.env.PORT;
 const app = express();
 app.use(express.json());
+
 // caminhando esses arquivos para as respectivas pastas.
 const publicPath = path.join(__dirname, "..", "public");
 const pagesPath = path.join(publicPath, "pages");
 const assetsPath = path.join(publicPath, "assets");
+const imagensQuestoesPath = path.join( 
+  __dirname, 
+  "infra", 
+  "init", 
+  "seed-data", 
+  "imagens", 
+);
+
 // define como o site responde às requisições.
 app.use("/", express.static(pagesPath));
 app.use("/assets", express.static(assetsPath));
+app.use("/imagens/questoes", express.static(imagensQuestoesPath));
+
 app.use("/api", router);
 app.use(function (_req, res) {
     res.redirect("not-found.html")
@@ -27,3 +39,4 @@ app.use(function (_req, res) {
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
 });
+
