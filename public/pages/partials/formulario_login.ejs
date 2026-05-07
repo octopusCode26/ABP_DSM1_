@@ -12,7 +12,10 @@
         <input
           type="text"
           id="loginCpf"
-          placeholder="Insira seu CPF"
+          placeholder="Somente números"
+          minlength="11"
+          maxlength="11"
+          oninput="this.value = this.value.replace(/\D/g, '')"
           required
         />
       </div>

@@ -82,6 +82,11 @@ formCadastro.addEventListener('submit', async function (event) {
         return;
     }
 
+    if (cpf.length !== 11) {
+    alert('CPF deve ter exatamente 11 dígitos.');
+    return;
+}
+
     try {
         const response = await fetch('/api/usuarios/cadastro', {
             method: 'POST',
