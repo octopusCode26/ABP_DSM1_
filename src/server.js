@@ -18,28 +18,21 @@ const app = express();
 
 app.use(express.json());
 
-// CONFIGURAÇÃO DO EJS (ADICIONADO)
-app.set("view engine", "ejs"); // define o ejs como motor de template
-
 // caminhando esses arquivos para as respectivas pastas.
 const publicPath = path.join(__dirname, "..", "public");
 const pagesPath = path.join(publicPath, "pages");
 const assetsPath = path.join(publicPath, "assets");
-
-// DEFINE A PASTA DE VIEWS COMO public/pages (ADICIONADO)
-app.set("views", pagesPath);
+const imagensQuestoesPath = path.join( 
+  __dirname, 
+  "infra", 
+  "init", 
+  "seed-data", 
+  "imagens", 
+);
 
 // define como o site responde às requisições.
 app.use("/assets", express.static(assetsPath));
-
-// ROTA PRINCIPAL USANDO EJS
-app.get('/', (req, res)=>{
-    res.render('index'); // vai procurar public/pages/index.ejs
-});
-
-app.get('/capitulo1', (req, res)=>{
-    res.render('capitulo1'); // vai procurar public/pages/capitulo1.ejs
-});
+app.use("/imagens/questoes", express.static(imagensQuestoesPath));
 
 app.use("/api", router);
 
@@ -50,3 +43,4 @@ app.use(function (_req, res) {
 app.listen(PORT, function () {
     console.log(`Rodando em http://localhost:${PORT}`);
 });
+
