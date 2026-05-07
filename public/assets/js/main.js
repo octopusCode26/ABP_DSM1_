@@ -29,17 +29,41 @@
     });
 })();
 
-function mostrarAlerta(mensagem) {
-  const alerta = document.getElementById("custom-alert");
-  const texto = document.getElementById("custom-alert-message");
+// BOTÃO FUNCIONANDO MAS SEM VARIAÇÃO DE COR PARA SUCESSO E ERRO
+// function mostrarAlerta(mensagem) {
+//   const alerta = document.getElementById("custom-alert");
+//   const texto = document.getElementById("custom-alert-message");
 
-  texto.innerText = mensagem;
+//   texto.innerText = mensagem;
 
-  alerta.classList.remove("hidden");
+//   alerta.classList.remove("hidden");
+// }
+
+// function fecharAlerta() {
+//   document
+//     .getElementById("custom-alert")
+//     .classList.add("hidden");
+// }
+
+//  BOTÃO FUNCIONANDO MAS COM VARIAÇÃO DE SUCESSO E ERRO
+function mostrarAlerta(mensagem, tipo) {
+    const alerta = document.getElementById('custom-alert');
+    const texto = document.getElementById('custom-alert-message');
+
+    texto.innerText = mensagem;
+
+    alerta.classList.remove('hidden', 'sucesso', 'erro');
+
+    alerta.classList.add(tipo);
+
+    alerta.style.display = 'flex';
 }
 
 function fecharAlerta() {
-  document
-    .getElementById("custom-alert")
-    .classList.add("hidden");
+    const alerta = document.getElementById('custom-alert');
+
+    alerta.classList.add('hidden');
+    alerta.classList.remove('sucesso', 'erro');
+
+    alerta.style.display = 'none';
 }
