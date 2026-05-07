@@ -27,9 +27,16 @@ function abrirPainel(tipo) {
 
 // FUNÇÃO PARA FECHAR O PAINEL
 function fecharPainel() {
-    painelAuth.style.display = 'none';
-    overlayEscuro.style.display = 'none';
-    painelAuth.setAttribute('aria-hidden', 'true');
+    painelAuth.classList.add('fechando');
+
+    painelAuth.addEventListener('animationend', function handler() {
+        painelAuth.style.display = 'none';
+        overlayEscuro.style.display = 'none';
+        painelAuth.setAttribute('aria-hidden', 'true');
+
+        painelAuth.classList.remove('fechando');
+        painelAuth.removeEventListener('animationend', handler);
+    });
 }
 
 

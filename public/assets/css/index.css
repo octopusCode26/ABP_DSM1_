@@ -252,6 +252,14 @@
     animation: animacao_modal_auth 0.24s ease-out;
 }
 
+.painel_auth.abrindo {
+    animation: animacao_modal_auth 0.24s ease-out;
+}
+
+.painel_auth.fechando {
+    animation: animacao_modal_auth_saida 0.2s ease-in forwards;
+}
+
 @keyframes animacao_modal_auth {
     from {
         opacity: 0;
@@ -261,6 +269,17 @@
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes animacao_modal_auth_saida {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(1.5rem);
     }
 }
 
@@ -805,6 +824,10 @@
         animation: animacao_modal_auth_compacto 0.22s ease-out;
     }
 
+    .painel_auth.fechando {
+        animation: animacao_modal_auth_compacto_saida 0.2s ease-in forwards;
+    }
+
     @keyframes animacao_modal_auth_compacto {
         from {
             opacity: 0;
@@ -816,6 +839,17 @@
             transform: translate(-50%, -50%);
         }
     }
+
+    @keyframes animacao_modal_auth_compacto_saida {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 1rem));
+    }
+}
 
     .painel_auth_conteudo {
         padding: 1.2rem 1.2rem 1rem;
@@ -915,6 +949,10 @@
         left: 0;
         transform: none;
         animation: animacao_sheet_auth 0.22s ease-out;
+    }
+
+    .painel_auth.fechando {
+        animation: animacao_sheet_auth 0.22s ease-out reverse;
     }
 
     .painel_auth_conteudo {
