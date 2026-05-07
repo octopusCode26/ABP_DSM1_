@@ -44,7 +44,7 @@ app.get('/capitulo1', (req, res)=>{
 app.use("/api", router);
 
 app.use(function (_req, res) {
-    res.redirect("not-found.html")
+    res.render("not-found")
 });
 
 app.listen(PORT, function () {

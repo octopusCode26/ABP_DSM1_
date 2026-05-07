@@ -78,7 +78,7 @@ formCadastro.addEventListener('submit', async function (event) {
     const senhaConf = document.getElementById('cadastroSenhaConf').value;
 
     if (senha !== senhaConf) {
-        alert('As senhas não conferem.');
+        mostrarAlerta('As senhas não conferem.', 'erro');
         return;
     }
 
@@ -92,15 +92,15 @@ formCadastro.addEventListener('submit', async function (event) {
         });
 
         if (response.ok) {
-            alert('Usuário cadastrado com sucesso.');
+            mostrarAlerta('Usuário cadastrado com sucesso.', 'sucesso');
             event.target.reset();
             abrirPainel('login');
             return;
         }
 
         const errorData = await response.json();
-        alert(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
+        mostrarAlerta(`Erro: ${errorData.message || 'Erro ao cadastrar'}`, 'erro');
     } catch (error) {
-        alert('Erro ao cadastrar usuário.');
+        mostrarAlerta('Erro ao cadastrar usuário.', 'erro');
     }
 });
