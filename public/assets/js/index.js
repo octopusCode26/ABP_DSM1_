@@ -27,9 +27,16 @@ function abrirPainel(tipo) {
 
 // FUNÇÃO PARA FECHAR O PAINEL
 function fecharPainel() {
-    painelAuth.style.display = 'none';
-    overlayEscuro.style.display = 'none';
-    painelAuth.setAttribute('aria-hidden', 'true');
+    painelAuth.classList.add('fechando');
+
+    painelAuth.addEventListener('animationend', function handler() {
+        painelAuth.style.display = 'none';
+        overlayEscuro.style.display = 'none';
+        painelAuth.setAttribute('aria-hidden', 'true');
+
+        painelAuth.classList.remove('fechando');
+        painelAuth.removeEventListener('animationend', handler);
+    });
 }
 
 
@@ -71,7 +78,7 @@ formCadastro.addEventListener('submit', async function (event) {
     const senhaConf = document.getElementById('cadastroSenhaConf').value;
 
     if (senha !== senhaConf) {
-        mostrarAlerta('As senhas não conferem.');
+        alert('As senhas não conferem.');
         return;
     }
 
@@ -85,15 +92,15 @@ formCadastro.addEventListener('submit', async function (event) {
         });
 
         if (response.ok) {
-            mostrarAlerta('Usuário cadastrado com sucesso. Redirecionando-o');
+            alert('Usuário cadastrado com sucesso.');
             event.target.reset();
             abrirPainel('login');
             return;
         }
 
         const errorData = await response.json();
-        mostrarAlerta(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
+        alert(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
     } catch (error) {
-        mostrarAlerta('Erro ao cadastrar usuário.');
+        alert('Erro ao cadastrar usuário.');
     }
 });
