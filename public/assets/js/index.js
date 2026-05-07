@@ -1,82 +1,151 @@
-document.addEventListener("DOMContentLoaded", function () {
+//-------- INDEX COM LOGIN E CADASTRO--------
+const botaoCadastro = document.getElementById('ir_cadastro');
+const botaoLogin = document.getElementById('ir_login');
+const painelAuth = document.getElementById('painelAuth');
+const overlayEscuro = document.getElementById('overlayEscuro');
+const botaoFechar = document.getElementById('fecharAuth');
+const formLogin = document.getElementById('formLogin');
+const formCadastro = document.getElementById('formCadastro');
+const botaoCadastreseAqui = document.getElementById('cadastreseaqui');
+const botaoRealizeoLogin = document.getElementById('realizeologin');
 
-  const botaoCadastro = document.getElementById('ir_cadastro');
-  const botaoLogin = document.getElementById('ir_login');
-  const painelAuth = document.getElementById('painelAuth');
-  const overlayEscuro = document.getElementById('overlayEscuro');
-  const botaoFechar = document.getElementById('fecharAuth');
-  const formLogin = document.getElementById('formLogin');
-  const formCadastro = document.getElementById('formCadastro');
+// FORM CADASTRO
+document
+.getElementById("formCadastroPopup")
+.addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-  // FORM CADASTRO
-  document
-    .getElementById("formCadastroPopup")
-    .addEventListener("submit", async function (e) {
-      e.preventDefault();
+  const nome = document.getElementById("cadastroNome").value;
+  const cpf = document.getElementById("cadastroCpf").value;
+  const email = document.getElementById("cadastroEmail").value;
+  const senha = document.getElementById("cadastroSenha").value;
+  const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
 
-      const nome = document.getElementById("cadastroNome").value;
-      const cpf = document.getElementById("cadastroCpf").value;
-      const email = document.getElementById("cadastroEmail").value;
-      const senha = document.getElementById("cadastroSenha").value;
-      const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem!");
+    return;
+  }
 
-      if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem!");
-        return;
-      }
-
-      try {
-        const response = await fetch("/api/usuarios", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nome,
-            cpf,
-            email,
-            senha,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          window.location.href = "/capitulo1.html";
-        } else {
-          alert(data.message);
-        }
-
-      } catch (error) {
-        console.error(error);
-        alert("Erro ao conectar com o servidor");
-      }
+  try {
+    const response = await fetch("/api/usuarios/cadastro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nome,
+        cpf,
+        email,
+        senha,
+      }),
     });
 
-  // FUNÇÃO PARA ABRIR O PAINEL
-  function abrirPainel(tipo) {
+    const data = await response.json();
+
+    if (response.ok) {
+      window.location.href = "/capitulo1";
+    } else {
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao conectar com o servidor");
+  }
+});
+
+// FUNÇÃO PARA ABRIR O PAINEL de Login ou cadastro
+function abrirPainel(tipo) {
     painelAuth.style.display = 'block';
     overlayEscuro.style.display = 'block';
+    painelAuth.setAttribute('aria-hidden', 'false');
 
     if (tipo === 'login') {
-      formLogin.style.display = 'block';
-      formCadastro.style.display = 'none';
+        formLogin.style.display = 'flex';
+        formCadastro.style.display = 'none';
     } else if (tipo === 'cadastro') {
-      formLogin.style.display = 'none';
-      formCadastro.style.display = 'block';
+        formLogin.style.display = 'none';
+        formCadastro.style.display = 'flex';
     }
-  }
+};
 
-  // FECHAR
-  function fecharPainel() {
-    painelAuth.style.display = 'none';
-    overlayEscuro.style.display = 'none';
-  }
+// FUNÇÃO PARA FECHAR O PAINEL
+function fecharPainel() {
+    painelAuth.classList.add('fechando');
 
-  // EVENTOS
-  botaoCadastro.addEventListener('click', () => abrirPainel('login'));
-  botaoLogin.addEventListener('click', () => abrirPainel('cadastro'));
-  botaoFechar.addEventListener('click', fecharPainel);
-  overlayEscuro.addEventListener('click', fecharPainel);
+    painelAuth.addEventListener('animationend', function handler() {
+        painelAuth.style.display = 'none';
+        overlayEscuro.style.display = 'none';
+        painelAuth.setAttribute('aria-hidden', 'true');
 
+        painelAuth.classList.remove('fechando');
+        painelAuth.removeEventListener('animationend', handler);
+    });
+}
+
+
+// EVENT LISTENERS - CONECTANDO BOTÕES ÀS FUNÇÕES
+botaoCadastro.addEventListener('click', function () {
+    abrirPainel('login');
 });
+
+botaoLogin.addEventListener('click', function () {
+    abrirPainel('cadastro');
+});
+
+botaoFechar.addEventListener('click', function () {
+    fecharPainel();
+});
+
+overlayEscuro.addEventListener('click', function () {
+    fecharPainel();
+});
+
+botaoCadastreseAqui.addEventListener('click', function (event) {
+    event.preventDefault();
+    abrirPainel('cadastro');
+});
+
+botaoRealizeoLogin.addEventListener('click', function (event) {
+    event.preventDefault();
+    abrirPainel('login');
+});
+
+// FUNÇÃO PARA ENVIAR OS DADOS DO FORMULÁRIO DE CADASTRO
+/* formCadastro.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('cadastroNome').value;
+    const cpf = document.getElementById('cadastroCpf').value;
+    const email = document.getElementById('cadastroEmail').value;
+    const senha = document.getElementById('cadastroSenha').value;
+    const senhaConf = document.getElementById('cadastroSenhaConf').value;
+
+    if (senha !== senhaConf) {
+        alert('As senhas não conferem.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/usuarios/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nome, cpf, email, senha }),
+        });
+
+        if (response.ok) {
+            alert('Usuário cadastrado com sucesso.');
+            event.target.reset();
+            abrirPainel('login');
+            return;
+        }
+
+        const errorData = await response.json();
+        alert(`Erro: ${errorData.message || 'Erro ao cadastrar'}`);
+    } catch (error) {
+        alert('Erro ao cadastrar usuário.');
+    }
+});
+*/

@@ -3,11 +3,13 @@ const { Router } = require("express");
 
 // importando as respectivas bibliotecas.
 const usuarios = require("./usuarios.routes");
+const questoes = require("./questoes.routes");
 const auth = require("./auth.routes")
 const router = Router();
 
 // agrupa rotas do usuário.
 router.use("/usuarios", usuarios);
+router.use("/questoes", questoes);
 
 router.use("/auth", auth);
 

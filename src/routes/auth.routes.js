@@ -14,7 +14,6 @@ const router = Router();
 
 // implementa a rota de login.
 router.post("/login", async function (req, res) {
-
   const { cpf, senha } = req.body;
 
   try {
