@@ -85,7 +85,7 @@ formCadastro.addEventListener('submit', async function (event) {
         });
 
         if (response.ok) {
-            mostrarAlerta('Usuário cadastrado com sucesso.');
+            mostrarAlerta('Usuário cadastrado com sucesso. Redirecionando-o');
             event.target.reset();
             abrirPainel('login');
             return;
