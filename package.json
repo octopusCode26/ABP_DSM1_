@@ -1,7 +1,7 @@
 {
   "name": "abp",
   "version": "1.0.0",
-  "description": "<div align=\"center\">",
+  "description": "",
   "main": "src/server.js",
   "scripts": {
     "start": "node ./src/server",

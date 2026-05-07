@@ -215,3 +215,14 @@ function getIdUsuario(params) {
 module.exports = router;
 
 
+// ignore o resto.
+
+/*
+curl -X POST http://localhost:3000/api \
+    -H "Content-Type: application/json" \
+    -d '{"nome":"Ana","email":"ana@email.com","cpf":"12345678901","senha":"123","grupo":1}'
+
+curl -X POST http://localhost:3000/api \
+    -H "Content-Type: application/json" \
+    -d '{"emal":"ana@email.com","cpf":"12345678901","senha":"123","grupo":1}'
+*/
