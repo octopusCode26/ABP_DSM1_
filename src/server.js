@@ -49,6 +49,26 @@ app.use(function(_req, res){
     res.status(404).render("not-found");
 });
 
-app.listen(PORT, function(){
-    console.log(`Rodando em http://localhost:${PORT}`);
+// rota capítulo 1
+app.get("/capitulo1", function (_req, res) {
+  res.render("capitulo1");
+});
+
+// Rota para burningdown
+app.get("/progresso", function (_req, res) {
+  res.render("progresso");
+});
+
+// Rota para os questionarios
+app.get("/questionario1", function (_req, res) {
+  res.render("questionario1");
+});
+
+// pega-tudo: qualquer rota desconhecida
+app.use(function (_req, res) {
+  res.status(404).render("not-found");
+});
+
+app.listen(PORT, function () {
+  console.log(`Rodando em http://localhost:${PORT}`);
 });
