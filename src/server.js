@@ -3,64 +3,80 @@ require("dotenv").config();
 
 // importando as respectivas bibliotecas
 const express = require("express");
-const app = express();
 const path = require("path");
+
+// importa as rotas da API
 const router = require("./routes");
 
+// inicializa o express
+const app = express();
+
+// permite que o servidor receba JSON no corpo das requisições
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../public")));
-
-// CONFIGURAÇÃO DO EJS (ADICIONADO)
-app.set("view engine", "ejs"); // define o ejs como motor de template
-
-// mostra o usuário e a senha no pgAdmin no terminal.
-console.log({
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD
-});
-
-const PORT = process.env.PORT;
-
-
-// caminhando esses arquivos para as respectivas pastas.
+// define os caminhos principais do projeto
 const publicPath = path.join(__dirname, "..", "public");
 const pagesPath = path.join(publicPath, "pages");
 const assetsPath = path.join(publicPath, "assets");
 
-// DEFINE A PASTA DE VIEWS COMO public/pages (ADICIONADO)
-app.set("views", pagesPath);
+// libera a pasta public para arquivos estáticos
+app.use(express.static(publicPath));
 
-// define como o site responde às requisições.
+// libera a pasta assets para CSS, imagens e outros arquivos visuais
 app.use("/assets", express.static(assetsPath));
 
-app.use("/api", router);
+// CONFIGURAÇÃO DO EJS
+app.set("view engine", "ejs"); // define o EJS como motor de template
 
-// ROTA PRINCIPAL USANDO EJS
-app.get('/', (__req, res)=>{
-  res.render('index'); // vai procurar public/pages/index.ejs
+// DEFINE A PASTA DE VIEWS COMO public/pages
+app.set("views", pagesPath);
+
+// mostra o usuário e a senha do banco no terminal
+console.log({
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+});
+
+// define a porta do servidor
+const PORT = process.env.PORT;
+
+// ROTAS DE PÁGINAS EJS
+
+// rota principal
+app.get("/", function (_req, res) {
+  res.render("index"); // procura public/pages/index.ejs
 });
 
 // rota capítulo 1
 app.get("/capitulo1", function (_req, res) {
-  res.render("capitulo1");
+  res.render("capitulo1"); // procura public/pages/capitulo1.ejs
 });
 
-// Rota para burningdown
+// rota do mapa
+app.get("/mapa", function (_req, res) {
+  res.render("mapa"); // procura public/pages/mapa.ejs
+});
+
+// rota para burndown/progresso
 app.get("/progresso", function (_req, res) {
-  res.render("progresso");
+  res.render("progresso"); // procura public/pages/progresso.ejs
 });
 
-// Rota para os questionarios
+// rota para questionário 1
 app.get("/questionario1", function (_req, res) {
-  res.render("questionario1");
+  res.render("questionario1"); // procura public/pages/questionario1.ejs
 });
 
-// pega-tudo: qualquer rota desconhecida
+// ROTAS DA API
+app.use("/api", router);
+
+// rota 404, caso a página não seja encontrada
+// IMPORTANTE: sempre deixar por último
 app.use(function (_req, res) {
   res.status(404).render("not-found");
 });
 
+// inicia o servidor
 app.listen(PORT, function () {
   console.log(`Rodando em http://localhost:${PORT}`);
 });
