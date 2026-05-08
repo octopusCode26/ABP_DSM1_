@@ -43,6 +43,10 @@ app.get('/capitulo1', (__req, res)=>{
   res.render('capitulo1'); // vai procurar public/pages/capitulo1.ejs
 });
 
+app.get('/mapa', (__req, res)=>{
+  res.render('mapa'); // vai procurar public/pages/mapa.ejs
+});
+
 app.use("/api", router);
 
 app.use(function(_req, res){
