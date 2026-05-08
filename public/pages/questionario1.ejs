@@ -1,62 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="stylesheet" href="../assets/css/questionario1.css" />
-    <title>Questionário 1 | Scrum Dungeon</title>
-  </head>
 
-  <body>
-    <!-- CABEÇALHO -->
-    <%- include('partials/header') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+  <link rel="stylesheet" href="../assets/css/questionario1.css" />
+  <title>Questionário 1 | Scrum Dungeon</title>
+</head>
+
+<body class="corpo-questionario">
+  <!-- CABEÇALHO -->
+  <%- include('partials/header') %>
 
     <div class="tela">
       <!-- Barra de progresso -->
       <div class="progresso-box">
-        <h2>QUESTÃO DE</h2>
+        <h2 id="texto-progresso">QUESTÃO DE </h2>
+
+        <div class="barra-container">
+          <div id="progresso-dinamico" class="barra-preenchimento" style="width: 10%;"></div>
+        </div>
       </div>
+      <script src="../assets/js/questionario1.js"></script>
 
       <!-- Caixa de Questão -->
       <div class="questao-box">
         <p class="dificuldade">Dificuldade</p>
         <div class="linha"></div>
-        <p>Questão</p>
+        <p class="questao">Qual artefato representa o resultado de uma Sprint?</p>
       </div>
+
+      <!-- "Selecione sua resposta" -->
       <div>
         <p class="selecione">Selecione a alternativa correta</p>
       </div>
 
       <!-- Respostas -->
       <div class="respostas">
+
         <button class="botaoresposta">
-          <p>A</p>
-        </button>
-        <button class="botaoresposta">
-          <p>B</p>
+          <div class="quadradinho">
+            <p class="letraresposta">A</p>
+          </div>
+          <p class="resposta">Resposta A</p>
         </button>
 
         <button class="botaoresposta">
-          <p>C</p>
+          <div class="quadradinho">
+            <p class="letraresposta">B</p>
+          </div>
+          <p class="resposta">Resposta B</p>
         </button>
+
         <button class="botaoresposta">
-          <p>D</p>
+          <div class="quadradinho">
+            <p class="letraresposta">C</p>
+          </div>
+          <p class="resposta">Resposta C</p>
         </button>
+
+        <button class="botaoresposta">
+          <div class="quadradinho">
+            <p class="letraresposta">D</p>
+          </div>
+          <p class="resposta">Resposta D</p>
+        </button>
+
       </div>
 
-      <!-- botões -->
-      <div class="botoes">
-        <button class="botao">Voltar</button>
-        <button class="botao">Pular</button>
-        <button class="confirmar botao">Confirmar Resposta</button>
-        <button class="botao">Enviar</button>
+      <!-- botões de navegação -->
+      <div class="botoesdenavegacao">
+        <button class="botaonavegacao">Voltar</button>
+        <button class="botaonavegacao">Pular</button>
+        <button class="confirmar">CONFIRMAR RESPOSTA</button>
+        <button class="botaonavegacao">Enviar</button>
       </div>
-
-      <!-- espaço vazio e botões principais -->
-      <div class="vazio"></div>
     </div>
+
     <!-- RODAPÉ -->
     <%- include('partials/footer') %>
-  </body>
+</body>
+
 </html>

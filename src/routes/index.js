@@ -6,6 +6,7 @@ const usuarios = require("./usuarios.routes");
 const questoes = require("./questoes.routes");
 const auth = require("./auth.routes")
 const certificados = require("./certificados.routes");
+const progresso = require("./progresso.routes");
 
 const router = Router();
 
@@ -13,6 +14,7 @@ const router = Router();
 router.use("/usuarios", usuarios);
 router.use("/questoes", questoes);
 router.use("/certificados", certificados);
+router.use("/progresso", progresso);
 
 router.use("/auth", auth);
 

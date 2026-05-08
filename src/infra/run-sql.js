@@ -14,6 +14,7 @@ const sqlFiles = [
   "03_schema_usuarios.sql",
   "04_schema_exames.sql",
   "05_schema_respostas.sql",
+  "08_schema_progresso.sql",
   "06_seed_modulos.sql",
   "07_seed_questoes.sql",
 ];
