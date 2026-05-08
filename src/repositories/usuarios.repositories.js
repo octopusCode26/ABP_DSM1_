@@ -86,6 +86,8 @@ async function createUsuario(nome, email, cpf, senha) {
       1
     );
 
+    await insertProgressoDesafioInicial(client, usuario.id_usuario);
+
     console.log("R:", usuario.id_usuario, modulo.id_modulo, grupo.grupo);
 
     await client.query("COMMIT");
@@ -201,6 +203,26 @@ async function findUsuarioByCpfAndSenha(cpf, senha){
 
 }
 
+async function insertProgressoDesafioInicial(client, idUsuario) {
+  const result = await client.query(
+    `
+    INSERT INTO progresso_desafio (
+      id_usuario,
+      modulo_desafio_atual,
+      falhas_no_modulo,
+      certificado_liberado
+    )
+    VALUES ($1, 1, 0, false)
+    ON CONFLICT (id_usuario)
+    DO NOTHING
+    RETURNING id_progresso_desafio
+    `,
+    [idUsuario]
+  );
+
+  return result.rows[0] || null;
+}
+
 // exportando a respectiva função para outros arquivos.
 module.exports = {
   createUsuario,
@@ -209,5 +231,6 @@ module.exports = {
   updateUsuarioNome,
   updateUsuarioEmail,
   updateUsuarioSenha,
-  findUsuarioByCpfAndSenha
+  findUsuarioByCpfAndSenha,
+  insertProgressoDesafioInicial
 };

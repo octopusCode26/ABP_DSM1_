@@ -5,42 +5,65 @@ exclui as que já têm registro em respostas para aquele exame e retorna a próx
 por ordem de numero e id_questao.*/
 
 async function findProximaQuestaoByUsuario(idUsuario) {
+
   const result = await pool.query(
     `
-WITH exame_atual AS (
-SELECT id_exame, id_modulo, grupo
-FROM exames
-WHERE id_usuario = $1
-ORDER BY id_exame DESC
-LIMIT 1
+WITH progresso AS (
+  SELECT modulo_desafio_atual
+  FROM progresso_desafio
+  WHERE id_usuario = $1
+  LIMIT 1
+),
+
+exame_atual AS (
+  SELECT
+    e.id_exame,
+    e.id_modulo,
+    e.grupo
+  FROM exames e
+
+  INNER JOIN progresso p
+    ON p.modulo_desafio_atual = e.id_modulo
+
+  WHERE e.id_usuario = $1
+
+  ORDER BY e.id_exame DESC
+  LIMIT 1
 )
+
 SELECT
-e.id_exame,
-q.id_questao,
-q.id_modulo,
-q.grupo,
-q.numero,
-q.dificuldade,
-q.enunciado,
-q.alternativa_a,
-q.alternativa_b,
-q.alternativa_c,
-q.alternativa_d,
-q.imagem
+  e.id_exame,
+  q.id_questao,
+  q.id_modulo,
+  q.grupo,
+  q.numero,
+  q.dificuldade,
+  q.enunciado,
+  q.alternativa_a,
+  q.alternativa_b,
+  q.alternativa_c,
+  q.alternativa_d,
+  q.imagem
+
 FROM exame_atual e
+
 INNER JOIN questoes q
-ON q.id_modulo = e.id_modulo
-AND q.grupo IS NOT DISTINCT FROM e.grupo
+  ON q.id_modulo = e.id_modulo
+ AND q.grupo IS NOT DISTINCT FROM e.grupo
+
 WHERE NOT EXISTS (
-SELECT 1
-FROM respostas r
-WHERE r.id_exame = e.id_exame
-AND r.id_questao = q.id_questao
+  SELECT 1
+  FROM respostas r
+  WHERE r.id_exame = e.id_exame
+    AND r.id_questao = q.id_questao
 )
+
 ORDER BY q.numero ASC NULLS LAST, q.id_questao ASC
-LIMIT 1 `,
-    [idUsuario],
+LIMIT 1
+`,
+    [idUsuario]
   );
+
   return result.rows[0] || null;
 }
 
@@ -134,22 +157,36 @@ async function usuarioConcluiuModuloAtual(idUsuario) {
 }
 
 async function findModuloAtualByUsuario(idUsuario) {
+
   const result = await pool.query(
-    ` 
-    SELECT 
-      e.id_exame, 
-      e.id_modulo, 
-      m.titulo, 
-      e.grupo, 
-      e.tentativa 
-    FROM exames e 
-    INNER JOIN modulos m 
-      ON m.id_modulo = e.id_modulo 
-    WHERE e.id_usuario = $1 
-    ORDER BY e.id_exame DESC 
-    LIMIT 1 
+    `
+    WITH progresso AS (
+      SELECT modulo_desafio_atual
+      FROM progresso_desafio
+      WHERE id_usuario = $1
+      LIMIT 1
+    )
+
+    SELECT
+      e.id_exame,
+      e.id_modulo,
+      m.titulo,
+      e.grupo,
+      e.tentativa
+    FROM exames e
+
+    INNER JOIN modulos m
+      ON m.id_modulo = e.id_modulo
+
+    INNER JOIN progresso p
+      ON p.modulo_desafio_atual = e.id_modulo
+
+    WHERE e.id_usuario = $1
+
+    ORDER BY e.id_exame DESC
+    LIMIT 1
     `,
-    [idUsuario],
+    [idUsuario]
   );
 
   return result.rows[0] || null;
@@ -182,26 +219,54 @@ async function findOutroGrupoAleatorio(idUsuario, idModulo) {
 }
 
 //atualizar próxima tentativa
-async function updateProximaTentativa(idExame, grupo, tentativa) { 
-  const result = await pool.query( 
-    ` 
-    UPDATE exames 
-    SET 
-      grupo = $1, 
-      tentativa = $2 
-    WHERE id_exame = $3 
-    RETURNING 
-      id_exame, 
-      id_modulo, 
-      id_usuario, 
-      grupo, 
-      tentativa 
-    `, 
-    [grupo, tentativa, idExame], 
-  );
-    return result.rows[0] || null; 
-}
+async function updateProximaTentativa(idExame, grupo, tentativa) {
 
+  // pega dados do exame atual
+  const exameAtual = await pool.query(
+    `
+    SELECT
+      id_modulo,
+      id_usuario
+    FROM exames
+    WHERE id_exame = $1
+    LIMIT 1
+    `,
+    [idExame]
+  );
+
+  const exame = exameAtual.rows[0];
+
+  if (!exame) {
+    return null;
+  }
+
+  // cria NOVO exame para nova tentativa
+  const result = await pool.query(
+    `
+    INSERT INTO exames (
+      id_modulo,
+      id_usuario,
+      grupo,
+      tentativa
+    )
+    VALUES ($1, $2, $3, $4)
+    RETURNING
+      id_exame,
+      id_modulo,
+      id_usuario,
+      grupo,
+      tentativa
+    `,
+    [
+      exame.id_modulo,
+      exame.id_usuario,
+      grupo,
+      tentativa
+    ]
+  );
+
+  return result.rows[0] || null;
+}
 
 //Encontra o próximo módulo:
 async function findProximoModuloByUsuario(idUsuario) { 
@@ -230,26 +295,44 @@ async function findProximoModuloByUsuario(idUsuario) {
 }
 
 //atualizar próximo módulo
-async function updateProximoModulo(idExame, modulo, grupo, tentativa) { 
- const result = await pool.query(
-   `UPDATE exames 
-   SET 
-     id_modulo = $1, 
-      grupo = $2, 
-      tentativa = $3 
-    WHERE id_exame = $4 
-    RETURNING 
-      id_exame, 
-      id_modulo, 
-      id_usuario, 
-      grupo, 
-      tentativa 
-    `, 
-    [modulo, grupo, tentativa, idExame], 
-  ); 
- 
+async function updateProximoModulo(idExame, modulo, grupo, tentativa) {
+  const exameAtual = await pool.query(
+    `
+    SELECT id_usuario
+    FROM exames
+    WHERE id_exame = $1
+    LIMIT 1
+    `,
+    [idExame]
+  );
+
+  const exame = exameAtual.rows[0];
+
+  if (!exame) {
+    return null;
+  }
+
+  const result = await pool.query(
+    `
+    INSERT INTO exames (
+      id_modulo,
+      id_usuario,
+      grupo,
+      tentativa
+    )
+    VALUES ($1, $2, $3, $4)
+    RETURNING
+      id_exame,
+      id_modulo,
+      id_usuario,
+      grupo,
+      tentativa
+    `,
+    [modulo, exame.id_usuario, grupo, tentativa]
+  );
+
   return result.rows[0] || null;
-} 
+}
 
 //Implementação de consulta de progresso do usuário
 async function findModulosRespondidosByUsuario(idUsuario) { 
@@ -305,6 +388,75 @@ async function findModulosRespondidosByUsuario(idUsuario) {
   return result.rows; 
 } 
 
+async function findResultadoModuloAtual(idUsuario) {
+
+  const result = await pool.query(
+    `
+    WITH progresso AS (
+      SELECT modulo_desafio_atual
+      FROM progresso_desafio
+      WHERE id_usuario = $1
+      LIMIT 1
+    ),
+
+    exame_atual AS (
+      SELECT
+        e.id_exame,
+        e.id_modulo,
+        e.tentativa
+      FROM exames e
+
+      INNER JOIN progresso p
+        ON p.modulo_desafio_atual = e.id_modulo
+
+      WHERE e.id_usuario = $1
+
+      ORDER BY e.id_exame DESC
+      LIMIT 1
+    )
+
+    SELECT
+      e.id_exame,
+      e.id_modulo,
+      e.tentativa,
+      COUNT(r.id_resposta)::INTEGER AS total_respondidas,
+      COALESCE(SUM(r.nota), 0)::INTEGER AS acertos,
+
+      ROUND(
+        (
+          COALESCE(SUM(r.nota), 0)::numeric /
+          NULLIF(COUNT(r.id_resposta), 0)
+        ) * 100,
+        2
+      ) AS percentual
+
+    FROM exame_atual e
+
+    LEFT JOIN respostas r
+      ON r.id_exame = e.id_exame
+
+    GROUP BY
+      e.id_exame,
+      e.id_modulo,
+      e.tentativa
+    `,
+    [idUsuario]
+  );
+
+  const row = result.rows[0];
+
+  if (!row) return null;
+
+  return {
+    id_exame: row.id_exame,
+    id_modulo: row.id_modulo,
+    tentativa: row.tentativa,
+    total_respondidas: row.total_respondidas,
+    acertos: row.acertos,
+    percentual: Number(row.percentual),
+    aprovado: Number(row.percentual) >= 70
+  };
+}
 
 module.exports = {
   findProximaQuestaoByUsuario,
@@ -317,5 +469,6 @@ module.exports = {
   updateProximaTentativa,
   findProximoModuloByUsuario,
   updateProximoModulo,
-  findModulosRespondidosByUsuario
+  findModulosRespondidosByUsuario,
+  findResultadoModuloAtual
 };
