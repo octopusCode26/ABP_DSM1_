@@ -34,21 +34,33 @@ app.set("views", pagesPath);
 // define como o site responde às requisições.
 app.use("/assets", express.static(assetsPath));
 
+app.use("/api", router);
+
 // ROTA PRINCIPAL USANDO EJS
 app.get('/', (__req, res)=>{
   res.render('index'); // vai procurar public/pages/index.ejs
 });
 
-app.get('/capitulo1', (__req, res)=>{
-  res.render('capitulo1'); // vai procurar public/pages/capitulo1.ejs
+// rota capítulo 1
+app.get("/capitulo1", function (_req, res) {
+  res.render("capitulo1");
 });
 
-app.use("/api", router);
-
-app.use(function(_req, res){
-    res.status(404).render("not-found");
+// Rota para burningdown
+app.get("/progresso", function (_req, res) {
+  res.render("progresso");
 });
 
-app.listen(PORT, function(){
-    console.log(`Rodando em http://localhost:${PORT}`);
+// Rota para os questionarios
+app.get("/questionario1", function (_req, res) {
+  res.render("questionario1");
+});
+
+// pega-tudo: qualquer rota desconhecida
+app.use(function (_req, res) {
+  res.status(404).render("not-found");
+});
+
+app.listen(PORT, function () {
+  console.log(`Rodando em http://localhost:${PORT}`);
 });

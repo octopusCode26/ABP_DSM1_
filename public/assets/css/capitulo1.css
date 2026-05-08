@@ -96,7 +96,7 @@ body {
   padding: 12px 24px;
   border: 1px solid #f4d03f;
   border-radius: 10px;
-  outline: 2px solid #f4d03f;
+  outline: 1px solid #f4d03f;
   outline-offset: 8px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   z-index: 2;
@@ -221,10 +221,6 @@ body {
 
 .stage.active {
   display: block;
-}
-
-main {
-  padding-bottom: 100px;
 }
 
 /* ================= NAVBAR INFERIOR ================= */
