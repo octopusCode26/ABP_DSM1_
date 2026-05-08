@@ -3,8 +3,7 @@ const pool = require("../database/db");
 
 // importando o respectivo arquivos que está dentro de um json.
 const { randomBytes } = require("crypto");
-const { hashPassword } = require("../utils/password");
-const { verifyPassword } = require("../utils/password");
+const { hashPassword, verifyPassword} = require("../utils/password");
 
 // insere um novo usuário no banco de dados (pgAdmin).
 async function insertUsuario(client, nome, email, cpf, senha) {
@@ -53,7 +52,9 @@ async function insertExame(client, idModulo, idUsuario, grupo, tentativa) {
          RETURNING id_exame`,
     [idModulo, idUsuario, grupo, tentativa]
   );
+    return result.rows[0] || null;
 }
+
 
 // fluxo completo de criação de usuário + criação de exame inicial.
 async function createUsuario(nome, email, cpf, senha) {
@@ -85,13 +86,17 @@ async function createUsuario(nome, email, cpf, senha) {
       1
     );
 
+    await insertProgressoDesafioInicial(client, usuario.id_usuario);
+
     console.log("R:", usuario.id_usuario, modulo.id_modulo, grupo.grupo);
 
     await client.query("COMMIT");
 
     return { id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email, cpf: usuario.cpf };
+
   } catch (e) {
-    client.query("ROLLBACK");
+    console.error("ERRO REAL:", e);
+    await client.query("ROLLBACK");
     throw e;
   } finally {
     client.release();
@@ -198,6 +203,26 @@ async function findUsuarioByCpfAndSenha(cpf, senha){
 
 }
 
+async function insertProgressoDesafioInicial(client, idUsuario) {
+  const result = await client.query(
+    `
+    INSERT INTO progresso_desafio (
+      id_usuario,
+      modulo_desafio_atual,
+      falhas_no_modulo,
+      certificado_liberado
+    )
+    VALUES ($1, 1, 0, false)
+    ON CONFLICT (id_usuario)
+    DO NOTHING
+    RETURNING id_progresso_desafio
+    `,
+    [idUsuario]
+  );
+
+  return result.rows[0] || null;
+}
+
 // exportando a respectiva função para outros arquivos.
 module.exports = {
   createUsuario,
@@ -206,5 +231,6 @@ module.exports = {
   updateUsuarioNome,
   updateUsuarioEmail,
   updateUsuarioSenha,
-  findUsuarioByCpfAndSenha
+  findUsuarioByCpfAndSenha,
+  insertProgressoDesafioInicial
 };
