@@ -34,19 +34,11 @@ app.set("views", pagesPath);
 // define como o site responde às requisições.
 app.use("/assets", express.static(assetsPath));
 
+app.use("/api", router);
+
 // ROTA PRINCIPAL USANDO EJS
 app.get('/', (__req, res)=>{
   res.render('index'); // vai procurar public/pages/index.ejs
-});
-
-app.get('/capitulo1', (__req, res)=>{
-  res.render('capitulo1'); // vai procurar public/pages/capitulo1.ejs
-});
-
-app.use("/api", router);
-
-app.use(function(_req, res){
-    res.status(404).render("not-found");
 });
 
 // rota capítulo 1
