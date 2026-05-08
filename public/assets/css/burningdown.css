@@ -1,0 +1,147 @@
+/* =========================
+   FUNDO GERAL
+========================= */
+.burningdown-container {
+  background: #0f0b07;
+  color: #f5e6c8;
+  min-height: 100vh;
+  padding: 40px 60px;
+  font-family: 'Cinzel', serif;
+}
+
+/* =========================
+   TÍTULO (IMPORTANTE: IGUAL IMAGEM)
+========================= */
+.title-box h1 {
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #f5e6c8;
+  margin-bottom: 6px;
+}
+
+.title-box p {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #c9b48a;
+  max-width: 900px;
+}
+
+/* =========================
+   LAYOUT PRINCIPAL
+========================= */
+.burningdown-content {
+  display: flex;
+  gap: 50px;
+  margin-top: 30px;
+  align-items: flex-start;
+}
+
+/* =========================
+   IMAGEM ESQUERDA
+========================= */
+.burningdown-left {
+  flex: 0 0 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.burningdown-left img {
+  width: 320px;
+  filter: drop-shadow(0 0 25px rgba(255, 120, 0, 0.4));
+}
+
+/* =========================
+   PAINEL DIREITO (BLOCO ÚNICO)
+========================= */
+.burningdown-right {
+  flex: 1;
+  border: 2px solid #d4a017;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   HEADER DO PAINEL (CAPÍTULO)
+========================= */
+.chapter-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 2px solid #d4a017;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.chapter-box span {
+  color: #c9b48a;
+}
+
+.chapter-box strong {
+  color: #f5e6c8;
+  letter-spacing: 2px;
+}
+
+/* =========================
+   STATS (MEIO)
+========================= */
+.stats-box {
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* linha estilo tabela da imagem */
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat span {
+  color: #f5e6c8;
+  font-weight: bold;
+}
+
+.stat p {
+  color: #c9b48a;
+  margin: 0;
+}
+
+/* =========================
+   BOTÃO (INTEGRADO AO PAINEL)
+========================= */
+.btn-retomar {
+  margin: 20px;
+  padding: 12px;
+  text-align: center;
+  border: 2px solid #d4a017;
+  color: #d4a017;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-retomar:hover {
+  background: #d4a017;
+  color: #0f0b07;
+  box-shadow: 0 0 18px rgba(212, 160, 23, 0.6);
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 900px) {
+  .burningdown-content {
+    flex-direction: column;
+  }
+
+  .burningdown-left img {
+    width: 260px;
+  }
+}

@@ -38,6 +38,11 @@ app.get("/capitulo1", function (_req, res) {
   res.render("capitulo1");
 });
 
+// Rota para burningdown
+app.get("/progresso", function (_req, res) {
+  res.render("burningdown");
+});
+
 // pega-tudo: qualquer rota desconhecida
 app.use(function (_req, res) {
   res.status(404).render("not-found");
