@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/burningdown.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <title>Burningdown | Scrum Dungeon</title>
+  </head>
+
+  <body>
+    <!-- ALERT -->
+    <%- include('partials/alert') %>
+
+    <!-- CABEÇALHO -->
+    <%- include('partials/header') %>
+
+    <main class="burningdown-container">
+      <section class="burningdown-header">
+        <div class="title-box">
+          <h1>BURNING DOWN</h1>
+          <p>
+            Nas chamas do burning down você pode verificar seu desempenho na
+            jornada de Scrum Dungeon. Além de retomar sua aventura de onde
+            parou.
+          </p>
+        </div>
+      </section>
+
+      <section class="burningdown-content">
+        <!-- LADO ESQUERDO -->
+        <div class="burningdown-left">
+          <img src="../assets/img/fogueira_burningdown_progresso.png" alt="Burning Down Chart" />
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="burningdown-right">
+          <div class="chapter-box">
+            <span>Capítulo atual:</span>
+            <strong>01</strong>
+          </div>
+
+          <div class="stats-box">
+            <div class="stat">
+              <span>0/5</span>
+              <p>Desafios completos</p>
+            </div>
+
+            <div class="stat">
+              <span>1/3</span>
+              <p>Tentativa atual</p>
+            </div>
+
+            <div class="stat">
+              <span>00</span>
+              <p>Tentativas gastas</p>
+            </div>
+          </div>
+
+          <a href="/aventura/retomar" class="btn-retomar"> Retomar Aventura </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <%- include('partials/footer') %>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/burningdown.js"></script>
+  </body>
+</html>

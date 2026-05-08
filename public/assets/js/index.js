@@ -127,7 +127,7 @@ botaoRealizeoLogin.addEventListener('click', function (event) {
     }
 
     if (cpf.length !== 11) {
-    alert('CPF deve ter exatamente 11 dígitos.');
+    mostrarAlerta('CPF deve ter exatamente 11 dígitos.', 'erro');
     return;
 }
 
