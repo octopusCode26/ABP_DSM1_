@@ -1,104 +1,439 @@
+/* =========================
+   SCRUM DUNGEON — MAPA
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #08080d;
+  color: #f5f1e6;
+  font-family: 'Source Serif 4', serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+
+/* PÁGINA */
+
 .mapa-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 140px);
+  padding: 38px 40px 70px;
   background: #101014;
-  color: #f5f5f5;
-  padding: 40px;
-  font-family: Georgia, serif;
 }
 
 .mapa-intro {
+  max-width: 760px;
+  margin: 0 auto 42px;
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px;
 }
 
 .mapa-intro h1 {
-  border: 1px solid #d4af37;
-  border-radius: 14px;
-  padding: 16px;
+  max-width: 470px;
+  margin: 0 auto 24px;
+  padding: 16px 28px;
+  border: 1px solid #c89b24;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 30px;
   text-transform: uppercase;
 }
 
 .mapa-intro p {
-  margin-top: 20px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
-.mapa-modulos {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
-  gap: 30px;
+/* MAPA */
+
+.mapa-layout {
+  position: relative;
+  width: min(1380px, 100%);
+  height: 840px;
+  margin: 0 auto;
+}
+
+#mapaModulos {
+  display: contents;
+}
+
+/* POSIÇÕES */
+
+.atalho-progresso {
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.porta-card.porta-1 {
+  position: absolute;
+  top: 40px;
+  left: 150px;
+}
+
+.porta-card.porta-2 {
+  position: absolute;
+  top: 40px;
+  left: 545px;
+}
+
+.porta-card.porta-3 {
+  position: absolute;
+  top: 40px;
+  left: 940px;
+}
+
+.porta-card.porta-4 {
+  position: absolute;
+  top: 380px;
+  left: 350px;
+}
+
+.porta-card.porta-5 {
+  position: absolute;
+  top: 380px;
+  left: 745px;
+}
+
+.mapa-certificado {
+  position: absolute;
+  top: 610px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.atalho-artefatos {
+  position: absolute;
+  top: 470px;
+  right: 0;
+}
+
+/* PORTAS */
+
+.porta-card {
+  width: 250px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 14px;
 }
 
-.modulo-card {
-  background: #18181f;
-  border: 1px solid #555;
-  border-radius: 18px;
-  padding: 20px;
-  text-align: center;
-  min-height: 230px;
-  transition: 0.2s;
-}
-
-.modulo-card h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.modulo-card p {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.modulo-card button {
-  margin-top: 18px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 1px solid #d4af37;
+.porta-botao {
+  border: none;
   background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.porta-botao:disabled {
+  cursor: not-allowed;
+}
+
+.porta-imagem {
+  display: block;
+  width: 165px;
+  height: 235px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.25s ease;
+}
+
+.porta-card:hover .porta-imagem {
+  transform: translateY(-6px);
+}
+
+.porta-card.selecionada .porta-imagem {
+  transform: scale(1.06);
+}
+
+/* PORTAS BLOQUEADAS / PADRÃO */
+
+.porta-card.porta-1 .porta-imagem {
+  background-image: url("/assets/img/porta_1.png");
+}
+
+.porta-card.porta-2 .porta-imagem {
+  background-image: url("/assets/img/porta_2.png");
+}
+
+.porta-card.porta-3 .porta-imagem {
+  background-image: url("/assets/img/porta_3.png");
+}
+
+.porta-card.porta-4 .porta-imagem {
+  background-image: url("/assets/img/porta_4.png");
+}
+
+.porta-card.porta-5 .porta-imagem {
+  background-image: url("/assets/img/porta_5.png");
+}
+
+/* PORTAS LIBERADAS SEM CADEADO */
+
+.porta-card.liberado.porta-1 .porta-imagem {
+  background-image: url("/assets/img/porta_1_liberada.png");
+}
+
+.porta-card.liberado.porta-2 .porta-imagem {
+  background-image: url("/assets/img/porta_2_liberada.png");
+}
+
+.porta-card.liberado.porta-3 .porta-imagem {
+  background-image: url("/assets/img/porta_3_liberada.png");
+}
+
+.porta-card.liberado.porta-4 .porta-imagem {
+  background-image: url("/assets/img/porta_4_liberada.png");
+}
+
+.porta-card.liberado.porta-5 .porta-imagem {
+  background-image: url("/assets/img/porta_5_liberada.png");
+}
+
+/* ESTADOS */
+
+.porta-card.estado-incompleto .porta-imagem {
+  filter: drop-shadow(0 0 18px rgba(241, 39, 17, 0.747));
+}
+
+.porta-card.estado-historia .porta-imagem {
+  filter: drop-shadow(0 0 18px rgba(255, 196, 70, 0.75));
+}
+
+.porta-card.estado-completo .porta-imagem {
+  filter: drop-shadow(0 0 22px rgba(70, 160, 255, 0.9));
+}
+
+.porta-card.bloqueado .porta-imagem {
+  filter: grayscale(1) brightness(0.35) drop-shadow(0 0 12px rgba(255, 40, 173, 0.45));
+}
+
+.porta-card.desafio-atual .porta-imagem {
+  filter: drop-shadow(0 0 24px rgba(255, 132, 18, 0.9));
+}
+/* PAINEL DAS PORTAS */
+
+.porta-info {
+  width: 240px;
+  min-height: 130px;
+  padding: 14px;
+  border: 1px solid #c89b24;
+  border-radius: 14px;
+  background: rgba(10, 10, 16, 0.96);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: 0.2s ease;
+  z-index: 5;
+}
+
+.porta-card.selecionada .porta-info {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.porta-info h2 {
+  margin: 0 0 8px;
+  font-size: 19px;
+}
+
+.porta-info p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.porta-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.porta-acoes button {
+  border: 1px solid #c89b24;
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: #151820;
   color: #fff;
   cursor: pointer;
 }
 
-.modulo-card.bloqueado {
+.porta-acoes button:hover:not(:disabled) {
+  background: #c89b24;
+  color: #111;
+}
+
+.porta-acoes button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ATALHOS */
+
+.atalho-mapa {
+  width: 190px;
+  border: none;
+  background: transparent;
+  color: #f5f1e6;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.atalho-mapa:hover {
+  transform: translateY(-5px);
+}
+
+.atalho-imagem {
+  display: block;
+  width: 165px;
+  height: 165px;
+  margin: 0 auto -12px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: drop-shadow(0 0 16px rgba(255, 185, 40, 0.45));
+}
+
+.atalho-progresso .atalho-imagem {
+  background-image: url("/assets/img/fogueira_burningdown_progresso.png");
+}
+
+.atalho-artefatos .atalho-imagem {
+  background-image: url("/assets/img/artefatos.png");
+}
+
+/* ========================================
+   TEXOS DOS ÍCONES (hover)
+======================================== */
+
+.atalho-mapa span:last-child,
+.certificado-texto {
+  display: block;
+  font-size: 15px;
+  line-height: 1.1;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-6px);
+  transition: all 0.25s ease;
+
+  pointer-events: none;
+}
+
+/* MOSTRA TEXTO NO HOVER */
+
+.atalho-mapa:hover span:last-child,
+.certificado-botao:hover .certificado-texto {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* AJUSTES FINOS */
+
+.atalho-progresso span:last-child {
+  margin-top: -34px;
+}
+
+.atalho-artefatos span:last-child {
+  margin-top: -34px;
+}
+
+.certificado-texto {
+  margin-top: -48px;
+}
+
+.atalho-mapa.bloqueado {
   opacity: 0.35;
   filter: grayscale(1);
+  pointer-events: none;
 }
 
-.modulo-card.liberado {
-  border-color: #d4af37;
-}
+/* CERTIFICADO */
 
-.modulo-card.concluido {
-  border-color: #4ade80;
-}
-
-.modulo-card.desafio-atual {
-  box-shadow: 0 0 20px rgba(74, 222, 128, 0.7);
-}
-
-.modulo-card button:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.mapa-certificado {
-  text-align: center;
-  margin-top: 50px;
-}
-
-#btnCertificado {
-  padding: 14px 28px;
-  border-radius: 999px;
+.certificado-botao {
   border: none;
-  background: #555;
-  color: white;
+  background: transparent;
+  color: #f5f1e6;
+  text-align: center;
   font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.certificado-imagem {
+  display: block;
+  width: 290px;
+  height: 290px;
+  margin: 0 auto -34px;
+  background-image: url("/assets/img/certificado_incompleto.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: grayscale(1) brightness(0.55);
 }
 
 #btnCertificado.liberado {
-  background: #d4af37;
-  color: #111;
+  opacity: 1;
   cursor: pointer;
+}
+
+#btnCertificado.liberado .certificado-imagem {
+  background-image: url("/assets/img/certificado_liberado.png");
+  filter:
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 26px rgba(255, 220, 90, 0.95))
+    drop-shadow(0 0 46px rgba(255, 180, 40, 0.75));
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 1100px) {
+  .mapa-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    align-items: center;
+  }
+
+  .atalho-progresso,
+  .atalho-artefatos,
+  .porta-card.porta-1,
+  .porta-card.porta-2,
+  .porta-card.porta-3,
+  .porta-card.porta-4,
+  .porta-card.porta-5,
+  .mapa-certificado {
+    position: static;
+    transform: none;
+  }
+
+  #mapaModulos {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    align-items: center;
+  }
+}
+
+.mapa-page {
+  padding-bottom: 140px;
 }

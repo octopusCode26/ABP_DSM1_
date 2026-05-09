@@ -11,12 +11,71 @@
 
 <body class="">
   <%- include('partials/header') %>
+<<<<<<< Updated upstream
+=======
+  <%- include('./partials/botao_voltar') %>
+
+>>>>>>> Stashed changes
   <div class="corpo-questionario">
 
+<<<<<<< Updated upstream
   <main class="tela">
     <section class="progresso-box" aria-label="Progresso do questionario">
       <div class="progresso-textos">
         <h2 id="texto-progresso">Questao 2 de 10</h2>
+=======
+        <div
+          class="barra-container"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-label="Progresso atual do questionario"
+        >
+          <div id="progresso-dinamico" class="barra-preenchimento" style="width: 0%;"></div>
+        </div>
+
+        <p class="progresso-percentual" id="texto-percentual">0%</p>
+      </section>
+
+      <section class="questao-box" aria-labelledby="enunciado-questao">
+        <p class="dificuldade">Dificuldade: <strong id="texto-dificuldade">--</strong></p>
+        <div class="linha"></div>
+        <p id="enunciado-questao" class="questao">Carregando pergunta...</p>
+        <div id="imagem-questao-container" class="imagem-questao-container"></div>
+      </section>
+
+      <p class="selecione">Selecione a alternativa correta</p>
+
+      <div class="respostas" role="group" aria-label="Alternativas da questao">
+        <button type="button" class="botaoresposta" data-alternativa="a">
+          <span class="quadradinho">
+            <span class="letraresposta">A</span>
+          </span>
+          <span class="resposta">Carregando...</span>
+        </button>
+
+        <button type="button" class="botaoresposta" data-alternativa="b">
+          <span class="quadradinho">
+            <span class="letraresposta">B</span>
+          </span>
+          <span class="resposta">Carregando...</span>
+        </button>
+
+        <button type="button" class="botaoresposta" data-alternativa="c">
+          <span class="quadradinho">
+            <span class="letraresposta">C</span>
+          </span>
+          <span class="resposta">Carregando...</span>
+        </button>
+
+        <button type="button" class="botaoresposta" data-alternativa="d">
+          <span class="quadradinho">
+            <span class="letraresposta">D</span>
+          </span>
+          <span class="resposta">Carregando...</span>
+        </button>
+>>>>>>> Stashed changes
       </div>
 
       <div

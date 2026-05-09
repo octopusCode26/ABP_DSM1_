@@ -1,113 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
 
 /* =========================
-   FUNDO GERAL
+   PÁGINA
 ========================= */
+
 .burningdown-container {
+  min-height: calc(100vh - 140px);
+  padding: 32px 40px 80px;
   background: #0f0b07;
   color: #f5e6c8;
-  min-height: calc(100vh - 4rem - 3px);
-  padding: clamp(20px, 4vw, 40px) clamp(16px, 5vw, 60px);
-  font-family: 'Cinzel', serif;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  font-family: "Source Serif 4", serif;
 }
 
 /* =========================
-   TÍTULO
+   BOTÃO VOLTAR
 ========================= */
-.title-box h1 {
-  width: fit-content;
-  font-size: clamp(18px, 2.5vw, 28px);
+
+.pagina-acoes {
+  width: min(1120px, 100%);
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.botao-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid rgba(153, 107, 15, 0.75);
+  border-radius: 999px;
+  padding: 8px 16px;
+
+  background: rgba(15, 10, 5, 0.75);
+  color: #f5e6c8;
+
   font-family: "Source Serif 4", serif;
-  font-weight: bold;
-  margin: 0 0 2rem clamp(0px, 1vw, 1rem);
-  padding: 12px clamp(1.5rem, 5vw, 6rem);
+  font-weight: 700;
+
+  cursor: pointer;
+  opacity: 0.82;
+  transition: 0.2s ease;
+}
+
+.botao-voltar:hover {
+  opacity: 1;
+  color: #f4d03f;
+  border-color: #f4d03f;
+  box-shadow: 0 0 12px rgba(244, 208, 63, 0.25);
+}
+
+/* =========================
+   CABEÇALHO DA PÁGINA
+========================= */
+
+.burningdown-header {
+  width: min(1120px, 100%);
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.title-box {
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+}
+
+.title-box h1 {
+  width: min(520px, 100%);
+  margin: 0;
+  padding: 16px 32px;
+
   border: 1px solid #996B0F;
-  border-radius: 10px;
+  border-radius: 12px;
   outline: 1px solid #996B0F;
   outline-offset: 8px;
+
+  color: #ffffff;
+  font-family: "Cinzel", serif;
+  font-size: clamp(24px, 3vw, 34px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  color: white;
 }
 
 .title-box p {
   position: relative;
-  font-family: 'Source Serif 4', serif;
-  font-size: clamp(13px, 1.2vw, 16px);
-  color: white;
-  max-width: clamp(220px, 45%, 480px);
-  padding-top: 1.5rem;
-  margin-top: 1rem;
-  margin-left: clamp(0px, 2vw, 2rem);
+  max-width: 720px;
+  margin: 0;
+  padding-top: 24px;
+
+  color: #ffffff;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.35;
 }
 
 .title-box p::before {
   content: "";
   position: absolute;
   top: 0;
-  left: -100vw;              /* sempre alcança a borda esquerda */
-  width: calc(100% + 100vw); /* cobre da borda até o fim do parágrafo */
+  left: 50%;
+
+  width: min(900px, 92vw);
   height: 2px;
+
+  transform: translateX(-50%);
   background: #996B0F;
 }
 
 /* =========================
-   LAYOUT PRINCIPAL
+   CONTEÚDO PRINCIPAL
 ========================= */
+
 .burningdown-content {
-  display: flex;
-  margin-top: 30px;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(320px, 460px);
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  gap: clamp(32px, 5vw, 72px);
 }
 
-/* =========================
-   IMAGEM ESQUERDA
-========================= */
 .burningdown-left {
-  flex: 1 1 300px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 0;
 }
 
 .burningdown-left img {
-  width: clamp(420px, 46vw, 1100px); /* mínimo maior, variação menor */
-  max-width: 100%;
+  width: min(520px, 100%);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 35px rgba(255, 120, 0, 0.45));
+  filter:
+    drop-shadow(0 0 28px rgba(255, 120, 0, 0.45))
+    drop-shadow(0 0 54px rgba(244, 208, 63, 0.18));
 }
 
-
 /* =========================
-   PAINEL DIREITO
+   PAINEL DE PROGRESSO
 ========================= */
+
 .burningdown-right {
-  flex: 0 1 420px;
-  min-width: min(100%, 280px);
   border: 2px solid #d4a017;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  border-radius: 20px;
+  background: rgba(7, 5, 3, 0.52);
+  box-shadow:
+    0 0 20px rgba(212, 160, 23, 0.12),
+    inset 0 0 16px rgba(0, 0, 0, 0.45);
 
-  border-radius: 18px;
+  overflow: hidden;
 }
 
-/* =========================
-   HEADER DO PAINEL
-========================= */
 .chapter-box {
   display: flex;
   justify-content: space-between;
-  padding: 14px 20px;
+  align-items: center;
+
+  padding: 18px 24px;
   border-bottom: 2px solid #d4a017;
-  font-size: clamp(11px, 1.1vw, 14px);
+
+  font-family: "Cinzel", serif;
+  font-size: clamp(14px, 1.4vw, 17px);
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .chapter-box span {
@@ -119,106 +175,111 @@
   letter-spacing: 2px;
 }
 
-/* =========================
-   STATS
-========================= */
 .stats-box {
-  padding: 25px 20px;
-  display: flex;
-  flex-direction: column;
+  padding: 28px 24px;
+  display: grid;
   gap: 18px;
 }
 
 .stat {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 90px 1fr;
   align-items: center;
-  font-size: clamp(11px, 1.1vw, 14px);
+  gap: 18px;
+
+  font-family: "Cinzel", serif;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .stat span {
   color: #f5e6c8;
-  font-weight: bold;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
 }
 
 .stat p {
-  color: #c9b48a;
   margin: 0;
+  color: #c9b48a;
+  font-size: clamp(13px, 1.3vw, 16px);
+  text-align: right;
 }
 
-/* =========================
-   BOTÃO
-========================= */
 .btn-retomar {
-  margin: 20px;
-  padding: 12px;
-  text-align: center;
+  display: block;
+  margin: 8px 24px 26px;
+  padding: 16px 24px;
+
   border: 2px solid #d4a017;
+  border-radius: 18px;
+
   color: #d4a017;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  font-weight: bold;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-  border-radius: 18px;
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .btn-retomar:hover {
   background: #d4a017;
   color: #0f0b07;
-  box-shadow: 0 0 18px rgba(212, 160, 23, 0.6);
+  box-shadow: 0 0 22px rgba(212, 160, 23, 0.6);
+  transform: translateY(-2px);
 }
 
 /* =========================
-   RESPONSIVO — TABLET
+   RESPONSIVO
 ========================= */
+
 @media (max-width: 900px) {
   .burningdown-content {
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
   }
 
   .burningdown-left img {
-    width: min(88vw, 520px); /* em tablet, cresce mais antes de encolher */
+    width: min(420px, 90vw);
   }
 
-  .burningdown-right {
-    flex: none;
-    width: 100%;
+  .stat {
+    grid-template-columns: 72px 1fr;
   }
 }
 
-/* =========================
-   RESPONSIVO — MOBILE
-========================= */
-@media (max-width: 480px) {
-  .burningdown-left img {
-    width: 90vw; /* mobile ocupa quase tudo */
+@media (max-width: 520px) {
+  .burningdown-container {
+    padding: 24px 18px 70px;
   }
-  
+
+  .pagina-acoes {
+    margin-bottom: 18px;
+  }
+
   .title-box h1 {
-    font-size: 16px;
-    padding: 10px 1.2rem;
-    outline-offset: 5px;
+    font-size: 22px;
+    padding: 14px 24px;
   }
 
   .title-box p {
-    max-width: 100%;
-    margin-left: 0;
+    font-size: 17px;
   }
 
   .chapter-box {
     flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .stat {
+    grid-template-columns: 1fr;
     gap: 4px;
+    text-align: center;
   }
 
-  .stats-box {
-    padding: 16px 14px;
-    gap: 12px;
-  }
-
-  .btn-retomar {
-    margin: 14px;
+  .stat p {
+    text-align: center;
   }
 }
