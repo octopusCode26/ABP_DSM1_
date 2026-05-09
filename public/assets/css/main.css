@@ -16,6 +16,9 @@ html {
 body {
     font-family: 'Source Serif 4', serif;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1,
@@ -113,30 +116,51 @@ header {
     border-color: #f7d27b;
 }
 /* ================= RODAPE ================= */
+
+footer{
+    display: block;
+    margin-top: auto;
+}
+
+
 .footer_conteudo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: clamp(1.5rem, 3vh, 3rem);
-    min-height: clamp(150px, 25vh, 200px);
+    padding: clamp(1rem, 2vh, 3rem);
+    min-height: clamp(150px, 20vh, 200px);
     color: #8C7347;
     background-color: #0F0A05;
     border-top: 3px solid #996B0F;
     gap: clamp(0.75rem, 1.5vh, 1rem);
 }
 
+
+
+
+.logofooter_e_nome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+}
+
 .footer_conteudo p {
-    margin-bottom: clamp(0.5rem, 1vh, 1rem);
+     margin-bottom: 0;/*clamp(0.5rem, 0.3vh, 1rem); */
     font-size: clamp(0.875rem, 2vw, 1.5rem);
     font-family: 'Source Serif 4', serif;
     text-align: center;
 }
 
+.sem_quebra_de_linha {
+    white-space: nowrap;
+}
+
 .logo_footer {
-    width: clamp(6rem, 15vw, 10rem);
+    width: clamp(6rem, 12vw, 10rem);
     height: auto;
-    margin-bottom: clamp(0.5rem, 1vh, 1rem);
+    margin-bottom: 3px;
 }
 
 /* ================= ALERT CUSTOMIZADO ================= */
