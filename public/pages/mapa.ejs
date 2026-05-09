@@ -1,29 +1,49 @@
 <%- include('./partials/header') %>
+<%- include('./partials/botao_voltar') %>
 
+<link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/mapa.css">
 
-<main class="mapa-page">
+<%- include('./partials/alert') %>
 
+<main class="mapa-page">
   <section class="mapa-intro">
     <h1>Sala dos Desafios</h1>
+
     <p>
       Você chega em um grande salão. Há cinco portas.
       Complete as aventuras e desafios para avançar...
     </p>
   </section>
 
-  <section id="mapaModulos" class="mapa-modulos">
-    <p>Carregando mapa...</p>
-  </section>
-
-  <section class="mapa-certificado">
-    <button id="btnCertificado" disabled>
-      Emitir certificado
+  <section class="mapa-layout">
+    <button class="atalho-mapa atalho-progresso" onclick="window.location.href='/burningdown'">
+      <span class="atalho-imagem"></span>
+      <span>Fogueira do Burning Down</span>
     </button>
-  </section>
 
+    <section id="mapaModulos" class="mapa-modulos">
+      <p>Carregando mapa...</p>
+    </section>
+
+    <button class="atalho-mapa atalho-artefatos" onclick="window.location.href='/artefatos'">
+      <span class="atalho-imagem"></span>
+      <span>Artefatos</span>
+    </button>
+
+    <section class="mapa-certificado">
+      <button id="btnCertificado" class="certificado-botao" disabled>
+        <span class="certificado-imagem"></span>
+        <span class="certificado-texto">Emitir certificado</span>
+      </button>
+    </section>
+  </section>
 </main>
 
+
+
+<script src="/js/main.js"></script>
 <script src="/js/mapa.js"></script>
 
+<%- include('./partials/navegacao_inferior') %>
 <%- include('./partials/footer') %>

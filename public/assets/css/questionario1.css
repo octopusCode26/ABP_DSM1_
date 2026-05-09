@@ -15,7 +15,8 @@
 
 .corpo-questionario {
   margin: 0;
-  height: calc(100vh - var(--header-height));
+  min-height: calc(100vh - var(--header-height));
+  padding-bottom: 180px;
 
   background-image:
     linear-gradient(180deg, rgba(6, 5, 4, 0.2) 0%, rgba(6, 5, 4, 0.8) 72%),
@@ -28,7 +29,8 @@
 
 .tela {
   width: min(1120px, 100% - 2.5rem);
-  margin: clamp(1.25rem, 2.3vw, 2.5rem) auto clamp(2.25rem, 4vw, 3rem);
+  margin: clamp(1.25rem, 2.3vw, 2.5rem) auto 0;
+  padding-bottom: 120px;
   display: grid;
   gap: clamp(1rem, 2vw, 1.5rem);
 }
@@ -110,6 +112,7 @@
   display: grid;
   gap: 0.85rem;
   padding: clamp(1rem, 2vw, 1.5rem);
+  overflow: visible;
 }
 
 .dificuldade {
@@ -131,6 +134,8 @@
   font-family: "Source Serif 4", serif;
   font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .selecione {
@@ -265,6 +270,19 @@
   box-shadow: 0 12px 28px rgba(244, 208, 63, 0.18);
   transform: translateY(-2px);
   outline: none;
+}
+.imagem-questao-container {
+  width: 100%;
+}
+.questao-imagem {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  width: auto;
+  height: auto;
+  margin: 1rem auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
 }
 
 @media (max-width: 1024px) {

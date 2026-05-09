@@ -2,70 +2,96 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../assets/css/burningdown.css" />
-    <link rel="stylesheet" href="../assets/css/main.css" />
-    <title>Burningdown | Scrum Dungeon</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>Burning Down | Scrum Dungeon</title>
+
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/burningdown.css" />
   </head>
 
   <body>
-    <!-- ALERT -->
     <%- include('partials/alert') %>
 
-    <!-- CABEÇALHO -->
     <%- include('partials/header') %>
 
     <main class="burningdown-container">
+
+      <div class="pagina-acoes">
+        <button class="botao-voltar" type="button" onclick="history.back()">
+          <span>↩</span>
+          <span>Voltar</span>
+        </button>
+      </div>
+
       <section class="burningdown-header">
         <div class="title-box">
-          <h1>BURNING DOWN</h1>
+          <h1>Burning Down</h1>
+
           <p>
-            Nas chamas do burning down você pode verificar seu desempenho na
-            jornada de Scrum Dungeon. Além de retomar sua aventura de onde
-            parou.
+            Nas chamas do Burning Down você pode verificar seu desempenho na
+            jornada de Scrum Dungeon e retomar sua aventura de onde parou.
           </p>
         </div>
       </section>
 
       <section class="burningdown-content">
-        <!-- LADO ESQUERDO -->
         <div class="burningdown-left">
-          <img src="../assets/img/fogueira_burningdown_progresso.png" alt="Burning Down Chart" />
+          <img
+            src="/assets/img/fogueira_burningdown_progresso.png"
+            alt="Fogueira do Burning Down"
+          />
         </div>
 
-        <!-- LADO DIREITO -->
         <div class="burningdown-right">
           <div class="chapter-box">
             <span>Capítulo atual:</span>
-            <strong>01</strong>
+            <strong id="capituloAtual">01</strong>
           </div>
 
           <div class="stats-box">
             <div class="stat">
-              <span>0/5</span>
+              <span id="historiasCompletas">0/5</span>
+              <p>Histórias completas</p>
+            </div>
+
+            <div class="stat">
+              <span id="desafiosCompletos">0/5</span>
               <p>Desafios completos</p>
             </div>
 
             <div class="stat">
-              <span>1/3</span>
+              <span id="porcentagemTotal">0%</span>
+              <p>Conteúdo concluído</p>
+            </div>
+
+            <div class="stat">
+              <span id="tentativaAtual">1/2</span>
               <p>Tentativa atual</p>
             </div>
 
             <div class="stat">
-              <span>00</span>
-              <p>Tentativas gastas</p>
+              <span id="tentativasGastas">0</span>
+              <p>Tentativas gastas na run</p>
             </div>
           </div>
 
-          <a href="/aventura/retomar" class="btn-retomar"> Retomar Aventura </a>
+          <a href="/mapa" class="btn-retomar">
+            Retomar aventura
+          </a>
         </div>
       </section>
     </main>
 
-    <!-- RODAPÉ -->
+    <%- include('partials/navegacao_inferior') %>
+
     <%- include('partials/footer') %>
 
-    <script src="../js/main.js"></script>
-    <script src="../js/burningdown.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/burningdown.js"></script>
   </body>
 </html>

@@ -1,5 +1,3 @@
-// MANTER NESTE C�DIGO SOMENTE FUN��ES E VARI�VEIS QUE S�O USADAS EM MAIS DE UMA P�GINA,
-// CASO CONTR�RIO, COLOQUE O C�DIGO NA RESPECTIVA P�GINA HTML
 
 (function () {
     const menuToggle = document.getElementById('menuToggle');
@@ -28,6 +26,30 @@
         }
     });
 })();
+
+
+// ================= NAVEGAÇÃO INFERIOR ATIVA =================
+
+function marcarItemAtivoDaNavegacaoInferior() {
+  const itens = document.querySelectorAll(".navegacao-inferior__item");
+
+  if (!itens.length) return;
+
+  const rotaAtual = window.location.pathname.replace(/\/$/, "");
+
+  itens.forEach((item) => {
+    const rotaItem = item.dataset.rota?.replace(/\/$/, "");
+
+    item.classList.remove("ativo");
+
+    if (rotaAtual === rotaItem) {
+      item.classList.add("ativo");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", marcarItemAtivoDaNavegacaoInferior);
+window.addEventListener("load", marcarItemAtivoDaNavegacaoInferior);
 
 // BOTÃO FUNCIONANDO MAS SEM VARIAÇÃO DE COR PARA SUCESSO E ERRO
 // function mostrarAlerta(mensagem) {
