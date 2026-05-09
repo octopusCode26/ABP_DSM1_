@@ -4,82 +4,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../assets/css/main.css" />
-  <link rel="stylesheet" href="../assets/css/questionario1.css" />
-  <title>Questionário 1 | Scrum Dungeon</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/questionario1.css" />
+  <title>Questionario 1 | Scrum Dungeon</title>
 </head>
 
-<body class="corpo-questionario">
-  <!-- CABEÇALHO -->
+<body class="">
   <%- include('partials/header') %>
+  <div class="corpo-questionario">
 
-    <div class="tela">
-      <!-- Barra de progresso -->
-      <div class="progresso-box">
-        <h2 id="texto-progresso">QUESTÃO DE </h2>
-
-        <div class="barra-container">
-          <div id="progresso-dinamico" class="barra-preenchimento" style="width: 10%;"></div>
-        </div>
-    </div>
-    <script src="js/questionario1.js"></script>  
-
-      <!-- Caixa de Questão -->
-      <div class="questao-box">
-        <p class="dificuldade">Dificuldade</p>
-        <div class="linha"></div>
-        <p class="questao">Qual artefato representa o resultado de uma Sprint?</p>
+  <main class="tela">
+    <section class="progresso-box" aria-label="Progresso do questionario">
+      <div class="progresso-textos">
+        <h2 id="texto-progresso">Questao 2 de 10</h2>
       </div>
 
-      <!-- "Selecione sua resposta" -->
-      <div>
-        <p class="selecione">Selecione a alternativa correta</p>
+      <div
+        class="barra-container"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="20"
+        aria-label="Progresso atual do questionario"
+      >
+        <div id="progresso-dinamico" class="barra-preenchimento" style="width: 20%;"></div>
       </div>
 
-      <!-- Respostas -->
-      <div class="respostas">
+      <p class="progresso-percentual" id="texto-percentual">20%</p>
+    </section>
 
-        <button class="botaoresposta">
-          <div class="quadradinho">
-            <p class="letraresposta">A</p>
-          </div>
-          <p class="resposta">Resposta A</p>
-        </button>
+    <section class="questao-box" aria-labelledby="enunciado-questao">
+      <p class="dificuldade">Dificuldade: <strong>Média</strong></p>
+      <div class="linha"></div>
+      <p id="enunciado-questao" class="questao">Um Scrum Master atua como gerente tradicional, distribuindo tarefas e cobrando resultados individuais. Esse comportamento impacta negativamente principalmente:;
 
-        <button class="botaoresposta">
-          <div class="quadradinho">
-            <p class="letraresposta">B</p>
-          </div>
-          <p class="resposta">Resposta B</p>
-        </button>
 
-        <button class="botaoresposta">
-          <div class="quadradinho">
-            <p class="letraresposta">C</p>
-          </div>
-          <p class="resposta">Resposta C</p>
-        </button>
+      </p>
+    </section>
 
-        <button class="botaoresposta">
-          <div class="quadradinho">
-            <p class="letraresposta">D</p>
-          </div>
-          <p class="resposta">Resposta D</p>
-        </button>
+    <p class="selecione">Selecione a alternativa correta</p>
 
-      </div>
+    <div class="respostas" role="group" aria-label="Alternativas da questao">
+      <button type="button" class="botaoresposta" data-alternativa="a">
+        <span class="quadradinho">
+          <span class="letraresposta">A</span>
+        </span>
+        <span class="resposta">Resposta A</span>
+      </button>
 
-      <!-- botões de navegação -->
-      <div class="botoesdenavegacao">
-        <button class="botaonavegacao">Voltar</button>
-        <button class="botaonavegacao">Pular</button>
-        <button class="confirmar">CONFIRMAR RESPOSTA</button>
-        <button class="botaonavegacao">Enviar</button>
-      </div>
+      <button type="button" class="botaoresposta" data-alternativa="b">
+        <span class="quadradinho">
+          <span class="letraresposta">B</span>
+        </span>
+        <span class="resposta">Resposta B</span>
+      </button>
+
+      <button type="button" class="botaoresposta" data-alternativa="c">
+        <span class="quadradinho">
+          <span class="letraresposta">C</span>
+        </span>
+        <span class="resposta">Resposta C</span>
+      </button>
+
+      <button type="button" class="botaoresposta" data-alternativa="d">
+        <span class="quadradinho">
+          <span class="letraresposta">D</span>
+        </span>
+        <span class="resposta">Resposta D</span>
+      </button>
     </div>
 
-    <!-- RODAPÉ -->
-    <%- include('partials/footer') %>
+    <div class="botoesdenavegacao">
+      <button type="button" class="botaonavegacao">Voltar</button>
+      <button type="button" class="botaonavegacao">Pular</button>
+      <button type="button" class="confirmar">Confirmar Resposta</button>
+      <button type="button" class="botaonavegacao">Enviar</button>
+    </div>
+  </main>
+</div>
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/questionario1.js"></script>
 </body>
 
 </html>

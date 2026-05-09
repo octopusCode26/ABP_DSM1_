@@ -1,7 +1,7 @@
 {
   "name": "abp",
   "version": "1.0.0",
-  "description": "",
+  "description": "<h1 align=\"center\">Fatec Jacareí- ABP DSM 1º SEMESTRE</h1>",
   "main": "src/server.js",
   "scripts": {
     "start": "node ./src/server",

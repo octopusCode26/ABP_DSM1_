@@ -67,3 +67,30 @@ function fecharAlerta() {
 
     alerta.style.display = 'none';
 }
+
+
+// criar variável global para armazenar a altura do footer
+function atualizarAlturaFooter() {
+  const footer = document.querySelector("footer"); // ou seletor mais específico
+  if (!footer) return;
+
+  const alturaFooter = footer.offsetHeight;
+  document.documentElement.style.setProperty("--footer-height", `${alturaFooter}px`);
+}
+
+// criar variável global para armazenar a altura do header
+function atualizarAlturaHeader() {
+  const header = document.querySelector("header"); // ou seletor mais específico
+  if (!header) return;
+
+  const alturaHeader = header.offsetHeight;
+  document.documentElement.style.setProperty("--header-height", `${alturaHeader}px`);
+}
+
+// quando a página termina de carregar
+window.addEventListener("load", atualizarAlturaFooter);
+window.addEventListener("load", atualizarAlturaHeader);
+
+// quando redimensionar a tela
+window.addEventListener("resize", atualizarAlturaFooter);
+window.addEventListener("resize", atualizarAlturaHeader);
