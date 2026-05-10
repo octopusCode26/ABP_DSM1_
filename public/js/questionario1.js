@@ -1,57 +1,59 @@
 (function () {
-  const botoesResposta = Array.from(document.querySelectorAll(".botaoresposta"));
+  const totalQuestoes = 10;
+
+  const botoesResposta = Array.from(
+    document.querySelectorAll(".botaoresposta"),
+  );
   const barra = document.getElementById("progresso-dinamico");
   const textoPercentual = document.getElementById("texto-percentual");
   const barraContainer = document.querySelector(".barra-container");
-<<<<<<< Updated upstream
-=======
   const textoProgresso = document.getElementById("texto-progresso");
   const textoDificuldade = document.getElementById("texto-dificuldade");
   const enunciadoQuestao = document.getElementById("enunciado-questao");
-  const imagemQuestaoContainer = document.getElementById("imagem-questao-container");
+  const imagemQuestaoContainer = document.getElementById(
+    "imagem-questao-container",
+  );
   const botaoConfirmar = document.querySelector(".confirmar");
-  
->>>>>>> Stashed changes
 
-  function atualizarPercentual() {
-    if (!barra) {
-      return;
+  let questaoAtual = null;
+  let alternativaSelecionada = null;
+
+  function obterToken() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "/";
+      return null;
     }
 
-    const largura = barra.style.width || "0%";
-    const valorNumerico = Number.parseFloat(largura);
+    return token;
+  }
 
-    if (Number.isNaN(valorNumerico)) {
-      return;
+  function atualizarPercentual(numeroQuestao) {
+    const percentual = Math.max(
+      0,
+      Math.min(
+        100,
+        Math.round((Number(numeroQuestao || 0) / totalQuestoes) * 100),
+      ),
+    );
+
+    if (barra) {
+      barra.style.width = `${percentual}%`;
     }
-
-    const percentualArredondado = Math.max(0, Math.min(100, Math.round(valorNumerico)));
 
     if (textoPercentual) {
-      textoPercentual.textContent = `${percentualArredondado}%`;
+      textoPercentual.textContent = `${percentual}%`;
     }
 
     if (barraContainer) {
-      barraContainer.setAttribute("aria-valuenow", String(percentualArredondado));
+      barraContainer.setAttribute("aria-valuenow", String(percentual));
     }
-  }
-
-  function animarBarra() {
-    if (!barra) {
-      return;
-    }
-
-    const larguraFinal = barra.style.width || "0%";
-    barra.style.width = "0%";
-
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        barra.style.width = larguraFinal;
-      });
-    });
   }
 
   function selecionarAlternativa(botaoSelecionado) {
+    alternativaSelecionada = botaoSelecionado.dataset.alternativa;
+
     botoesResposta.forEach(function (botao) {
       const estaSelecionado = botao === botaoSelecionado;
 
@@ -60,8 +62,6 @@
     });
   }
 
-<<<<<<< Updated upstream
-=======
   function habilitarRespostas(habilitado) {
     botoesResposta.forEach(function (botao) {
       botao.disabled = !habilitado;
@@ -82,7 +82,9 @@
   }
 
   function preencherAlternativa(letra, texto) {
-    const botao = document.querySelector(`.botaoresposta[data-alternativa="${letra}"]`);
+    const botao = document.querySelector(
+      `.botaoresposta[data-alternativa="${letra}"]`,
+    );
     const resposta = botao?.querySelector(".resposta");
 
     if (resposta) {
@@ -90,44 +92,31 @@
     }
   }
 
- function renderizarImagemQuestao(questao) {
-  if (!imagemQuestaoContainer) {
-    console.log("Container da imagem não encontrado");
-    return;
+  function renderizarImagemQuestao(questao) {
+    if (!imagemQuestaoContainer) return;
+
+    imagemQuestaoContainer.innerHTML = "";
+
+    if (!questao.imagem) return;
+
+    const nomeImagem = String(questao.imagem).split("/").pop();
+    const caminhoImagem = `/assets/img/questoes/${nomeImagem}`;
+
+    imagemQuestaoContainer.innerHTML = `
+      <img
+        src="${caminhoImagem}"
+        alt="Imagem relacionada à questão"
+        class="questao-imagem"
+      >
+    `;
   }
-
-  imagemQuestaoContainer.innerHTML = "";
-
-  if (!questao.imagem) {
-    console.log("Questão sem imagem");
-    return;
-  }
-
-  const nomeImagem = String(questao.imagem).split("/").pop();
-
-  const caminhoImagem = `/assets/img/questoes/${nomeImagem}`;
-
-  console.log("Imagem recebida:", questao.imagem);
-  console.log("Nome tratado:", nomeImagem);
-  console.log("Caminho montado:", caminhoImagem);
-
-  imagemQuestaoContainer.innerHTML = `
-    <img
-      src="${caminhoImagem}"
-      alt="Imagem relacionada à questão"
-      class="questao-imagem"
-      onerror="console.error('Erro ao carregar imagem:', this.src)"
-    >
-  `;
-}
 
   function renderizarQuestao(questao) {
-   console.log("Questão recebida da API:", questao);
     questaoAtual = questao;
     limparSelecao();
 
     if (textoProgresso) {
-      textoProgresso.textContent = `Questao ${questao.numero} de ${totalQuestoes}`;
+      textoProgresso.textContent = `Questão ${questao.numero} de ${totalQuestoes}`;
     }
 
     if (textoDificuldade) {
@@ -135,7 +124,8 @@
     }
 
     if (enunciadoQuestao) {
-      enunciadoQuestao.textContent = questao.enunciado || "Pergunta indisponivel";
+      enunciadoQuestao.textContent =
+        questao.enunciado || "Pergunta indisponível";
     }
 
     renderizarImagemQuestao(questao);
@@ -144,12 +134,43 @@
     preencherAlternativa("b", questao.alternativa_b);
     preencherAlternativa("c", questao.alternativa_c);
     preencherAlternativa("d", questao.alternativa_d);
+
     atualizarPercentual(questao.numero);
     habilitarRespostas(true);
   }
 
+  async function finalizarQuestionario() {
+    const token = obterToken();
+
+    if (!token) return;
+
+    try {
+      const response = await fetch("/api/questoes/proximo-modulo", {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.warn(
+          "Questionário finalizado, mas houve retorno de atenção:",
+          data,
+        );
+      }
+
+      window.location.href = "/resultado";
+    } catch (error) {
+      console.error("Erro ao finalizar questionário:", error);
+      alert("Erro ao finalizar desafio.");
+    }
+  }
+
   async function carregarProximaQuestao() {
     const token = obterToken();
+
     if (!token) return;
 
     habilitarRespostas(false);
@@ -163,13 +184,13 @@
 
       const data = await response.json();
 
-      if (response.status === 404 && data.message === "nenhuma questao pendente encontrada") {
-        window.location.href = "/resultado";
+      if (response.status === 404) {
+        await finalizarQuestionario();
         return;
       }
 
       if (!response.ok) {
-        alert(data.message || "Erro ao carregar questao");
+        alert(data.message || "Erro ao carregar questão");
         window.location.href = "/mapa";
         return;
       }
@@ -177,13 +198,14 @@
       renderizarQuestao(data);
     } catch (error) {
       console.error(error);
-      alert("Erro de conexao ao carregar questao");
+      alert("Erro de conexão ao carregar questão");
       habilitarRespostas(true);
     }
   }
 
   async function confirmarResposta() {
     const token = obterToken();
+
     if (!token || !questaoAtual) return;
 
     if (!alternativaSelecionada) {
@@ -210,7 +232,7 @@
       const data = await response.json();
 
       if (!response.ok && response.status !== 409) {
-        alert(data.message || "Erro ao responder questao");
+        alert(data.message || "Erro ao responder questão");
         habilitarRespostas(true);
         return;
       }
@@ -218,12 +240,11 @@
       await carregarProximaQuestao();
     } catch (error) {
       console.error(error);
-      alert("Erro de conexao ao responder questao");
+      alert("Erro de conexão ao responder questão");
       habilitarRespostas(true);
     }
   }
 
->>>>>>> Stashed changes
   botoesResposta.forEach(function (botao) {
     botao.setAttribute("aria-pressed", "false");
 
@@ -232,6 +253,9 @@
     });
   });
 
-  animarBarra();
-  atualizarPercentual();
+  if (botaoConfirmar) {
+    botaoConfirmar.addEventListener("click", confirmarResposta);
+  }
+
+  carregarProximaQuestao();
 })();
