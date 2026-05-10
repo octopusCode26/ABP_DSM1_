@@ -218,6 +218,23 @@ async function findOutroGrupoAleatorio(idUsuario, idModulo) {
   return result.rows[0]?.grupo || null; 
 }
 
+//solução temporaria para quando esgotar os grupos de questões
+async function findQualquerGrupoPorModulo(idModulo) {
+  const result = await pool.query(
+    `
+    SELECT grupo
+    FROM questoes
+    WHERE id_modulo = $1
+      AND grupo IS NOT NULL
+    GROUP BY grupo
+    ORDER BY RANDOM()
+    LIMIT 1
+    `,
+    [idModulo]
+  );
+
+  return result.rows[0]?.grupo || null;
+}
 //atualizar próxima tentativa
 async function updateProximaTentativa(idExame, grupo, tentativa) {
 
@@ -470,5 +487,6 @@ module.exports = {
   findProximoModuloByUsuario,
   updateProximoModulo,
   findModulosRespondidosByUsuario,
-  findResultadoModuloAtual
+  findResultadoModuloAtual,
+  findQualquerGrupoPorModulo
 };

@@ -25,7 +25,7 @@ app.use(express.static(publicPath));
 // libera as imagens das questões
 app.use(
   "/assets/img/questoes",
-  express.static(path.join(__dirname, "infra", "init", "seed-data", "imagens"))
+  express.static(path.join(__dirname, "infra", "init", "seed-data", "imagens")),
 );
 
 // libera a pasta assets para CSS, imagens e outros arquivos visuais
@@ -73,8 +73,6 @@ app.get("/questionario1", function (_req, res) {
   res.render("questionario1"); // procura public/pages/questionario1.ejs
 });
 
-<<<<<<< Updated upstream
-=======
 app.get("/questionario", function (_req, res) {
   res.render("questionario1");
 });
@@ -91,8 +89,6 @@ app.get("/perfil", function (_req, res) {
   res.render("not-found");
 });
 
-
->>>>>>> Stashed changes
 // ROTAS DA API
 app.use("/api", router);
 

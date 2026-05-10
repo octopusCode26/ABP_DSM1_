@@ -1,150 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/questionario1.css" />
+    <title>Questionário 1 | Scrum Dungeon</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="/assets/css/questionario1.css" />
-  <title>Questionario 1 | Scrum Dungeon</title>
-</head>
+  <body class="pagina-questionario">
+    <%- include('partials/header') %> <%- include('./partials/botao_voltar') %>
 
-<body class="">
-  <%- include('partials/header') %>
-<<<<<<< Updated upstream
-=======
-  <%- include('./partials/botao_voltar') %>
+    <main class="corpo-questionario">
+      <section class="tela">
+        <section class="progresso-box">
+          <div class="progresso-textos">
+            <span class="progresso-subtitulo">Progresso</span>
+            <strong id="texto-progresso">Questão 1 de 10</strong>
+          </div>
 
->>>>>>> Stashed changes
-  <div class="corpo-questionario">
+          <div
+            class="barra-container"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Progresso atual do questionário"
+          >
+            <div
+              id="progresso-dinamico"
+              class="barra-preenchimento"
+              style="width: 0%"
+            ></div>
+          </div>
 
-<<<<<<< Updated upstream
-  <main class="tela">
-    <section class="progresso-box" aria-label="Progresso do questionario">
-      <div class="progresso-textos">
-        <h2 id="texto-progresso">Questao 2 de 10</h2>
-=======
-        <div
-          class="barra-container"
-          role="progressbar"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-valuenow="0"
-          aria-label="Progresso atual do questionario"
+          <p class="progresso-percentual" id="texto-percentual">0%</p>
+        </section>
+
+        <section class="questao-box" aria-labelledby="enunciado-questao">
+          <p class="dificuldade">
+            Dificuldade:
+            <strong id="texto-dificuldade">--</strong>
+          </p>
+
+          <div class="linha"></div>
+
+          <p id="enunciado-questao" class="questao">Carregando pergunta...</p>
+
+          <div
+            id="imagem-questao-container"
+            class="imagem-questao-container"
+          ></div>
+        </section>
+
+        <p class="selecione">Selecione a alternativa correta</p>
+
+        <section
+          class="respostas"
+          role="group"
+          aria-label="Alternativas da questão"
         >
-          <div id="progresso-dinamico" class="barra-preenchimento" style="width: 0%;"></div>
-        </div>
+          <button type="button" class="botaoresposta" data-alternativa="a">
+            <span class="quadradinho">
+              <span class="letraresposta">A</span>
+            </span>
+            <span class="resposta">Carregando...</span>
+          </button>
 
-        <p class="progresso-percentual" id="texto-percentual">0%</p>
+          <button type="button" class="botaoresposta" data-alternativa="b">
+            <span class="quadradinho">
+              <span class="letraresposta">B</span>
+            </span>
+            <span class="resposta">Carregando...</span>
+          </button>
+
+          <button type="button" class="botaoresposta" data-alternativa="c">
+            <span class="quadradinho">
+              <span class="letraresposta">C</span>
+            </span>
+            <span class="resposta">Carregando...</span>
+          </button>
+
+          <button type="button" class="botaoresposta" data-alternativa="d">
+            <span class="quadradinho">
+              <span class="letraresposta">D</span>
+            </span>
+            <span class="resposta">Carregando...</span>
+          </button>
+        </section>
+
+        <section class="botoesdenavegacao">
+          <button type="button" class="botaonavegacao">Voltar</button>
+
+          <button type="button" class="confirmar">Confirmar Resposta</button>
+
+          <button type="button" class="botaonavegacao">Pular</button>
+        </section>
       </section>
+    </main>
 
-      <section class="questao-box" aria-labelledby="enunciado-questao">
-        <p class="dificuldade">Dificuldade: <strong id="texto-dificuldade">--</strong></p>
-        <div class="linha"></div>
-        <p id="enunciado-questao" class="questao">Carregando pergunta...</p>
-        <div id="imagem-questao-container" class="imagem-questao-container"></div>
-      </section>
+    <%- include('partials/navegacao_inferior') %> <%- include('partials/footer')
+    %>
 
-      <p class="selecione">Selecione a alternativa correta</p>
-
-      <div class="respostas" role="group" aria-label="Alternativas da questao">
-        <button type="button" class="botaoresposta" data-alternativa="a">
-          <span class="quadradinho">
-            <span class="letraresposta">A</span>
-          </span>
-          <span class="resposta">Carregando...</span>
-        </button>
-
-        <button type="button" class="botaoresposta" data-alternativa="b">
-          <span class="quadradinho">
-            <span class="letraresposta">B</span>
-          </span>
-          <span class="resposta">Carregando...</span>
-        </button>
-
-        <button type="button" class="botaoresposta" data-alternativa="c">
-          <span class="quadradinho">
-            <span class="letraresposta">C</span>
-          </span>
-          <span class="resposta">Carregando...</span>
-        </button>
-
-        <button type="button" class="botaoresposta" data-alternativa="d">
-          <span class="quadradinho">
-            <span class="letraresposta">D</span>
-          </span>
-          <span class="resposta">Carregando...</span>
-        </button>
->>>>>>> Stashed changes
-      </div>
-
-      <div
-        class="barra-container"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow="20"
-        aria-label="Progresso atual do questionario"
-      >
-        <div id="progresso-dinamico" class="barra-preenchimento" style="width: 20%;"></div>
-      </div>
-
-      <p class="progresso-percentual" id="texto-percentual">20%</p>
-    </section>
-
-    <section class="questao-box" aria-labelledby="enunciado-questao">
-      <p class="dificuldade">Dificuldade: <strong>Média</strong></p>
-      <div class="linha"></div>
-      <p id="enunciado-questao" class="questao">Um Scrum Master atua como gerente tradicional, distribuindo tarefas e cobrando resultados individuais. Esse comportamento impacta negativamente principalmente:;
-
-
-      </p>
-    </section>
-
-    <p class="selecione">Selecione a alternativa correta</p>
-
-    <div class="respostas" role="group" aria-label="Alternativas da questao">
-      <button type="button" class="botaoresposta" data-alternativa="a">
-        <span class="quadradinho">
-          <span class="letraresposta">A</span>
-        </span>
-        <span class="resposta">Resposta A</span>
-      </button>
-
-      <button type="button" class="botaoresposta" data-alternativa="b">
-        <span class="quadradinho">
-          <span class="letraresposta">B</span>
-        </span>
-        <span class="resposta">Resposta B</span>
-      </button>
-
-      <button type="button" class="botaoresposta" data-alternativa="c">
-        <span class="quadradinho">
-          <span class="letraresposta">C</span>
-        </span>
-        <span class="resposta">Resposta C</span>
-      </button>
-
-      <button type="button" class="botaoresposta" data-alternativa="d">
-        <span class="quadradinho">
-          <span class="letraresposta">D</span>
-        </span>
-        <span class="resposta">Resposta D</span>
-      </button>
-    </div>
-
-    <div class="botoesdenavegacao">
-      <button type="button" class="botaonavegacao">Voltar</button>
-      <button type="button" class="botaonavegacao">Pular</button>
-      <button type="button" class="confirmar">Confirmar Resposta</button>
-      <button type="button" class="botaonavegacao">Enviar</button>
-    </div>
-  </main>
-</div>
-  <%- include('partials/footer') %>
-
-  <script src="/js/main.js"></script>
-  <script src="/js/questionario1.js"></script>
-</body>
-
+    <script src="/js/main.js"></script>
+    <script src="/js/questionario1.js"></script>
+  </body>
 </html>

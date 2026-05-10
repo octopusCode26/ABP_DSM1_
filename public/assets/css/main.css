@@ -17,9 +17,7 @@ body {
     font-family: 'Source Serif 4', serif;
     overflow-x: hidden;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+    }
 
 h1,
 h2,

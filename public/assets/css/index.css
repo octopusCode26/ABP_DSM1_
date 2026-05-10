@@ -814,42 +814,24 @@
         font-size: 0.88rem;
     }
 
-    .painel_auth {
-        top: 50%;
-        right: auto;
-        height: min(90dvh, 660px);
-        bottom: auto;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: animacao_modal_auth_compacto 0.22s ease-out;
-    }
+   .painel_auth {
+    top: calc(var(--altura-header) + 0.9rem);
+    right: 0.9rem;
+    bottom: 0.9rem;
+    left: auto;
 
-    .painel_auth.fechando {
-        animation: animacao_modal_auth_compacto_saida 0.2s ease-in forwards;
-    }
+    width: min(600px, calc(100vw - 1.8rem));
+    height: auto;
 
-    @keyframes animacao_modal_auth_compacto {
-        from {
-            opacity: 0;
-            transform: translate(-50%, calc(-50% + 1rem));
-        }
-
-        to {
-            opacity: 1;
-            transform: translate(-50%, -50%);
-        }
-    }
-
-    @keyframes animacao_modal_auth_compacto_saida {
-    from {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-    to {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% + 1rem));
-    }
+    transform: none;
+    animation: animacao_modal_auth 0.24s ease-out;
 }
+
+.painel_auth.fechando {
+    animation: animacao_modal_auth_saida 0.2s ease-in forwards;
+}
+
+   
 
     .painel_auth_conteudo {
         padding: 1.2rem 1.2rem 1rem;
