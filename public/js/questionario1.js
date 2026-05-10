@@ -139,34 +139,9 @@
     habilitarRespostas(true);
   }
 
-  async function finalizarQuestionario() {
-    const token = obterToken();
-
-    if (!token) return;
-
-    try {
-      const response = await fetch("/api/questoes/proximo-modulo", {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.warn(
-          "Questionário finalizado, mas houve retorno de atenção:",
-          data,
-        );
-      }
-
-      window.location.href = "/resultado";
-    } catch (error) {
-      console.error("Erro ao finalizar questionário:", error);
-      alert("Erro ao finalizar desafio.");
-    }
-  }
+async function finalizarQuestionario() {
+  window.location.href = "/resultado";
+}
 
   async function carregarProximaQuestao() {
     const token = obterToken();

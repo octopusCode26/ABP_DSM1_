@@ -16,6 +16,7 @@ const {
   updateProximoModulo,
   findModulosRespondidosByUsuario,
   findResultadoModuloAtual,
+  findQualquerGrupoPorModulo,
 } = require("../repositories/questoes.repositories");
 
 const {
@@ -32,28 +33,26 @@ curl -X GET http://localhost:3000/api/questoes/proxima-questao \
 
 router.get("/proxima-questao", authMiddleware, async function (req, res) {
   try {
-    const progresso = await findProgressoDesafio(
-  req.usuario.id_usuario
-);
+    const progresso = await findProgressoDesafio(req.usuario.id_usuario);
 
-if (!progresso) {
-  return res.status(404).json({
-    message: "progresso de desafio não encontrado",
-  });
-}
+    if (!progresso) {
+      return res.status(404).json({
+        message: "progresso de desafio não encontrado",
+      });
+    }
 
-const historiaLiberada = await historiaConcluida(
-  req.usuario.id_usuario,
-  progresso.modulo_desafio_atual
-);
+    const historiaLiberada = await historiaConcluida(
+      req.usuario.id_usuario,
+      progresso.modulo_desafio_atual,
+    );
 
-if (!historiaLiberada) {
-  return res.status(403).json({
-    message:
-      "você precisa concluir a história antes de acessar o desafio deste módulo",
-    modulo: progresso.modulo_desafio_atual,
-  });
-}
+    if (!historiaLiberada) {
+      return res.status(403).json({
+        message:
+          "você precisa concluir a história antes de acessar o desafio deste módulo",
+        modulo: progresso.modulo_desafio_atual,
+      });
+    }
     const questao = await findProximaQuestaoByUsuario(req.usuario.id_usuario);
 
     if (!questao) {
@@ -62,10 +61,10 @@ if (!historiaLiberada) {
         .json({ message: "nenhuma questão pendente encontrada" });
     }
 
-     return res.status(200).json({ 
-      ...questao, 
-      imagem: questao.imagem ? `/imagens/questoes/${questao.imagem}` : null, 
-    }); 
+    return res.status(200).json({
+      ...questao,
+      imagem: questao.imagem ? `/imagens/questoes/${questao.imagem}` : null,
+    });
   } catch (e) {
     return res.status(500).json({
       message: "erro interno do servidor",
@@ -126,7 +125,6 @@ router.post("/responder", authMiddleware, async function (req, res) {
       nota,
       mensagem: correta ? "Resposta correta!" : "Resposta incorreta",
     });
-
   } catch (e) {
     return res.status(500).json({
       message: "erro interno do servidor",
@@ -193,7 +191,7 @@ curl -X PATCH http://localhost:3000/api/questoes/proxima-tentativa \
 /* Implementando progressão de módulos
 curl -X PATCH http://localhost:3000/api/questoes/proximo-modulo \ 
   -H "Authorization: Bearer SEU_TOKEN" 
-*/ 
+*/
 router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
   try {
     const idUsuario = req.usuario.id_usuario;
@@ -230,7 +228,10 @@ router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
       });
     }
 
-    if (Number(resultado.id_modulo) !== Number(progressoAtual.modulo_desafio_atual)) {
+    if (
+      Number(resultado.id_modulo) !==
+      Number(progressoAtual.modulo_desafio_atual)
+    ) {
       return res.status(409).json({
         message: "este questionário não corresponde ao desafio atual da run",
         desafio_atual: progressoAtual.modulo_desafio_atual,
@@ -250,11 +251,16 @@ router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
         Number(progressoAntes.falhas_no_modulo) >= 1;
 
       if (resetouRun) {
-        const grupoReset = await findOutroGrupoAleatorio(idUsuario, 1);
+        let grupoReset = await findOutroGrupoAleatorio(idUsuario, 1);
+
+        if (!grupoReset) {
+          grupoReset = await findQualquerGrupoPorModulo(1);
+        }
 
         if (!grupoReset) {
           return res.status(404).json({
-            message: "nenhum grupo disponível para reiniciar o módulo 1",
+            message:
+              "nenhum grupo de questões encontrado para reiniciar o módulo 1",
           });
         }
 
@@ -262,35 +268,41 @@ router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
           moduloAtual.id_exame,
           1,
           grupoReset,
-          1
+          1,
         );
 
         return res.status(200).json({
           aprovado: false,
           resetou_run: true,
-          message: "você falhou 2 vezes. Sua run foi reiniciada para o módulo 1.",
+          message:
+            "Você falhou 2 vezes. Sua run foi reiniciada para o módulo 1.",
           percentual: resultado.percentual,
           nota_minima: 70,
           exame: exameResetado,
           progresso,
         });
       }
-
-      const grupoNovaTentativa = await findOutroGrupoAleatorio(
+      let grupoNovaTentativa = await findOutroGrupoAleatorio(
         idUsuario,
-        resultado.id_modulo
+        resultado.id_modulo,
       );
 
       if (!grupoNovaTentativa) {
+        grupoNovaTentativa = await findQualquerGrupoPorModulo(
+          resultado.id_modulo,
+        );
+      }
+
+      if (!grupoNovaTentativa) {
         return res.status(404).json({
-          message: "nenhum grupo alternativo disponível para este módulo",
+          message: "nenhum grupo de questões encontrado para este módulo",
         });
       }
 
       const novaTentativa = await updateProximaTentativa(
         moduloAtual.id_exame,
         grupoNovaTentativa,
-        Number(moduloAtual.tentativa) + 1
+        Number(moduloAtual.tentativa) + 1,
       );
 
       return res.status(200).json({
@@ -317,22 +329,26 @@ router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
       });
     }
 
-    const grupo = await findOutroGrupoAleatorio(idUsuario, proximoModulo);
+    let grupo = await findOutroGrupoAleatorio(idUsuario, proximoModulo);
 
-    if (!grupo) {
-      return res.status(404).json({
-        message: "nenhum grupo disponível para o próximo módulo",
-      });
-    }
+if (!grupo) {
+  grupo = await findQualquerGrupoPorModulo(proximoModulo);
+}
 
-    const exame = await updateProximoModulo(
-      moduloAtual.id_exame,
-      proximoModulo,
-      grupo,
-      1
-    );
+if (!grupo) {
+  return res.status(404).json({
+    message: "nenhum grupo de questões encontrado para o próximo módulo",
+  });
+}
 
-    const progresso = await avancarDesafio(idUsuario);
+const exame = await updateProximoModulo(
+  moduloAtual.id_exame,
+  proximoModulo,
+  grupo,
+  1,
+);
+
+const progresso = await avancarDesafio(idUsuario);
 
     return res.status(200).json({
       aprovado: true,
@@ -352,17 +368,39 @@ router.patch("/proximo-modulo", authMiddleware, async function (req, res) {
 /* Acompanhar progresso
 curl -X GET http://localhost:3000/api/questoes/modulos-respondidos \ 
   -H "Authorization: Bearer SEU_TOKEN" 
-*/ 
-router.get("/modulos-respondidos", authMiddleware, async function (req, res) { 
+*/
+router.get("/modulos-respondidos", authMiddleware, async function (req, res) {
   try {
-   const modulos = await findModulosRespondidosByUsuario(req.usuario.id_usuario); 
- 
-    return res.status(200).json(modulos); 
-  } catch (e) { 
-    return res.status(500).json({ 
-      message: "erro interno do servidor", 
-    }); 
-  } 
+    const modulos = await findModulosRespondidosByUsuario(
+      req.usuario.id_usuario,
+    );
+
+    return res.status(200).json(modulos);
+  } catch (e) {
+    return res.status(500).json({
+      message: "erro interno do servidor",
+    });
+  }
+});
+
+router.get("/resultado-atual", authMiddleware, async function (req, res) {
+  try {
+    const resultado = await findResultadoModuloAtual(req.usuario.id_usuario);
+
+    if (!resultado) {
+      return res.status(404).json({
+        message: "resultado atual não encontrado",
+      });
+    }
+
+    return res.status(200).json(resultado);
+  } catch (e) {
+    console.error(e);
+
+    return res.status(500).json({
+      message: "erro interno do servidor",
+    });
+  }
 });
 
 // exporta o "router" para outros arquivos.
