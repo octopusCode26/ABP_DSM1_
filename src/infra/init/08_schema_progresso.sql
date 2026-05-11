@@ -32,3 +32,18 @@ CREATE TABLE IF NOT EXISTS public.progresso_desafio (
     REFERENCES public.usuarios (id_usuario)
     ON DELETE CASCADE
 );
+
+INSERT INTO public.progresso_desafio (
+  id_usuario,
+  modulo_desafio_atual,
+  falhas_no_modulo,
+  certificado_liberado
+)
+SELECT
+  u.id_usuario,
+  1,
+  0,
+  false
+FROM public.usuarios AS u
+ON CONFLICT (id_usuario)
+DO NOTHING;
