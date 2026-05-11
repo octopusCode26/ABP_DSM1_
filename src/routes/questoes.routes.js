@@ -136,7 +136,7 @@ router.post("/responder", authMiddleware, async function (req, res) {
 curl -X PATCH http://localhost:3000/api/questoes/proxima-tentativa \ 
   -H "Authorization: Bearer SEU_TOKEN" 
 */
-/*router.patch("/proxima-tentativa", authMiddleware, async function (req, res) {
+router.patch("/proxima-tentativa", authMiddleware, async function (req, res) {
  try {
     const concluido = await usuarioConcluiuModuloAtual(req.usuario.id_usuario);
     if (!concluido) {
