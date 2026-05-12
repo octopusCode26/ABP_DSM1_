@@ -1,161 +1,459 @@
-/* ============================================================
-★ CONFIGURAÇÃO DE DESBLOQUEIO DOS ÍCONES ★
-─────────────────────────────────────────
-DESBLOQUEAR_AO_ENTRAR_STAGE
-    → Chave = número da stage.
-    Valor  = array de ícones desbloqueados ao entrar nessa stage.
-    Para desbloquear em outro momento (evento, ação do usuário),
-    hame diretamente: desbloquearIcone('nomeDoIcone')
-============================================================ */
-const ICONES_INICIAIS_DESBLOQUEADOS = ['desafio', 'perfil'];
+const ID_MODULO = 1;
 
-const DESBLOQUEAR_AO_ENTRAR_STAGE = {
-    // stage 3: desbloqueia Artefatos ao chegar na fogueira
-    3: ['artefatos'],
-
-    // Exemplo para stages futuras — basta adicionar aqui:
-    // 4: ['progresso'],
+const pilaresData = {
+  transparencia: {
+    titulo: "Transparência",
+    texto:
+      "Informações importantes sobre o trabalho, o progresso, os problemas e os objetivos devem estar claras para todos os envolvidos. Quando ninguém sabe o que está acontecendo, surgem monstros terríveis: o Bug Invisível, o Requisito Perdido e o lendário 'Achei que você ia fazer'.",
+  },
+  inspecao: {
+    titulo: "Inspeção",
+    texto:
+      "O progresso, o produto e o modo de trabalho devem ser verificados regularmente para encontrar desvios, problemas e oportunidades de melhoria. Inspecionar não é procurar culpados. É procurar sinais.",
+  },
+  adaptacao: {
+    titulo: "Adaptação",
+    texto:
+      "Quando algo foge do esperado, o time deve corrigir o rumo o mais rápido possível. Mudanças não são necessariamente maldições; às vezes são pistas, às vezes são oportunidades.",
+  },
 };
 
-/* ============================================================
-STAGES
-============================================================ */
-const stageAntes = { 1: null, 2: 1, 3: 2 };
-const stageDepois = { 1: 2, 2: 3, 3: null };
-const bloqueioAvancar = { 1: () => pilaresLidos.size < 3 };
+const runasData = {
+  individuos: {
+    titulo: "Indivíduos e interações",
+    texto:
+      "Ferramentas ajudam. Processos também. Mas são as pessoas que resolvem problemas, conversam, colaboram e percebem quando algo está errado.",
+  },
+  software: {
+    titulo: "Software funcionando",
+    texto:
+      "Documentação tem valor, mas o verdadeiro progresso aparece quando existe algo funcionando, utilizável e capaz de gerar aprendizado.",
+  },
+  cliente: {
+    titulo: "Colaboração com o cliente",
+    texto:
+      "O cliente participa, dá feedback e ajuda o time a entender o que realmente gera valor. Ele não aparece só no fim para reclamar diante do castelo em chamas.",
+  },
+  mudancas: {
+    titulo: "Responder a mudanças",
+    texto:
+      "Planejar é importante, mas seguir um plano cego quando o mundo mudou é como atravessar uma ponte que já caiu só porque ela ainda está bonita no mapa.",
+  },
+};
 
-let stageAtual = 1;
+const principiosData = {
+  1: {
+    titulo: "Valor ao Cliente",
+    texto:
+      "A maior prioridade é satisfazer o cliente por meio da entrega cedo e contínua de valor.",
+  },
+  2: {
+    titulo: "Mudanças São Bem-vindas",
+    texto:
+      "Mudanças de requisitos podem ser aceitas, mesmo tardiamente, quando ajudam a gerar vantagem e valor.",
+  },
+  3: {
+    titulo: "Entregas Frequentes",
+    texto:
+      "Entregue partes funcionais do produto com frequência para aprender, testar e ajustar cedo.",
+  },
+  4: {
+    titulo: "Colaboração Constante",
+    texto:
+      "Pessoas de negócio e desenvolvedores devem trabalhar juntos frequentemente.",
+  },
+  5: {
+    titulo: "Times Motivados",
+    texto:
+      "Projetos devem ser construídos ao redor de pessoas motivadas, com apoio, confiança e condições adequadas.",
+  },
+  6: {
+    titulo: "Comunicação Clara",
+    texto:
+      "A forma mais eficiente de transmitir informações é a conversa direta.",
+  },
+  7: {
+    titulo: "Software Funcionando",
+    texto: "Software funcionando é a principal medida de progresso.",
+  },
+  8: {
+    titulo: "Ritmo Sustentável",
+    texto:
+      "O trabalho deve manter um ritmo constante e saudável. Heróis exaustos erram até magia simples.",
+  },
+  9: {
+    titulo: "Excelência Técnica",
+    texto: "Excelência técnica e bom design aumentam a agilidade.",
+  },
+  10: {
+    titulo: "Simplicidade",
+    texto:
+      "Simplicidade é essencial. Não construa uma catapulta para abrir uma gaveta.",
+  },
+  11: {
+    titulo: "Equipes Auto-organizadas",
+    texto:
+      "As melhores soluções surgem de equipes com autonomia para decidir como realizar o trabalho.",
+  },
+  12: {
+    titulo: "Melhoria Contínua",
+    texto:
+      "Em intervalos regulares, o time reflete sobre como melhorar e ajusta seu comportamento.",
+  },
+};
 
-function irParaStage(n) {
-    const destino = document.getElementById('stage' + n);
-    if (!destino) return;
+function obterToken() {
+  const token = localStorage.getItem("token");
 
-    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-    destino.classList.add('active');
-    stageAtual = n;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!token) {
+    window.location.href = "/";
+    return null;
+  }
 
-    // Desbloqueia ícones configurados para esta stage
-    const iconesDaStage = DESBLOQUEAR_AO_ENTRAR_STAGE[n];
-    if (iconesDaStage) iconesDaStage.forEach(desbloquearIcone);
-
-    atualizarNav();
+  return token;
 }
 
-function navVoltar() {
-    const a = stageAntes[stageAtual];
-    if (a) irParaStage(a);
+const SCROLL_OFFSET = 150;
+
+function rolarParaElemento(seletor, offset = SCROLL_OFFSET) {
+  const alvo = document.querySelector(seletor);
+
+  if (!alvo) return;
+
+  const posicaoAlvo =
+    alvo.getBoundingClientRect().top + window.scrollY - offset;
+
+  window.scrollTo({
+    top: posicaoAlvo,
+    behavior: "smooth",
+  });
 }
 
-function navAvancar() {
-    const p = stageDepois[stageAtual];
-    if (!p) return;
-    const b = bloqueioAvancar[stageAtual];
-    if (b && b()) return;
-    irParaStage(p);
+function configurarScrollParaBotoes() {
+  document.querySelectorAll("[data-scroll-to]").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      rolarParaElemento(botao.dataset.scrollTo);
+    });
+  });
 }
 
-function atualizarNav() {
-    const vBtn = document.getElementById('btnVoltar');
-    const aBtn = document.getElementById('btnAvancar');
+function ajustarScrollPorHashInicial() {
+  const hash = window.location.hash;
 
-    vBtn.style.visibility = stageAntes[stageAtual] ? 'visible' : 'hidden';
+  if (!hash) return;
 
-    if (!stageDepois[stageAtual]) {
-        aBtn.style.visibility = 'hidden';
-    } else {
-        aBtn.style.visibility = 'visible';
-        const b = bloqueioAvancar[stageAtual];
-        const t = !!(b && b());
-        aBtn.disabled = t;
-        aBtn.classList.toggle('bloqueado', t);
+  setTimeout(() => {
+    rolarParaElemento(hash);
+  }, 250);
+}
+
+function configurarRevealNoScroll() {
+  const elementos = document.querySelectorAll(".reveal");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+      });
+    },
+    {
+      threshold: 0.18,
+    },
+  );
+
+  elementos.forEach((el) => observer.observe(el));
+}
+
+function configurarProgressoVisual() {
+  const secoes = document.querySelectorAll("[data-step]");
+  const marcadores = document.querySelectorAll(
+    ".chapter-progress .progress-item",
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const step = entry.target.dataset.step;
+
+        marcadores.forEach((marcador) => {
+          marcador.classList.toggle("active", marcador.dataset.step === step);
+        });
+      });
+    },
+    {
+      threshold: 0.45,
+    },
+  );
+
+  secoes.forEach((secao) => observer.observe(secao));
+}
+
+function configurarPilares() {
+  const card = document.getElementById("pilar-info");
+
+  document.querySelectorAll(".pilar-btn").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const pilar = pilaresData[botao.dataset.pilar];
+      if (!pilar || !card) return;
+
+      card.innerHTML = `
+        <h3>${pilar.titulo}</h3>
+        <p>${pilar.texto}</p>
+      `;
+    });
+  });
+}
+
+function configurarRunas() {
+  const card = document.getElementById("runa-info");
+
+  document.querySelectorAll(".runa-btn").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const runa = runasData[botao.dataset.runa];
+      if (!runa || !card) return;
+
+      botao.classList.add("lido");
+
+      card.innerHTML = `
+        <h3>${runa.titulo}</h3>
+        <p>${runa.texto}</p>
+      `;
+    });
+  });
+}
+
+function configurarPrincipios() {
+  const card = document.getElementById("principio-info");
+
+  document.querySelectorAll(".principio-btn").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const principio = principiosData[botao.dataset.principio];
+      if (!principio || !card) return;
+
+      botao.classList.add("lido");
+
+      card.innerHTML = `
+        <h3>${principio.titulo}</h3>
+        <p>${principio.texto}</p>
+      `;
+    });
+  });
+}
+
+function configurarPergaminho() {
+  const btn = document.getElementById("btnPergaminho");
+  const texto = document.getElementById("pergaminhoTexto");
+
+  if (!btn || !texto) return;
+
+  btn.addEventListener("click", () => {
+    texto.classList.toggle("hidden");
+    btn.textContent = texto.classList.contains("hidden")
+      ? "Ler pergaminho"
+      : "Fechar pergaminho";
+  });
+}
+
+function configurarFogueiraBurningdown() {
+  const fogueira = document.getElementById("btnFogueiraBurningdown");
+
+  if (!fogueira) return;
+
+  fogueira.addEventListener("click", () => {
+    sessionStorage.setItem("origemBurningdown", "capitulo1");
+    sessionStorage.setItem("retornoBurningdown", "/capitulo1#fogueira");
+
+    window.location.href = "/burningdown";
+  });
+}
+
+function configurarBacklogVivo() {
+  const backlogVivo = document.querySelector(".backlog-vivo");
+  const lista = document.getElementById("backlogLista");
+  const btnPriorizar = document.getElementById("btnPriorizarBacklog");
+  const btnBaguncar = document.getElementById("btnBaguncarBacklog");
+  const info = document.getElementById("backlogInfo");
+
+  if (!backlogVivo || !lista || !btnPriorizar || !btnBaguncar || !info) return;
+
+  const ordemInicial = Array.from(lista.children);
+
+  function atualizarRanks(priorizado = false) {
+    const cards = Array.from(lista.querySelectorAll(".backlog-card"));
+
+    cards.forEach((card, index) => {
+      const rank = card.querySelector(".backlog-rank");
+
+      if (!rank) return;
+
+      rank.textContent = priorizado ? index + 1 : "?";
+    });
+  }
+
+  function priorizarBacklog() {
+    const cardsOrdenados = Array.from(lista.querySelectorAll(".backlog-card"))
+      .sort((a, b) => {
+        return Number(a.dataset.prioridade) - Number(b.dataset.prioridade);
+      });
+
+    cardsOrdenados.forEach((card) => {
+      lista.appendChild(card);
+    });
+
+    backlogVivo.classList.add("priorizado");
+    atualizarRanks(true);
+
+    btnPriorizar.classList.add("hidden");
+    btnBaguncar.classList.remove("hidden");
+
+    info.innerHTML = `
+      <h3>Backlog priorizado</h3>
+      <p>
+        As tarefas se reorganizam no pergaminho. No Scrum, o Product Backlog
+        é uma lista viva e ordenada. Os itens de maior valor, urgência ou risco
+        costumam ficar no topo para orientar as próximas decisões.
+      </p>
+    `;
+  }
+
+  function baguncarBacklog() {
+    ordemInicial.forEach((card) => {
+      lista.appendChild(card);
+    });
+
+    backlogVivo.classList.remove("priorizado");
+    atualizarRanks(false);
+
+    btnBaguncar.classList.add("hidden");
+    btnPriorizar.classList.remove("hidden");
+
+    info.innerHTML = `
+      <h3>O pergaminho voltou a se agitar...</h3>
+      <p>
+        Sem priorização, o time pode se perder entre ideias, melhorias e problemas.
+        Clique em “Priorizar Backlog” para ordenar novamente a missão.
+      </p>
+    `;
+  }
+
+  lista.querySelectorAll(".backlog-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      card.classList.add("lido");
+
+      info.innerHTML = `
+        <h3>${card.dataset.titulo}</h3>
+        <p>${card.dataset.explicacao}</p>
+      `;
+    });
+  });
+
+  btnPriorizar.addEventListener("click", priorizarBacklog);
+  btnBaguncar.addEventListener("click", baguncarBacklog);
+
+  atualizarRanks(false);
+}
+
+
+
+async function concluirHistoria() {
+  const token = obterToken();
+
+  const btnConcluir = document.getElementById("btnConcluirHistoria");
+  const btnDesafio = document.getElementById("btnIrDesafio");
+  const status = document.getElementById("statusHistoria");
+
+  if (!token) return;
+
+  if (btnConcluir) {
+    btnConcluir.disabled = true;
+    btnConcluir.textContent = "Registrando progresso...";
+  }
+
+  if (status) {
+    status.textContent = "A dungeon está registrando sua jornada...";
+  }
+
+  try {
+    const response = await fetch(
+      `/api/progresso/historia/${ID_MODULO}/concluir`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || "Não foi possível registrar o progresso.",
+      );
     }
+
+    localStorage.setItem(`historia_modulo_${ID_MODULO}_concluida`, "true");
+
+    if (status) {
+      status.textContent = "História concluída. A primeira porta foi liberada.";
+    }
+
+    if (btnConcluir) {
+      btnConcluir.classList.add("hidden");
+    }
+
+    if (btnDesafio) {
+      btnDesafio.classList.remove("hidden");
+      btnDesafio.disabled = false;
+    }
+  } catch (error) {
+    console.error(error);
+
+    if (status) {
+      status.textContent = "Erro ao registrar progresso. Tente novamente.";
+    }
+
+    if (btnConcluir) {
+      btnConcluir.disabled = false;
+      btnConcluir.textContent = "Tentar concluir novamente";
+    }
+  }
 }
 
-/* ============================================================
-SISTEMA DE BLOQUEIO DOS ÍCONES
-============================================================ */
+function configurarConclusaoHistoria() {
+  const btnConcluir = document.getElementById("btnConcluirHistoria");
+  const btnDesafio = document.getElementById("btnIrDesafio");
 
-/**
- * Desbloqueia um ícone pelo seu data-icon.
- * Pode ser chamado de qualquer lugar do código:
- *   desbloquearIcone('artefatos')
- */
-function desbloquearIcone(nome) {
-    const btn = document.querySelector(`.nav_icon[data-icon="${nome}"]`);
-    if (btn) btn.classList.remove('travado');
+  if (btnConcluir) {
+    btnConcluir.addEventListener("click", concluirHistoria);
+  }
+
+  if (btnDesafio) {
+    btnDesafio.addEventListener("click", () => {
+      localStorage.setItem("moduloAtual", ID_MODULO);
+      window.location.href = "/questionario1";
+    });
+  }
 }
 
-/**
- * Bloqueia um ícone (caso precise reverter).
- */
-function bloquearIcone(nome) {
-    const btn = document.querySelector(`.nav_icon[data-icon="${nome}"]`);
-    if (btn) btn.classList.add('travado');
-}
 
-/**
- * Intercepta cliques nos ícones — ignora se estiver travado.
- */
-function clicarIcone(el) {
-    if (el.classList.contains('travado')) return;
-    const nome = el.dataset.icon;
-    const acoes = { desafio: abrirDesafio, progresso: abrirProgresso, artefatos: abrirArtefatos, perfil: abrirPerfil };
-    if (acoes[nome]) acoes[nome]();
-}
 
-/**
- * Inicialização: trava todos os ícones e depois desbloqueia
- * apenas os que estão em ICONES_INICIAIS_DESBLOQUEADOS.
- */
-function inicializarIcones() {
-    document.querySelectorAll('.nav_icon[data-icon]').forEach(btn => btn.classList.add('travado'));
-    ICONES_INICIAIS_DESBLOQUEADOS.forEach(desbloquearIcone);
-}
 
-/* ============================================================
-PILARES
-============================================================ */
-const pilaresData = [
-    { titulo: "Transparência", texto: "Aspectos importantes do processo devem estar visíveis a todos os envolvidos, promovendo uma compreensão comum, confiança e comunicação aberta" },
-    { titulo: "Inspeção", texto: "O progresso, produtos e processos devem ser inspecionados frequentemente para detectar variações ou problemas indesejados." },
-    { titulo: "Adaptação", texto: "Se um aspecto do processo desviar do aceitável, o ajuste deve ser feito o mais rápido possível para minimizar desvios futuros." }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  obterToken();
 
-const pilaresLidos = new Set();
-
-function abrirPilar(el) {
-    const idx = parseInt(el.dataset.index);
-    document.getElementById('pilarCardTitulo').textContent = pilaresData[idx].titulo;
-    document.getElementById('pilarCardTexto').textContent = pilaresData[idx].texto;
-    document.getElementById('pilarCard').style.display = 'block';
-    document.querySelectorAll('.pilar').forEach(p => p.classList.remove('selecionado'));
-    el.classList.add('selecionado');
-    pilaresLidos.add(idx);
-    atualizarNav();
-}
-
-/* ============================================================
-PERGAMINHO
-============================================================ */
-function lerPergaminho() {
-    const exp = document.getElementById('pergaminhoExpandido');
-    const btn = document.getElementById('lerPergaminhoBtn');
-    const open = exp.style.display !== 'none';
-    exp.style.display = open ? 'none' : 'block';
-    btn.textContent = open ? '"Ler pergaminho..."' : '"Fechar pergaminho..."';
-}
-
-/* ============================================================
-AÇÕES DOS ÍCONES (implemente conforme necessário)
-============================================================ */
-function abrirDesafio() { /* TODO */ }
-function abrirProgresso() { /* TODO */ }
-function abrirArtefatos() { /* TODO */ }
-function abrirPerfil() { /* TODO */ }
-
-/* ============================================================
-INIT
-============================================================ */
-inicializarIcones();
-atualizarNav();
+  configurarScrollParaBotoes();
+  ajustarScrollPorHashInicial();
+  configurarRevealNoScroll();
+  configurarProgressoVisual();
+  configurarPilares();
+  configurarRunas();
+  configurarPrincipios();
+  configurarPergaminho();
+  configurarConclusaoHistoria();
+  configurarFogueiraBurningdown();
+  configurarBacklogVivo();
+});
