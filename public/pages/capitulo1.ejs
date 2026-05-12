@@ -18,143 +18,477 @@
 
   <%- include('./partials/botao_voltar') %>
 
-  <main>
+  <main class="capitulo-page">
 
-    <!-- ===================== STAGE 1: INTRO + PILARES ===================== -->
-    <section class="stage active" id="stage1">
+  <section class="capitulo-hero">
+    <div class="hero-overlay"></div>
 
-      <div class="introducao">
-        <div class="area_conteudo">
-          <div class="titulo_conteudo">
-            <h2>Capítulo 1: A lenda de Scrum</h2>
-          </div>
+    <div class="hero-content">
+      <p class="chapter-kicker">Capítulo 1</p>
+      <h1>A Lenda de Scrum</h1>
+      <p>
+        Explore os fundamentos ágeis, descubra os três pilares
+        e prepare-se para enfrentar a Documentação Confusa.
+      </p>
+
         </div>
-      </div>
+  </section>
 
-      <div class="area_conteudo">
-        <div class="texto_container">
-          <div class="linha_inicial">
-            <div class="part1">
-              Você desperta em um lugar misterioso, a sua frente uma lamparina
-              acesa, logo abaixo dela, uma folha de papel amarelada, contendo a
-              seguinte escrita: "o tempo está acabando são 3 sprints, 5
-              requisitos… Assinado: P.O "
-            </div>
-            <div class="carta" aria-label="Carta do Product Owner">
-              <p class="carta_texto">o tempo está acabando são 3 sprints, 5 requisitos...</p>
-              <p class="carta_assinatura">Assinado: P.O</p>
-            </div>
-          </div>
-          <div class="part3">
-            Você não consegue se lembrar do seu nome, de onde veio, ou o que
-            está fazendo ali. Mesmo estando confuso decide seguir por um grande
-            corredor à sua frente. Enquanto você percorre o corredor, uma voz
-            ecoa: "Este mundo é regido por um método… um fluxo… uma ordem
-            invisível… adapte-se"
-          </div>
-        </div>
-      </div>
+  <!-- Barra de progresso do capitulo -->
+ <section class="chapter-progress-wrap">
+  <nav class="chapter-progress">
+    <button class="progress-item active" data-step="despertar" data-scroll-to="#despertar" type="button">
+      <img src="/assets/img/capitulo_1/icones/despertar.png" alt="" />
+      <span>Despertar</span>
+    </button>
 
-      <div class="salao_pilares">
-        <div class="titulo_conteudo">
-          <h2>Salão dos Pilares</h2>
-        </div>
-        <p class="part4">
-          Então você chega em uma grande sala redonda sustentada por três grandes pilares.
-        </p>
-        <div class="part5">
-          <p class="texto_pilares">na base de cada um dos pilares há um entalhe</p>
-          <p class="leia_os">"Leia-os ..."</p>
-          <div class="pilares">
-            <div class="pilar" data-index="0" onclick="abrirPilar(this)">
-              <img src="../assets/img/pilar1.png" alt="Pilar da Transparência" />
-              <span>Transparência</span>
-            </div>
-            <div class="pilar" data-index="1" onclick="abrirPilar(this)">
-              <img src="../assets/img/pilar2.png" alt="Pilar da Inspeção" />
-              <span>Inspeção</span>
-            </div>
-            <div class="pilar" data-index="2" onclick="abrirPilar(this)">
-              <img src="../assets/img/pilar3.png" alt="Pilar da Adaptação" />
-              <span>Adaptação</span>
-            </div>
-          </div>
-          <div class="pilar_conteudo_card" id="pilarCard" style="display:none;">
-            <p class="pilar_card_titulo" id="pilarCardTitulo"></p>
-            <p class="pilar_card_texto" id="pilarCardTexto"></p>
-          </div>
-        </div>
-      </div>
+    <button class="progress-item" data-step="pilares" data-scroll-to="#pilares" type="button">
+      <img src="/assets/img/capitulo_1/icones/pilares.png" alt="" />
+      <span>Pilares</span>
+    </button>
 
-    </section>
+    <button class="progress-item" data-step="pergaminho" data-scroll-to="#pergaminho" type="button">
+      <img src="/assets/img/capitulo_1/icones/pergaminho.png" alt="" />
+      <span>Crise</span>
+    </button>
+
+    <button class="progress-item" data-step="manifesto" data-scroll-to="#manifesto" type="button">
+      <img src="/assets/img/capitulo_1/icones/manifesto.png" alt="" />
+      <span>Manifesto</span>
+    </button>
+
+    <button class="progress-item" data-step="principios" data-scroll-to="#principios" type="button">
+      <img src="/assets/img/capitulo_1/icones/principios.png" alt="" />
+      <span>Princípios</span>
+    </button>
+
+    <button class="progress-item" data-step="fogueira" data-scroll-to="#fogueira" type="button">
+      <img src="/assets/img/capitulo_1/icones/fogueira.png" alt="" />
+      <span>Fogueira</span>
+    </button>
+
+    <button class="progress-item" data-step="backlog" data-scroll-to="#backlog" type="button">
+      <img src="/assets/img/capitulo_1/icones/product-backlog.png" alt="" />
+      <span>Backlog</span>
+    </button>
+
+    <button class="progress-item" data-step="porta" data-scroll-to="#porta" type="button">
+      <img src="/assets/img/capitulo_1/icones/porta.png" alt="" />
+      <span>Desafio</span>
+    </button>
+  </nav>
+</section>
+
+  <section class="story-block reveal" id="despertar" data-step="despertar">
+   <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/despertar.png" alt="">
+</div>
+   
+    <div class="story-text">
+      <span class="section-number">01</span>
+      <h2>O Despertar</h2>
+
+      <p>
+        Você desperta em um lugar frio, escuro e úmido.
+        À sua frente, uma pequena lamparina arde sozinha.
+      </p>
+
+      <p>
+        Debaixo dela há uma folha amarelada. A tinta parece recente,
+        mas as bordas estão queimadas.
+      </p>
+
+      <blockquote>
+        “O tempo está acabando. São 3 sprints. 5 requisitos.
+        Assinado: P.O.”
+      </blockquote>
+    </div>
+
+    <div class="story-art">
+      <img src="/assets/img/capitulo_1/bilhete-lamparina.png" alt="Lamparina e bilhete do Product Owner">
+    </div>
+  </section>
+
+<section class="story-block reveal" id="pilares" data-step="pilares">
+ <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/pilares.png" alt="">
+</div>
+  
+  <div class="story-text">
+    <span class="section-number">02</span>
+    <h2>A Sala dos Três Pilares</h2>
+
+    <p>
+      Três pilares antigos revelam os fundamentos que sustentam todo
+      processo ágil: Transparência, Inspeção e Adaptação.
+    </p>
+  </div>
+
+  <div class="pilares-scene">
+    <img
+      class="pilares-base"
+      src="/assets/img/capitulo_1/pilares/base-pilares.png"
+      alt="Base de pedra dos pilares"
+    />
+
+    <div class="pilares-layer">
+      <button class="pilar-btn pilar-transparencia" data-pilar="transparencia" type="button">
+        <img
+          src="/assets/img/capitulo_1/pilares/pilar-transparencia.png"
+          alt="Pilar da Transparência"
+        />
+      </button>
+
+      <button class="pilar-btn pilar-inspecao" data-pilar="inspecao" type="button">
+        <img
+          src="/assets/img/capitulo_1/pilares/pilar-inspecao.png"
+          alt="Pilar da Inspeção"
+        />
+      </button>
+
+      <button class="pilar-btn pilar-adaptacao" data-pilar="adaptacao" type="button">
+        <img
+          src="/assets/img/capitulo_1/pilares/pilar-adaptacao.png"
+          alt="Pilar da Adaptação"
+        />
+      </button>
+    </div>
+  </div>
+
+  <article class="info-card" id="pilar-info">
+    <h3>Toque em um pilar</h3>
+    <p>As inscrições antigas aguardam sua leitura.</p>
+  </article>
+</section>
+
+  <section class="story-block reveal" id="pergaminho" data-step="pergaminho">
+    <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/pergaminho.png" alt="Pergaminho antigo">
+</div>
+
+    <div class="story-text">
+      <span class="section-number">03</span>
+      <h2>O Pergaminho da Crise</h2>
+
+      <p>
+        Um pergaminho antigo conta sobre a Crise do Software:
+        projetos rígidos, entregas tardias, requisitos mudando
+        e clientes vendo valor apenas quando já era tarde demais.
+      </p>
+
+      <button class="btn-secondary" id="btnPergaminho">
+        Ler pergaminho
+      </button>
+    </div>
+
+    <div class="story-art">
+      <img   class="pergaminho-crise-img"
+      src="/assets/img/capitulo_1/icones/pergaminho.png" alt="Pergaminho antigo">
+    </div>
+
+    <article class="expanded-card hidden" id="pergaminhoTexto">
+      <p>
+        Há muitos anos, no Reino dos Softwares, muitos projetos eram conduzidos
+        como muralhas de pedra: primeiro planos enormes, depois documentos maiores
+        ainda, e só então alguém começava a construir.
+      </p>
+
+      <p>
+        Mas usuários mudavam, mercados mudavam, tecnologias mudavam e clientes
+        descobriam novas necessidades durante a jornada.
+      </p>
+
+      <p>
+        Assim surgiram formas mais leves, colaborativas e adaptáveis:
+        as metodologias ágeis.
+      </p>
+    </article>
+  </section>
+
+  <section class="story-block reveal" id="manifesto" data-step="manifesto">
+    <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/manifesto.png" alt="">
+</div>
+
+    <div class="story-text">
+      <span class="section-number">04</span>
+      <h2>As Runas do Manifesto Ágil</h2>
+
+      <p>
+        Quatro runas douradas surgem na parede. Elas revelam os valores
+        que mudaram a forma de criar software.
+      </p>
+    </div>
+
+    <div class="runas-grid">
+      <button class="runa-btn" data-runa="individuos">
+        <img src="/assets/img/capitulo_1/runas/runa-individuos.png" alt="Runa de indivíduos e interações">
+      </button>
+
+      <button class="runa-btn" data-runa="software">
+        <img src="/assets/img/capitulo_1/runas/runa-software.png" alt="Runa de software funcionando">
+      </button>
+
+      <button class="runa-btn" data-runa="cliente">
+        <img src="/assets/img/capitulo_1/runas/runa-cliente.png" alt="Runa de colaboração com o cliente">
+      </button>
+
+      <button class="runa-btn" data-runa="mudancas">
+        <img src="/assets/img/capitulo_1/runas/runa-mudancas.png" alt="Runa de responder a mudanças">
+      </button>
+    </div>
+
+    <article class="info-card" id="runa-info">
+      <h3>Escolha uma runa</h3>
+      <p>O Manifesto Ágil está gravado nelas.</p>
+    </article>
+  </section>
+
+  <section class="story-block reveal" id="principios" data-step="principios">
+    <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/principios.png" alt="">
+</div>
+    
+    <div class="story-text">
+      <span class="section-number">05</span>
+      <h2>As 12 Inscrições Menores</h2>
+
+      <p>
+        Doze tábuas antigas surgem ao redor da sala. Cada uma guarda
+        um princípio ágil.
+      </p>
+    </div>
+
+    <div class="principios-grid">
+      <% for (let i = 1; i <= 12; i++) { %>
+        <button class="principio-btn" data-principio="<%= i %>">
+          <img 
+            src="/assets/img/capitulo_1/12-principios/principio-<%= String(i).padStart(2, '0') %>.png" 
+            alt="Princípio ágil <%= i %>"
+          >
+        </button>
+      <% } %>
+    </div>
+
+    <article class="info-card" id="principio-info">
+      <h3>Escolha uma inscrição</h3>
+      <p>Cada tábua revela um princípio ágil.</p>
+    </article>
+  </section>
+
+  <section class="story-block reveal" id="fogueira" data-step="fogueira">
+   <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/fogueira.png" alt="">
+</div>
+   
+    <div class="story-text">
+      <span class="section-number">06</span>
+      <h2>A Fogueira do Progresso</h2>
+
+      <p>
+        Uma fogueira surge sobre a pedra. Suas chamas revelam o que já foi feito,
+        o que ainda falta e por que progresso precisa ser visível.
+      </p>
+
+      <blockquote>
+        “Não espere o fim da jornada para descobrir se estava no caminho certo.”
+      </blockquote>
+    </div>
+
+  <div class="story-art">
+  <button
+    class="fogueira-interativa"
+    id="btnFogueiraBurningdown"
+    type="button"
+    aria-label="Acessar Burning Down"
+  >
+    <img
+      src="/assets/img/capitulo_1/icones/fogueira.png"
+      alt="Fogueira do Burning Down"
+    />
+
+    <span class="fogueira-tooltip">
+      Enxergue seu progresso nas chamas do Burning Down
+    </span>
+  </button>
+</div>
+  </section>
+
+  <section class="story-block reveal" id="backlog" data-step="backlog">
+   <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/product-backlog.png" alt="">
+</div>
+    <div class="story-text">
+      <span class="section-number">07</span>
+      <h2>O Product Backlog</h2>
+
+      <p>
+        Um pergaminho vivo lista funcionalidades, melhorias, correções
+        e requisitos. Os itens mais valiosos brilham no topo.
+      </p>
+
+      <p>
+        O Product Backlog é mantido pelo Product Owner e muda conforme
+        novas informações aparecem.
+      </p>
+    </div>
+
+    <div class="story-art">
+      <img src="/assets/img/capitulo_1/icones/product-backlog.png" alt="Product Backlog">
+    </div>
 
 
-    <!-- ===================== STAGE 2: PERGAMINHO ===================== -->
-    <section class="stage" id="stage2">
+    
+<div class="backlog-vivo">
+  <div class="backlog-header">
+    <h3>Product Backlog Vivo</h3>
+ <p>
+  O pergaminho vivo treme em suas mãos. As tarefas estão todas ali,
+  mas algo parece errado: o brilho dos itens não segue nenhuma ordem.
+</p>
+<blockquote>
+  “Um backlog sem prioridade é só uma lista de desejos com capa bonita.”
+</blockquote>
+  </div>
 
-      <div class="pergaminho_section">
-        <h2 class="section_title">O Pergaminho Scrum</h2>
-        <p class="section_desc">
-          Após ler as escrituras contida nos pilares o chão começa a tremer, eis que no
-          centro da sala uma estrutura começa a surgir do chão
-        </p>
-        <p class="section_desc">
-          Ao centro há uma elevação central um pergaminho antigo repousa sobre ela..
-        </p>
-        <p class="ler_pergaminho_btn" id="lerPergaminhoBtn" onclick="lerPergaminho()">
-          "Ler pergaminho..."
-        </p>
-        <div class="pergaminho_circulo">
-          <img src="../assets/img/pergaminho_circulo.png" alt="Pergaminho antigo" class="pergaminho_img" />
-        </div>
-      </div>
+  <div class="backlog-lista" id="backlogLista">
+    <button
+      class="backlog-card prioridade-baixa"
+      type="button"
+      data-prioridade="4"
+      data-titulo="Brilho extra no baú"
+      data-explicacao="Ideias cosméticas podem ser úteis, mas nem sempre são urgentes. Se há problemas maiores, elas podem ficar mais abaixo no Product Backlog."
+    >
+      <span class="backlog-rank">?</span>
+      <span class="backlog-nome">Adicionar brilho extra no baú</span>
+      <span class="backlog-tag">Baixa</span>
+    </button>
 
-      <div class="pergaminho_expandido" id="pergaminhoExpandido" style="display:none;">
-        <div class="scroll_rolo scroll_rolo_top"><div class="scroll_rolo_faixa"></div></div>
-        <div class="scroll_corpo">
-          <p class="part6">
-            "Há muitos e muitos anos atrás há meados dos longínquos anos 90, havia
-            caos, sistemas não documentados regiam o universo da magia dos
-            Softwares, na tentativa de estabelecer ordem, muitos criaram certos
-            sistemas fechados, mas a rigidez tornava os processos cansativos e
-            quebradiços, então grandes magos denominados os três amigos, criaram
-            algo diferente…. eles apresentaram ao mundo um método ágil e
-            adaptável, diziam "Scrum não é um processo rígido… É um framework ágil
-            baseado em adaptação e colaboração." E com isso a lenda de Scrum surgiu
-            e aquele que o dominasse seria… "
-          </p>
-        </div>
-        <div class="scroll_rolo scroll_rolo_bottom"><div class="scroll_rolo_faixa"></div></div>
-      </div>
+    <button
+      class="backlog-card prioridade-alta"
+      type="button"
+      data-prioridade="1"
+      data-titulo="Corrigir bug crítico da quest"
+      data-explicacao="Itens críticos, urgentes ou de grande impacto costumam subir no Product Backlog, pois podem impedir o avanço do produto ou da jornada."
+    >
+      <span class="backlog-rank">?</span>
+      <span class="backlog-nome">Corrigir bug crítico da quest</span>
+      <span class="backlog-tag">Alta</span>
+    </button>
 
-    </section>
+    <button
+      class="backlog-card prioridade-media"
+      type="button"
+      data-prioridade="2"
+      data-titulo="Criar tela de inventário"
+      data-explicacao="Funcionalidades importantes para a experiência do usuário podem ter prioridade média ou alta, dependendo do valor que entregam ao produto."
+    >
+      <span class="backlog-rank">?</span>
+      <span class="backlog-nome">Criar tela de inventário</span>
+      <span class="backlog-tag">Média</span>
+    </button>
 
+    <button
+      class="backlog-card prioridade-media"
+      type="button"
+      data-prioridade="3"
+      data-titulo="Melhorar feedback do usuário"
+      data-explicacao="Melhorias que ajudam o jogador a entender o que está acontecendo geram valor, mas podem vir depois de itens mais críticos."
+    >
+      <span class="backlog-rank">?</span>
+      <span class="backlog-nome">Melhorar feedback do usuário</span>
+      <span class="backlog-tag">Média</span>
+    </button>
+  </div>
 
-    <!-- ===================== STAGE 3: FOGUEIRA ===================== -->
-    <section class="stage" id="stage3">
-      <%- include('partials/burnindown') %>
-      <!-- <div class="fogueira_section">
-        <h2 class="section_title">A Fogueira</h2>
-        <p class="section_desc">
-          Você mal acaba de ler a mensagem e o pergaminho se incendeia, bem diante de
-          seus olhos, como mágica uma fogueira surge sobre a pedra, tudo aconteceu tão
-          depressa que as últimas palavras não puderam ser lidas.
-        </p>
-        <div class="fogueira_img_container">
-          <img src="../assets/img/burningdown.png" alt="Fogueira" class="fogueira_img" />
-        </div>
-        <button class="button_fogueira">Sentar-se próximo à fogueira</button>
-      </div> -->
+  <div class="backlog-acoes">
+    <button class="btn-secondary" id="btnPriorizarBacklog" type="button">
+      Priorizar Backlog
+    </button>
 
-    </section>
+    <button class="btn-secondary hidden" id="btnBaguncarBacklog" type="button">
+      Bagunçar novamente
+    </button>
+  </div>
 
-  </main>
+  <article class="info-card backlog-info" id="backlogInfo">
+    <h3>O pergaminho está inquieto...</h3>
+    <p>
+      Clique em um item para investigar seu valor, ou priorize o backlog
+      para revelar a ordem mais adequada da missão.
+    </p>
+  </article>
+</div>
+
+  </section>
+
+  <section class="story-block reveal final-block" id="porta" data-step="porta">
+   <div class="story-side-icon">
+  <img src="/assets/img/capitulo_1/icones/porta.png" alt="">
+</div>
+    <div class="story-text">
+      <span class="section-number">08</span>
+      <h2>A Primeira Porta</h2>
+
+      <p>
+        No fim da sala, uma porta se abre. Atrás dela, a criatura
+        Documentação Confusa v1.0 rosna entre pilhas de papéis e bugs voadores.
+      </p>
+
+      <p>
+  Ao chegar aqui, você pode registrar sua jornada como concluída.
+  A partir disso, a primeira porta será liberada e o desafio do módulo poderá ser enfrentado.
+</p>
+
+<button class="btn-primary" id="btnConcluirHistoria" type="button">
+  Concluir história e encarar a primeira porta
+</button>
+
+<button class="btn-secondary hidden" id="btnIrDesafio" type="button">
+  Ir para o desafio
+</button>
+
+<p class="status-historia" id="statusHistoria"></p>
+    </div>
+
+    <div class="story-art">
+  <div class="porta-boss-scene" id="portaBossScene">
+    <span class="porta-boss-glow"></span>
+
+    <img
+      class="porta-boss-silhueta"
+      src="/assets/img/capitulo_1/inimigos/boss-silhueta.png"
+      alt="Silhueta da Documentação Confusa"
+    />
+
+    <img
+      class="porta-boss-img"
+      src="/assets/img/capitulo_1/porta-boss.png"
+      alt="Porta entreaberta da primeira dungeon"
+    />
+
+    <img
+      class="porta-boss-bug"
+      src="/assets/img/capitulo_1/inimigos/bug-escopo.png"
+      alt="Bug voador segurando uma placa"
+    />
+
+    <span class="porta-boss-tooltip">
+      Algo rosna atrás da porta...
+    </span>
+  </div>
+</div>
+  </section>
+
+</main>
+
+ <!-- ===================== NAVEGAÇÃO INFERIOR — única e permanente ===================== -->
+  <%- include('partials/navegacao_inferior') %>
 
   <!-- ===================== FOOTER ===================== -->
   <%- include('partials/footer') %>
 
-  <!-- ===================== NAVEGAÇÃO INFERIOR — única e permanente ===================== -->
-  <%- include('partials/navegacao_inferior') %>
+ 
 
   <script src="/js/main.js"></script>
   <script src="/js/capitulo1.js"></script>

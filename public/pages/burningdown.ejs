@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Burning Down | Scrum Dungeon</title>
 
@@ -15,12 +12,9 @@
   </head>
 
   <body>
-    <%- include('partials/alert') %>
-
-    <%- include('partials/header') %>
+    <%- include('partials/alert') %> <%- include('partials/header') %>
 
     <main class="burningdown-container">
-
       <div class="pagina-acoes">
         <button class="botao-voltar" type="button" onclick="history.back()">
           <span>↩</span>
@@ -80,16 +74,15 @@
             </div>
           </div>
 
-          <a href="/mapa" class="btn-retomar">
+          <button class="btn-retomar" id="btnRetomarAventura" type="button">
             Retomar aventura
-          </a>
+          </button>
         </div>
       </section>
     </main>
 
-    <%- include('partials/navegacao_inferior') %>
-
-    <%- include('partials/footer') %>
+    <%- include('partials/navegacao_inferior') %> <%- include('partials/footer')
+    %>
 
     <script src="/js/main.js"></script>
     <script src="/js/burningdown.js"></script>

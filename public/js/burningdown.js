@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   animarEntrada();
   carregarResumoBurningDown();
+  configurarRetornoAventura();
 });
 
 function animarEntrada() {
@@ -25,15 +26,15 @@ function animarEntrada() {
     }, 150);
   }
 
-  if (btn) {
-    setInterval(() => {
-      btn.style.boxShadow = "0 0 18px rgba(212, 160, 23, 0.35)";
+ if (btn) {
+  setInterval(() => {
+    btn.classList.add("pulsando");
 
-      setTimeout(() => {
-        btn.style.boxShadow = "none";
-      }, 700);
-    }, 1400);
-  }
+    setTimeout(() => {
+      btn.classList.remove("pulsando");
+    }, 700);
+  }, 1400);
+}
 }
 
 async function carregarResumoBurningDown() {
@@ -119,4 +120,24 @@ function atualizarTexto(id, valor) {
   if (elemento) {
     elemento.textContent = valor;
   }
+}
+
+function configurarRetornoAventura() {
+  const btn = document.getElementById("btnRetomarAventura");
+
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const retorno = sessionStorage.getItem("retornoBurningdown");
+
+    if (retorno) {
+      sessionStorage.removeItem("origemBurningdown");
+      sessionStorage.removeItem("retornoBurningdown");
+
+      window.location.href = retorno;
+      return;
+    }
+
+    window.location.href = "/mapa";
+  });
 }
