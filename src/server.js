@@ -89,6 +89,11 @@ app.get("/perfil", function (_req, res) {
   res.render("not-found");
 });
 
+// rota para certificado
+app.get("/certificado", function (_req, res) {
+  res.render("certificado"); // procura public/pages/certificado.ejs
+});
+
 // ROTAS DA API
 app.use("/api", router);
 

@@ -1,0 +1,133 @@
+:root {
+  --cor-fundo-escuro: #0f0a05;
+  --cor-dourado: #f4d03f;
+  --cor-dourado-escuro: #ba9961;
+  --cor-texto-claro: #f9edd7;
+  --cor-card: #edd6a6;
+  --cor-card-texto: #2c2318;
+  --cor-azul-escuro: #0d1b2a;
+  --sombra-card: 0 18px 32px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pagina-certificado {
+  min-height: 100vh;  
+  background-image:
+    linear-gradient(180deg, rgba(6, 5, 4, 0.2) 0%, rgba(6, 5, 4, 0.8) 25%),
+    url("../img/parede_de_tijolos.png");
+  background-repeat: repeat-y;
+  background-size: 110% auto;
+  background-position: center top;
+  background-color: #0f0a05;
+  color:#fff;
+}
+
+.certificado-base {
+  font-family: 'Cinzel', serif;
+  width: min(90vw, 700px);
+min-height: auto;
+  margin: 48px auto;
+  background-image: url("../img/papel_texturizado.png");
+  background-repeat: no-repeat;
+  background-size: 97% auto;
+  background-position: center;
+}
+
+.cabecalho {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 0px;
+}
+
+.escudo {
+  width: 125%;
+  display: flex;
+  justify-content: left;
+ 
+}
+
+.escudo img {
+  width: 100%;
+  height: auto;
+}
+
+.logo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: var(--cor-card-texto);
+  padding-top: 125px; 
+}
+
+.logo img {
+  width: 75%;
+  height: auto;
+}
+
+.titulo-certificado {
+  font-size: 2.5rem;
+  margin-top: 0.5rem;
+}
+
+p{
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.corvo-certificado {
+  width: 125%;
+  display: flex;
+  justify-content: right;
+  padding-top: 100px;
+}
+.corvo-certificado img {
+  width: 100%;
+  height: auto;
+} 
+
+.certificado-botoes-area {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.certificado-botoes {
+    margin: 0;
+    background: none;
+    border: none;
+    border-radius: 8px;    
+}
+
+.icon {
+    filter: invert(1);
+    height: 2rem;    
+}
+
+.fundo-certificado {
+    background-color: rgba(66, 24, 0, 0.8);
+}
+
+.certificado-botoes:hover {
+    transform: translateY(-2px);
+}
+
+.formulario{
+  color: var(--cor-card-texto);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  border-color: #2c2318;
+  border-radius: 999px;
+  border-width: 2px;
+}
+
+.media{
+  color: var(--cor-card-texto);
+}
+
