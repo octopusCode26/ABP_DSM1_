@@ -1,5 +1,7 @@
+// importando as respectivas bibliotecas.
 const pool = require("../database/db");
 
+// marca a história de um módulo como concluída.
 async function concluirHistoria(idUsuario, idModulo) {
   const result = await pool.query(
     `
@@ -22,6 +24,7 @@ async function concluirHistoria(idUsuario, idModulo) {
   return result.rows[0] || null;
 }
 
+// retorna os dados usados no mapa de progresso do usuário.
 async function findProgressoMapa(idUsuario) {
   const result = await pool.query(
     `
@@ -46,6 +49,7 @@ async function findProgressoMapa(idUsuario) {
   return result.rows;
 }
 
+// busca o progresso atual da run do usuário.
 async function findProgressoDesafio(idUsuario) {
   const result = await pool.query(
     `
@@ -64,6 +68,8 @@ async function findProgressoDesafio(idUsuario) {
   return result.rows[0] || null;
 }
 
+// reinicia a run do usuário.
+// IMPORTANTE: artefatos do usuário NÃO devem ser removidos no reset da run
 async function resetarRunDesafios(idUsuario) {
   const result = await pool.query(
     `
@@ -82,19 +88,24 @@ async function resetarRunDesafios(idUsuario) {
   return result.rows[0] || null;
 }
 
+// registra uma falha no desafio atual.
 async function registrarFalhaDesafio(idUsuario) {
+  // busca o progresso atual do usuário.
   const progresso = await findProgressoDesafio(idUsuario);
 
   if (!progresso) {
     return null;
   }
 
+  // soma mais uma falha.
   const novasFalhas = Number(progresso.falhas_no_modulo) + 1;
 
+  // se chegar em 2 falhas, reinicia a run completa.
   if (novasFalhas >= 2) {
     return resetarRunDesafios(idUsuario);
   }
 
+  // atualiza apenas a quantidade de falhas.
   const result = await pool.query(
     `
     UPDATE progresso_desafio
@@ -110,6 +121,7 @@ async function registrarFalhaDesafio(idUsuario) {
   return result.rows[0] || null;
 }
 
+// avança o usuário para o próximo módulo.
 async function avancarDesafio(idUsuario) {
   const progresso = await findProgressoDesafio(idUsuario);
 
@@ -119,7 +131,10 @@ async function avancarDesafio(idUsuario) {
 
   const moduloAtual = Number(progresso.modulo_desafio_atual);
 
+  // verifica se chegou no último módulo.
   if (moduloAtual >= 5) {
+
+    // libera o certificado.
     const result = await pool.query(
       `
       UPDATE progresso_desafio
@@ -136,6 +151,7 @@ async function avancarDesafio(idUsuario) {
     return result.rows[0] || null;
   }
 
+  // avança para o próximo módulo.
   const result = await pool.query(
     `
     UPDATE progresso_desafio
@@ -152,6 +168,7 @@ async function avancarDesafio(idUsuario) {
   return result.rows[0] || null;
 }
 
+// verifica se a história de um módulo já foi concluída.
 async function historiaConcluida(idUsuario, idModulo) {
   const result = await pool.query(
     `
@@ -167,6 +184,7 @@ async function historiaConcluida(idUsuario, idModulo) {
   return result.rows[0]?.concluido || false;
 }
 
+// exportando as respectivas funções para outros arquivos.
 module.exports = {
   concluirHistoria,
   findProgressoMapa,
