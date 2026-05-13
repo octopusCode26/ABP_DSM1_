@@ -28,31 +28,31 @@
 .certificado-base {
   font-family: 'Cinzel', serif;
   width: min(90vw, 700px);
-min-height: auto;
-  margin: 48px auto;
+  min-height: 550px;
+  margin: -30px auto 48px;
   background-image: url("../img/papel_texturizado.png");
   background-repeat: no-repeat;
-  background-size: 97% auto;
-  background-position: center;
+  background-size: 100% 100%;
+  background-position: center top;
 }
 
 .cabecalho {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px 0px;
 }
 
 .escudo {
   width: 125%;
   display: flex;
-  justify-content: left;
- 
+  justify-content: left; 
 }
 
 .escudo img {
   width: 100%;
   height: auto;
+  transform: translateY(-43px);
+
 }
 
 .logo {
@@ -62,11 +62,11 @@ min-height: auto;
   flex-direction: column;
   align-items: center;
   color: var(--cor-card-texto);
-  padding-top: 125px; 
+  padding-top: 6px; 
 }
 
 .logo img {
-  width: 75%;
+  width: 70%;
   height: auto;
 }
 
@@ -80,11 +80,17 @@ p{
   margin-top: 0.5rem;
 }
 
+.nome-certificado {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  padding: 0 0 16px 0;
+}
+
 .corvo-certificado {
   width: 125%;
   display: flex;
   justify-content: right;
-  padding-top: 100px;
+  padding-top: 0;
 }
 .corvo-certificado img {
   width: 100%;
@@ -122,11 +128,28 @@ p{
   font-weight: 700;
   display: flex;
   flex-direction: column;
-  border-color: #2c2318;
-  border-radius: 999px;
-  border-width: 2px;
+  border: 2px solid #ba9961;
+  border-radius: 15px;
+  width: 450px;
+  height: 100px;
+  margin: 0 auto;
 }
 
+.cpf{
+  color: var(--cor-card-texto);
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #ba9961;
+}
+.email{
+  color: var(--cor-card-texto);
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #ba9961;
+}
+.dataDeEmissao{
+  color: var(--cor-card-texto);
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #ba9961;
+}
 .media{
   color: var(--cor-card-texto);
 }
