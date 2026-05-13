@@ -79,6 +79,14 @@ header {
     color: #f4d03f;
 }
 
+.nav_header ul li a.ativo {
+    color: #f4d03f;
+    text-shadow:
+        0px 0px 5px #f4d03f,
+        0px 0px 10px #f4d03f,
+        0px 0px 15px #f4d03f;
+}
+
 .menu_toggle {
     display: none;
     margin-left: auto;
