@@ -439,7 +439,46 @@ function configurarConclusaoHistoria() {
   }
 }
 
+/* =========================================================
+   DESBLOQUEAR NAVBAR AO CONCLUIR CAPÍTULO 1
+========================================================= */
 
+(function() {
+  const btnConcluir = document.getElementById('btnConcluirHistoria');
+  const btnIrDesafio = document.getElementById('btnIrDesafio');
+  const statusHistoria = document.getElementById('statusHistoria');
+  
+  if (!btnConcluir) return; // Só executa se estiver na página do capítulo 1
+
+  btnConcluir.addEventListener('click', function() {
+      // ✅ Salva progresso permanentemente no navegador do usuário
+      localStorage.setItem('capitulo1_concluido', 'true');
+      
+      // ✅ Mostra a navbar imediatamente (sem precisar recarregar)
+      const navbar = document.querySelector('.navegacao-inferior');
+      if (navbar) {
+          navbar.classList.remove('bloqueada');
+      }
+      
+      // ✅ Atualiza UI dos botões (conforme seu fluxo existente)
+      btnConcluir.classList.add('hidden');
+      if (btnIrDesafio) {
+          btnIrDesafio.classList.remove('hidden');
+      }
+      
+      // ✅ Feedback visual ao usuário
+      if (statusHistoria) {
+          statusHistoria.textContent = '✓ História concluída! Navegação desbloqueada.';
+          statusHistoria.style.color = '#4CAF50';
+          statusHistoria.style.fontWeight = '600';
+      }
+      
+      // ✅ Alerta customizado (se a função existir no main.js)
+      if (typeof mostrarAlerta === 'function') {
+          mostrarAlerta('Capítulo 1 concluído! Navegação inferior desbloqueada.', 'sucesso');
+      }
+  });
+})();
 
 
 document.addEventListener("DOMContentLoaded", () => {

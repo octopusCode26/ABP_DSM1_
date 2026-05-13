@@ -265,3 +265,25 @@ window.addEventListener(
   "resize",
   atualizarAlturaHeader
 );
+
+/* =========================================================
+   CONTROLE DE DESBLOQUEIO DA NAVEGAÇÃO INFERIOR
+   (executado em todas as páginas)
+========================================================= */
+
+function controlarVisibilidadeNavbar() {
+  const navbar = document.querySelector('.navegacao-inferior');
+  if (!navbar) return;
+
+  const capitulo1Concluido = localStorage.getItem('capitulo1_concluido');
+  
+  if (capitulo1Concluido === 'true') {
+      navbar.classList.remove('bloqueada');
+  }
+  // Se não concluiu, mantém com a classe "bloqueada" (hidden via CSS)
+}
+
+// Executa quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', controlarVisibilidadeNavbar);
+// Garante execução após load completo (caso haja renderização dinâmica)
+window.addEventListener('load', controlarVisibilidadeNavbar);
