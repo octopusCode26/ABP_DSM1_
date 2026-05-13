@@ -927,14 +927,15 @@
         border-bottom: 0;
         border-radius: 22px 22px 0 0;
         top: auto;
+        right: 0;
         bottom: 0;
         left: 0;
         transform: none;
-        animation: animacao_sheet_auth 0.22s ease-out;
+        animation: animacao_sheet_auth 0.18s ease-out;
     }
 
     .painel_auth.fechando {
-        animation: animacao_sheet_auth 0.22s ease-out reverse;
+        animation: animacao_sheet_auth_saida 0.18s ease-in forwards;
     }
 
     .painel_auth_conteudo {
@@ -970,6 +971,9 @@
     }
 
     .botao_fechar {
+        position: sticky;
+        flex-shrink: 0;
+        align-self: flex-start;
         width: 2.35rem;
         height: 2.35rem;
         margin-bottom: 0;
@@ -988,6 +992,18 @@
         to {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+    @keyframes animacao_sheet_auth_saida {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(1.5rem);
         }
     }
 }
