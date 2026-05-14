@@ -239,6 +239,57 @@ function atualizarAlturaHeader() {
   );
 }
 
+/* =========================================================
+ CONTROLE GLOBAL DE NAVEGAÇÃO
+========================================================= */
+
+// páginas que NÃO devem entrar no histórico de retorno
+const paginasBloqueadas = [
+  "/questionario1",
+  "/resultado",
+  "desafio1",
+];
+
+// página atual
+const paginaAtual = window.location.pathname;
+
+// pega a última página visitada
+const paginaAnterior = sessionStorage.getItem("paginaAtual");
+
+// salva como "última válida" apenas se NÃO for bloqueada
+if (
+  paginaAnterior &&
+  !paginasBloqueadas.includes(paginaAnterior)
+) {
+  sessionStorage.setItem(
+    "ultimaPaginaValida",
+    paginaAnterior
+  );
+}
+
+// atualiza a página atual
+sessionStorage.setItem("paginaAtual", paginaAtual);
+
+
+/* =========================================================
+ BOTÃO VOLTAR INTELIGENTE
+========================================================= */
+
+function voltarPagina() {
+
+  const ultimaPaginaValida =
+    sessionStorage.getItem("ultimaPaginaValida");
+
+  // se existir uma página salva, usa ela
+  if (ultimaPaginaValida) {
+    window.location.href = ultimaPaginaValida;
+    return;
+  }
+
+  // fallback
+  window.location.href = "/mapa";
+}
+
 
 /* =========================================================
  EVENTOS GLOBAIS
