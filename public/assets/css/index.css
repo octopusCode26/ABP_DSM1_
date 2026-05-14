@@ -557,6 +557,8 @@
     background: none;
     border: 0;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: transform 0.1s ease-in-out;
 }
 

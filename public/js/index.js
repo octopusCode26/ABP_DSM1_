@@ -55,13 +55,14 @@ function fecharPainel(event) {
 
   fechandoPainel = true;
   painelAuth.classList.add("fechando");
+  painelAuth.classList.remove("abrindo");
 
-  painelAuth.addEventListener("animationend", finalizarFechamento);
-  timeoutFechamento = setTimeout(finalizarFechamento, TEMPO_FECHAMENTO_MS);
+  painelAuth.addEventListener("animationend", finalizarFechamento, { once: true });
+  timeoutFechamento = setTimeout(finalizarFechamento, Math.max(TEMPO_FECHAMENTO_MS, 260));
 }
 
-function finalizarFechamento(event) {
-  if (!fechandoPainel || (event && event.target !== painelAuth)) {
+function finalizarFechamento() {
+  if (!fechandoPainel) {
     return;
   }
 
@@ -74,7 +75,6 @@ function finalizarFechamento(event) {
   overlayEscuro.style.display = "none";
   painelAuth.setAttribute("aria-hidden", "true");
   painelAuth.classList.remove("fechando");
-  painelAuth.removeEventListener("animationend", finalizarFechamento);
   fechandoPainel = false;
 }
 
@@ -92,10 +92,12 @@ if (botaoLogin) {
 
 if (botaoFechar) {
   botaoFechar.addEventListener("click", fecharPainel);
+  botaoFechar.addEventListener("touchstart", fecharPainel, { passive: false });
 }
 
 if (overlayEscuro) {
   overlayEscuro.addEventListener("click", fecharPainel);
+  overlayEscuro.addEventListener("touchstart", fecharPainel, { passive: false });
 }
 
 if (botaoCadastreseAqui) {
