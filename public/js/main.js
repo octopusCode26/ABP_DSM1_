@@ -5,6 +5,12 @@
    Manter aqui apenas funções compartilhadas entre páginas.
 ========================================================= */
 
+/* =========================================================
+   ESTADO DA SESSÃO (IN-MEMORY)
+   - Não persiste entre recarregamentos/contas
+   - Usado para controle temporário de UI
+========================================================= */
+window.__progressoSessao = window.__progressoSessao || {};
 
 /* =========================================================
    MENU MOBILE (HEADER)
@@ -267,23 +273,110 @@ window.addEventListener(
 );
 
 /* =========================================================
-   CONTROLE DE DESBLOQUEIO DA NAVEGAÇÃO INFERIOR
-   (executado em todas as páginas)
+   UTILITÁRIOS PARA NAVBAR INFERIOR — GLOBAIS
 ========================================================= */
 
-function controlarVisibilidadeNavbar() {
-  const navbar = document.querySelector('.navegacao-inferior');
+/**
+ * Mostra a navbar inferior com animação
+ */
+function mostrarNavbarInferior() {
+  const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
-
-  const capitulo1Concluido = localStorage.getItem('capitulo1_concluido');
   
-  if (capitulo1Concluido === 'true') {
-      navbar.classList.remove('bloqueada');
-  }
-  // Se não concluiu, mantém com a classe "bloqueada" (hidden via CSS)
+  navbar.classList.remove('hidden', 'bloqueada');
+  navbar.classList.add('navbar-visivel');
 }
 
-// Executa quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', controlarVisibilidadeNavbar);
-// Garante execução após load completo (caso haja renderização dinâmica)
-window.addEventListener('load', controlarVisibilidadeNavbar);
+/**
+ * Esconde a navbar inferior
+ */
+function esconderNavbarInferior() {
+  const navbar = document.getElementById('navbarPrincipal');
+  if (!navbar) return;
+  
+  navbar.classList.remove('navbar-visivel');
+  navbar.classList.add('bloqueada');
+}
+
+/**
+ * Verifica se deve mostrar a navbar baseado no progresso do usuário
+ * Executa em QUALQUER página que tenha a navbar no HTML
+ */
+function verificarEAtualizarNavbar() {
+  const navbar = document.getElementById('navbarPrincipal');
+  if (!navbar) return;
+
+  const CHAVE_SESSAO = 'sessao_capitulo1_concluido';
+  const concluidoNestaSessao = sessionStorage.getItem(CHAVE_SESSAO) === 'true';
+
+  if (concluidoNestaSessao) {
+    mostrarNavbarInferior();
+  } else {
+    esconderNavbarInferior();
+  }
+}
+
+/* =========================================================
+   INICIALIZAÇÃO DA NAVBAR — EXECUTA EM TODAS AS PÁGINAS
+========================================================= */
+
+(function() {
+  // Função que verifica e atualiza a navbar
+  function inicializarNavbar() {
+    verificarEAtualizarNavbar();
+  }
+
+  // Executa quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarNavbar);
+  } else {
+    inicializarNavbar();
+  }
+  
+  // Garante que execute após todos os recursos carregarem
+  window.addEventListener('load', verificarEAtualizarNavbar);
+  
+  // Reavalia se o usuário navegar com botões voltar/avançar
+  window.addEventListener('popstate', verificarEAtualizarNavbar);
+})();
+
+/**
+ * (Opcional) Busca progresso do servidor ao carregar a página
+ * Só executa se houver token de autenticação
+ */
+async function sincronizarProgressoDoServidor() {
+  try {
+    if (typeof obterToken !== 'function') return;
+    
+    const token = obterToken();
+    if (!token) return; // Usuário não autenticado
+
+    const response = await fetch('/api/progresso/resumo', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    
+    if (!response.ok) return;
+    
+    const data = await response.json();
+    
+    // Atualiza estado em memória com dados do servidor
+    if (data.historias?.[1]?.concluida) {
+      window.__progressoSessao = window.__progressoSessao || {};
+      window.__progressoSessao.capitulo1 = true;
+      
+      // Atualiza navbar se já estiver na página
+      if (typeof verificarEAtualizarNavbar === 'function') {
+        verificarEAtualizarNavbar();
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️ Não foi possível sincronizar progresso:', error);
+  }
+}
+
+// Executa sincronização ao carregar (não bloqueia a página)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', sincronizarProgressoDoServidor);
+} else {
+  sincronizarProgressoDoServidor();
+}

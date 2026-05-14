@@ -440,43 +440,58 @@ function configurarConclusaoHistoria() {
 }
 
 /* =========================================================
-   DESBLOQUEAR NAVBAR AO CONCLUIR CAPÍTULO 1
+   BOTÃO CONCLUIR HISTÓRIA — CAPÍTULO 1 (sessionStorage)
 ========================================================= */
 
 (function() {
+  if (!window.location.pathname.includes('/capitulo1')) return;
+  
   const btnConcluir = document.getElementById('btnConcluirHistoria');
   const btnIrDesafio = document.getElementById('btnIrDesafio');
   const statusHistoria = document.getElementById('statusHistoria');
   
-  if (!btnConcluir) return; // Só executa se estiver na página do capítulo 1
+  if (!btnConcluir) return;
 
   btnConcluir.addEventListener('click', function() {
-      // ✅ Salva progresso permanentemente no navegador do usuário
-      localStorage.setItem('capitulo1_concluido', 'true');
-      
-      // ✅ Mostra a navbar imediatamente (sem precisar recarregar)
-      const navbar = document.querySelector('.navegacao-inferior');
+    console.log('🎯 Concluir História clicado!');
+
+    // ✅ Salva APENAS nesta sessão/aba
+    sessionStorage.setItem('sessao_capitulo1_concluido', 'true');
+
+    // ✅ (Opcional) Sincroniza com backend se houver API
+    if (typeof obterToken === 'function') {
+      const token = obterToken();
+      if (token) {
+        fetch('/api/progresso/historia/1/concluir', {
+          method: 'PATCH',
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).catch(() => console.warn('⚠️ Não foi possível sincronizar com o servidor'));
+      }
+    }
+
+    // ✅ Mostra navbar imediatamente
+    if (typeof mostrarNavbarInferior === 'function') {
+      mostrarNavbarInferior();
+    } else {
+      const navbar = document.getElementById('navbarPrincipal');
       if (navbar) {
-          navbar.classList.remove('bloqueada');
+        navbar.classList.remove('hidden', 'bloqueada');
+        navbar.classList.add('navbar-visivel');
       }
-      
-      // ✅ Atualiza UI dos botões (conforme seu fluxo existente)
-      btnConcluir.classList.add('hidden');
-      if (btnIrDesafio) {
-          btnIrDesafio.classList.remove('hidden');
-      }
-      
-      // ✅ Feedback visual ao usuário
-      if (statusHistoria) {
-          statusHistoria.textContent = '✓ História concluída! Navegação desbloqueada.';
-          statusHistoria.style.color = '#4CAF50';
-          statusHistoria.style.fontWeight = '600';
-      }
-      
-      // ✅ Alerta customizado (se a função existir no main.js)
-      if (typeof mostrarAlerta === 'function') {
-          mostrarAlerta('Capítulo 1 concluído! Navegação inferior desbloqueada.', 'sucesso');
-      }
+    }
+
+    // Atualiza UI
+    btnConcluir.classList.add('hidden');
+    if (btnIrDesafio) btnIrDesafio.classList.remove('hidden');
+    if (statusHistoria) {
+      statusHistoria.textContent = '✓ História concluída! A porta foi liberada.';
+      statusHistoria.style.color = '#4CAF50';
+      statusHistoria.style.fontWeight = '600';
+    }
+
+    if (typeof mostrarAlerta === 'function') {
+      mostrarAlerta('Capítulo 1 concluído! 🎉 A navegação foi liberada.', 'sucesso');
+    }
   });
 })();
 
