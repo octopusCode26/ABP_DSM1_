@@ -8,7 +8,7 @@ const path = require("path");
 // configura o dotenv manualmente.
 dotenv.config({
     quiet: true,
-    path: path.resolve(__dirname, "..", "..", "..", ".env"),
+    path: path.resolve(__dirname, "..", "..", ".env"),
 });
 
 // montando um objeto de configuração do banco de dados usando variáveis do .env
@@ -19,8 +19,6 @@ const config = {
     database: process.env.POSTGRES_DB,
     port: process.env.POSTGRES_PORT,
 };
-
-console.log(process.env.POSTGRES_DB);
 
 // cria a conexão com o banco usando o pool com as configurações definidas acima.
 const pool = new Pool (config);
