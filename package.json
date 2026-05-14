@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./src/server",
     "dev": "node --watch ./src/server",
-    "db:init": "node ./src/infra/run-sql"
+    "db:init": "node ./src/infra/run-sql",
+    "test": "node ./scripts/project-test.js"
   },
   "keywords": [],
   "author": "",

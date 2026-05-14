@@ -475,6 +475,38 @@ async function findResultadoModuloAtual(idUsuario) {
   };
 }
 
+// verifica se já existe um exame para o usuário nesse módulo
+// retorna o exame se existir, ou null se não existir
+async function findExameExistente(idUsuario, idModulo) {
+  const result = await pool.query(
+    `
+    SELECT id_exame
+    FROM exames
+    WHERE id_usuario = $1
+      AND id_modulo = $2
+    ORDER BY id_exame DESC
+    LIMIT 1
+    `,
+    [idUsuario, idModulo]
+  );
+
+  return result.rows[0] || null;
+}
+
+// cria o exame inicial quando o usuário conclui a história
+async function criarExameInicial(idUsuario, idModulo, grupo) {
+  const result = await pool.query(
+    `
+    INSERT INTO exames (id_usuario, id_modulo, grupo, tentativa)
+    VALUES ($1, $2, $3, 1)
+    RETURNING id_exame, id_usuario, id_modulo, grupo, tentativa
+    `,
+    [idUsuario, idModulo, grupo]
+  );
+
+  return result.rows[0] || null;
+}
+
 module.exports = {
   findProximaQuestaoByUsuario,
   findQuestaoDoExameByUsuario,
@@ -488,5 +520,7 @@ module.exports = {
   updateProximoModulo,
   findModulosRespondidosByUsuario,
   findResultadoModuloAtual,
-  findQualquerGrupoPorModulo
+  findQualquerGrupoPorModulo,
+  findExameExistente,
+  criarExameInicial,
 };
