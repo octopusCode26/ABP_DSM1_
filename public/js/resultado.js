@@ -102,8 +102,9 @@
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.message || "Erro ao carregar resultado");
-        window.location.href = "/questionario";
+        // se não tem resultado, o usuário foi resetado ou chegou aqui sem querer
+        // manda pro mapa que é o lugar certo
+        window.location.href = "/mapa";
         return;
       }
 

@@ -10,7 +10,24 @@ const formCadastro = document.getElementById("formCadastro");
 const botaoCadastreseAqui = document.getElementById("cadastreseaqui");
 const botaoRealizeoLogin = document.getElementById("realizeologin");
 
+const TEMPO_FECHAMENTO_MS = 240;
+let timeoutFechamento = null;
+let fechandoPainel = false;
+
+function limparFechamentoPendente() {
+  if (timeoutFechamento) {
+    clearTimeout(timeoutFechamento);
+    timeoutFechamento = null;
+  }
+
+  fechandoPainel = false;
+  painelAuth.classList.remove("fechando");
+  painelAuth.removeEventListener("animationend", finalizarFechamento);
+}
+
 function abrirPainel(tipo) {
+  limparFechamentoPendente();
+
   painelAuth.style.display = "block";
   overlayEscuro.style.display = "block";
   painelAuth.setAttribute("aria-hidden", "false");
@@ -26,17 +43,39 @@ function abrirPainel(tipo) {
   }
 }
 
-function fecharPainel() {
+function fecharPainel(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  if (fechandoPainel || getComputedStyle(painelAuth).display === "none") {
+    return;
+  }
+
+  fechandoPainel = true;
   painelAuth.classList.add("fechando");
 
-  painelAuth.addEventListener("animationend", function handler() {
-    painelAuth.style.display = "none";
-    overlayEscuro.style.display = "none";
-    painelAuth.setAttribute("aria-hidden", "true");
+  painelAuth.addEventListener("animationend", finalizarFechamento);
+  timeoutFechamento = setTimeout(finalizarFechamento, TEMPO_FECHAMENTO_MS);
+}
 
-    painelAuth.classList.remove("fechando");
-    painelAuth.removeEventListener("animationend", handler);
-  });
+function finalizarFechamento(event) {
+  if (!fechandoPainel || (event && event.target !== painelAuth)) {
+    return;
+  }
+
+  if (timeoutFechamento) {
+    clearTimeout(timeoutFechamento);
+    timeoutFechamento = null;
+  }
+
+  painelAuth.style.display = "none";
+  overlayEscuro.style.display = "none";
+  painelAuth.setAttribute("aria-hidden", "true");
+  painelAuth.classList.remove("fechando");
+  painelAuth.removeEventListener("animationend", finalizarFechamento);
+  fechandoPainel = false;
 }
 
 if (botaoCadastro) {

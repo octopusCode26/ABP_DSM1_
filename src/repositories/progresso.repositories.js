@@ -1,5 +1,12 @@
+// importando as respectivas bibliotecas.
 const pool = require("../database/db");
+const {
+  findOutroGrupoAleatorio,
+  findQualquerGrupoPorModulo,
+  criarExameInicial,
+} = require("./questoes.repositories");
 
+// marca a história de um módulo como concluída.
 async function concluirHistoria(idUsuario, idModulo) {
   const result = await pool.query(
     `
@@ -16,12 +23,13 @@ async function concluirHistoria(idUsuario, idModulo) {
       concluido_em = CURRENT_TIMESTAMP
     RETURNING *
     `,
-    [idUsuario, idModulo]
+    [idUsuario, idModulo],
   );
 
   return result.rows[0] || null;
 }
 
+// retorna os dados usados no mapa de progresso do usuário.
 async function findProgressoMapa(idUsuario) {
   const result = await pool.query(
     `
@@ -40,12 +48,13 @@ async function findProgressoMapa(idUsuario) {
     WHERE pd.id_usuario = $1
     ORDER BY m.id_modulo ASC
     `,
-    [idUsuario]
+    [idUsuario],
   );
 
   return result.rows;
 }
 
+// busca o progresso atual da run do usuário.
 async function findProgressoDesafio(idUsuario) {
   const result = await pool.query(
     `
@@ -58,13 +67,41 @@ async function findProgressoDesafio(idUsuario) {
     WHERE id_usuario = $1
     LIMIT 1
     `,
-    [idUsuario]
+    [idUsuario],
   );
 
   return result.rows[0] || null;
 }
 
+// reinicia a run do usuário.
+// IMPORTANTE: artefatos do usuário NÃO devem ser removidos no reset da run
+// NOVA FUNÇÃO: limpa o histórico de grupos usados no módulo 1, permitindo q sorteie do zero novamente
 async function resetarRunDesafios(idUsuario) {
+  // 1. primeiro deleta as respostas dos exames do módulo 1 desse usuário
+  // precisa ser antes porque respostas dependem dos exames (chave estrangeira)
+  await pool.query(
+    `
+    DELETE FROM respostas
+    WHERE id_exame IN (
+      SELECT id_exame FROM exames
+      WHERE id_usuario = $1
+        AND id_modulo = 1
+    )
+    `,
+    [idUsuario],
+  );
+
+  // 2. agora sim pode deletar os exames do módulo 1
+  await pool.query(
+    `
+    DELETE FROM exames
+    WHERE id_usuario = $1
+      AND id_modulo = 1
+    `,
+    [idUsuario],
+  );
+
+  // 3. reseta o progresso da run
   const result = await pool.query(
     `
     UPDATE progresso_desafio
@@ -76,25 +113,39 @@ async function resetarRunDesafios(idUsuario) {
     WHERE id_usuario = $1
     RETURNING *
     `,
-    [idUsuario]
+    [idUsuario],
   );
+
+  // cria o exame inicial do módulo 1 para o usuário recomeçar
+  let grupo = await findOutroGrupoAleatorio(idUsuario, 1);
+  if (!grupo) {
+    grupo = await findQualquerGrupoPorModulo(1);
+  }
+  if (grupo) {
+    await criarExameInicial(idUsuario, 1, grupo);
+  }
 
   return result.rows[0] || null;
 }
 
+// registra uma falha no desafio atual.
 async function registrarFalhaDesafio(idUsuario) {
+  // busca o progresso atual do usuário.
   const progresso = await findProgressoDesafio(idUsuario);
 
   if (!progresso) {
     return null;
   }
 
+  // soma mais uma falha.
   const novasFalhas = Number(progresso.falhas_no_modulo) + 1;
 
+  // se chegar em 2 falhas, reinicia a run completa.
   if (novasFalhas >= 2) {
     return resetarRunDesafios(idUsuario);
   }
 
+  // atualiza apenas a quantidade de falhas.
   const result = await pool.query(
     `
     UPDATE progresso_desafio
@@ -104,12 +155,13 @@ async function registrarFalhaDesafio(idUsuario) {
     WHERE id_usuario = $1
     RETURNING *
     `,
-    [idUsuario, novasFalhas]
+    [idUsuario, novasFalhas],
   );
 
   return result.rows[0] || null;
 }
 
+// avança o usuário para o próximo módulo.
 async function avancarDesafio(idUsuario) {
   const progresso = await findProgressoDesafio(idUsuario);
 
@@ -119,7 +171,9 @@ async function avancarDesafio(idUsuario) {
 
   const moduloAtual = Number(progresso.modulo_desafio_atual);
 
+  // verifica se chegou no último módulo.
   if (moduloAtual >= 5) {
+    // libera o certificado.
     const result = await pool.query(
       `
       UPDATE progresso_desafio
@@ -130,12 +184,13 @@ async function avancarDesafio(idUsuario) {
       WHERE id_usuario = $1
       RETURNING *
       `,
-      [idUsuario]
+      [idUsuario],
     );
 
     return result.rows[0] || null;
   }
 
+  // avança para o próximo módulo.
   const result = await pool.query(
     `
     UPDATE progresso_desafio
@@ -146,12 +201,13 @@ async function avancarDesafio(idUsuario) {
     WHERE id_usuario = $1
     RETURNING *
     `,
-    [idUsuario]
+    [idUsuario],
   );
 
   return result.rows[0] || null;
 }
 
+// verifica se a história de um módulo já foi concluída.
 async function historiaConcluida(idUsuario, idModulo) {
   const result = await pool.query(
     `
@@ -161,12 +217,13 @@ async function historiaConcluida(idUsuario, idModulo) {
       AND id_modulo = $2
     LIMIT 1
     `,
-    [idUsuario, idModulo]
+    [idUsuario, idModulo],
   );
 
   return result.rows[0]?.concluido || false;
 }
 
+// exportando as respectivas funções para outros arquivos.
 module.exports = {
   concluirHistoria,
   findProgressoMapa,
@@ -174,5 +231,5 @@ module.exports = {
   resetarRunDesafios,
   registrarFalhaDesafio,
   avancarDesafio,
-  historiaConcluida
+  historiaConcluida,
 };

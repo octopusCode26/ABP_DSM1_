@@ -1,3 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
+  sessionStorage.removeItem("origemBurningdown");
+  sessionStorage.removeItem("retornoBurningdown");
+
+});
+
 const mapaModulos = document.getElementById("mapaModulos");
 const btnCertificado = document.getElementById("btnCertificado");
 
