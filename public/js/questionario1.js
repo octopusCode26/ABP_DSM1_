@@ -30,26 +30,32 @@
   }
 
   function atualizarPercentual(numeroQuestao) {
-    const percentual = Math.max(
-      0,
-      Math.min(
-        100,
-        Math.round((Number(numeroQuestao || 0) / totalQuestoes) * 100),
-      ),
-    );
+  let percentual;
+  const n = Number(numeroQuestao || 0);
 
-    if (barra) {
-      barra.style.width = `${percentual}%`;
-    }
-
-    if (textoPercentual) {
-      textoPercentual.textContent = `${percentual}%`;
-    }
-
-    if (barraContainer) {
-      barraContainer.setAttribute("aria-valuenow", String(percentual));
-    }
+  if (n > totalQuestoes) {
+    percentual = 100;
+  } else if (n === totalQuestoes) {
+    percentual = 90;
+  } else {
+    percentual = Math.round(((n - 1) / (totalQuestoes - 1)) * 90);
+    if (n === 1) percentual = 0;
   }
+
+  percentual = Math.max(0, Math.min(100, percentual || 0));
+
+  if (barra) {
+    barra.style.width = `${percentual}%`;
+  }
+
+  if (textoPercentual) {
+    textoPercentual.textContent = `${percentual}%`;
+  }
+
+  if (barraContainer) {
+    barraContainer.setAttribute("aria-valuenow", String(percentual));
+  }
+}
 
   function selecionarAlternativa(botaoSelecionado) {
     alternativaSelecionada = botaoSelecionado.dataset.alternativa;
