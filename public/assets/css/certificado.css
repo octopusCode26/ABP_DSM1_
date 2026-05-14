@@ -45,13 +45,15 @@
 .escudo {
   width: 125%;
   display: flex;
-  justify-content: left; 
+  justify-content: flex-start; 
+  padding: 0;
 }
 
 .escudo img {
-  width: 100%;
+  display: block;
+  width: 125%;
   height: auto;
-  transform: translateY(-43px);
+  transform: translate(-65px, -35px);
 
 }
 
@@ -62,7 +64,7 @@
   flex-direction: column;
   align-items: center;
   color: var(--cor-card-texto);
-  padding-top: 6px; 
+  padding-top: 17px; 
 }
 
 .logo img {
@@ -78,6 +80,7 @@
 p{
   font-size: 0.8rem;
   margin-top: 0.5rem;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .nome-certificado {
@@ -111,7 +114,6 @@ p{
 }
 
 .icon {
-    filter: invert(1);
     height: 2rem;    
 }
 
@@ -126,31 +128,135 @@ p{
 .formulario{
   color: var(--cor-card-texto);
   font-weight: 700;
+  font-size: small;
   display: flex;
   flex-direction: column;
   border: 2px solid #ba9961;
   border-radius: 15px;
   width: 450px;
-  height: 100px;
-  margin: 0 auto;
+  height: 105px;
+  margin: 0 auto; 
 }
 
 .cpf{
   color: var(--cor-card-texto);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding: 5px 0 5px 0;
   border-bottom: 1px solid #ba9961;
+  padding-left: 8px;
+  padding-top: 4px;
+  
 }
 .email{
   color: var(--cor-card-texto);
+  display: flex;
+  align-items: center;
   padding: 5px 0 5px 0;
   border-bottom: 1px solid #ba9961;
+  padding-left: 8px;
+    
 }
 .dataDeEmissao{
   color: var(--cor-card-texto);
+  display: flex;
+  align-items: center;
   padding: 5px 0 5px 0;
-  border-bottom: 1px solid #ba9961;
+  padding-left: 8px;
 }
+.icon2{
+  height: 1.5rem;
+}
+
 .media{
   color: var(--cor-card-texto);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 15px;
+}
+
+.mediaFinal{
+  display: flex;
+  align-items: center;
+  color: var(--cor-card-texto);
+  border: 2px solid #ba9961;
+  padding: 5px;
+  border-radius: 8px;
+  width: 100px;
+  height: 40px;
+  margin-left: 2%;
+}
+
+.desempenho-carimbo{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container-desempenho{
+    font-family: 'Cinzel', serif;
+    width: 520px;
+    color: var(--cor-fundo-escuro);
+    margin: 3px auto;
+    padding: 5px;
+    border: 2px solid #ba9961;
+    border-radius: 10px;  
+    text-align: center;
+    position: relative;
+}
+
+.titulo{
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--cor-card);
+  color: var(--cor-card-texto);
+  display: inline-block;
+  padding: 0 15px;    
+  font-size: 10px;
+  font-weight: bold;
+}
+.niveis{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Times New Roman', Times, serif;
+    color: var(--cor-card-texto);
+    margin-top: 10px;
+}
+
+.nivel{
+    flex: 1;
+    position: relative;
+    padding: 0 10px;
+}
+
+.nivel:not(.ultimo){
+    border-right: 1px solid #ba9961;
+}
+
+.nivel span{
+    display: block;
+    margin-bottom: 25px;
+}
+
+.linha{
+    width: 70px;
+    height: 1px;
+    margin: auto;
+    background-color: #ba9961;
+}
+
+.carimbo{
+  position: absolute;
+  right: 45px;
+  width: 65px;
+  height: auto;
+
 }
 
