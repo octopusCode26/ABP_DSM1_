@@ -445,7 +445,7 @@ async function concluirHistoria() {
   const token = obterToken();
 
   const btnConcluir = document.getElementById("btnConcluirHistoria");
-  const btnDesafio = document.getElementById("btnIrDesafio");
+  const portaBoss = document.getElementById("portaBossScene");
   const status = document.getElementById("statusHistoria");
 
   if (!token) return;
@@ -481,17 +481,28 @@ async function concluirHistoria() {
     localStorage.setItem(`historia_modulo_${ID_MODULO}_concluida`, "true");
 
     if (status) {
-      status.textContent = "História concluída. A primeira porta foi liberada.";
-    }
+  status.textContent =
+    "História concluída. A primeira porta foi liberada. Aproxime-se dela para entrar.";
+}
 
-    if (btnConcluir) {
-      btnConcluir.classList.add("hidden");
-    }
+if (btnConcluir) {
+  btnConcluir.classList.add("hidden");
+}
 
-    if (btnDesafio) {
-      btnDesafio.classList.remove("hidden");
-      btnDesafio.disabled = false;
-    }
+if (portaBoss) {
+  portaBoss.classList.add("porta-liberada");
+  portaBoss.setAttribute("role", "button");
+  portaBoss.setAttribute("tabindex", "0");
+  portaBoss.setAttribute("aria-label", "Entrar no desafio do módulo 1");
+}
+
+const tooltip = document.querySelector(".porta-boss-tooltip");
+
+if (tooltip) {
+  tooltip.textContent = "Seja ágil ou...";
+}
+
+ativarBugPerseguidor();
 
   ativarBugPerseguidor();
 
@@ -511,23 +522,37 @@ async function concluirHistoria() {
 
 function configurarConclusaoHistoria() {
   const btnConcluir = document.getElementById("btnConcluirHistoria");
-  const btnDesafio = document.getElementById("btnIrDesafio");
-
+ 
   if (btnConcluir) {
     btnConcluir.addEventListener("click", concluirHistoria);
   }
+ }
 
-  if (btnDesafio) {
-    btnDesafio.addEventListener("click", () => {
-      localStorage.setItem("moduloAtual", ID_MODULO);
-      window.location.href = "/questionario1";
-    });
+function configurarPortaDesafio() {
+  const portaBoss = document.getElementById("portaBossScene");
+
+  if (!portaBoss) return;
+
+  function entrarNoDesafio() {
+    if (!portaBoss.classList.contains("porta-liberada")) return;
+
+    localStorage.setItem("moduloAtual", ID_MODULO);
+    window.location.href = "/desafio1";
   }
+
+  portaBoss.addEventListener("click", entrarNoDesafio);
+
+  portaBoss.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      entrarNoDesafio();
+    }
+  });
 }
 
 /* =========================================================
-   DESBLOQUEAR NAVBAR AO CONCLUIR CAPÍTULO 1
-========================================================= */
+   DESBLOQUEAR NAVBAR AO CONCLUIR CAPÍTULO - precisamos rever
+========================================================= 
 
 (function() {
   const btnConcluir = document.getElementById('btnConcluirHistoria');
@@ -564,7 +589,7 @@ function configurarConclusaoHistoria() {
           mostrarAlerta('Capítulo 1 concluído! Navegação inferior desbloqueada.', 'sucesso');
       }
   });
-})();
+})();*/
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -581,4 +606,5 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarConclusaoHistoria();
   configurarFogueiraBurningdown();
   configurarBacklogVivo();
+  configurarPortaDesafio();
 });
