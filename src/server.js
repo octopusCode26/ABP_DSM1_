@@ -37,12 +37,6 @@ app.set("view engine", "ejs"); // define o EJS como motor de template
 // DEFINE A PASTA DE VIEWS COMO public/pages
 app.set("views", pagesPath);
 
-// mostra o usuário e a senha do banco no terminal
-console.log({
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-});
-
 // define a porta do servidor
 const PORT = process.env.PORT;
 
