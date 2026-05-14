@@ -356,7 +356,90 @@ function configurarBacklogVivo() {
   atualizarRanks(false);
 }
 
+function ativarBugPerseguidor() {
+  const bug = document.querySelector(".porta-boss-bug");
+  const porta = document.getElementById("portaBossScene");
 
+  if (!bug || !porta) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+
+  let bugX = mouseX;
+  let bugY = mouseY;
+
+  let animationFrameId = null;
+
+  bug.classList.remove("bug-final");
+  bug.classList.add("bug-perseguidor");
+
+  function atualizarMouse(event) {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+  }
+
+  function animarBug() {
+    const velocidade = 0.12;
+
+    bugX += (mouseX - bugX) * velocidade;
+    bugY += (mouseY - bugY) * velocidade;
+
+    const inclinacao = Math.max(-10, Math.min(10, (mouseX - bugX) * 0.08));
+
+    bug.style.left = `${bugX}px`;
+    bug.style.top = `${bugY}px`;
+    bug.style.transform = `
+      translate(-50%, -50%)
+      scale(1)
+      rotate(${inclinacao}deg)
+    `;
+
+    animationFrameId = requestAnimationFrame(animarBug);
+  }
+
+  window.addEventListener("mousemove", atualizarMouse);
+  animarBug();
+
+  setTimeout(() => {
+    window.removeEventListener("mousemove", atualizarMouse);
+
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+    }
+
+    posicionarBugPertoDaPorta(bug, porta);
+  }, 5000);
+}
+
+function posicionarBugPertoDaPorta(bug, porta) {
+  const portaRect = porta.getBoundingClientRect();
+
+  const destinoX = portaRect.right - 20;
+  const destinoY = portaRect.top + portaRect.height * 0.22;
+
+  bug.style.left = `${destinoX}px`;
+  bug.style.top = `${destinoY}px`;
+
+  bug.style.transition = `
+    left 0.65s ease,
+    top 0.65s ease,
+    transform 0.65s ease,
+    filter 0.25s ease
+  `;
+
+  bug.style.transform = `
+    translate(-50%, -50%)
+    scale(0.92)
+    rotate(-8deg)
+  `;
+
+  setTimeout(() => {
+    bug.classList.remove("bug-perseguidor");
+    bug.classList.add("bug-final");
+
+    bug.removeAttribute("style");
+  }, 700);
+}
 
 async function concluirHistoria() {
   const token = obterToken();
@@ -409,6 +492,9 @@ async function concluirHistoria() {
       btnDesafio.classList.remove("hidden");
       btnDesafio.disabled = false;
     }
+
+  ativarBugPerseguidor();
+
   } catch (error) {
     console.error(error);
 

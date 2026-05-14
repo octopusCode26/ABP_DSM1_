@@ -984,6 +984,128 @@ blockquote {
   }
 }
 
+/* ============================================================
+   BUG PERSEGUIDOR APÓS CONCLUIR HISTÓRIA
+============================================================ */
+
+.porta-boss-bug.bug-perseguidor {
+  position: fixed;
+  z-index: 9999;
+
+  right: auto;
+  top: auto;
+
+  width: 150px;
+  max-width: 34vw;
+
+  opacity: 1;
+  pointer-events: none;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1)
+    rotate(-4deg);
+
+  filter:
+    drop-shadow(0 14px 18px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 12px rgba(255, 70, 70, 0.35));
+
+  transition:
+    transform 0.12s linear,
+    filter 0.2s ease;
+
+  animation: bugPerseguidorFlutua 0.85s ease-in-out infinite;
+}
+
+.porta-boss-bug.bug-final {
+  position: absolute;
+  z-index: 5;
+
+  right: -18%;
+  top: 12%;
+
+  width: 48%;
+  max-width: 180px;
+  height: auto;
+
+  opacity: 1;
+
+  pointer-events: none;
+
+  transform: translateX(0) translateY(0) scale(1) rotate(-3deg);
+
+  filter:
+    drop-shadow(0 12px 16px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 10px rgba(255, 80, 80, 0.35));
+
+  animation: bugFlutuando 1.4s ease-in-out infinite;
+}
+
+@keyframes bugPerseguidorFlutua {
+  0%, 100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -8px;
+  }
+}
+
+/* ============================================================
+   PORTA LIBERADA / TEXTO ENTRE
+============================================================ */
+
+.porta-boss-scene {
+  cursor: default;
+}
+
+.porta-boss-scene.porta-liberada {
+  cursor: pointer;
+}
+
+.porta-entrar-text {
+  position: absolute;
+  z-index: 8;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%) scale(0.92);
+
+  padding: 0.55rem 1rem;
+
+  color: #f7e6aa;
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-align: center;
+
+  background: rgba(8, 8, 8, 0.78);
+  border: 1px solid rgba(244, 211, 94, 0.72);
+  border-radius: 10px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  text-shadow:
+    0 0 8px rgba(244, 211, 94, 0.55),
+    0 0 18px rgba(255, 120, 20, 0.35);
+
+  box-shadow:
+    0 0 18px rgba(244, 211, 94, 0.2),
+    inset 0 0 12px rgba(0, 0, 0, 0.55);
+
+  transition:
+    opacity 0.35s ease 2s,
+    transform 0.35s ease 2s;
+}
+
+.porta-boss-scene.porta-liberada:hover .porta-entrar-text {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 
 @media (max-width: 720px) {
   .backlog-card {
