@@ -146,7 +146,7 @@ function abrirHistoria(idModulo) {
 
 function abrirDesafio(idModulo) {
   localStorage.setItem("moduloAtual", idModulo);
-  window.location.href = "/questionario1";
+  window.location.href = `/desafio${idModulo}`;
 }
 
 function definirTextoBotao(modulo) {

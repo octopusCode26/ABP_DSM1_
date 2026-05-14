@@ -68,6 +68,10 @@ app.get("/burningdown", function (_req, res) {
   res.render("burningdown"); // procura public/pages/burningdown.ejs
 });
 
+app.get("/desafio1", function (_req, res) {
+  res.render("desafio1");
+});
+
 // rota para questionário 1
 app.get("/questionario1", function (_req, res) {
   res.render("questionario1"); // procura public/pages/questionario1.ejs
