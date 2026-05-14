@@ -12,7 +12,6 @@
 
 <body class="corpo-resultado">
   <%- include('partials/header') %>
-  <%- include('./partials/botao_voltar') %>
 
   <main class="tela">
     <section class="resultado-box" aria-labelledby="titulo-resultado">
@@ -29,10 +28,12 @@
           <p class="quadro-nota" id="resultadoAcertos">--/--</p>
         </div>
 
+        <!-- 
         <div class="quadro-info-extra">
           <p id="resultadoRespondidas">Total respondidas: --</p>
           <p id="resultadoNotaFinal">Nota final: --%</p>
         </div>
+         -->
 
         <div class="quadro-conteudo-meio">
           <p class="quadro-desempenho">Desempenho:</p>
@@ -51,15 +52,13 @@
         </div>
       </div>
 
-      <div class="button-posicao">
-        <button class="revisar" id="btnRevisar" type="button" disabled>
-          <span class="texto-botao">Revisar</span>
-        </button>
-        <button class="avancar" id="btnAcaoResultado" type="button" disabled>
-          <span class="texto-botao">Carregando...</span>
-        </button>
-      </div>
+      
     </section>
+    <div class="button-posicao">
+      <button class="tentar-novamente" id="btnAcaoResultado" type="button" disabled>
+        <span class="texto-botao">Carregando...</span>
+      </button>
+    </div>
   </main>
   
  <%- include('partials/navegacao_inferior') %>
