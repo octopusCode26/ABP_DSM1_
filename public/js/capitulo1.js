@@ -478,8 +478,6 @@ async function concluirHistoria() {
       );
     }
 
-    localStorage.setItem(`historia_modulo_${ID_MODULO}_concluida`, "true");
-
     if (status) {
   status.textContent =
     "História concluída. A primeira porta foi liberada. Aproxime-se dela para entrar.";
@@ -591,9 +589,85 @@ function configurarPortaDesafio() {
   });
 })();*/
 
+// Verifica no BACK-END se a história já foi concluída pelo usuário logado.
 
-document.addEventListener("DOMContentLoaded", () => {
+// isso resolve o problema de o progresso "sumir" quando o usuário atualiza a página.
+async function carregarEstadoHistoria() {
+
+  // pega o token salvo no navegador. Esse token identifica qual usuário está logado.
+  const token = obterToken();
+
+  // se não existir token, interrompe a execução.
+  if (!token) return;
+
+  try {
+    // faz uma requisição para a API do mapa de progresso.
+    const response = await fetch("/api/progresso/mapa", {
+
+      // envia o token para o back-end validar o usuário.
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Transforma a resposta em JSON.
+    const data = await response.json();
+
+    if (!response.ok) {
+      return;
+    }
+
+    // Procura especificamente o módulo atual (capítulo 1).
+    const modulo = data.modulos.find(
+      (m) => Number(m.id_modulo) === ID_MODULO
+    );
+
+    if (!modulo) return;
+
+    // Se a história NÃO foi concluída, não fazemos nada
+    if (!modulo.historia_concluida) {
+      return;
+    }
+
+    const btnConcluir = document.getElementById("btnConcluirHistoria");
+    const portaBoss = document.getElementById("portaBossScene");
+    const status = document.getElementById("statusHistoria");
+
+    // Esconde o botão de concluir história
+    if (btnConcluir) {
+      btnConcluir.classList.add("hidden");
+    }
+
+    if (status) {
+      status.textContent =
+        "História concluída. A primeira porta foi liberada. Aproxime-se dela para entrar.";
+    }
+
+    // libera a porta visualmente e funcionalmente.
+    if (portaBoss) {
+      portaBoss.classList.add("porta-liberada");
+      portaBoss.setAttribute("role", "button");
+      portaBoss.setAttribute("tabindex", "0");
+      portaBoss.setAttribute("aria-label", "Entrar no desafio do módulo 1");
+    }
+
+    const tooltip = document.querySelector(
+      ".porta-boss-tooltip"
+    );
+
+    if (tooltip) {
+      tooltip.textContent = "Seja ágil ou...";
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // verifica se o usuário está autenticado
   obterToken();
+  await carregarEstadoHistoria();
 
   configurarScrollParaBotoes();
   ajustarScrollPorHashInicial();
