@@ -276,6 +276,15 @@ button {
   cursor: not-allowed;
 }
 
+.porta-acoes button.porta-desafio:disabled:hover {
+  background-color: rgba(203, 196, 155, 0.681);
+  background-image: url("../img/mosca_desafio.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40px 40px;
+  color: transparent;
+}
+
 /* ATALHOS */
 
 .atalho-mapa {
