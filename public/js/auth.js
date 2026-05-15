@@ -19,7 +19,8 @@ if (formCadastroPopup) {
     }
 
     try {
-      const response = await fetch("/api/usuarios/cadastro", {
+      // cadastro
+      const cadastroResponse = await fetch("/api/usuarios/cadastro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,17 +28,45 @@ if (formCadastroPopup) {
         body: JSON.stringify({ nome, cpf, email, senha }),
       });
 
-      const data = await response.json();
+      const cadastroData = await cadastroResponse.json();
 
-      if (!response.ok) {
-        mostrarAlerta(data.message || "Erro ao cadastrar aventureiro");
+      if (!cadastroResponse.ok) {
+        mostrarAlerta(
+          cadastroData.message || "Erro ao cadastrar aventureiro",
+        );
         return;
       }
 
-      mostrarAlerta(
-        "Cadastro realizado com sucesso! Faça o login para começar a aventura.",
-      );
-      abrirPainel("login");
+      // login automático após cadastro
+      const loginResponse = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cpf, senha }),
+      });
+
+      const loginData = await loginResponse.json();
+
+      if (!loginResponse.ok) {
+        mostrarAlerta(loginData.message || "Erro ao fazer login automático");
+        return;
+      }
+
+      // salva autenticação
+      localStorage.setItem("token", loginData.token);
+      localStorage.setItem("nome", loginData.nome);
+
+      mostrarAlerta("Cadastro realizado com sucesso!");
+
+      // primeiro acesso -> capítulo 1
+      // demais acessos -> mapa
+      if (loginData.primeiro_acesso) {
+        window.location.href = "/capitulo1";
+      } else {
+        window.location.href = "/mapa";
+      }
+
     } catch (error) {
       console.error(error);
       mostrarAlerta("Erro ao conectar com o servidor");
@@ -63,6 +92,8 @@ if (formLoginPopup) {
 
       const data = await response.json();
 
+      console.log(data);
+
       if (!response.ok) {
         mostrarAlerta(data.message || "Erro ao fazer login");
         return;
@@ -71,23 +102,14 @@ if (formLoginPopup) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("nome", data.nome);
 
-      const progressoResponse = await fetch("/api/progresso/mapa", {
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
-
-      const progressoData = await progressoResponse.json();
-
-      const modulo1 = progressoData.modulos?.find(function (modulo) {
-        return Number(modulo.id_modulo) === 1;
-      });
-
-      if (!modulo1 || !modulo1.historia_concluida) {
+      // primeiro acesso -> capítulo 1
+      // demais acessos -> mapa
+      if (data.primeiro_acesso) {
         window.location.href = "/capitulo1";
       } else {
         window.location.href = "/mapa";
       }
+
     } catch (error) {
       console.error(error);
       mostrarAlerta("Erro ao conectar com o servidor");

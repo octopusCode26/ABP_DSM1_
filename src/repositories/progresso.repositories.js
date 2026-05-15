@@ -223,6 +223,25 @@ async function historiaConcluida(idUsuario, idModulo) {
   return result.rows[0]?.concluido || false;
 }
 
+// verifica se é o primeiro acesso do usuário
+// retorna true se o usuário ainda NÃO concluiu nenhuma história
+async function isPrimeiroAcesso(idUsuario) {
+  const result = await pool.query(
+    `
+    SELECT EXISTS (
+      SELECT 1
+      FROM progresso_historia
+      WHERE id_usuario = $1
+        AND concluido = true
+    ) AS tem_historia_concluida
+    `,
+    [idUsuario]
+  );
+
+  // se NÃO concluiu nenhuma história -> primeiro acesso
+  return !result.rows[0].tem_historia_concluida;
+}
+
 // exportando as respectivas funções para outros arquivos.
 module.exports = {
   concluirHistoria,
@@ -232,4 +251,5 @@ module.exports = {
   registrarFalhaDesafio,
   avancarDesafio,
   historiaConcluida,
+  isPrimeiroAcesso
 };
