@@ -14,7 +14,7 @@ if (formCadastroPopup) {
     const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
 
     if (senha !== confirmarSenha) {
-      alert("As senhas não coincidem!");
+      mostrarAlerta("As senhas não coincidem!");
       return;
     }
 
@@ -30,15 +30,17 @@ if (formCadastroPopup) {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.message || "Erro ao cadastrar");
+        mostrarAlerta(data.message || "Erro ao cadastrar aventureiro");
         return;
       }
 
-      alert("Cadastro realizado com sucesso! Faça login para continuar.");
+      mostrarAlerta(
+        "Cadastro realizado com sucesso! Faça o login para começar a aventura.",
+      );
       abrirPainel("login");
     } catch (error) {
       console.error(error);
-      alert("Erro ao conectar com o servidor");
+      mostrarAlerta("Erro ao conectar com o servidor");
     }
   });
 }
@@ -62,7 +64,7 @@ if (formLoginPopup) {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.message || "Erro ao fazer login");
+        mostrarAlerta(data.message || "Erro ao fazer login");
         return;
       }
 
@@ -88,7 +90,7 @@ if (formLoginPopup) {
       }
     } catch (error) {
       console.error(error);
-      alert("Erro ao conectar com o servidor");
+      mostrarAlerta("Erro ao conectar com o servidor");
     }
   });
 }

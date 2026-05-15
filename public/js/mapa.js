@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   sessionStorage.removeItem("origemBurningdown");
   sessionStorage.removeItem("retornoBurningdown");
-
 });
 
 const mapaModulos = document.getElementById("mapaModulos");
@@ -25,7 +24,7 @@ async function carregarMapa() {
     const data = await response.json();
 
     if (!response.ok) {
-      alert(data.message || "Erro ao carregar mapa");
+      mostrarAlerta(data.message || "Erro ao carregar mapa");
       return;
     }
 
@@ -33,7 +32,7 @@ async function carregarMapa() {
     atualizarAtalhos(data.modulos);
   } catch (error) {
     console.error(error);
-    alert("Erro de conexão ao carregar mapa");
+    mostrarAlerta("Erro de conexão ao carregar mapa");
   }
 }
 

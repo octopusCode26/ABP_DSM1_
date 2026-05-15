@@ -112,7 +112,7 @@
       renderizarResultado(data);
     } catch (error) {
       console.error(error);
-      alert("Erro de conexao ao carregar resultado");
+      mostrarAlerta("Erro de conexao ao carregar resultado");
     }
   }
 
@@ -134,19 +134,19 @@
       const data = await response.json();
 
       if (!response.ok) {
-        alert(data.message || "Erro ao atualizar progresso");
+        mostrarAlerta(data.message || "Erro ao atualizar progresso");
         atualizarBotaoAcao(resultadoAtual);
         return;
       }
 
       if (data.resetou_run) {
-        alert(data.message || "Sua run foi reiniciada.");
+        mostrarAlerta(data.message || "Sua run foi reiniciada.");
         window.location.href = "/mapa";
         return;
       }
 
       if (data.aprovado === false) {
-        alert(data.message || "Você recebeu uma nova tentativa.");
+        mostrarAlerta(data.message || "Você recebeu uma nova tentativa.");
         window.location.href = "/questionario1";
         return;
       }
@@ -154,7 +154,7 @@
       window.location.href = "/mapa";
     } catch (error) {
       console.error(error);
-      alert("Erro de conexao ao atualizar progresso");
+      mostrarAlerta("Erro de conexao ao atualizar progresso");
       atualizarBotaoAcao(resultadoAtual);
     }
   }
