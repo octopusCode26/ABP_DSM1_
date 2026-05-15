@@ -23,9 +23,8 @@ router.get("/mapa", authMiddleware, async function (req, res) {
         id_modulo: modulo.id_modulo,
         titulo: modulo.titulo,
         historia_concluida: modulo.historia_concluida,
-        historia_liberada: modulo.id_modulo === 1 || progresso.some(
-          (m) => Number(m.id_modulo) === Number(modulo.id_modulo) - 1 && m.historia_concluida
-        ),
+        historia_liberada:
+        Number(modulo.id_modulo) <= Number(modulo.modulo_desafio_atual),
         questionario_liberado: modulo.historia_concluida,
         desafio_atual: Number(modulo.id_modulo) === Number(modulo.modulo_desafio_atual),
         falhas_no_modulo: modulo.falhas_no_modulo,
