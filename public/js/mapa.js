@@ -74,14 +74,16 @@ function renderizarMapa(modulos) {
         <p>${criarDescricaoImersiva(modulo.id_modulo)}</p>
 
         <div class="porta-acoes">
-          <button 
+          <button          
+            class="porta-historia"
             ${bloqueado ? "disabled" : ""}
             onclick="abrirHistoria(${modulo.id_modulo})"
           >
             História
           </button>
 
-          <button 
+          <button
+            class="porta-desafio"          
             ${!historiaConcluida || !desafioAtual ? "disabled" : ""}
             onclick="abrirDesafio(${modulo.id_modulo})"
           >
