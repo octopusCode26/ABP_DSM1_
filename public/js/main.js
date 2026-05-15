@@ -273,8 +273,42 @@ window.addEventListener(
 );
 
 /* =========================================================
-   UTILITÁRIOS PARA NAVBAR INFERIOR — GLOBAIS
+   NAVBAR PERMANENTE — CONTROLE POR USUÁRIO
+   Usa localStorage com chave única por token para evitar conflitos
 ========================================================= */
+
+/**
+ * Gera chave única de progresso baseada no token do usuário
+ */
+function getChaveProgressoUsuario() {
+  const token = localStorage.getItem('token');
+  if (!token) return 'capitulo1_concluido_anon';
+  
+  // Cria hash simples do token para chave única
+  let hash = 0;
+  for (let i = 0; i < token.length; i++) {
+    hash = ((hash << 5) - hash) + token.charCodeAt(i);
+    hash |= 0;
+  }
+  return `capitulo1_concluido_${Math.abs(hash)}`;
+}
+
+/**
+ * Marca capítulo 1 como concluído para o usuário atual
+ */
+function marcarCapitulo1Concluido() {
+  const chave = getChaveProgressoUsuario();
+  localStorage.setItem(chave, 'true');
+  mostrarNavbarInferior();
+}
+
+/**
+ * Verifica se capítulo 1 foi concluído pelo usuário atual
+ */
+function usuarioConcluiuCapitulo1() {
+  const chave = getChaveProgressoUsuario();
+  return localStorage.getItem(chave) === 'true';
+}
 
 /**
  * Mostra a navbar inferior com animação
@@ -285,6 +319,7 @@ function mostrarNavbarInferior() {
   
   navbar.classList.remove('hidden', 'bloqueada');
   navbar.classList.add('navbar-visivel');
+  navbar.style.display = 'flex';
 }
 
 /**
@@ -296,87 +331,40 @@ function esconderNavbarInferior() {
   
   navbar.classList.remove('navbar-visivel');
   navbar.classList.add('bloqueada');
+  navbar.style.display = 'none';
 }
 
 /**
- * Verifica se deve mostrar a navbar baseado no progresso do usuário
- * Executa em QUALQUER página que tenha a navbar no HTML
+ * Verifica e atualiza estado da navbar - EXECUTA EM TODAS AS PÁGINAS
  */
 function verificarEAtualizarNavbar() {
   const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
 
-  const CHAVE_SESSAO = 'sessao_capitulo1_concluido';
-  const concluidoNestaSessao = sessionStorage.getItem(CHAVE_SESSAO) === 'true';
-
-  if (concluidoNestaSessao) {
+  // Se usuário concluiu capítulo, mostra navbar permanentemente
+  if (usuarioConcluiuCapitulo1()) {
     mostrarNavbarInferior();
   } else {
     esconderNavbarInferior();
   }
 }
 
-/* =========================================================
-   INICIALIZAÇÃO DA NAVBAR — EXECUTA EM TODAS AS PÁGINAS
-========================================================= */
-
-(function() {
-  // Função que verifica e atualiza a navbar
-  function inicializarNavbar() {
+// Inicialização automática da navbar em todas as páginas
+(function inicializarNavbarGlobal() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      verificarEAtualizarNavbar();
+    });
+  } else {
     verificarEAtualizarNavbar();
   }
-
-  // Executa quando o DOM estiver pronto
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarNavbar);
-  } else {
-    inicializarNavbar();
-  }
   
-  // Garante que execute após todos os recursos carregarem
-  window.addEventListener('load', verificarEAtualizarNavbar);
-  
-  // Reavalia se o usuário navegar com botões voltar/avançar
   window.addEventListener('popstate', verificarEAtualizarNavbar);
+  window.addEventListener('load', verificarEAtualizarNavbar);
 })();
 
-/**
- * (Opcional) Busca progresso do servidor ao carregar a página
- * Só executa se houver token de autenticação
- */
-async function sincronizarProgressoDoServidor() {
-  try {
-    if (typeof obterToken !== 'function') return;
-    
-    const token = obterToken();
-    if (!token) return; // Usuário não autenticado
-
-    const response = await fetch('/api/progresso/resumo', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    
-    if (!response.ok) return;
-    
-    const data = await response.json();
-    
-    // Atualiza estado em memória com dados do servidor
-    if (data.historias?.[1]?.concluida) {
-      window.__progressoSessao = window.__progressoSessao || {};
-      window.__progressoSessao.capitulo1 = true;
-      
-      // Atualiza navbar se já estiver na página
-      if (typeof verificarEAtualizarNavbar === 'function') {
-        verificarEAtualizarNavbar();
-      }
-    }
-  } catch (error) {
-    console.warn('⚠️ Não foi possível sincronizar progresso:', error);
-  }
-}
-
-// Executa sincronização ao carregar (não bloqueia a página)
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', sincronizarProgressoDoServidor);
-} else {
-  sincronizarProgressoDoServidor();
-}
+// Torna funções disponíveis globalmente para outras páginas
+window.marcarCapitulo1Concluido = marcarCapitulo1Concluido;
+window.usuarioConcluiuCapitulo1 = usuarioConcluiuCapitulo1;
+window.verificarEAtualizarNavbar = verificarEAtualizarNavbar;
+window.mostrarNavbarInferior = mostrarNavbarInferior;

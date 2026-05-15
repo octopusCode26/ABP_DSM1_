@@ -439,61 +439,71 @@ function configurarConclusaoHistoria() {
   }
 }
 
-/* =========================================================
-   BOTÃO CONCLUIR HISTÓRIA — CAPÍTULO 1 (sessionStorage)
-========================================================= */
-
-(function() {
-  if (!window.location.pathname.includes('/capitulo1')) return;
+/**
+ * Desbloqueia navbar ao rolar até o final do capítulo - VERSÃO DEBUG
+ */
+function configurarDesbloqueioPorScroll() {
+  console.log('🔍 [DEBUG] configurarDesbloqueioPorScroll iniciado');
   
-  const btnConcluir = document.getElementById('btnConcluirHistoria');
-  const btnIrDesafio = document.getElementById('btnIrDesafio');
-  const statusHistoria = document.getElementById('statusHistoria');
+  const secaoFinal = document.getElementById('porta');
   
-  if (!btnConcluir) return;
+  if (!secaoFinal) {
+    console.error('❌ [DEBUG] Elemento #porta NÃO encontrado!');
+    return;
+  }
+  
+  console.log('✅ [DEBUG] Elemento #porta encontrado:', secaoFinal);
 
-  btnConcluir.addEventListener('click', function() {
-    console.log('🎯 Concluir História clicado!');
+  // Verifica se funções do main.js estão disponíveis
+  if (typeof usuarioConcluiuCapitulo1 !== 'function') {
+    console.error('❌ [DEBUG] Função usuarioConcluiuCapitulo1 NÃO encontrada! main.js carregou depois?');
+  }
+  
+  if (typeof marcarCapitulo1Concluido !== 'function') {
+    console.error('❌ [DEBUG] Função marcarCapitulo1Concluido NÃO encontrada! main.js carregou depois?');
+  }
 
-    // ✅ Salva APENAS nesta sessão/aba
-    sessionStorage.setItem('sessao_capitulo1_concluido', 'true');
-
-    // ✅ (Opcional) Sincroniza com backend se houver API
-    if (typeof obterToken === 'function') {
-      const token = obterToken();
-      if (token) {
-        fetch('/api/progresso/historia/1/concluir', {
-          method: 'PATCH',
-          headers: { 'Authorization': `Bearer ${token}` }
-        }).catch(() => console.warn('⚠️ Não foi possível sincronizar com o servidor'));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      console.log('👁️ [DEBUG] IntersectionObserver acionado:', entries);
+      
+      // Verifica se já concluiu
+      if (typeof usuarioConcluiuCapitulo1 === 'function' && usuarioConcluiuCapitulo1()) {
+        console.log('✅ [DEBUG] Usuário já concluiu capítulo - observer desconectado');
+        observer.disconnect();
+        return;
       }
-    }
 
-    // ✅ Mostra navbar imediatamente
-    if (typeof mostrarNavbarInferior === 'function') {
-      mostrarNavbarInferior();
-    } else {
-      const navbar = document.getElementById('navbarPrincipal');
-      if (navbar) {
-        navbar.classList.remove('hidden', 'bloqueada');
-        navbar.classList.add('navbar-visivel');
-      }
+      entries.forEach((entry) => {
+        console.log('📊 [DEBUG] Entry:', {
+          isIntersecting: entry.isIntersecting,
+          intersectionRatio: entry.intersectionRatio,
+          target: entry.target.id
+        });
+        
+        if (entry.isIntersecting) {
+          console.log('🎯 [DEBUG] Seção final visível! Desbloqueando navbar...');
+          
+          if (typeof marcarCapitulo1Concluido === 'function') {
+            marcarCapitulo1Concluido();
+            console.log('✅ [DEBUG] marcarCapitulo1Concluido() executado');
+          } else {
+            console.error('❌ [DEBUG] marcarCapitulo1Concluido NÃO é uma função!');
+          }
+          
+          observer.disconnect();
+          console.log('🔌 [DEBUG] Observer desconectado após desbloqueio');
+        }
+      });
+    },
+    { 
+      threshold: 0.5 // Reduzido para 50% para facilitar o teste
     }
+  );
 
-    // Atualiza UI
-    btnConcluir.classList.add('hidden');
-    if (btnIrDesafio) btnIrDesafio.classList.remove('hidden');
-    if (statusHistoria) {
-      statusHistoria.textContent = '✓ História concluída! A porta foi liberada.';
-      statusHistoria.style.color = '#4CAF50';
-      statusHistoria.style.fontWeight = '600';
-    }
-
-    if (typeof mostrarAlerta === 'function') {
-      mostrarAlerta('Capítulo 1 concluído! 🎉 A navegação foi liberada.', 'sucesso');
-    }
-  });
-})();
+  observer.observe(secaoFinal);
+  console.log('👁️ [DEBUG] Observer observando elemento #porta');
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -510,4 +520,12 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarConclusaoHistoria();
   configurarFogueiraBurningdown();
   configurarBacklogVivo();
+  
+  // ✅ NOVO: Desbloqueio por scroll até o final (só na primeira vez)
+  configurarDesbloqueioPorScroll();
+  
+  // Verifica navbar após inicialização
+  if (typeof verificarEAtualizarNavbar === 'function') {
+    verificarEAtualizarNavbar();
+  }
 });
