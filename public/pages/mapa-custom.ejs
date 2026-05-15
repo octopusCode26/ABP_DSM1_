@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa Custom | Scrum Dungeon</title>
+
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/mapa-custom.css" />
+  </head>
+
+  <body>
+    <%- include('./partials/header') %>
+    <%- include('./partials/botao_voltar') %>
+    <%- include('./partials/alert') %>
+
+    <main class="mapa-custom-page">
+      <section class="mapa-custom-intro">
+        <div class="mapa-custom-title-box">
+          <h1>Mapa da Aventura</h1>
+          <p>
+            Voce volta a todo instante para o mesmo objetivo: avancar no mapa
+            liberando o proximo capitulo. Escolha cada porta no momento certo e
+            transforme historia em desafio concluido.
+          </p>
+        </div>
+
+        <p class="mapa-custom-help">
+          Dica: toque em uma porta para mostrar as opcoes e seguir.
+        </p>
+      </section>
+
+      <section class="mapa-custom-summary" aria-label="Resumo visual do mapa">
+        <article class="summary-chip">
+          <span>Mapa principal</span>
+          <strong>5 portas / 5 encontros</strong>
+        </article>
+        <article class="summary-chip">
+          <span>Sistema</span>
+          <strong>Historia + desafio por modulo</strong>
+        </article>
+        <article class="summary-chip">
+          <span>Estilo</span>
+          <strong>Visual limpo com tema de caverna</strong>
+        </article>
+      </section>
+
+      <section class="mapa-layout">
+        <span class="mapa-path-glow" aria-hidden="true"></span>
+
+        <button
+          class="atalho-mapa atalho-progresso"
+          onclick="window.location.href='/burningdown'"
+          type="button"
+        >
+          <span class="atalho-label-badge">Acesso rápido</span>
+          <span class="atalho-imagem"></span>
+          <span class="atalho-titulo">Fogueira do Burning Down</span>
+          <span class="atalho-descricao">Visualize progresso e retome sua aventura</span>
+        </button>
+
+        <section id="mapaModulos" class="mapa-modulos">
+          <p>Carregando mapa...</p>
+        </section>
+
+        <button
+          class="atalho-mapa atalho-artefatos"
+          onclick="window.location.href='/artefatos'"
+          type="button"
+        >
+          <span class="atalho-label-badge">Missão extra</span>
+          <span class="atalho-imagem"></span>
+          <span class="atalho-titulo">Artefatos</span>
+          <span class="atalho-descricao">Veja registros e notas da jornada</span>
+        </button>
+
+        <section class="mapa-certificado">
+          <button id="btnCertificado" class="certificado-botao" disabled type="button">
+            <span class="certificado-header">Conquista final</span>
+            <span class="certificado-imagem"></span>
+            <span class="certificado-texto">Emitir certificado</span>
+            <span id="certificado-status" class="certificado-status">
+              Conclua a jornada para desbloquear
+            </span>
+          </button>
+        </section>
+      </section>
+
+      <section class="mapa-custom-key" aria-label="Estados das portas">
+        <article class="key-item">
+          <i class="key-dot state-incompleto"></i>
+          <p>Pendente</p>
+        </article>
+        <article class="key-item">
+          <i class="key-dot state-historia"></i>
+          <p>Historia concluida</p>
+        </article>
+        <article class="key-item">
+          <i class="key-dot state-desafio"></i>
+          <p>Desafio concluido</p>
+        </article>
+        <article class="key-item">
+          <i class="key-dot state-completo"></i>
+          <p>Modulo finalizado</p>
+        </article>
+        <article class="key-item">
+          <i class="key-dot state-bloqueado"></i>
+          <p>Bloqueado</p>
+        </article>
+        <article class="key-item">
+          <i class="key-dot state-atual"></i>
+          <p>Foco atual</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/mapa.js"></script>
+
+    <%- include('./partials/navegacao_inferior') %>
+    <%- include('./partials/footer') %>
+  </body>
+</html>

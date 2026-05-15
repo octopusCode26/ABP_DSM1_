@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   sessionStorage.removeItem("origemBurningdown");
   sessionStorage.removeItem("retornoBurningdown");
-
 });
 
 const mapaModulos = document.getElementById("mapaModulos");
@@ -25,7 +24,7 @@ async function carregarMapa() {
     const data = await response.json();
 
     if (!response.ok) {
-      alert(data.message || "Erro ao carregar mapa");
+      mostrarAlerta(data.message || "Erro ao carregar mapa");
       return;
     }
 
@@ -33,7 +32,7 @@ async function carregarMapa() {
     atualizarAtalhos(data.modulos);
   } catch (error) {
     console.error(error);
-    alert("Erro de conexão ao carregar mapa");
+    mostrarAlerta("Erro de conexão ao carregar mapa");
   }
 }
 
@@ -98,6 +97,8 @@ function renderizarMapa(modulos) {
 
 function atualizarAtalhos(modulos) {
   const btnArtefatos = document.querySelector(".atalho-artefatos");
+  const btnCertificado = document.getElementById("btnCertificado");
+  const txtCertificado = document.getElementById("certificado-status");
 
   const primeiroModulo = modulos.find((modulo) => modulo.id_modulo === 1);
 
@@ -112,6 +113,27 @@ function atualizarAtalhos(modulos) {
   } else {
     btnArtefatos.disabled = false;
     btnArtefatos.classList.remove("bloqueado");
+  }
+
+  const certificadoLiberado = modulos.some((modulo) => modulo.certificado_liberado);
+
+  if (btnCertificado) {
+    btnCertificado.disabled = !certificadoLiberado;
+    btnCertificado.classList.toggle("liberado", certificadoLiberado);
+
+    if (txtCertificado) {
+      txtCertificado.textContent = certificadoLiberado
+        ? "Certificado liberado. Toque para emitir."
+        : "Complete a jornada para desbloquear.";
+    }
+
+    if (certificadoLiberado) {
+      btnCertificado.onclick = () => {
+        window.location.href = "/certificado";
+      };
+    } else {
+      btnCertificado.onclick = null;
+    }
   }
 }
 

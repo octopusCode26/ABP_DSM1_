@@ -57,6 +57,16 @@ app.get("/mapa", function (_req, res) {
   res.render("mapa"); // procura public/pages/mapa.ejs
 });
 
+// rota custom (temporária para validar o layout novo)
+app.get("/mapa-custom", function (_req, res) {
+  res.render("mapa-custom");
+});
+
+// rota custom 2 (alternativa descartavel para validar painel de acoes)
+app.get("/mapa-custom-2", function (_req, res) {
+  res.render("mapa-custom-2");
+});
+
 // rota para burndown/progresso
 app.get("/burningdown", function (_req, res) {
   res.render("burningdown"); // procura public/pages/burningdown.ejs

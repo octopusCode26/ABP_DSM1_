@@ -1,0 +1,646 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --mapa-bg: oklch(17% 0.018 62);
+  --mapa-surface: oklch(20% 0.018 62);
+  --mapa-surface-2: oklch(24% 0.022 62);
+  --mapa-line: oklch(58% 0.108 77);
+  --mapa-line-muted: oklch(42% 0.055 76);
+  --mapa-text: oklch(91% 0.033 79);
+  --mapa-muted: oklch(74% 0.046 76);
+  --mapa-accent: oklch(76% 0.139 84);
+  --mapa-focus: oklch(82% 0.15 87);
+}
+
+body {
+  margin: 0;
+  background: var(--mapa-bg);
+  color: var(--mapa-text);
+  font-family: "Source Serif 4", serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+.mapa-custom-2-page {
+  min-height: calc(100vh - 140px);
+  padding: 34px 28px 130px;
+  background:
+    radial-gradient(
+      920px 420px at 20% -14%,
+      oklch(72% 0.13 84 / 0.12),
+      transparent 62%
+    ),
+    linear-gradient(180deg, oklch(17% 0.019 62) 0%, oklch(15% 0.014 66) 100%);
+}
+
+.mapa-custom-2-header {
+  width: min(1120px, 100%);
+  margin: 0 auto 34px;
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.mapa-custom-2-header h1 {
+  width: min(520px, 100%);
+  margin: 0;
+  padding: 16px 32px;
+  border: 1px solid var(--mapa-line);
+  border-radius: 12px;
+  outline: 1px solid var(--mapa-line-muted);
+  outline-offset: 8px;
+  color: oklch(98% 0.005 80);
+  font-family: "Cinzel", serif;
+  font-size: clamp(24px, 3vw, 34px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px oklch(10% 0.012 62 / 0.65);
+}
+
+.mapa-custom-2-header p {
+  position: relative;
+  max-width: 760px;
+  margin: 0;
+  padding-top: 24px;
+  color: var(--mapa-text);
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.36;
+}
+
+.mapa-custom-2-header p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(860px, 88vw);
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--mapa-line-muted);
+}
+
+.mapa-shell {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(820px, 1fr) 300px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.mapa-stage,
+.mapa-actions-panel {
+  border: 2px solid var(--mapa-line);
+  border-radius: 20px;
+  background: oklch(14% 0.014 62 / 0.72);
+  box-shadow:
+    0 0 20px oklch(66% 0.12 80 / 0.12),
+    inset 0 0 18px oklch(8% 0.012 62 / 0.56);
+}
+
+.mapa-stage {
+  position: relative;
+  min-height: 850px;
+  overflow: hidden;
+}
+
+.mapa-stage-grid {
+  position: absolute;
+  inset: 28px;
+  border: 1px dashed oklch(64% 0.09 80 / 0.22);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+#mapaModulos {
+  display: contents;
+}
+
+.mapa-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--mapa-muted);
+  font-size: 1.05rem;
+}
+
+.mapa-actions-panel {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 18px;
+}
+
+.atalho-mapa,
+.certificado-botao {
+  width: 100%;
+  min-height: 198px;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  border: 1px solid var(--mapa-line-muted);
+  border-radius: 16px;
+  padding: 14px 14px 16px;
+  background:
+    linear-gradient(180deg, oklch(22% 0.019 62 / 0.96), oklch(16% 0.014 62 / 0.96));
+  color: var(--mapa-text);
+  text-align: center;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.06),
+    0 10px 18px oklch(9% 0.012 62 / 0.34);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.atalho-mapa::after,
+.certificado-botao::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid oklch(76% 0.139 84 / 0.2);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.atalho-mapa:hover:not(:disabled),
+.certificado-botao:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--mapa-accent);
+  box-shadow:
+    0 0 0 1px oklch(76% 0.139 84 / 0.28),
+    0 12px 24px oklch(72% 0.13 84 / 0.22);
+}
+
+.atalho-mapa:focus-visible,
+.certificado-botao:focus-visible,
+.porta-botao:focus-visible,
+.porta-acoes button:focus-visible {
+  outline: 2px solid var(--mapa-focus);
+  outline-offset: 4px;
+}
+
+.atalho-kicker,
+.certificado-kicker {
+  color: var(--mapa-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.atalho-imagem,
+.certificado-imagem {
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.atalho-imagem {
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 0 16px oklch(72% 0.13 84 / 0.48));
+}
+
+.atalho-progresso .atalho-imagem {
+  background-image: url("/assets/img/fogueira_burningdown_progresso.png");
+}
+
+.atalho-artefatos .atalho-imagem {
+  background-image: url("/assets/img/artefatos.png");
+}
+
+.atalho-titulo,
+.certificado-texto {
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.atalho-descricao,
+.certificado-status {
+  max-width: 220px;
+  color: var(--mapa-muted);
+  font-size: 0.88rem;
+  line-height: 1.28;
+}
+
+.atalho-mapa.bloqueado,
+.certificado-botao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.9);
+}
+
+.certificado-botao {
+  min-height: 214px;
+}
+
+.certificado-imagem {
+  width: 112px;
+  height: 112px;
+  background-image: url("/assets/img/certificado_incompleto.png");
+  filter: grayscale(1) brightness(0.62);
+}
+
+#btnCertificado.liberado {
+  opacity: 1;
+  cursor: pointer;
+  filter: none;
+  border-color: var(--mapa-accent);
+}
+
+#btnCertificado.liberado .certificado-imagem {
+  background-image: url("/assets/img/certificado_liberado.png");
+  filter:
+    drop-shadow(0 0 12px oklch(96% 0.018 87 / 0.88))
+    drop-shadow(0 0 28px oklch(80% 0.14 86 / 0.82));
+}
+
+.porta-card {
+  width: 250px;
+  min-height: 300px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.porta-card:hover {
+  transform: translateY(-3px);
+}
+
+.porta-card.selecionada {
+  box-shadow: none;
+}
+
+.porta-card.porta-1 {
+  top: 42px;
+  left: 50px;
+}
+
+.porta-card.porta-2 {
+  top: 42px;
+  left: 330px;
+}
+
+.porta-card.porta-3 {
+  top: 42px;
+  left: 610px;
+}
+
+.porta-card.porta-4 {
+  top: 510px;
+  left: 190px;
+}
+
+.porta-card.porta-5 {
+  top: 510px;
+  left: 470px;
+}
+
+.porta-botao {
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.porta-botao::after {
+  content: "";
+  display: block;
+  margin-top: 8px;
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 0 2px 8px oklch(9% 0.012 62 / 0.82);
+}
+
+.porta-card.porta-1 .porta-botao::after {
+  content: "Capítulo 1";
+}
+
+.porta-card.porta-2 .porta-botao::after {
+  content: "Capítulo 2";
+}
+
+.porta-card.porta-3 .porta-botao::after {
+  content: "Capítulo 3";
+}
+
+.porta-card.porta-4 .porta-botao::after {
+  content: "Capítulo 4";
+}
+
+.porta-card.porta-5 .porta-botao::after {
+  content: "Capítulo 5";
+}
+
+.porta-botao:disabled {
+  cursor: not-allowed;
+}
+
+.porta-imagem {
+  display: block;
+  width: 165px;
+  height: 235px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 200ms ease;
+}
+
+.porta-card:hover .porta-imagem {
+  transform: translateY(-5px);
+}
+
+.porta-card.selecionada .porta-imagem {
+  transform: scale(1.06);
+}
+
+.porta-card.porta-1 .porta-imagem {
+  background-image: url("/assets/img/porta_1.png");
+}
+
+.porta-card.porta-2 .porta-imagem {
+  background-image: url("/assets/img/porta_2.png");
+}
+
+.porta-card.porta-3 .porta-imagem {
+  background-image: url("/assets/img/porta_3.png");
+}
+
+.porta-card.porta-4 .porta-imagem {
+  background-image: url("/assets/img/porta_4.png");
+}
+
+.porta-card.porta-5 .porta-imagem {
+  background-image: url("/assets/img/porta_5.png");
+}
+
+.porta-card.liberado.porta-1 .porta-imagem {
+  background-image: url("/assets/img/porta_1_liberada.png");
+}
+
+.porta-card.liberado.porta-2 .porta-imagem {
+  background-image: url("/assets/img/porta_2_liberada.png");
+}
+
+.porta-card.liberado.porta-3 .porta-imagem {
+  background-image: url("/assets/img/porta_3_liberada.png");
+}
+
+.porta-card.liberado.porta-4 .porta-imagem {
+  background-image: url("/assets/img/porta_4_liberada.png");
+}
+
+.porta-card.liberado.porta-5 .porta-imagem {
+  background-image: url("/assets/img/porta_5_liberada.png");
+}
+
+.porta-card.estado-incompleto .porta-imagem {
+  filter: drop-shadow(0 0 16px oklch(61% 0.21 30 / 0.74));
+}
+
+.porta-card.estado-historia .porta-imagem {
+  filter: drop-shadow(0 0 16px oklch(78% 0.16 84 / 0.74));
+}
+
+.porta-card.estado-completo .porta-imagem {
+  filter: drop-shadow(0 0 20px oklch(69% 0.14 249 / 0.86));
+}
+
+.porta-card.bloqueado .porta-imagem {
+  filter: grayscale(1) brightness(0.38) drop-shadow(0 0 12px oklch(63% 0.22 343 / 0.45));
+}
+
+.porta-card.bloqueado .porta-botao::after,
+.porta-card.bloqueado .porta-info {
+  opacity: 0.58;
+}
+
+.porta-card.bloqueado .porta-info {
+  border-color: transparent;
+  background: oklch(12% 0.014 62 / 0.9);
+  color: oklch(63% 0.022 76);
+}
+
+.porta-card.bloqueado .porta-info h2,
+.porta-card.bloqueado .porta-info p,
+.porta-card.bloqueado .porta-acoes button {
+  color: oklch(63% 0.022 76);
+}
+
+.porta-card.bloqueado .porta-acoes button {
+  opacity: 0.58;
+}
+
+.porta-card.desafio-atual .porta-imagem {
+  filter: drop-shadow(0 0 22px oklch(72% 0.18 56 / 0.9));
+}
+
+.porta-info {
+  width: 232px;
+  padding: 0 14px;
+  border: 1px solid var(--mapa-line);
+  border-radius: 12px;
+  background: oklch(14% 0.014 62 / 0.98);
+  text-align: center;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 180ms ease,
+    max-height 200ms ease,
+    transform 180ms ease;
+  z-index: 4;
+}
+
+.porta-card:hover .porta-info,
+.porta-card.selecionada .porta-info {
+  opacity: 1;
+  max-height: 168px;
+  padding: 12px;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.porta-info h2 {
+  margin: 0 0 7px;
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+}
+
+.porta-info p {
+  margin: 0 0 10px;
+  color: var(--mapa-muted);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+.porta-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.porta-acoes button {
+  border: 1px solid var(--mapa-line);
+  border-radius: 999px;
+  padding: 7px 12px;
+  background: var(--mapa-surface-2);
+  color: var(--mapa-text);
+  cursor: pointer;
+  font-size: 0.86rem;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.porta-acoes button:hover:not(:disabled) {
+  border-color: var(--mapa-accent);
+  background: var(--mapa-accent);
+  color: oklch(17% 0.018 62);
+}
+
+.porta-acoes button:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1180px) {
+  .mapa-shell {
+    grid-template-columns: 1fr;
+    width: min(920px, 100%);
+  }
+
+  .mapa-actions-panel {
+    order: -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .atalho-mapa,
+  .certificado-botao {
+    min-height: 188px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mapa-custom-2-page {
+    padding: 28px 18px 112px;
+  }
+
+  .mapa-stage {
+    min-height: auto;
+    padding: 22px 14px;
+  }
+
+  .mapa-stage-grid {
+    display: none;
+  }
+
+  #mapaModulos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .porta-card,
+  .porta-card.porta-1,
+  .porta-card.porta-2,
+  .porta-card.porta-3,
+  .porta-card.porta-4,
+  .porta-card.porta-5 {
+    position: static;
+    width: min(280px, 100%);
+  }
+
+  .porta-info {
+    width: min(248px, 100%);
+  }
+}
+
+@media (max-width: 720px) {
+  .mapa-custom-2-header {
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+
+  .mapa-custom-2-header h1 {
+    padding: 14px 20px;
+    font-size: 22px;
+  }
+
+  .mapa-custom-2-header p {
+    font-size: 1rem;
+  }
+
+  .mapa-actions-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .atalho-mapa,
+  .certificado-botao {
+    min-height: 150px;
+    grid-template-columns: 86px 1fr;
+    justify-items: start;
+    align-items: center;
+    column-gap: 14px;
+    text-align: left;
+  }
+
+  .atalho-kicker,
+  .certificado-kicker {
+    grid-column: 1 / -1;
+  }
+
+  .atalho-imagem,
+  .certificado-imagem {
+    width: 82px;
+    height: 82px;
+    grid-row: span 2;
+  }
+
+  .atalho-descricao,
+  .certificado-status {
+    max-width: none;
+  }
+}

@@ -1,0 +1,2 @@
+◇ injected env (8) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+Rodando em http://localhost:3000
