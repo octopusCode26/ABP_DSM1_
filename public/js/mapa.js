@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   sessionStorage.removeItem("origemBurningdown");
   sessionStorage.removeItem("retornoBurningdown");
-
 });
 
 const mapaModulos = document.getElementById("mapaModulos");
@@ -25,7 +24,7 @@ async function carregarMapa() {
     const data = await response.json();
 
     if (!response.ok) {
-      alert(data.message || "Erro ao carregar mapa");
+      mostrarAlerta(data.message || "Erro ao carregar mapa");
       return;
     }
 
@@ -33,7 +32,7 @@ async function carregarMapa() {
     atualizarAtalhos(data.modulos);
   } catch (error) {
     console.error(error);
-    alert("Erro de conexão ao carregar mapa");
+    mostrarAlerta("Erro de conexão ao carregar mapa");
   }
 }
 
@@ -75,14 +74,16 @@ function renderizarMapa(modulos) {
         <p>${criarDescricaoImersiva(modulo.id_modulo)}</p>
 
         <div class="porta-acoes">
-          <button 
+          <button          
+            class="porta-historia"
             ${bloqueado ? "disabled" : ""}
             onclick="abrirHistoria(${modulo.id_modulo})"
           >
             História
           </button>
 
-          <button 
+          <button
+            class="porta-desafio"          
             ${!historiaConcluida || !desafioAtual ? "disabled" : ""}
             onclick="abrirDesafio(${modulo.id_modulo})"
           >
@@ -146,7 +147,7 @@ function abrirHistoria(idModulo) {
 
 function abrirDesafio(idModulo) {
   localStorage.setItem("moduloAtual", idModulo);
-  window.location.href = "/questionario1";
+  window.location.href = `/desafio${idModulo}`;
 }
 
 function definirTextoBotao(modulo) {

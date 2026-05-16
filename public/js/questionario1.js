@@ -30,26 +30,32 @@
   }
 
   function atualizarPercentual(numeroQuestao) {
-    const percentual = Math.max(
-      0,
-      Math.min(
-        100,
-        Math.round((Number(numeroQuestao || 0) / totalQuestoes) * 100),
-      ),
-    );
+  let percentual;
+  const n = Number(numeroQuestao || 0);
 
-    if (barra) {
-      barra.style.width = `${percentual}%`;
-    }
-
-    if (textoPercentual) {
-      textoPercentual.textContent = `${percentual}%`;
-    }
-
-    if (barraContainer) {
-      barraContainer.setAttribute("aria-valuenow", String(percentual));
-    }
+  if (n > totalQuestoes) {
+    percentual = 100;
+  } else if (n === totalQuestoes) {
+    percentual = 90;
+  } else {
+    percentual = Math.round(((n - 1) / (totalQuestoes - 1)) * 90);
+    if (n === 1) percentual = 0;
   }
+
+  percentual = Math.max(0, Math.min(100, percentual || 0));
+
+  if (barra) {
+    barra.style.width = `${percentual}%`;
+  }
+
+  if (textoPercentual) {
+    textoPercentual.textContent = `${percentual}%`;
+  }
+
+  if (barraContainer) {
+    barraContainer.setAttribute("aria-valuenow", String(percentual));
+  }
+}
 
   function selecionarAlternativa(botaoSelecionado) {
     alternativaSelecionada = botaoSelecionado.dataset.alternativa;
@@ -139,9 +145,9 @@
     habilitarRespostas(true);
   }
 
-async function finalizarQuestionario() {
-  window.location.href = "/resultado";
-}
+  async function finalizarQuestionario() {
+    window.location.href = "/resultado";
+  }
 
   async function carregarProximaQuestao() {
     const token = obterToken();
@@ -165,7 +171,7 @@ async function finalizarQuestionario() {
       }
 
       if (!response.ok) {
-        alert(data.message || "Erro ao carregar questão");
+        mostrarAlerta(data.message || "Erro ao carregar questão");
         window.location.href = "/mapa";
         return;
       }
@@ -173,7 +179,7 @@ async function finalizarQuestionario() {
       renderizarQuestao(data);
     } catch (error) {
       console.error(error);
-      alert("Erro de conexão ao carregar questão");
+      mostrarAlerta("Erro de conexão ao carregar questão");
       habilitarRespostas(true);
     }
   }
@@ -184,7 +190,7 @@ async function finalizarQuestionario() {
     if (!token || !questaoAtual) return;
 
     if (!alternativaSelecionada) {
-      alert("Selecione uma alternativa antes de confirmar.");
+      mostrarAlerta("Escolha uma alternativa antes de confirmar.");
       return;
     }
 
@@ -207,7 +213,7 @@ async function finalizarQuestionario() {
       const data = await response.json();
 
       if (!response.ok && response.status !== 409) {
-        alert(data.message || "Erro ao responder questão");
+        mostrarAlerta(data.message || "Erro ao responder questão");
         habilitarRespostas(true);
         return;
       }
@@ -215,7 +221,7 @@ async function finalizarQuestionario() {
       await carregarProximaQuestao();
     } catch (error) {
       console.error(error);
-      alert("Erro de conexão ao responder questão");
+      mostrarAlerta("Erro de conexão ao responder questão");
       habilitarRespostas(true);
     }
   }

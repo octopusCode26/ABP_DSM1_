@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Desafio 1 | Scrum Dungeon</title>
+
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/desafio1.css" />
+  </head>
+
+  <body class="pagina-desafio1">
+    <%- include('partials/header') %>
+
+    <main class="desafio1-main">
+      <section class="desafio1-wrapper">
+
+        <header class="desafio1-title reveal-step step-1">
+          <div class="title-box">
+            <h1>Capítulo 1: Boss Fight</h1>
+          </div>
+        </header>
+
+        <section class="boss-intro-card">
+          <div class="boss-image-frame reveal-step step-2">
+            <img
+              src="/assets/img/capitulo_1/inimigos/confronto-1.png"
+              alt="Herói encontrando a Documentação Confusa"
+              class="boss-scene-img"
+            />
+          </div>
+
+          <div class="boss-type-box reveal-step step-3">
+            <p id="bossTypeText"></p>
+          </div>
+        </section>
+
+        <section class="boss-actions reveal-step step-4">
+          <button id="btnIniciarDesafio" class="btn-boss-start" type="button">
+            Iniciar desafio
+          </button>
+
+          <button id="btnVoltarMapa" class="btn-boss-secondary" type="button">
+            Voltar ao mapa
+          </button>
+
+          <div class="boss-lives-box">
+            <span class="boss-lives-label">Tentativas</span>
+
+            <div class="boss-lives-icons">
+              <img src="/assets/img/vida-icon.png" alt="Vida 1" />
+              <img src="/assets/img/vida-icon.png" alt="Vida 2" />
+            </div>
+          </div>
+        </section>
+
+        <section class="rules-card reveal-step step-5">
+          <button class="rules-toggle" id="btnToggleRegras" type="button">
+            Regras do confronto
+          </button>
+
+          <div class="rules-content" id="rulesContent">
+            <ul>
+              <li>Você enfrentará 10 questões.</li>
+              <li>O desafio terá tempo limite de 30 minutos.</li>
+              <li>Ao sair antes do fim, o desafio poderá ser reiniciado futuramente.</li>
+              <li>Quando o tempo acabar, questões não respondidas contarão como erradas.</li>
+              <li>Você possui 2 tentativas para derrotar este boss.</li>
+            </ul>
+          </div>
+        </section>
+
+      </section>
+    </main>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/desafio1.js"></script>
+  </body>
+</html>

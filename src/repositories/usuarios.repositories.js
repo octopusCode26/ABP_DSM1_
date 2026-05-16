@@ -3,7 +3,7 @@ const pool = require("../database/db");
 
 // importando o respectivo arquivos que está dentro de um json.
 const { randomBytes } = require("crypto");
-const { hashPassword, verifyPassword} = require("../utils/password");
+const { hashPassword, verifyPassword } = require("../utils/password");
 
 // insere um novo usuário no banco de dados (pgAdmin).
 async function insertUsuario(client, nome, email, cpf, senha) {
@@ -14,7 +14,7 @@ async function insertUsuario(client, nome, email, cpf, senha) {
     `INSERT INTO usuarios (nome, email, cpf, senha, certificado_hash)
          VALUES ($1, $2, $3, $4, $5)
          RETURNING id_usuario, nome, email, cpf, certificado_hash`,
-    [nome, email, cpf, senhaCodificada, certificado_hash]
+    [nome, email, cpf, senhaCodificada, certificado_hash],
   );
 
   return result.rows[0] || null;
@@ -23,7 +23,7 @@ async function insertUsuario(client, nome, email, cpf, senha) {
 // busca o primeiro módulo no banco de dados (pgAdmin).
 async function findPrimeiroModuloId(client) {
   const result = await client.query(
-    `SELECT id_modulo FROM modulos ORDER BY id_modulo LIMIT 1`
+    `SELECT id_modulo FROM modulos ORDER BY id_modulo LIMIT 1`,
   );
 
   return result.rows[0] || null;
@@ -38,23 +38,22 @@ async function findGrupoAleatorio(client, idModulo) {
          GROUP BY grupo
          ORDER BY RANDOM()
          LIMIT 1`,
-    [idModulo]
+    [idModulo],
   );
 
   return result.rows[0] || null;
 }
 
-// insere um exame no banco de dados(pgAdmin). 
+// insere um exame no banco de dados(pgAdmin).
 async function insertExame(client, idModulo, idUsuario, grupo, tentativa) {
   const result = await client.query(
     `INSERT INTO exames (id_modulo, id_usuario, grupo, tentativa)
          VALUES ($1, $2, $3, $4)
          RETURNING id_exame`,
-    [idModulo, idUsuario, grupo, tentativa]
+    [idModulo, idUsuario, grupo, tentativa],
   );
-    return result.rows[0] || null;
+  return result.rows[0] || null;
 }
-
 
 // fluxo completo de criação de usuário + criação de exame inicial.
 async function createUsuario(nome, email, cpf, senha) {
@@ -70,12 +69,16 @@ async function createUsuario(nome, email, cpf, senha) {
     }
     const modulo = await findPrimeiroModuloId(client);
     if (!modulo) {
-        throw new Error("Nenhum módulo cadastrado para inicialiar exame do usuário");
+      throw new Error(
+        "Nenhum módulo cadastrado para inicialiar exame do usuário",
+      );
     }
 
     const grupo = await findGrupoAleatorio(client, modulo.id_modulo);
     if (!grupo) {
-        throw new Error("Nenhum grupo cadastrado para inicialiar exame do usuário");
+      throw new Error(
+        "Nenhum grupo cadastrado para inicialiar exame do usuário",
+      );
     }
 
     await insertExame(
@@ -83,7 +86,7 @@ async function createUsuario(nome, email, cpf, senha) {
       modulo.id_modulo,
       usuario.id_usuario,
       grupo.grupo,
-      1
+      1,
     );
 
     await insertProgressoDesafioInicial(client, usuario.id_usuario);
@@ -92,8 +95,12 @@ async function createUsuario(nome, email, cpf, senha) {
 
     await client.query("COMMIT");
 
-    return { id_usuario: usuario.id_usuario, nome: usuario.nome, email: usuario.email, cpf: usuario.cpf };
-
+    return {
+      id_usuario: usuario.id_usuario,
+      nome: usuario.nome,
+      email: usuario.email,
+      cpf: usuario.cpf,
+    };
   } catch (e) {
     console.error("ERRO REAL:", e);
     await client.query("ROLLBACK");
@@ -173,7 +180,7 @@ async function findUsuarioById(idUsuario) {
   return result.rows[0] || null;
 }
 
-async function findUsuarioByCpfAndSenha(cpf, senha){
+async function findUsuarioByCpfAndSenha(cpf, senha) {
   const result = await pool.query(
     `
     SELECT id_usuario, nome, email, cpf, senha, barra_desbloqueada
@@ -218,7 +225,7 @@ async function insertProgressoDesafioInicial(client, idUsuario) {
     DO NOTHING
     RETURNING id_progresso_desafio
     `,
-    [idUsuario]
+    [idUsuario],
   );
 
   return result.rows[0] || null;

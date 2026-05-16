@@ -3,8 +3,11 @@ const {
   findUsuarioByCpfAndSenha,
 } = require("../repositories/usuarios.repositories");
 
-const { createToken } = require("../utils/jwt");
+const {
+  isPrimeiroAcesso
+} = require("../repositories/progresso.repositories");
 
+const { createToken } = require("../utils/jwt");
 
 async function login(cpf, senha){
 
@@ -20,9 +23,13 @@ async function login(cpf, senha){
     id_usuario: usuario.id_usuario
   });
 
+  // VERIFICA PRIMEIRO ACESSO
+  const primeiro_acesso = await isPrimeiroAcesso(usuario.id_usuario);
+
   return {
     token,
-    nome: usuario.nome
+    nome: usuario.nome,
+    primeiro_acesso
   };
 }
 
