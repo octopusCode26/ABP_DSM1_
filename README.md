@@ -176,22 +176,22 @@ O **front-end** é desenvolvido com **HTML, CSS e JavaScript puro**, com **EJS**
 
 | Tarefa | Responsável | Requisitos | Prioridade | Dificuldade | Iniciada | Concluída |
 |--------|-------------|:----------:|:----------:|:-----------:|:--------:|:---------:|
-| Sistema Cadastro | Patricia, Lorenzo, Cauã | `RF-01` `RNF-03` | Alta | Médio | ✔️ | — |
-| Tela Cadastro | Patricia, Lorenzo, Cauã | `RF-01` `RNF-01` | Alta | Médio | ✔️ | — |
-| Sistema de Login | Patricia, Lorenzo, Cauã | `RF-02` | Alta | Médio | ✔️ | — |
-| Tela de Login | Patricia, Lorenzo, Cauã | `RF-02` | Alta | Médio | ✔️ | — |
-| Sistema Questionário | Renan, Alef, Thiago | `RF-03` `RF-04` `RF-05` | Alta | Difícil | ✔️ | — |
-| Tela de Questionário | Renan, Alef, Thiago | `RF-03` `RF-04` `RF-05` | Alta | Difícil | ✔️ | — |
-| Resultado Questionário | Renan, Alef, Thiago | `RF-06` `RF-07` `RF-08` | Média | Médio | — | — |
-| Tela Revisão Questionário | Renan, Alef, Thiago | `RF-06` | Baixa | Médio | — | — |
-| Sistema Mapa | Vitor, Igor, Enzo | `RNF-01` `RNF-02` | Alta | Difícil | ✔️ | — |
-| Tela Mapa | Vitor, Igor, Enzo | `RNF-01` `RNF-02` | Alta | Difícil | ✔️ | — |
-| Sistema Progresso | Vitor, Igor, Enzo | `RF-10` `RF-11` | Alta | Médio | ✔️ | — |
-| Tela Progresso | Vitor, Igor, Enzo | `RF-10` `RF-11` | Alta | Médio | ✔️ | — |
-| Sistema Histórico | — | `RF-10` `RNF-04` | Alta | Médio | — | — |
-| Sistema de Tentativas | — | `RF-06` `RNF-04` | Média | Fácil | — | — |
-| Sistema Emissão de Certificado | — | `RF-09` `RNF-04` | Média | Fácil | ✔️ | — |
-| Tela de Emissão de Certificado | Patricia, Alef | `RF-09` `RNF-04` | Média | Fácil | ✔️ | — |
+| Sistema Cadastro | Patricia, Lorenzo, Cauã | `RF-01` `RNF-03` | Alta | Médio | ✔️ | ✔️ |
+| Tela Cadastro | Patricia, Lorenzo, Cauã | `RF-01` `RNF-01` | Alta | Médio | ✔️ | ✔️ |
+| Sistema de Login | Patricia, Lorenzo, Cauã | `RF-02` | Alta | Médio | ✔️ | ✔️ |
+| Tela de Login | Patricia, Lorenzo, Cauã | `RF-02` | Alta | Médio | ✔️ | ✔️ |
+| Sistema Questionário | Renan, Alef, Thiago | `RF-03` `RF-04` `RF-05` | Alta | Difícil | ✔️ | ✔️ |
+| Tela de Questionário | Renan, Alef, Thiago | `RF-03` `RF-04` `RF-05` | Alta | Difícil | ✔️ | ✔️ |
+| Resultado Questionário | Renan, Alef, Thiago | `RF-06` `RF-07` `RF-08` | Média | Médio | ✔️ | ✔️ |
+| Tela Revisão Questionário | Renan, Alef, Thiago | `RF-06` | Baixa | Médio | ✔️ | — |
+| Sistema Mapa | Vitor, Igor, Enzo | `RNF-01` `RNF-02` | Alta | Difícil | ✔️ | ✔️ |
+| Tela Mapa | Vitor, Igor, Enzo | `RNF-01` `RNF-02` | Alta | Difícil | ✔️ | ✔️ |
+| Sistema Progresso | Vitor, Igor, Enzo | `RF-10` `RF-11` | Alta | Médio | ✔️ | ✔️ |
+| Tela Progresso | Vitor, Igor, Enzo | `RF-10` `RF-11` | Alta | Médio | ✔️ | ✔️ |
+| Sistema Histórico | — | `RF-10` `RNF-04` | Alta | Médio | ✔️ | ✔️ |
+| Sistema de Tentativas | — | `RF-06` `RNF-04` | Média | Fácil | ✔️ | ✔️ |
+| Sistema Emissão de Certificado | — | `RF-09` `RNF-04` | Média | Fácil | ✔️ | ✔️ |
+| Tela de Emissão de Certificado | Patricia, Alef | `RF-09` `RNF-04` | Média | Fácil | ✔️ | ✔️ |
 
 </details>
 </div>
@@ -202,13 +202,16 @@ O **front-end** é desenvolvido com **HTML, CSS e JavaScript puro**, com **EJS**
 
 <h2><img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/icons/fc16%201.png?raw=true" width="22" valign="middle"/> Como Executar</h2>
 
-> **Pré-requisitos:** Node.js e PostgreSQL instalados.
+> **Pré-requisitos:** Node.js 18+ e PostgreSQL 14+ instalados.
 
+**1. Clone o repositório**
 ```bash
 git clone https://github.com/octopusCode26/ABP_DSM1_.git
 cd ABP_DSM1_
 npm install
 ```
+
+**2. Configure o `.env`**
 
 Crie um arquivo `.env` na raiz:
 
@@ -217,19 +220,30 @@ PORT=3000
 
 POSTGRES_HOST=localhost
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=123
+POSTGRES_PASSWORD=sua_senha
 POSTGRES_DB=abp
 POSTGRES_PORT=5432
 
-JWT_SECRET=@123_56@
+JWT_SECRET=sua_chave_secreta
 DEFAULT_EXPIRES_IN_SECONDS=600
 ```
 
+> ⚠️ Nunca commite o `.env` — ele já está no `.gitignore`.
+
+**3. Inicialize o banco**
+
+Crie um banco chamado `abp` no PostgreSQL, depois execute:
+
+```bash
+npm run db:init
+```
+
+**4. Inicie o servidor**
 ```bash
 npm run dev
 ```
 
-> Instruções detalhadas de configuração do banco serão adicionadas ao longo das sprints.
+Acesse em `http://localhost:3000`
 
 ---
 
