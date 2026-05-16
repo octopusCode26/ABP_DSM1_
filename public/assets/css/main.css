@@ -492,6 +492,19 @@ footer{
     }
 }
 
+/* ================= RESPONSIVO (4 BREAKPOINTS) ================= */
+@media (max-width: 1200px) {
+    .nav_header ul {
+        gap: clamp(1.5rem, 2.5vw, 2rem);
+    }
+}
+
+@media (max-width: 992px) {
+    .nav_header ul li a {
+        font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    }
+}
+
 @media (max-width: 768px) {
     header {
         height: clamp(3rem, 7vh, 4rem);
@@ -499,24 +512,37 @@ footer{
 
     .menu_toggle {
         display: inline-flex;
+        z-index: 1001; 
+        position: relative;
     }
 
     .nav_header {
-        display: none;
-        position: absolute;
-        top: 100%;
+        display: block; 
+        position: fixed; 
+        top: var(--altura-header, 64px);
         left: 0;
         width: 100%;
         padding: clamp(0.75rem, 1.5vw, 1rem);
         background-color: #0f0a05;
         border-bottom: 3px solid #996B0F;
-        max-height: calc(100vh - 100%);
-        overflow-y: auto;
-        animation: slideDown 0.3s ease-out;
+        
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-20px); 
+        
+        transition: 
+            opacity 0.3s ease, 
+            visibility 0.3s ease, 
+            transform 0.3s ease;
+            
+        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
     }
 
     .nav_header.ativo {
-        display: block;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .nav_header ul {
@@ -528,17 +554,7 @@ footer{
         display: block;
         padding: clamp(0.35rem, 0.7vw, 0.45rem) clamp(0.25rem, 0.5vw, 0.35rem);
         font-size: clamp(0.8rem, 1.5vw, 1rem);
-    }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        text-align: center; 
     }
 }
 
@@ -546,13 +562,14 @@ footer{
     .header_conteudo {
         padding: clamp(0.5rem, 1vw, 0.65rem) clamp(0.75rem, 1.5vw, 0.85rem);
     }
-
+    
     .logo_header {
         margin-right: clamp(1rem, 2vw, 1.5rem);
     }
 
     .nav_header {
         padding: clamp(0.5rem, 1vw, 0.75rem);
+        top: clamp(3rem, 7vh, 4rem); 
     }
 
     .nav_header ul li a {
@@ -560,4 +577,3 @@ footer{
         padding: clamp(0.3rem, 0.6vw, 0.4rem) clamp(0.2rem, 0.4vw, 0.3rem);
     }
 }
-
