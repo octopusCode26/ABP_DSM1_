@@ -7,14 +7,106 @@
     <link rel="stylesheet" href="/assets/css/certificado.css" />
     <title>Certificado | Scrum Dungeon</title>
   </head>
+
   <body class="pagina-certificado">
-    <%- include('partials/header') %> <%- include('./partials/botao_voltar') %>
+    <%- include('partials/header') %>
+    <%- include('./partials/botao_voltar') %>
+
     <main>
-      <div class="certificado-botoes-area">...</div>
-      <div class="certificado-base">...</div>
+      <div class="certificado-botoes-area">
+        <button class="certificado-botoes" type="button">
+          <img class="icon" src="/assets/img/botao_temp_download.png" alt="Baixar certificado">
+        </button>
+
+        <button class="certificado-botoes" type="button" onclick="voltarPagina()">
+          <img class="icon" src="/assets/img/botao_temp_x.png" alt="Fechar certificado">
+        </button>
+      </div>
+
+      <div class="certificado-base">
+        <div class="cabecalho">
+          <div class="escudo">
+            <img src="/assets/img/escudo_certificado.png" alt="Brasão Scrum Dungeon">
+          </div>
+
+          <div class="logo">
+            <img src="/assets/img/logo_scrum_detalhada.png" alt="Scrum Dungeon">
+            <h1 class="titulo-certificado">Certificado</h1>
+            <p>Este certificado é concedido a:</p>
+            <h2 id="certificadoNome" class="nome-certificado">Carregando...</h2>
+          </div>
+
+          <div class="corvo-certificado">
+            <img src="/assets/img/corvo_certificado.png" alt="Corvo Scrum Dungeon">
+          </div>
+        </div>
+
+        <div class="formulario">
+          <div class="cpf">
+            <img class="icon2" src="/assets/img/icon_certificado_aluno.PNG" alt="">
+            <span>CPF:&nbsp;</span>
+            <strong id="certificadoCpf">Carregando...</strong>
+          </div>
+
+          <div class="email">
+            <img class="icon2" src="/assets/img/icon_certificado_email.PNG" alt="">
+            <span>E-mail:&nbsp;</span>
+            <strong id="certificadoEmail">Carregando...</strong>
+          </div>
+
+          <div class="dataDeEmissao">
+            <img class="icon2" src="/assets/img/icon_certificado_data.PNG" alt="">
+            <span>Data de emissão:&nbsp;</span>
+            <strong id="certificadoData">--/--/----</strong>
+          </div>
+        </div>
+
+        <div class="media">
+          <h2>Média Final</h2>
+          <div id="certificadoMedia" class="mediaFinal">--</div>
+        </div>
+
+        <div class="desempenho-carimbo">
+          <div class="container-desempenho">
+            <span class="titulo">Desempenho por nível</span>
+
+            <div class="niveis">
+              <div class="nivel">
+                <span>Nível 1</span>
+                <div id="notaNivel1" class="linha">--</div>
+              </div>
+
+              <div class="nivel">
+                <span>Nível 2</span>
+                <div id="notaNivel2" class="linha">--</div>
+              </div>
+
+              <div class="nivel">
+                <span>Nível 3</span>
+                <div id="notaNivel3" class="linha">--</div>
+              </div>
+
+              <div class="nivel">
+                <span>Nível 4</span>
+                <div id="notaNivel4" class="linha">--</div>
+              </div>
+
+              <div class="nivel ultimo">
+                <span>Nível 5</span>
+                <div id="notaNivel5" class="linha">--</div>
+              </div>
+            </div>
+          </div>
+
+          <img class="carimbo" src="/assets/img/carimbo_fatec.png" alt="Carimbo Fatec">
+        </div>
+      </div>
     </main>
-    <%- include('partials/navegacao_inferior') %> <%- include('partials/footer')
-    %>
+
+    <%- include('partials/navegacao_inferior') %>
+    <%- include('partials/footer') %>
+
     <script src="/js/main.js"></script>
+    <script src="/js/certificado.js"></script>
   </body>
 </html>

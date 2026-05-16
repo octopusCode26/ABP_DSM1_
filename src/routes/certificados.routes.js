@@ -1,9 +1,12 @@
 const { Router } = require("express"); 
-const { 
-  findCertificadoByHash, 
-} = require("../repositories/certificados.repositories"); 
+const {   findCertificadoByHash, } = require("../repositories/certificados.repositories"); 
+const authMiddleware = require("../middlewares/auth.middleware");
  
 const router = Router(); 
+
+const {
+  findDesempenhoCertificado,
+} = require("../repositories/certificados.repositories");
  
 /* 
 curl -X GET http://localhost:3000/api/certificados/hash/HASH_DO_CERTIFICADO 
@@ -38,5 +41,20 @@ router.get("/hash/:hash", async function (req, res) {
     }); 
   } 
 }); 
+
+router.get("/desempenho", authMiddleware, async function (req, res) {
+  try {
+    const desempenho = await findDesempenhoCertificado(
+      req.usuario.id_usuario
+    );
+
+    return res.status(200).json(desempenho);
+  } catch (e) {
+    return res.status(500).json({
+      message: "erro ao buscar desempenho do certificado",
+    });
+  }
+});
+
  
 module.exports = router;

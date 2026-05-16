@@ -14,27 +14,38 @@ const router = Router();
 
 // implementa a rota de login.
 router.post("/login", async function (req, res) {
-  const { cpf, senha } = req.body;
+  const { senha } = req.body;
+  const cpf = String(req.body.cpf || "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
+
+   if (!cpf || !senha) {
+    return res.status(400).json({
+      message: "CPF e senha são obrigatórios",
+    });
+  }
+
+  if (cpf.length !== 11) {
+    return res.status(400).json({
+      message: "CPF deve conter 11 números",
+    });
+  }
 
   try {
-
     const resultado = await authService.login(cpf, senha);
 
     return res.status(200).json(resultado);
-
   } catch (e) {
-
-    if(e.message === "CPF e senha são obrigatórios"){
+    if (e.message === "CPF e senha são obrigatórios") {
       return res.status(400).json({
-        message: e.message
+        message: e.message,
       });
     }
 
     return res.status(500).json({
-      message: e.message
+      message: e.message,
     });
   }
-
 });
 
 // exporta o "router" para outros arquivos.
