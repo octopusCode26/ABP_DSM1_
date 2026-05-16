@@ -294,10 +294,11 @@ function configurarBacklogVivo() {
   }
 
   function priorizarBacklog() {
-    const cardsOrdenados = Array.from(lista.querySelectorAll(".backlog-card"))
-      .sort((a, b) => {
-        return Number(a.dataset.prioridade) - Number(b.dataset.prioridade);
-      });
+    const cardsOrdenados = Array.from(
+      lista.querySelectorAll(".backlog-card"),
+    ).sort((a, b) => {
+      return Number(a.dataset.prioridade) - Number(b.dataset.prioridade);
+    });
 
     cardsOrdenados.forEach((card) => {
       lista.appendChild(card);
@@ -479,31 +480,30 @@ async function concluirHistoria() {
     }
 
     if (status) {
-  status.textContent =
-    "História concluída. A primeira porta foi liberada. Aproxime-se dela para entrar.";
-}
+      status.textContent =
+        "História concluída. A primeira porta foi liberada. Aproxime-se dela para entrar.";
+    }
 
-if (btnConcluir) {
-  btnConcluir.classList.add("hidden");
-}
+    if (btnConcluir) {
+      btnConcluir.classList.add("hidden");
+    }
 
-if (portaBoss) {
-  portaBoss.classList.add("porta-liberada");
-  portaBoss.setAttribute("role", "button");
-  portaBoss.setAttribute("tabindex", "0");
-  portaBoss.setAttribute("aria-label", "Entrar no desafio do módulo 1");
-}
+    if (portaBoss) {
+      portaBoss.classList.add("porta-liberada");
+      portaBoss.setAttribute("role", "button");
+      portaBoss.setAttribute("tabindex", "0");
+      portaBoss.setAttribute("aria-label", "Entrar no desafio do módulo 1");
+    }
 
-const tooltip = document.querySelector(".porta-boss-tooltip");
+    const tooltip = document.querySelector(".porta-boss-tooltip");
 
-if (tooltip) {
-  tooltip.textContent = "Seja ágil ou...";
-}
+    if (tooltip) {
+      tooltip.textContent = "Seja ágil ou...";
+    }
 
-ativarBugPerseguidor();
+    ativarBugPerseguidor();
 
-  ativarBugPerseguidor();
-
+    ativarBugPerseguidor();
   } catch (error) {
     console.error(error);
 
@@ -520,11 +520,11 @@ ativarBugPerseguidor();
 
 function configurarConclusaoHistoria() {
   const btnConcluir = document.getElementById("btnConcluirHistoria");
- 
+
   if (btnConcluir) {
     btnConcluir.addEventListener("click", concluirHistoria);
   }
- }
+}
 
 function configurarPortaDesafio() {
   const portaBoss = document.getElementById("portaBossScene");
@@ -552,71 +552,84 @@ function configurarPortaDesafio() {
  * Desbloqueia navbar ao rolar até o final do capítulo - VERSÃO DEBUG
  */
 function configurarDesbloqueioPorScroll() {
-  console.log('🔍 [DEBUG] configurarDesbloqueioPorScroll iniciado');
+  console.log("🔍 [DEBUG] configurarDesbloqueioPorScroll iniciado");
 
-  const secaoFinal = document.getElementById('porta');
+  const secaoFinal = document.getElementById("porta");
 
   if (!secaoFinal) {
-    console.error('❌ [DEBUG] Elemento #porta NÃO encontrado!');
+    console.error("❌ [DEBUG] Elemento #porta NÃO encontrado!");
     return;
   }
 
-  console.log('✅ [DEBUG] Elemento #porta encontrado:', secaoFinal);
+  console.log("✅ [DEBUG] Elemento #porta encontrado:", secaoFinal);
 
   // Verifica se funções do main.js estão disponíveis
-  if (typeof usuarioConcluiuCapitulo1 !== 'function') {
-    console.error('❌ [DEBUG] Função usuarioConcluiuCapitulo1 NÃO encontrada! main.js carregou depois?');
+  if (typeof usuarioConcluiuCapitulo1 !== "function") {
+    console.error(
+      "❌ [DEBUG] Função usuarioConcluiuCapitulo1 NÃO encontrada! main.js carregou depois?",
+    );
   }
 
-  if (typeof marcarCapitulo1Concluido !== 'function') {
-    console.error('❌ [DEBUG] Função marcarCapitulo1Concluido NÃO encontrada! main.js carregou depois?');
+  if (typeof marcarCapitulo1Concluido !== "function") {
+    console.error(
+      "❌ [DEBUG] Função marcarCapitulo1Concluido NÃO encontrada! main.js carregou depois?",
+    );
   }
 
   const observer = new IntersectionObserver(
     (entries) => {
-      console.log('👁️ [DEBUG] IntersectionObserver acionado:', entries);
+      console.log("👁️ [DEBUG] IntersectionObserver acionado:", entries);
 
       // Verifica se já concluiu
-      if (typeof usuarioConcluiuCapitulo1 === 'function' && usuarioConcluiuCapitulo1()) {
-        console.log('✅ [DEBUG] Usuário já concluiu capítulo - observer desconectado');
+      if (
+        typeof usuarioConcluiuCapitulo1 === "function" &&
+        usuarioConcluiuCapitulo1()
+      ) {
+        console.log(
+          "✅ [DEBUG] Usuário já concluiu capítulo - observer desconectado",
+        );
         observer.disconnect();
         return;
       }
 
       entries.forEach((entry) => {
-        console.log('📊 [DEBUG] Entry:', {
+        console.log("📊 [DEBUG] Entry:", {
           isIntersecting: entry.isIntersecting,
           intersectionRatio: entry.intersectionRatio,
-          target: entry.target.id
+          target: entry.target.id,
         });
 
         if (entry.isIntersecting) {
-          console.log('🎯 [DEBUG] Seção final visível! Desbloqueando navbar...');
+          console.log(
+            "🎯 [DEBUG] Seção final visível! Desbloqueando navbar...",
+          );
 
-          if (typeof marcarCapitulo1Concluido === 'function') {
+          if (typeof marcarCapitulo1Concluido === "function") {
             marcarCapitulo1Concluido(); // localStorage
             desbloquearNavbarNoBackend().then((sucesso) => {
               if (sucesso) {
-                console.log('✅ [DEBUG] Navbar desbloqueada no backend');
+                console.log("✅ [DEBUG] Navbar desbloqueada no backend");
                 mostrarNavbarInferior(); // Mostra imediatamente
               }
             });
           } else {
-            console.error('❌ [DEBUG] marcarCapitulo1Concluido NÃO é uma função!');
+            console.error(
+              "❌ [DEBUG] marcarCapitulo1Concluido NÃO é uma função!",
+            );
           }
 
           observer.disconnect();
-          console.log('🔌 [DEBUG] Observer desconectado após desbloqueio');
+          console.log("🔌 [DEBUG] Observer desconectado após desbloqueio");
         }
       });
     },
     {
-      threshold: 0.5 // Reduzido para 50% para facilitar o teste
-    }
+      threshold: 0.5, // Reduzido para 50% para facilitar o teste
+    },
   );
 
   observer.observe(secaoFinal);
-  console.log('👁️ [DEBUG] Observer observando elemento #porta');
+  console.log("👁️ [DEBUG] Observer observando elemento #porta");
 }
 
 // Exemplo: quando completar o capítulo
@@ -631,7 +644,6 @@ function aoConcluirCapitulo1() {
 
 // isso resolve o problema de o progresso "sumir" quando o usuário atualiza a página.
 async function carregarEstadoHistoria() {
-
   // pega o token salvo no navegador. Esse token identifica qual usuário está logado.
   const token = obterToken();
 
@@ -641,7 +653,6 @@ async function carregarEstadoHistoria() {
   try {
     // faz uma requisição para a API do mapa de progresso.
     const response = await fetch("/api/progresso/mapa", {
-
       // envia o token para o back-end validar o usuário.
       headers: {
         Authorization: `Bearer ${token}`,
@@ -656,9 +667,7 @@ async function carregarEstadoHistoria() {
     }
 
     // Procura especificamente o módulo atual (capítulo 1).
-    const modulo = data.modulos.find(
-      (m) => Number(m.id_modulo) === ID_MODULO
-    );
+    const modulo = data.modulos.find((m) => Number(m.id_modulo) === ID_MODULO);
 
     if (!modulo) return;
 
@@ -689,14 +698,11 @@ async function carregarEstadoHistoria() {
       portaBoss.setAttribute("aria-label", "Entrar no desafio do módulo 1");
     }
 
-    const tooltip = document.querySelector(
-      ".porta-boss-tooltip"
-    );
+    const tooltip = document.querySelector(".porta-boss-tooltip");
 
     if (tooltip) {
       tooltip.textContent = "Seja ágil ou...";
     }
-
   } catch (error) {
     console.error(error);
   }
@@ -718,12 +724,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   configurarConclusaoHistoria();
   configurarFogueiraBurningdown();
   configurarBacklogVivo();
-
+  configurarPortaDesafio();
   // ✅ NOVO: Desbloqueio por scroll até o final (só na primeira vez)
   configurarDesbloqueioPorScroll();
 
   // Verifica navbar após inicialização
-  if (typeof verificarEAtualizarNavbar === 'function') {
+  if (typeof verificarEAtualizarNavbar === "function") {
     verificarEAtualizarNavbar();
   }
 });
