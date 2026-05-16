@@ -189,7 +189,7 @@ footer{
 }
 
 .custom-alert-box {
-    background: #e2dbca;
+    background: white;
     padding: 25px;
     border-radius: 10px;
     width: 320px;
@@ -265,29 +265,40 @@ footer{
 
 /* ================= NAVEGAÇÃO INFERIOR ================= */
 
+/* Estado BASE: sempre escondido por padrão */
 .navegacao-inferior {
     position: fixed !important;
     bottom: clamp(1rem, 2.5vh, 1.5rem) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 1000 !important;
+
     width: clamp(340px, 85vw, 720px) !important;
     max-width: 95vw !important;
+
     background: rgba(15, 10, 5, 0.94) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
+
     border: 2px solid rgba(153, 107, 15, 0.4) !important;
     border-radius: 18px !important;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(153, 107, 15, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(153, 107, 15, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
+
     padding: 0.7rem 1rem !important;
     transition: opacity 0.35s ease, visibility 0.35s ease !important;
     overflow: visible !important;
+
+    /* ✅ FORÇAR ESCONDIDO POR PADRÃO */
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
 }
 
+/* ✅ CLASSE QUE REVELA (PRIORIDADE ABSOLUTA) */
 .navegacao-inferior.navbar-visivel {
     display: flex !important;
     opacity: 1 !important;
@@ -297,10 +308,17 @@ footer{
 }
 
 @keyframes surgirNavbar {
-    from { opacity: 0 !important; transform: translateX(-50%) translateY(10px) !important; }
-    to { opacity: 1 !important; transform: translateX(-50%) translateY(0) !important; }
+    from { 
+        opacity: 0 !important; 
+        transform: translateX(-50%) translateY(10px) !important; 
+    }
+    to { 
+        opacity: 1 !important; 
+        transform: translateX(-50%) translateY(0) !important; 
+    }
 }
 
+/* Container dos itens */
 .navegacao-inferior__nav {
     display: flex !important;
     justify-content: center !important;
@@ -311,23 +329,29 @@ footer{
     width: 100% !important;
 }
 
+/* Itens individuais */
 .navegacao-inferior__item {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.45rem !important;
+
     color: #8C7347 !important;
     text-decoration: none !important;
+
     font-family: 'Source Serif 4', serif !important;
     font-size: 0.7rem !important;
     font-weight: 600 !important;
+
     opacity: 0.6 !important;
     filter: grayscale(1) !important;
     transition: all 0.3s ease !important;
+    
     flex: 1 1 0% !important;
     max-width: 92px !important;
     min-width: 68px !important;
+    
     padding: 0.55rem 0.3rem !important;
     border-radius: 10px !important;
     position: relative !important;
@@ -335,6 +359,7 @@ footer{
     overflow: visible !important;
 }
 
+/* Hover apenas em itens NÃO ativos */
 .navegacao-inferior__item:hover:not(.ativo) {
     opacity: 1 !important;
     filter: grayscale(0.2) !important;
@@ -344,6 +369,7 @@ footer{
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Ícone */
 .navegacao-inferior__icone {
     width: 30px !important;
     height: 30px !important;
@@ -355,10 +381,12 @@ footer{
     transform: scale(1.1) !important;
 }
 
+/* Evita quebra de linha no texto */
 .navegacao-inferior__item span {
     white-space: nowrap !important;
 }
 
+/* ================= ESTADO ATIVO (.ativo) ================= */
 .navegacao-inferior__item.ativo {
     color: #f4d03f !important;
     opacity: 1 !important;
@@ -366,7 +394,10 @@ footer{
     background: rgba(244, 208, 63, 0.08) !important;
     border: 1px solid rgba(244, 208, 63, 0.35) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(244, 208, 63, 0.25), 0 0 18px rgba(244, 208, 63, 0.2) !important;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(244, 208, 63, 0.25),
+        0 0 18px rgba(244, 208, 63, 0.2) !important;
 }
 
 .navegacao-inferior__item.ativo .navegacao-inferior__icone {
@@ -380,6 +411,7 @@ footer{
     50% { filter: drop-shadow(0 0 14px rgba(244, 208, 63, 0.9)) !important; }
 }
 
+/* Linha indicadora abaixo do item ativo */
 .navegacao-inferior__item.ativo::after {
     content: '' !important;
     position: absolute !important;
@@ -393,54 +425,97 @@ footer{
     box-shadow: 0 0 8px rgba(244, 208, 63, 0.8) !important;
 }
 
+/* ================= BREAKPOINT INTERMEDIÁRIO (TABLETS) ================= */
 @media (max-width: 850px) {
     .navegacao-inferior {
         padding: 0.6rem 0.75rem !important;
         width: clamp(320px, 90vw, 600px) !important;
+        /* Mantém display: none !important herdado do base */
     }
-    .navegacao-inferior__nav { gap: clamp(0.5rem, 1.5vw, 1rem) !important; }
+
+    .navegacao-inferior__nav {
+        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
+    }
+
     .navegacao-inferior__item {
         max-width: 80px !important;
         min-width: 60px !important;
         padding: 0.5rem 0.25rem !important;
         font-size: 0.65rem !important;
     }
-    .navegacao-inferior__icone { width: 28px !important; height: 28px !important; }
+
+    .navegacao-inferior__icone {
+        width: 28px !important;
+        height: 28px !important;
+    }
 }
 
+/* ================= RESPONSIVIDADE — MOBILE ================= */
 @media (max-width: 520px) {
     .navegacao-inferior {
-        left: 0 !important; right: 0 !important; bottom: 0 !important;
-        transform: none !important; width: 100% !important; max-width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        
         border-radius: 16px 16px 0 0 !important;
-        border-left: none !important; border-right: none !important; border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
         border-top: 2px solid rgba(153, 107, 15, 0.4) !important;
+        
         padding: 0.5rem 0.4rem 0.7rem !important;
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(153, 107, 15, 0.15) !important;
+        box-shadow: 
+            0 -4px 20px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(153, 107, 15, 0.15) !important;
+        
+        /* ✅ REAFIRMAR display: none no mobile também */
         display: none !important;
     }
-    .navegacao-inferior__nav { gap: 0.35rem !important; justify-content: space-between !important; width: 100% !important; }
-    .navegacao-inferior__item {
-        flex: 1 !important; max-width: none !important; min-width: auto !important;
-        padding: 0.45rem 0.2rem !important; font-size: 0.6rem !important;
+
+    .navegacao-inferior__nav {
+        gap: 0.35rem !important;
+        justify-content: space-between !important;
+        width: 100% !important;
     }
-    .navegacao-inferior__icone { width: 26px !important; height: 26px !important; }
+
+    .navegacao-inferior__item {
+        flex: 1 !important;
+        max-width: none !important;
+        min-width: auto !important;
+        padding: 0.45rem 0.2rem !important;
+        font-size: 0.6rem !important;
+    }
+
+    .navegacao-inferior__icone {
+        width: 26px !important;
+        height: 26px !important;
+    }
 }
 
 @media (max-width: 360px) {
-    .navegacao-inferior__item { font-size: 0.55rem !important; gap: 0.25rem !important; }
-    .navegacao-inferior__icone { width: 24px !important; height: 24px !important; }
+    .navegacao-inferior__item {
+        font-size: 0.55rem !important;
+        gap: 0.25rem !important;
+    }
+    .navegacao-inferior__icone {
+        width: 24px !important;
+        height: 24px !important;
+    }
 }
 
+/* ================= ACESSIBILIDADE ================= */
 .navegacao-inferior__item:focus-visible {
     outline: 2px solid #f4d03f !important;
     outline-offset: 3px !important;
 }
 
+/* ================= COMPATIBILIDADE COM BLOQUEIO (LEGACY) ================= */
 .navegacao-inferior.bloqueada {
     display: none !important;
 }
-/* ================= FIM DA NAVEGAÇÃO INFERIOR ================= */
 
 /* ================= BOTÃO VOLTAR ================= */
 

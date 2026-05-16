@@ -5,6 +5,12 @@
    Manter aqui apenas funções compartilhadas entre páginas.
 ========================================================= */
 
+/* =========================================================
+   ESTADO DA SESSÃO (IN-MEMORY)
+   - Não persiste entre recarregamentos/contas
+   - Usado para controle temporário de UI
+========================================================= */
+window.__progressoSessao = window.__progressoSessao || {};
 
 /* =========================================================
    MENU MOBILE (HEADER)
@@ -318,23 +324,165 @@ window.addEventListener(
 );
 
 /* =========================================================
-   CONTROLE DE DESBLOQUEIO DA NAVEGAÇÃO INFERIOR
-   (executado em todas as páginas)
+   NAVBAR PERMANENTE — CONTROLE POR USUÁRIO
+   Usa localStorage com chave única por token para evitar conflitos
 ========================================================= */
 
-function controlarVisibilidadeNavbar() {
-  const navbar = document.querySelector('.navegacao-inferior');
-  if (!navbar) return;
-
-  const capitulo1Concluido = localStorage.getItem('capitulo1_concluido');
+/**
+ * Gera chave única de progresso baseada no token do usuário
+ */
+function getChaveProgressoUsuario() {
+  const token = localStorage.getItem('token');
+  if (!token) return 'capitulo1_concluido_anon';
   
-  if (capitulo1Concluido === 'true') {
-      navbar.classList.remove('bloqueada');
+  // Cria hash simples do token para chave única
+  let hash = 0;
+  for (let i = 0; i < token.length; i++) {
+    hash = ((hash << 5) - hash) + token.charCodeAt(i);
+    hash |= 0;
   }
-  // Se não concluiu, mantém com a classe "bloqueada" (hidden via CSS)
+  return `capitulo1_concluido_${Math.abs(hash)}`;
 }
 
-// Executa quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', controlarVisibilidadeNavbar);
-// Garante execução após load completo (caso haja renderização dinâmica)
-window.addEventListener('load', controlarVisibilidadeNavbar);
+/**
+ * Marca capítulo 1 como concluído para o usuário atual
+ */
+function marcarCapitulo1Concluido() {
+  const chave = getChaveProgressoUsuario();
+  localStorage.setItem(chave, 'true');
+  mostrarNavbarInferior();
+}
+
+/**
+ * Verifica se capítulo 1 foi concluído pelo usuário atual
+ */
+function usuarioConcluiuCapitulo1() {
+  const chave = getChaveProgressoUsuario();
+  return localStorage.getItem(chave) === 'true';
+}
+
+/**
+ * Mostra a navbar inferior com animação
+ */
+function mostrarNavbarInferior() {
+  const navbar = document.getElementById('navbarPrincipal');
+  if (!navbar) return;
+  
+  navbar.classList.remove('hidden', 'bloqueada');
+  navbar.classList.add('navbar-visivel');
+  navbar.style.display = 'flex';
+}
+
+/**
+ * Esconde a navbar inferior
+ */
+function esconderNavbarInferior() {
+  const navbar = document.getElementById('navbarPrincipal');
+  if (!navbar) return;
+  
+  navbar.classList.remove('navbar-visivel');
+  navbar.classList.add('bloqueada');
+  navbar.style.display = 'none';
+}
+
+/**
+ * Verifica e atualiza estado da navbar - EXECUTA EM TODAS AS PÁGINAS
+ */
+async function verificarEAtualizarNavbar() {
+  const navbar = document.getElementById('navbarPrincipal');
+  if (!navbar) return;
+
+  // ✅ Prioriza buscar do backend se houver token
+  const token = localStorage.getItem('token');
+  let barraDesbloqueada = false;
+
+  if (token) {
+    const statusBackend = await buscarStatusNavbarDoBackend();
+    if (statusBackend !== null) {
+      barraDesbloqueada = statusBackend;
+    }
+  }
+
+  // Atualiza UI conforme status
+  if (barraDesbloqueada) {
+    mostrarNavbarInferior();
+  } else {
+    esconderNavbarInferior();
+  }
+}
+
+/**
+ * Busca status da navbar do backend para o usuário logado
+ */
+async function buscarStatusNavbarDoBackend() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    // ✅ URL correta conforme sua estrutura
+    const response = await fetch('/api/navbar/status', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error('Falha ao buscar status');
+    
+    const data = await response.json();
+    return data.barra_desbloqueada;
+  } catch (error) {
+    console.error('Erro ao buscar status da navbar:', error);
+    return null;
+  }
+}
+
+/**
+ * Desbloqueia navbar no backend
+ */
+async function desbloquearNavbarNoBackend() {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+
+  try {
+    const response = await fetch('/api/navbar/desbloquear', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error('Falha ao desbloquear');
+    
+    const data = await response.json();
+    console.log('Navbar desbloqueada:', data.mensagem);
+    return true;
+  } catch (error) {
+    console.error('Erro ao desbloquear navbar:', error);
+    return false;
+  }
+}
+
+// Torna disponível globalmente
+window.desbloquearNavbarNoBackend = desbloquearNavbarNoBackend;
+
+// Inicialização automática da navbar em todas as páginas
+(function inicializarNavbarGlobal() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      verificarEAtualizarNavbar();
+    });
+  } else {
+    verificarEAtualizarNavbar();
+  }
+  
+  window.addEventListener('popstate', verificarEAtualizarNavbar);
+  window.addEventListener('load', verificarEAtualizarNavbar);
+})();
+
+// Torna funções disponíveis globalmente para outras páginas
+window.marcarCapitulo1Concluido = marcarCapitulo1Concluido;
+window.usuarioConcluiuCapitulo1 = usuarioConcluiuCapitulo1;
+window.verificarEAtualizarNavbar = verificarEAtualizarNavbar;
+window.mostrarNavbarInferior = mostrarNavbarInferior;

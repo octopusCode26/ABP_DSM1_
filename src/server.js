@@ -11,6 +11,9 @@ const router = require("./routes");
 // inicializa o express
 const app = express();
 
+const cors = require('cors');
+app.use(cors());
+
 // permite que o servidor receba JSON no corpo das requisições
 app.use(express.json());
 
