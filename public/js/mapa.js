@@ -65,25 +65,23 @@ function renderizarMapa(modulos) {
     `;
 
     card.innerHTML = `
-      <button class="porta-botao" onclick="selecionarPorta(this)" ${bloqueado ? "disabled" : ""}>
+      <span class="porta-botao" aria-hidden="true">
         <span class="porta-imagem"></span>
-      </button>
+      </span>
 
-      <div class="porta-info">
-        <h2>Capítulo ${modulo.id_modulo}</h2>
+      <div id="porta-info-${modulo.id_modulo}" class="porta-info">
+        <h2>${criarTituloModulo(modulo.id_modulo)}</h2>
         <p>${criarDescricaoImersiva(modulo.id_modulo)}</p>
 
         <div class="porta-acoes">
-          <button          
-            class="porta-historia"
+          <button 
             ${bloqueado ? "disabled" : ""}
             onclick="abrirHistoria(${modulo.id_modulo})"
           >
             História
           </button>
 
-          <button
-            class="porta-desafio"          
+          <button 
             ${!historiaConcluida || !desafioAtual ? "disabled" : ""}
             onclick="abrirDesafio(${modulo.id_modulo})"
           >
@@ -99,6 +97,8 @@ function renderizarMapa(modulos) {
 
 function atualizarAtalhos(modulos) {
   const btnArtefatos = document.querySelector(".atalho-artefatos");
+  const btnCertificado = document.getElementById("btnCertificado");
+  const txtCertificado = document.getElementById("certificado-status");
 
   const primeiroModulo = modulos.find((modulo) => modulo.id_modulo === 1);
 
@@ -114,18 +114,27 @@ function atualizarAtalhos(modulos) {
     btnArtefatos.disabled = false;
     btnArtefatos.classList.remove("bloqueado");
   }
-}
 
-function selecionarPorta(botao) {
-  const portaCard = botao.closest(".porta-card");
+  const certificadoLiberado = modulos.some((modulo) => modulo.certificado_liberado);
 
-  document.querySelectorAll(".porta-card").forEach((card) => {
-    if (card !== portaCard) {
-      card.classList.remove("selecionada");
+  if (btnCertificado) {
+    btnCertificado.disabled = !certificadoLiberado;
+    btnCertificado.classList.toggle("liberado", certificadoLiberado);
+
+    if (txtCertificado) {
+      txtCertificado.textContent = certificadoLiberado
+        ? "Certificado liberado. Toque para emitir."
+        : "Complete a jornada para desbloquear.";
     }
-  });
 
-  portaCard.classList.toggle("selecionada");
+    if (certificadoLiberado) {
+      btnCertificado.onclick = () => {
+        window.location.href = "/certificado";
+      };
+    } else {
+      btnCertificado.onclick = null;
+    }
+  }
 }
 
 function criarDescricaoImersiva(idModulo) {
@@ -138,6 +147,18 @@ function criarDescricaoImersiva(idModulo) {
   };
 
   return descricoes[idModulo] || "Uma nova etapa da masmorra aguarda você.";
+}
+
+function criarTituloModulo(idModulo) {
+  const titulos = {
+    1: "A lenda de Scrum",
+    2: "Os Guardiões do Fluxo",
+    3: "Reunião do Alvorecer",
+    4: "O Ciclo do Tempo",
+    5: "Scrum Master",
+  };
+
+  return titulos[idModulo] || `Capítulo ${idModulo}`;
 }
 
 function abrirHistoria(idModulo) {

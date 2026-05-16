@@ -1,158 +1,429 @@
-/* =========================
-   SCRUM DUNGEON — MAPA
-========================= */
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+:root {
+  --mapa-bg: oklch(17% 0.018 62);
+  --mapa-surface: oklch(20% 0.018 62);
+  --mapa-surface-2: oklch(24% 0.022 62);
+  --mapa-line: oklch(58% 0.108 77);
+  --mapa-line-muted: oklch(42% 0.055 76);
+  --mapa-text: oklch(91% 0.033 79);
+  --mapa-muted: oklch(74% 0.046 76);
+  --mapa-accent: oklch(76% 0.139 84);
+  --mapa-focus: oklch(82% 0.15 87);
 }
 
 body {
   margin: 0;
-  background: #08080d;
-  color: #f5f1e6;
-  font-family: 'Source Serif 4', serif;
+  background: var(--mapa-bg);
+  color: var(--mapa-text);
+  font-family: "Source Serif 4", serif;
 }
 
 button {
   font-family: inherit;
 }
 
-
-/* PÁGINA */
-
-.mapa-page {
+.mapa-custom-2-page {
+  position: relative;
+  isolation: isolate;
   min-height: calc(100vh - 140px);
-  padding: 38px 40px 70px;
-  background: #101014;
+  padding: clamp(18px, 3vw, 30px) clamp(14px, 3vw, 28px) 112px;
+  background:
+    radial-gradient(
+      920px 420px at 20% -14%,
+      oklch(72% 0.13 84 / 0.12),
+      transparent 62%
+    ),
+    linear-gradient(180deg, oklch(17% 0.019 62) 0%, oklch(15% 0.014 66) 100%);
 }
 
-.mapa-intro {
-  max-width: 760px;
-  margin: 0 auto 42px;
+.mapa-custom-2-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/assets/img/textura mapa.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  filter: sepia(1) saturate(0.55) hue-rotate(-12deg) brightness(0.68) contrast(1.15);
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.mapa-custom-2-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mapa-custom-2-header {
+  width: min(1040px, 100%);
+  margin: 0 auto 24px;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
   text-align: center;
 }
 
-.mapa-intro h1 {
-  max-width: 470px;
-  margin: 0 auto 24px;
-  padding: 16px 28px;
-  border: 1px solid #c89b24;
-  border-radius: 16px;
-  color: #fff;
-  font-size: 30px;
+.mapa-custom-2-header h1 {
+  width: min(460px, 100%);
+  margin: 0;
+  padding: 12px 24px;
+  border: 1px solid var(--mapa-line);
+  border-radius: 10px;
+  outline: 1px solid var(--mapa-line-muted);
+  outline-offset: 6px;
+  color: oklch(98% 0.005 80);
+  font-family: "Cinzel", serif;
+  font-size: clamp(22px, 2.4vw, 30px);
+  letter-spacing: 0;
   text-transform: uppercase;
+  text-shadow: 0 2px 4px oklch(10% 0.012 62 / 0.65);
 }
 
-.mapa-intro p {
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-/* MAPA */
-
-.mapa-layout {
+.mapa-custom-2-header p {
   position: relative;
-  width: min(1380px, 100%);
-  height: 840px;
+  max-width: 680px;
+  margin: 0;
+  padding-top: 18px;
+  color: var(--mapa-text);
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.36;
+}
+
+.mapa-custom-2-header p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(860px, 88vw);
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--mapa-line-muted);
+}
+
+.mapa-shell {
+  width: min(1120px, 100%);
   margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+  gap: 18px;
+  align-items: stretch;
+  overflow: visible;
+}
+
+.mapa-stage,
+.mapa-actions-panel {
+  border: 2px solid var(--mapa-line);
+  border-radius: 16px;
+  background: oklch(14% 0.014 62 / 0.22);
+  box-shadow:
+    0 0 20px oklch(66% 0.12 80 / 0.12),
+    inset 0 0 18px oklch(8% 0.012 62 / 0.56);
+}
+
+.mapa-stage {
+  position: relative;
+  z-index: 2;
+  min-height: clamp(520px, 54vw, 620px);
+  overflow: visible;
+}
+
+.mapa-stage:has(.porta-card:hover) {
+  z-index: 3000;
+}
+
+.mapa-stage-grid {
+  position: absolute;
+  inset: 20px;
+  border: 1px dashed oklch(64% 0.09 80 / 0.22);
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 #mapaModulos {
-  display: contents;
+  min-height: inherit;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-areas:
+    "porta1 . porta2 . porta3"
+    ". porta4 . porta5 .";
+  grid-template-columns: repeat(5, minmax(82px, 126px));
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  gap: clamp(18px, 4vw, 38px) clamp(8px, 1.4vw, 14px);
+  padding: clamp(18px, 3vw, 32px);
 }
 
-/* POSIÇÕES */
-
-.atalho-progresso {
+.mapa-loading {
   position: absolute;
-  top: 10px;
-  left: 0;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--mapa-muted);
+  font-size: 1.05rem;
 }
 
-.porta-card.porta-1 {
-  position: absolute;
-  top: 40px;
-  left: 150px;
-}
-
-.porta-card.porta-2 {
-  position: absolute;
-  top: 40px;
-  left: 545px;
-}
-
-.porta-card.porta-3 {
-  position: absolute;
-  top: 40px;
-  left: 940px;
-}
-
-.porta-card.porta-4 {
-  position: absolute;
-  top: 380px;
-  left: 350px;
-}
-
-.porta-card.porta-5 {
-  position: absolute;
-  top: 380px;
-  left: 745px;
+.mapa-actions-panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-content: stretch;
+  padding: 14px;
 }
 
 .mapa-certificado {
-  position: absolute;
-  top: 610px;
-  left: 50%;
-  transform: translateX(-50%);
+  min-height: 0;
+  display: grid;
 }
 
-.atalho-artefatos {
-  position: absolute;
-  top: 470px;
-  right: 0;
+.atalho-mapa,
+.certificado-botao {
+  width: 100%;
+  height: 100%;
+  min-height: 146px;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  border: 1px solid var(--mapa-line-muted);
+  border-radius: 12px;
+  padding: 12px;
+  background:
+    linear-gradient(180deg, oklch(22% 0.019 62 / 0.96), oklch(16% 0.014 62 / 0.96));
+  color: var(--mapa-text);
+  text-align: center;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.06),
+    0 10px 18px oklch(9% 0.012 62 / 0.34);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
-/* PORTAS */
+.atalho-mapa::after,
+.certificado-botao::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid oklch(76% 0.139 84 / 0.2);
+  border-radius: 9px;
+  pointer-events: none;
+}
+
+.atalho-mapa:hover:not(:disabled),
+.certificado-botao:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--mapa-accent);
+  box-shadow:
+    0 0 0 1px oklch(76% 0.139 84 / 0.28),
+    0 12px 24px oklch(72% 0.13 84 / 0.22);
+}
+
+.atalho-mapa:focus-visible,
+.certificado-botao:focus-visible,
+.porta-botao:focus-visible,
+.porta-acoes button:focus-visible {
+  outline: 2px solid var(--mapa-focus);
+  outline-offset: 4px;
+}
+
+.atalho-kicker,
+.certificado-kicker {
+  color: var(--mapa-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.atalho-imagem,
+.certificado-imagem {
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.atalho-imagem {
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0 0 16px oklch(72% 0.13 84 / 0.48));
+}
+
+.atalho-progresso .atalho-imagem {
+  background-image: url("/assets/img/fogueira_burningdown_progresso.png");
+}
+
+.atalho-artefatos .atalho-imagem {
+  background-image: url("/assets/img/artefatos.png");
+}
+
+.atalho-titulo,
+.certificado-texto {
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.atalho-descricao,
+.certificado-status {
+  max-width: 220px;
+  color: var(--mapa-muted);
+  font-size: 0.8rem;
+  line-height: 1.28;
+}
+
+.atalho-mapa.bloqueado,
+.certificado-botao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.9);
+}
+
+.certificado-botao {
+  min-height: 158px;
+}
+
+.certificado-imagem {
+  width: 78px;
+  height: 78px;
+  background-image: url("/assets/img/certificado_incompleto.png");
+  filter: grayscale(1) brightness(0.62);
+}
+
+#btnCertificado.liberado {
+  opacity: 1;
+  cursor: pointer;
+  filter: none;
+  border-color: var(--mapa-accent);
+}
+
+#btnCertificado.liberado .certificado-imagem {
+  background-image: url("/assets/img/certificado_liberado.png");
+  filter:
+    drop-shadow(0 0 12px oklch(96% 0.018 87 / 0.88))
+    drop-shadow(0 0 28px oklch(80% 0.14 86 / 0.82));
+}
 
 .porta-card {
-  width: 250px;
-  min-height: 300px;
+  width: clamp(150px, 18vw, 190px);
+  min-height: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.porta-card:hover {
+  z-index: 4000;
+  transform: translateY(-3px);
+}
+
+.porta-card.porta-1 {
+  grid-area: porta1;
+}
+
+.porta-card.porta-2 {
+  grid-area: porta2;
+}
+
+.porta-card.porta-3 {
+  grid-area: porta3;
+}
+
+.porta-card.porta-4 {
+  grid-area: porta4;
+}
+
+.porta-card.porta-5 {
+  grid-area: porta5;
 }
 
 .porta-botao {
-  border: none;
-  background: transparent;
+  display: grid;
+  justify-items: center;
+  margin: 0;
   padding: 0;
-  cursor: pointer;
+  border: 0;
+  background: transparent;
+  cursor: default;
 }
 
-.porta-botao:disabled {
-  cursor: not-allowed;
+.porta-botao::after {
+  content: "";
+  display: block;
+  margin-top: 5px;
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 0 2px 8px oklch(9% 0.012 62 / 0.82);
+}
+
+.porta-card.porta-1 .porta-botao::after {
+  content: "I";
+}
+
+.porta-card.porta-2 .porta-botao::after {
+  content: "II";
+}
+
+.porta-card.porta-3 .porta-botao::after {
+  content: "III";
+}
+
+.porta-card.porta-4 .porta-botao::after {
+  content: "IV";
+}
+
+.porta-card.porta-5 .porta-botao::after {
+  content: "V";
 }
 
 .porta-imagem {
   display: block;
-  width: 165px;
-  height: 235px;
+  width: clamp(108px, 12vw, 132px);
+  height: clamp(154px, 17vw, 188px);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  transition: 0.25s ease;
+  transition: transform 200ms ease;
 }
 
 .porta-card:hover .porta-imagem {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
 }
-
-.porta-card.selecionada .porta-imagem {
-  transform: scale(1.06);
-}
-
-/* PORTAS BLOQUEADAS / PADRÃO */
 
 .porta-card.porta-1 .porta-imagem {
   background-image: url("/assets/img/porta_1.png");
@@ -174,8 +445,6 @@ button {
   background-image: url("/assets/img/porta_5.png");
 }
 
-/* PORTAS LIBERADAS SEM CADEADO */
-
 .porta-card.liberado.porta-1 .porta-imagem {
   background-image: url("/assets/img/porta_1_liberada.png");
 }
@@ -196,59 +465,99 @@ button {
   background-image: url("/assets/img/porta_5_liberada.png");
 }
 
-/* ESTADOS */
-
 .porta-card.estado-incompleto .porta-imagem {
-  filter: drop-shadow(0 0 18px rgba(241, 39, 17, 0.747));
+  filter: drop-shadow(0 0 16px oklch(61% 0.21 30 / 0.74));
 }
 
 .porta-card.estado-historia .porta-imagem {
-  filter: drop-shadow(0 0 18px rgba(255, 196, 70, 0.75));
+  filter: drop-shadow(0 0 16px oklch(78% 0.16 84 / 0.74));
 }
 
 .porta-card.estado-completo .porta-imagem {
-  filter: drop-shadow(0 0 22px rgba(70, 160, 255, 0.9));
+  filter: drop-shadow(0 0 20px oklch(69% 0.14 249 / 0.86));
 }
 
 .porta-card.bloqueado .porta-imagem {
-  filter: grayscale(1) brightness(0.35) drop-shadow(0 0 12px rgba(255, 40, 173, 0.45));
+  filter: grayscale(1) brightness(0.38) drop-shadow(0 0 12px oklch(63% 0.22 343 / 0.45));
+}
+
+.porta-card.bloqueado .porta-botao::after,
+.porta-card.bloqueado .porta-info {
+  opacity: 0.58;
+}
+
+.porta-card.bloqueado .porta-info {
+  border-color: transparent;
+  background: oklch(12% 0.014 62 / 0.9);
+  color: oklch(63% 0.022 76);
+}
+
+.porta-card.bloqueado .porta-info h2,
+.porta-card.bloqueado .porta-info p,
+.porta-card.bloqueado .porta-acoes button {
+  color: oklch(63% 0.022 76);
+}
+
+.porta-card.bloqueado .porta-acoes button {
+  opacity: 0.58;
 }
 
 .porta-card.desafio-atual .porta-imagem {
-  filter: drop-shadow(0 0 24px rgba(255, 132, 18, 0.9));
+  filter: drop-shadow(0 0 22px oklch(72% 0.18 56 / 0.9));
 }
-/* PAINEL DAS PORTAS */
 
 .porta-info {
-  width: 240px;
-  min-height: 130px;
-  padding: 14px;
-  border: 1px solid #c89b24;
-  border-radius: 14px;
-  background: rgba(10, 10, 16, 0.96);
+  width: min(210px, calc(100vw - 56px));
+  position: absolute;
+  z-index: 5000;
+  top: calc(100% - 2px);
+  left: 50%;
+  padding: 0 12px;
+  border: 1px solid var(--mapa-line);
+  border-radius: 10px;
+  background: oklch(14% 0.014 62 / 0.98);
   text-align: center;
   opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  overflow: hidden;
   pointer-events: none;
-  transform: translateY(-8px);
-  transition: 0.2s ease;
-  z-index: 5;
+  transform: translate(-50%, -8px);
+  transition:
+    opacity 180ms ease,
+    max-height 200ms ease,
+    transform 180ms ease;
 }
 
-.porta-card.selecionada .porta-info {
+.porta-card.porta-4 .porta-info,
+.porta-card.porta-5 .porta-info {
+  top: auto;
+  bottom: calc(100% - 2px);
+  transform: translate(-50%, 8px);
+}
+
+.porta-card:hover .porta-info {
   opacity: 1;
+  visibility: visible;
+  max-height: 150px;
+  padding: 10px;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
+  z-index: 5000;
 }
 
 .porta-info h2 {
-  margin: 0 0 8px;
-  font-size: 19px;
+  margin: 0 0 5px;
+  color: var(--mapa-text);
+  font-family: "Cinzel", serif;
+  font-size: 0.88rem;
 }
 
 .porta-info p {
-  margin: 0 0 12px;
-  font-size: 14px;
-  line-height: 1.35;
+  margin: 0 0 8px;
+  color: var(--mapa-muted);
+  font-size: 0.76rem;
+  line-height: 1.25;
 }
 
 .porta-acoes {
@@ -257,192 +566,277 @@ button {
   gap: 8px;
 }
 
-.porta-acoes button {
-  border: 1px solid #c89b24;
+.porta-mobile-acoes {
+  width: min(170px, 100%);
+  display: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.porta-acoes button,
+.porta-mobile-acoes button {
+  border: 1px solid var(--mapa-line);
   border-radius: 999px;
-  padding: 7px 14px;
-  background: #151820;
-  color: #fff;
+  padding: 6px 10px;
+  background: var(--mapa-surface-2);
+  color: var(--mapa-text);
   cursor: pointer;
+  font-size: 0.78rem;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.porta-acoes button:hover:not(:disabled) {
-  background: #c89b24;
-  color: #111;
+.porta-mobile-acoes button {
+  min-height: 36px;
+  padding-inline: 8px;
+  font-size: 0.76rem;
+  line-height: 1;
 }
 
-.porta-acoes button:disabled {
-  opacity: 0.35;
+.porta-acoes button:hover:not(:disabled),
+.porta-mobile-acoes button:hover:not(:disabled) {
+  border-color: var(--mapa-accent);
+  background: var(--mapa-accent);
+  color: oklch(17% 0.018 62);
+}
+
+.porta-acoes button:disabled,
+.porta-mobile-acoes button:disabled {
+  opacity: 0.38;
   cursor: not-allowed;
 }
 
-.porta-acoes button.porta-desafio:disabled:hover {
-  background-color: rgba(203, 196, 155, 0.681);
-  background-image: url("../img/mosca_desafio.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40px 40px;
-  color: transparent;
-}
-
-/* ATALHOS */
-
-.atalho-mapa {
-  width: 190px;
-  border: none;
-  background: transparent;
-  color: #f5f1e6;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.atalho-mapa:hover {
-  transform: translateY(-5px);
-}
-
-.atalho-imagem {
-  display: block;
-  width: 165px;
-  height: 165px;
-  margin: 0 auto -12px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: drop-shadow(0 0 16px rgba(255, 185, 40, 0.45));
-}
-
-.atalho-progresso .atalho-imagem {
-  background-image: url("/assets/img/fogueira_burningdown_progresso.png");
-}
-
-.atalho-artefatos .atalho-imagem {
-  background-image: url("/assets/img/artefatos.png");
-}
-
-/* ========================================
-   TEXOS DOS ÍCONES (hover)
-======================================== */
-
-.atalho-mapa span:last-child,
-.certificado-texto {
-  display: block;
-  font-size: 15px;
-  line-height: 1.1;
-
-  opacity: 0;
-  visibility: hidden;
-
-  transform: translateY(-6px);
-  transition: all 0.25s ease;
-
-  pointer-events: none;
-}
-
-/* MOSTRA TEXTO NO HOVER */
-
-.atalho-mapa:hover span:last-child,
-.certificado-botao:hover .certificado-texto {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-/* AJUSTES FINOS */
-
-.atalho-progresso span:last-child {
-  margin-top: -34px;
-}
-
-.atalho-artefatos span:last-child {
-  margin-top: -34px;
-}
-
-.certificado-texto {
-  margin-top: -48px;
-}
-
-.atalho-mapa.bloqueado {
-  opacity: 0.35;
-  filter: grayscale(1);
-  pointer-events: none;
-}
-
-/* CERTIFICADO */
-
-.certificado-botao {
-  border: none;
-  background: transparent;
-  color: #f5f1e6;
-  text-align: center;
-  font-weight: bold;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.certificado-imagem {
-  display: block;
-  width: 290px;
-  height: 290px;
-  margin: 0 auto -34px;
-  background-image: url("/assets/img/certificado_incompleto.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  filter: grayscale(1) brightness(0.55);
-}
-
-#btnCertificado.liberado {
-  opacity: 1;
-  cursor: pointer;
-}
-
-#btnCertificado.liberado .certificado-imagem {
-  background-image: url("/assets/img/certificado_liberado.png");
-  filter:
-    drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))
-    drop-shadow(0 0 26px rgba(255, 220, 90, 0.95))
-    drop-shadow(0 0 46px rgba(255, 180, 40, 0.75));
-}
-
-
-/* RESPONSIVO */
-
-@media (max-width: 1100px) {
-  .mapa-layout {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 34px;
-    align-items: center;
+@media (max-width: 1180px) {
+  .mapa-shell {
+    grid-template-columns: 1fr;
+    width: min(940px, 100%);
   }
 
-  .atalho-progresso,
-  .atalho-artefatos,
+  .mapa-actions-panel {
+    order: -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .atalho-mapa,
+  .certificado-botao {
+    height: auto;
+    min-height: 126px;
+  }
+}
+
+@media (max-width: 900px) {
+  .mapa-custom-2-page {
+    padding: 22px 16px 104px;
+  }
+
+  .mapa-stage {
+    min-height: auto;
+  }
+
+  .mapa-stage-grid {
+    display: none;
+  }
+
+  #mapaModulos {
+    min-height: auto;
+    grid-template-areas:
+      "porta1 . porta2 . porta3"
+      ". porta4 . porta5 .";
+    grid-template-columns: repeat(5, minmax(56px, 104px));
+    justify-content: center;
+    align-items: start;
+    gap: 18px 10px;
+    padding: 20px 14px;
+  }
+
+  .porta-card,
   .porta-card.porta-1,
   .porta-card.porta-2,
   .porta-card.porta-3,
   .porta-card.porta-4,
-  .porta-card.porta-5,
-  .mapa-certificado {
-    position: static;
-    transform: none;
+  .porta-card.porta-5 {
+    position: relative;
+    width: min(170px, 100%);
   }
 
-  #mapaModulos {
-    display: flex;
-    flex-direction: column;
-    gap: 34px;
-    align-items: center;
+  .porta-info {
+    width: min(200px, calc(100vw - 40px));
+  }
+
+  .porta-imagem {
+    width: clamp(94px, 18vw, 118px);
+    height: clamp(135px, 26vw, 168px);
   }
 }
 
-.mapa-page {
-  padding-bottom: 140px;
+@media (max-width: 720px) {
+  .mapa-custom-2-header {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .mapa-custom-2-header h1 {
+    padding: 11px 18px;
+    font-size: 21px;
+  }
+
+  .mapa-custom-2-header p {
+    font-size: 0.95rem;
+  }
+
+  .mapa-actions-panel {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  #mapaModulos {
+    grid-template-areas: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .porta-card,
+  .porta-card.porta-1,
+  .porta-card.porta-2,
+  .porta-card.porta-3,
+  .porta-card.porta-4,
+  .porta-card.porta-5 {
+    grid-area: auto;
+  }
+
+  .atalho-mapa,
+  .certificado-botao {
+    min-height: 84px;
+    grid-template-areas:
+      "imagem kicker"
+      "imagem titulo"
+      "imagem descricao";
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 2px 10px;
+    justify-items: start;
+    align-items: center;
+    padding: 8px 10px;
+    text-align: left;
+  }
+
+  .atalho-kicker,
+  .certificado-kicker {
+    grid-area: kicker;
+    font-size: 0.6rem;
+    line-height: 1;
+  }
+
+  .atalho-imagem,
+  .certificado-imagem {
+    width: 48px;
+    height: 48px;
+    grid-area: imagem;
+  }
+
+  .atalho-titulo,
+  .certificado-texto {
+    grid-area: titulo;
+    font-size: 0.82rem;
+  }
+
+  .atalho-descricao,
+  .certificado-status {
+    grid-area: descricao;
+    font-size: 0.72rem;
+    line-height: 1.15;
+  }
+
+  .atalho-descricao,
+  .certificado-status {
+    max-width: none;
+  }
+
+  .porta-card,
+  .porta-card.porta-1,
+  .porta-card.porta-2,
+  .porta-card.porta-3,
+  .porta-card.porta-4,
+  .porta-card.porta-5 {
+    width: min(210px, 100%);
+  }
+
+  .porta-info {
+    width: min(220px, calc(100vw - 32px));
+  }
+}
+
+@media (max-width: 520px) {
+  .mapa-custom-2-page {
+    padding-inline: 12px;
+  }
+
+  .mapa-actions-panel {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .atalho-mapa,
+  .certificado-botao {
+    min-height: 62px;
+    grid-template-areas:
+      "imagem titulo"
+      "imagem descricao";
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 2px 8px;
+    padding: 7px 9px;
+  }
+
+  .atalho-kicker,
+  .certificado-kicker {
+    display: none;
+  }
+
+  .atalho-imagem,
+  .certificado-imagem {
+    width: 38px;
+    height: 38px;
+  }
+
+  .atalho-titulo,
+  .certificado-texto {
+    font-size: 0.76rem;
+  }
+
+  .atalho-descricao,
+  .certificado-status {
+    overflow: hidden;
+    font-size: 0.68rem;
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mapa-custom-2-header h1 {
+    width: min(330px, 100%);
+  }
+
+  #mapaModulos {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 18px 12px;
+  }
+
+  .porta-card,
+  .porta-card.porta-1,
+  .porta-card.porta-2,
+  .porta-card.porta-3,
+  .porta-card.porta-4,
+  .porta-card.porta-5 {
+    width: min(240px, 100%);
+  }
+
+  .porta-imagem {
+    width: 108px;
+    height: 154px;
+  }
 }

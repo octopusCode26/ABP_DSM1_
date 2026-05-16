@@ -1,56 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-</head>
-<body>
-<%- include('./partials/header') %>
-<%- include('./partials/botao_voltar') %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa | Scrum Dungeon</title>
 
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/css/mapa.css">
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/mapa.css" />
+  </head>
 
-<%- include('./partials/alert') %>
+  <body>
+    <%- include('./partials/header') %>
+    <%- include('./partials/botao_voltar') %>
+    <%- include('./partials/alert') %>
 
-<main class="mapa-page">
-  <section class="mapa-intro">
-    <h1>Sala dos Desafios</h1>
+    <main class="mapa-custom-2-page">
+      <section class="mapa-custom-2-header">
+        <h1>Sala dos Desafios</h1>
+        <p>
+          Escolha uma porta para continuar a jornada ou use o painel para
+          acompanhar progresso, artefatos e certificado.
+        </p>
+      </section>
 
-    <p>
-      Você chega em um grande salão. Há cinco portas.
-      Complete as aventuras e desafios para avançar...
-    </p>
-  </section>
+      <section class="mapa-shell" aria-label="Mapa da aventura">
+        <section class="mapa-stage" aria-label="Portas dos capítulos">
+          <div class="mapa-stage-grid" aria-hidden="true"></div>
 
-  <section class="mapa-layout">
-    <button class="atalho-mapa atalho-progresso" onclick="window.location.href='/burningdown'">
-      <span class="atalho-imagem"></span>
-      <span>Fogueira do Burning Down</span>
-    </button>
+          <section id="mapaModulos" class="mapa-modulos">
+            <p class="mapa-loading">Carregando mapa...</p>
+          </section>
+        </section>
 
-    <section id="mapaModulos" class="mapa-modulos">
-      <p>Carregando mapa...</p>
-    </section>
+        <aside class="mapa-actions-panel" aria-label="Acoes da jornada">
+          <button
+            class="atalho-mapa atalho-progresso"
+            onclick="window.location.href='/burningdown'"
+            type="button"
+          >
+            <span class="atalho-kicker">Progresso</span>
+            <span class="atalho-imagem"></span>
+            <span class="atalho-titulo">Burning Down</span>
+            <span class="atalho-descricao">
+              Veja seu desempenho e retome a aventura.
+            </span>
+          </button>
 
-    <button class="atalho-mapa atalho-artefatos" onclick="window.location.href='/artefatos'">
-      <span class="atalho-imagem"></span>
-      <span>Artefatos</span>
-    </button>
+          <button
+            class="atalho-mapa atalho-artefatos"
+            onclick="window.location.href='/artefatos'"
+            type="button"
+          >
+            <span class="atalho-kicker">Colecao</span>
+            <span class="atalho-imagem"></span>
+            <span class="atalho-titulo">Artefatos</span>
+            <span class="atalho-descricao">
+              Acesse registros liberados na jornada.
+            </span>
+          </button>
 
-    <section class="mapa-certificado">
-      <button id="btnCertificado" class="certificado-botao" disabled>
-        <span class="certificado-imagem"></span>
-        <span class="certificado-texto">Emitir certificado</span>
-      </button>
-    </section>
-  </section>
-</main>
+          <section class="mapa-certificado">
+            <button
+              id="btnCertificado"
+              class="certificado-botao"
+              disabled
+              type="button"
+            >
+              <span class="certificado-kicker">Final</span>
+              <span class="certificado-imagem"></span>
+              <span class="certificado-texto">Certificado</span>
+              <span id="certificado-status" class="certificado-status">
+                Conclua a jornada para desbloquear.
+              </span>
+            </button>
+          </section>
+        </aside>
+      </section>
+    </main>
 
+    <script src="/js/main.js"></script>
+    <script src="/js/mapa.js"></script>
 
-
-<script src="/js/main.js"></script>
-<script src="/js/mapa.js"></script>
-
-<%- include('./partials/navegacao_inferior') %>
-<%- include('./partials/footer') %>
-</body>
+    <%- include('./partials/navegacao_inferior') %>
+    <%- include('./partials/footer') %>
+  </body>
 </html>
