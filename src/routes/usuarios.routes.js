@@ -108,6 +108,24 @@ router.patch("/cpf", authMiddleware, async function (req, res) {
   }
 });
 
+
+router.get("/me", authMiddleware, async function (req, res) {
+  try {
+    const usuario = await findUsuarioById(req.usuario.id_usuario);
+
+    if (!usuario) {
+      return res.status(404).json({
+        message: "usuário não encontrado",
+      });
+    }
+
+    return res.status(200).json(usuario);
+  } catch (e) {
+    return res.status(500).json({
+      message: "erro interno do servidor",
+    });
+  }
+});
 /*
 curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -H "Content-Type: application/json" \
