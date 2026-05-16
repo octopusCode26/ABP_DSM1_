@@ -249,7 +249,8 @@
         0 28px 80px rgba(0, 0, 0, 0.38),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transform: none;
-    animation: animacao_modal_auth 0.24s ease-out;
+    /* Animação padrão para desktop */
+    animation: animacao_modal_auth 0.24s ease-out forwards;
 }
 
 .painel_auth.abrindo {
@@ -257,30 +258,8 @@
 }
 
 .painel_auth.fechando {
-    animation: animacao_modal_auth_saida 0.2s ease-in forwards;
-}
-
-@keyframes animacao_modal_auth {
-    from {
-        opacity: 0;
-        transform: translateX(1.5rem);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes animacao_modal_auth_saida {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(1.5rem);
-    }
+    /* !important garante que a saída sobrescreva a entrada */
+    animation: animacao_modal_auth_saida 0.2s ease-in forwards !important;
 }
 
 .painel_auth_conteudo {
@@ -816,24 +795,20 @@
         font-size: 0.88rem;
     }
 
-   .painel_auth {
-    top: calc(var(--altura-header) + 0.9rem);
-    right: 0.9rem;
-    bottom: 0.9rem;
-    left: auto;
+    .painel_auth {
+        top: calc(var(--altura-header) + 0.9rem);
+        right: 0.9rem;
+        bottom: 0.9rem;
+        left: auto;
+        width: min(600px, calc(100vw - 1.8rem));
+        height: auto;
+        transform: none;
+        animation: animacao_modal_auth 0.24s ease-out;
+    }
 
-    width: min(600px, calc(100vw - 1.8rem));
-    height: auto;
-
-    transform: none;
-    animation: animacao_modal_auth 0.24s ease-out;
-}
-
-.painel_auth.fechando {
-    animation: animacao_modal_auth_saida 0.2s ease-in forwards;
-}
-
-   
+    .painel_auth.fechando {
+        animation: animacao_modal_auth_saida 0.2s ease-in forwards;
+    }
 
     .painel_auth_conteudo {
         padding: 1.2rem 1.2rem 1rem;
@@ -933,11 +908,13 @@
         bottom: 0;
         left: 0;
         transform: none;
-        animation: animacao_sheet_auth 0.18s ease-out;
+        /* Animação de entrada Mobile */
+        animation: animacao_sheet_auth 0.18s ease-out forwards;
     }
 
     .painel_auth.fechando {
-        animation: animacao_sheet_auth_saida 0.18s ease-in forwards;
+        /* Animação de saída Mobile com prioridade */
+        animation: animacao_sheet_auth_saida 0.18s ease-in forwards !important;
     }
 
     .painel_auth_conteudo {
@@ -984,30 +961,6 @@
     .rodape_painel {
         margin-top: 1rem;
     }
-
-    @keyframes animacao_sheet_auth {
-        from {
-            opacity: 0;
-            transform: translateY(1.5rem);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes animacao_sheet_auth_saida {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        to {
-            opacity: 0;
-            transform: translateY(1.5rem);
-        }
-    }
 }
 
 @media (max-width: 420px) {
@@ -1037,5 +990,50 @@
     .rodape_painel {
         padding: 0.85rem 0.8rem;
         font-size: 0.95rem;
+    }
+}
+
+/* ================= KEYFRAMES GLOBAIS (FORA DO MEDIA QUERY) ================= */
+@keyframes animacao_modal_auth {
+    from {
+        opacity: 0;
+        transform: translateX(1.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes animacao_modal_auth_saida {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(1.5rem);
+    }
+}
+
+@keyframes animacao_sheet_auth {
+    from {
+        opacity: 0;
+        transform: translateY(1.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes animacao_sheet_auth_saida {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(1.5rem);
     }
 }
