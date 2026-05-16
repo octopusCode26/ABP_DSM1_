@@ -176,7 +176,7 @@ async function findUsuarioById(idUsuario) {
 async function findUsuarioByCpfAndSenha(cpf, senha){
   const result = await pool.query(
     `
-    SELECT id_usuario, nome, email, cpf, senha
+    SELECT id_usuario, nome, email, cpf, senha, barra_desbloqueada
     FROM usuarios
     WHERE cpf = $1
     `,
@@ -185,22 +185,23 @@ async function findUsuarioByCpfAndSenha(cpf, senha){
 
   const usuario = result.rows[0];
 
-  if ( !usuario ){
+  if (!usuario) {
     throw new Error("usuário inexistente");
   }
 
   const senhaValida = verifyPassword(senha, usuario.senha);
-  if ( !senhaValida ){
+  if (!senhaValida) {
     throw new Error("dados de login incorretos");
   }
 
+  // ✅ Retornar barra_desbloqueada junto com os dados do usuário
   return {
     id_usuario: usuario.id_usuario, 
     nome: usuario.nome, 
     email: usuario.email, 
-    cpf: usuario.cpf
-  }
-
+    cpf: usuario.cpf,
+    barra_desbloqueada: usuario.barra_desbloqueada  // ← NOVO
+  };
 }
 
 async function insertProgressoDesafioInicial(client, idUsuario) {
@@ -223,6 +224,47 @@ async function insertProgressoDesafioInicial(client, idUsuario) {
   return result.rows[0] || null;
 }
 
+/**
+ * Verifica se a navbar foi desbloqueada
+ */
+async function verificarBarraDesbloqueada(idUsuario) {
+  const client = await pool.connect();
+  try {
+    console.log("Verificando barra desbloqueada...");
+    const result = await client.query(
+      `SELECT barra_desbloqueada FROM usuarios WHERE id_usuario = $1`,
+      [idUsuario]
+    );
+    console.log("Consulta concluída.");
+    return result.rows[0].barra_desbloqueada;
+  } catch (e) {
+    console.error("ERRO REAL:", e);
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
+/**
+ * Desbloqueia a barra de navegação
+ */
+async function desbloquearBarraNavegacao(idUsuario) {
+  const client = await pool.connect();
+  try {
+    console.log("Desbloqueando barra de navegação...");
+    await client.query(
+      `UPDATE usuarios SET barra_desbloqueada = true WHERE id_usuario = $1`,
+      [idUsuario]
+    );
+    console.log("Barra de navegação desbloqueada.");
+  } catch (e) {
+    console.error("ERRO REAL:", e);
+    throw e;
+  } finally {
+    client.release();
+  }
+}
+
 // exportando a respectiva função para outros arquivos.
 module.exports = {
   createUsuario,
@@ -232,5 +274,7 @@ module.exports = {
   updateUsuarioEmail,
   updateUsuarioSenha,
   findUsuarioByCpfAndSenha,
-  insertProgressoDesafioInicial
+  insertProgressoDesafioInicial,
+  verificarBarraDesbloqueada,
+  desbloquearBarraNavegacao
 };

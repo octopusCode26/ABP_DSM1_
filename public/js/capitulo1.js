@@ -444,21 +444,21 @@ function configurarConclusaoHistoria() {
  */
 function configurarDesbloqueioPorScroll() {
   console.log('🔍 [DEBUG] configurarDesbloqueioPorScroll iniciado');
-  
+
   const secaoFinal = document.getElementById('porta');
-  
+
   if (!secaoFinal) {
     console.error('❌ [DEBUG] Elemento #porta NÃO encontrado!');
     return;
   }
-  
+
   console.log('✅ [DEBUG] Elemento #porta encontrado:', secaoFinal);
 
   // Verifica se funções do main.js estão disponíveis
   if (typeof usuarioConcluiuCapitulo1 !== 'function') {
     console.error('❌ [DEBUG] Função usuarioConcluiuCapitulo1 NÃO encontrada! main.js carregou depois?');
   }
-  
+
   if (typeof marcarCapitulo1Concluido !== 'function') {
     console.error('❌ [DEBUG] Função marcarCapitulo1Concluido NÃO encontrada! main.js carregou depois?');
   }
@@ -466,7 +466,7 @@ function configurarDesbloqueioPorScroll() {
   const observer = new IntersectionObserver(
     (entries) => {
       console.log('👁️ [DEBUG] IntersectionObserver acionado:', entries);
-      
+
       // Verifica se já concluiu
       if (typeof usuarioConcluiuCapitulo1 === 'function' && usuarioConcluiuCapitulo1()) {
         console.log('✅ [DEBUG] Usuário já concluiu capítulo - observer desconectado');
@@ -480,23 +480,28 @@ function configurarDesbloqueioPorScroll() {
           intersectionRatio: entry.intersectionRatio,
           target: entry.target.id
         });
-        
+
         if (entry.isIntersecting) {
           console.log('🎯 [DEBUG] Seção final visível! Desbloqueando navbar...');
-          
+
           if (typeof marcarCapitulo1Concluido === 'function') {
-            marcarCapitulo1Concluido();
-            console.log('✅ [DEBUG] marcarCapitulo1Concluido() executado');
+            marcarCapitulo1Concluido(); // localStorage
+            desbloquearNavbarNoBackend().then((sucesso) => {
+              if (sucesso) {
+                console.log('✅ [DEBUG] Navbar desbloqueada no backend');
+                mostrarNavbarInferior(); // Mostra imediatamente
+              }
+            });
           } else {
             console.error('❌ [DEBUG] marcarCapitulo1Concluido NÃO é uma função!');
           }
-          
+
           observer.disconnect();
           console.log('🔌 [DEBUG] Observer desconectado após desbloqueio');
         }
       });
     },
-    { 
+    {
       threshold: 0.5 // Reduzido para 50% para facilitar o teste
     }
   );
@@ -505,6 +510,15 @@ function configurarDesbloqueioPorScroll() {
   console.log('👁️ [DEBUG] Observer observando elemento #porta');
 }
 
+// Exemplo: quando completar o capítulo
+function aoConcluirCapitulo1() {
+  marcarCapitulo1Concluido(); // localStorage
+  desbloquearNavbarNoBackend().then((sucesso) => {
+    if (sucesso) {
+      mostrarNavbarInferior();
+    }
+  });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   obterToken();
@@ -520,10 +534,10 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarConclusaoHistoria();
   configurarFogueiraBurningdown();
   configurarBacklogVivo();
-  
+
   // ✅ NOVO: Desbloqueio por scroll até o final (só na primeira vez)
   configurarDesbloqueioPorScroll();
-  
+
   // Verifica navbar após inicialização
   if (typeof verificarEAtualizarNavbar === 'function') {
     verificarEAtualizarNavbar();

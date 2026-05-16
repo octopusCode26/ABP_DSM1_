@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS public.usuarios (
   email VARCHAR(100),
   cpf VARCHAR(11) NOT NULL,
   senha VARCHAR(200),
-  certificado_hash VARCHAR(96)
+  certificado_hash VARCHAR(96),
+  barra_desbloqueada BOOLEAN DEFAULT FALSE
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS uq_usuarios_cpf

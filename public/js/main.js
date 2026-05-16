@@ -337,17 +337,84 @@ function esconderNavbarInferior() {
 /**
  * Verifica e atualiza estado da navbar - EXECUTA EM TODAS AS PÁGINAS
  */
-function verificarEAtualizarNavbar() {
+async function verificarEAtualizarNavbar() {
   const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
 
-  // Se usuário concluiu capítulo, mostra navbar permanentemente
-  if (usuarioConcluiuCapitulo1()) {
+  // ✅ Prioriza buscar do backend se houver token
+  const token = localStorage.getItem('token');
+  let barraDesbloqueada = false;
+
+  if (token) {
+    const statusBackend = await buscarStatusNavbarDoBackend();
+    if (statusBackend !== null) {
+      barraDesbloqueada = statusBackend;
+    }
+  }
+
+  // Atualiza UI conforme status
+  if (barraDesbloqueada) {
     mostrarNavbarInferior();
   } else {
     esconderNavbarInferior();
   }
 }
+
+/**
+ * Busca status da navbar do backend para o usuário logado
+ */
+async function buscarStatusNavbarDoBackend() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    // ✅ URL correta conforme sua estrutura
+    const response = await fetch('/api/navbar/status', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error('Falha ao buscar status');
+    
+    const data = await response.json();
+    return data.barra_desbloqueada;
+  } catch (error) {
+    console.error('Erro ao buscar status da navbar:', error);
+    return null;
+  }
+}
+
+/**
+ * Desbloqueia navbar no backend
+ */
+async function desbloquearNavbarNoBackend() {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+
+  try {
+    const response = await fetch('/api/navbar/desbloquear', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error('Falha ao desbloquear');
+    
+    const data = await response.json();
+    console.log('Navbar desbloqueada:', data.mensagem);
+    return true;
+  } catch (error) {
+    console.error('Erro ao desbloquear navbar:', error);
+    return false;
+  }
+}
+
+// Torna disponível globalmente
+window.desbloquearNavbarNoBackend = desbloquearNavbarNoBackend;
 
 // Inicialização automática da navbar em todas as páginas
 (function inicializarNavbarGlobal() {
