@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS public.usuarios (
   barra_desbloqueada BOOLEAN DEFAULT FALSE
 );
 
+ALTER TABLE public.usuarios
+ADD COLUMN IF NOT EXISTS barra_desbloqueada BOOLEAN DEFAULT FALSE;
+
 CREATE UNIQUE INDEX IF NOT EXISTS uq_usuarios_cpf
   ON public.usuarios (cpf)
   WHERE cpf IS NOT NULL;
