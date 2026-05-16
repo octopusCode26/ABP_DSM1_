@@ -3,15 +3,30 @@
 const formCadastroPopup = document.getElementById("formCadastroPopup");
 const formLoginPopup = document.getElementById("formLoginPopup");
 
+function normalizarCpf(cpf) {
+  return String(cpf || "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
+}
+
+function cpfValido(cpf) {
+  return normalizarCpf(cpf).length === 11;
+}
+
 if (formCadastroPopup) {
   formCadastroPopup.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const nome = document.getElementById("cadastroNome").value;
-    const cpf = document.getElementById("cadastroCpf").value;
+    const cpf = normalizarCpf(document.getElementById("cadastroCpf").value);
     const email = document.getElementById("cadastroEmail").value;
     const senha = document.getElementById("cadastroSenha").value;
     const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
+
+    if (!cpfValido(cpf)) {
+      mostrarAlerta("Digite um CPF válido com 11 números.");
+      return;
+    }
 
     if (senha !== confirmarSenha) {
       mostrarAlerta("As senhas não coincidem!");
@@ -75,8 +90,14 @@ if (formLoginPopup) {
   formLoginPopup.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const cpf = document.getElementById("loginCpf").value;
+    const cpf = normalizarCpf(document.getElementById("loginCpf").value,
+    );
     const senha = document.getElementById("loginSenha").value;
+
+    if (!cpfValido(cpf)) {
+      mostrarAlerta("Digite um CPF válido com 11 números.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/auth/login", {
