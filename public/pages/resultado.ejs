@@ -18,6 +18,7 @@
       <p id="titulo-resultado" class="resultado">RESULTADO DA BATALHA</p>
 
       <div class="linha"></div>
+      <div><p class="batalha" id="resultadoBatalha">VOCÊ VENCEU</p></div>
 
       <div class="heroi-posicao">
         <img src="/assets/img/Resultado/resultado_venceu.png" alt="heroi vitoria" class="heroi" id="heroiResultado" />
@@ -45,14 +46,15 @@
         <div class="conteudo-fundo">
           <p class="tentativas">Tentativas:</p>
           <p class="numero" id="resultadoTentativas">--</p>
-        </div>
-      
-    </section>
-    <div class="button-posicao">
+
+          <div class="button-posicao">
       <button class="tentar-novamente" id="btnAcaoResultado" type="button" disabled>
         <span class="texto-botao">Carregando...</span>
       </button>
     </div>
+        </div>
+      
+    </section>
   </main>
   
  <%- include('partials/navegacao_inferior') %>

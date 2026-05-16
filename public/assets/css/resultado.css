@@ -31,21 +31,21 @@
     display: inline-block;
     position: absolute;
     top: 11rem;
-    left: 65rem;
+    left: 72rem;
 }
 
 .heroi {
-    width: 40rem;
+    width: 33rem;
 }
 
 .resultado {
     color: #17395f;
   font-family: "Cinzel", serif;
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  margin: 1.8rem 1.8rem 0;
+  margin: 0.8rem 1.8rem 0;
     color: #17395f;
   font-family: "Cinzel", serif;
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-weight: 700;
 }
 
 .linha {
@@ -60,7 +60,7 @@
 }
 
 .quadro {
-    background-color: #ccb17a;
+    background-color: #dabd85;
     margin-top: 20px;
     border: 3px solid #F59E0B;
     border-radius: 1.5rem;
@@ -130,7 +130,7 @@
     font-family: "Cinzel";
     font-weight: 700;
     text-transform: none;
-    font-size: 2rem;
+    font-size: 1.6rem;
 
 }
 
@@ -141,43 +141,32 @@
 
 .button-posicao {
 display: flex;
-justify-content: space-around;
+justify-content: end;
 align-items: center;
-margin-right: 8rem;
-margin-top: 4rem;
-height: 1rem;
-margin-right: 2rem;
-
+margin-left: 42rem;
+margin-top: 1rem;
 }
 
 .tentar-novamente {
-        width: 40%;
-        min-height: 3.1rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.65rem 1rem;
-        border: 1px solid rgba(244, 208, 63, 1);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.025);
-        color: rgba(249, 237, 215, 0.72);
-        font-family: "Source Serif 4", serif;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        opacity: 1;
-        transition: 0.4s ease;
+      border: 2px solid rgba(244, 211, 94, 0.85);
+  background: linear-gradient(180deg, #3a1d10, #160b07);
+  color: #f7e6aa;
 
-        box-shadow:
-        0 0 5px rgba(255, 204, 0, 0.8),
-        0 0 15px rgba(255, 204, 0, 0.5),
-        inset 0 0 10px rgba(255, 204, 0, 0.15);
+  min-height: 70px;
+  border-radius: 12px;
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 2  rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: 0.2s ease;
+  min-width: 400px;
 }
 
 .tentar-novamente:hover,
-.confirmar:focus-visible {
-  background: #f4d03f;
-  color: #1b1308;
+.tentar-novamente:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(244, 211, 94, 0.25);
 }
 
 .texto-botao {
@@ -187,4 +176,15 @@ margin-right: 2rem;
 
 .avancar:hover {
     transform: translateY(-2px);
+}
+
+.batalha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 18rem;
+    left: 65rem;
+    font-weight: 700;
+    font-size: 2.8rem;
 }

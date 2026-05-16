@@ -37,11 +37,12 @@
 
   function obterMensagem(resultado) {
     if (resultado.aprovado) {
-      return "Parabens, voce atingiu os acertos necessarios e avancou nessa aventura. Aos poucos voce tem entendido os segredos de Scrum...";
+      return "Após uma árdua batalha mental, você encontrou os pontos fracos da criatura: objetivo claro, estrutura, detalhes úteis e entrega com valor.";
     }
 
-    return "Voce ainda nao atingiu a nota minima. Respire, revise o caminho e tente novamente para continuar sua aventura.";
-  }
+    return "Oh não... a Documentação Confusa te envolveu em requisitos nebulosos e tarefas sem valor. Mas não se preocupe. Voe comigo para uma área  segura e tente reconstruir sua jornada.  "; 
+  } 
+ 
 
   function atualizarBotaoAcao(resultado) {
     if (!btnAcaoResultado) return;
