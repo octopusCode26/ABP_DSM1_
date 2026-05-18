@@ -457,6 +457,30 @@ window.desbloquearNavbarNoBackend = desbloquearNavbarNoBackend;
   window.addEventListener('load', verificarEAtualizarNavbar);
 })();
 
+function renderizarVidas(container, falhasNoModulo, totalTentativas = 2) {
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const falhas = Number(falhasNoModulo) || 0;
+
+  for (let i = 1; i <= totalTentativas; i++) {
+    const img = document.createElement("img");
+
+    img.classList.add("vida-icon");
+
+    if (i <= falhas) {
+      img.src = "/assets/img/vida-icon-perdeu.png";
+      img.alt = "Tentativa perdida";
+    } else {
+      img.src = "/assets/img/vida-icon.png";
+      img.alt = "Tentativa disponível";
+    }
+
+    container.appendChild(img);
+  }
+}
+
 // Torna funções disponíveis globalmente para outras páginas
 window.marcarCapitulo1Concluido = marcarCapitulo1Concluido;
 window.usuarioConcluiuCapitulo1 = usuarioConcluiuCapitulo1;

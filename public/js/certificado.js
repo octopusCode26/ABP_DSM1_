@@ -97,12 +97,57 @@ function preencherDesempenho(desempenho) {
 
   const media = soma / total;
 
-  console.log("soma:", soma);
-console.log("total:", total);
-console.log("media:", media);
-console.log("elemento media:", mediaElemento);
 
   mediaElemento.textContent =
     `${media.toFixed(2)}%`;
 }
+
+function configurarDownloadCertificado() {
+  const botaoDownload = document.getElementById("btnDownloadCertificado");
+  const certificado = document.getElementById("certificadoParaDownload");
+
+  if (!botaoDownload || !certificado) {
+    return;
+  }
+
+  botaoDownload.addEventListener("click", async function () {
+    try {
+      botaoDownload.disabled = true;
+
+      const nomeUsuario =
+        document.getElementById("certificadoNome")?.textContent || "aluno";
+
+      const nomeArquivo = `certificado-scrum-dungeon-${normalizarNomeArquivo(
+        nomeUsuario
+      )}.png`;
+
+      const canvas = await html2canvas(certificado, {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true,
+      });
+
+      const link = document.createElement("a");
+      link.download = nomeArquivo;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (error) {
+      console.error(error);
+      alert("Não foi possível baixar o certificado.");
+    } finally {
+      botaoDownload.disabled = false;
+    }
+  });
+}
+
+function normalizarNomeArquivo(nome) {
+  return String(nome)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 carregarCertificado();
+configurarDownloadCertificado();

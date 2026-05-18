@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarTextoDigitado();
   configurarAcoesDesafio();
   configurarRegras();
+  carregarVidasDesafio();
 });
 
 function revelarElementosEmSequencia() {
@@ -80,4 +81,39 @@ function configurarRegras() {
   botao.addEventListener("click", () => {
     card.classList.toggle("is-open");
   });
+}
+
+async function carregarVidasDesafio() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/progresso/mapa", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return;
+    }
+
+    const moduloAtual = data.modulos.find(function (modulo) {
+      return modulo.desafio_atual;
+    });
+
+    if (!moduloAtual) return;
+
+    const container = document.getElementById("vidasDesafio");
+
+    renderizarVidas(container, moduloAtual.falhas_no_modulo);
+  } catch (error) {
+    console.error(error);
+  }
 }

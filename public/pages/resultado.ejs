@@ -1,68 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/questionario1.css" />
+    <link rel="stylesheet" href="/assets/css/resultado.css" />
+    <title>Resultado | Scrum Dungeon</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/assets/css/main.css" />
-  <link rel="stylesheet" href="/assets/css/questionario1.css" />
-  <link rel="stylesheet" href="/assets/css/resultado.css" />
-  <title>Resultado | Scrum Dungeon</title>
-</head>
+  <body class="corpo-resultado">
+    <%- include('partials/header') %>
 
-<body class="corpo-resultado">
-  <%- include('partials/header') %>
+    <main class="tela">
+      <section
+        class="resultado-box"
+        id="resultadoBox"
+        aria-labelledby="titulo-resultado"
+      >
+        <p id="titulo-resultado" class="resultado">RESULTADO DA BATALHA</p>
+        <div class="linha"></div>
 
-  <main class="tela">
-    <section class="resultado-box" aria-labelledby="titulo-resultado">
-      <p id="titulo-resultado" class="resultado">RESULTADO DA BATALHA</p>
+        <div class="resultado-layout">
+          <div class="resultado-info">
+            <div class="resultado-status">
+              <span id="resultadoEtiqueta" class="resultado-etiqueta"
+                >Resultado</span
+              >
+              <h1 id="resultadoTituloPrincipal">Carregando...</h1>
+            </div>
+            <div class="texto-posicao">
+              <p class="quadro-texto" id="resultadoMensagem">
+                Carregando o resultado da sua aventura...
+              </p>
+            </div>
 
-      <div class="linha"></div>
-      <div><p class="batalha" id="resultadoBatalha">VOCÊ VENCEU</p></div>
+            <div class="resultado-dados">
+              <div class="resultado-linha">
+                <span>Total de Acertos:</span>
+                <strong id="resultadoAcertos">--/--</strong>
+              </div>
 
-      <div class="heroi-posicao">
-        <img src="/assets/img/Resultado/resultado_venceu.png" alt="heroi vitoria" class="heroi" id="heroiResultado" />
-      </div>
+              <div class="resultado-linha">
+                <span>Desempenho:</span>
+                <strong id="resultadoDesempenho">Carregando...</strong>
+              </div>
 
-      <div class="quadro">
-        
-        <div class="texto-posicao">
-          <p class="texto" id="resultadoMensagem">
-            Carregando o resultado da sua aventura...
-          </p>
-        </div>
-      </div>
+              <div class="resultado-linha resultado-tentativas-linha">
+                <span>Tentativas:</span>
+                <div
+                  id="resultadoTentativas"
+                  class="vidas-container"
+                  aria-label="Tentativas restantes"
+                ></div>
+              </div>
+            </div>
+          </div>
+         <div class="resultado-visual">
+  <div class="resultado-imagem-area" id="resultadoImagemArea">
+    <img
+      id="resultadoImagem"
+      class="resultado-imagem"
+      src="/assets/img/capitulo_1/resultado_venceu.png"
+      alt="Resultado da batalha"
+    />
 
-      <div class="conteudo-topo">
-          <p class="total">Total de Acertos:</p>
-          <p class="nota" id="resultadoAcertos">--/--</p>
-        </div>
-
-      <div class="conteudo-meio">
-          <p class="desempenho">Desempenho:</p>
-          <p class="desempenho" id="resultadoDesempenho">Carregando...</p>
-        </div>
-
-        <div class="conteudo-fundo">
-          <p class="tentativas">Tentativas:</p>
-          <p class="numero" id="resultadoTentativas">--</p>
-
-          <div class="button-posicao">
-      <button class="tentar-novamente" id="btnAcaoResultado" type="button" disabled>
-        <span class="texto-botao">Carregando...</span>
-      </button>
+    <div id="resultadoHoverTexto" class="resultado-hover-texto">
+      VOCÊ VENCEU
     </div>
+  </div>
+
+  <div class="button-posicao">
+    <button
+      class="tentar-novamente"
+      id="btnAcaoResultado"
+      type="button"
+      disabled
+    >
+      <span class="texto-botao">Carregando...</span>
+    </button>
+  </div>
+</div>
         </div>
-      
-    </section>
-  </main>
-  
- <%- include('partials/navegacao_inferior') %>
+      </section>
+    </main>
 
-  <%- include('partials/footer') %>
+    <%- include('partials/navegacao_inferior') %> <%- include('partials/footer')
+    %>
 
-  <script src="/js/main.js"></script>
-  <script src="/js/resultado.js"></script>
-</body>
-
+    <script src="/js/main.js"></script>
+    <script src="/js/resultado.js"></script>
+  </body>
 </html>

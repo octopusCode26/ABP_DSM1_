@@ -483,6 +483,46 @@ footer{
    
 }
 
+.vidas-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vida-icon {
+  width: 42px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.nav_header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav_header > ul:first-child {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.botao_logout {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-transform: none;
+  padding: 0;
+}
+
+.botao_logout:hover {
+  color: #d4af37;
+}
+
+
 /* ================= RESPONSIVO (4 BREAKPOINTS) ================= */
 @media (max-width: 1200px) {
     .nav_header ul {
@@ -580,4 +620,10 @@ footer{
         font-size: clamp(0.75rem, 1.2vw, 0.9rem);
         padding: clamp(0.3rem, 0.6vw, 0.4rem) clamp(0.2rem, 0.4vw, 0.3rem);
     }
+}
+
+@media (max-width: 600px) {
+  .vida-icon {
+    width: 32px;
+  }
 }
