@@ -479,10 +479,6 @@ footer{
     object-fit: contain;
 }
 
-.botao-logout{
-   
-}
-
 .vidas-container {
   display: flex;
   align-items: center;

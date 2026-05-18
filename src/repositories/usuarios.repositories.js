@@ -201,7 +201,7 @@ async function findUsuarioByCpfAndSenha(cpf, senha) {
     throw new Error("dados de login incorretos");
   }
 
-  // ✅ Retornar barra_desbloqueada junto com os dados do usuário
+  // Retornar barra_desbloqueada junto com os dados do usuário
   return {
     id_usuario: usuario.id_usuario, 
     nome: usuario.nome, 
@@ -237,12 +237,10 @@ async function insertProgressoDesafioInicial(client, idUsuario) {
 async function verificarBarraDesbloqueada(idUsuario) {
   const client = await pool.connect();
   try {
-    console.log("Verificando barra desbloqueada...");
     const result = await client.query(
       `SELECT barra_desbloqueada FROM usuarios WHERE id_usuario = $1`,
       [idUsuario]
     );
-    console.log("Consulta concluída.");
     return result.rows[0].barra_desbloqueada;
   } catch (e) {
     console.error("ERRO REAL:", e);

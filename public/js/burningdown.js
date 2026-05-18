@@ -109,6 +109,7 @@ const totalTentativasGastas = falhasNoModulo;
   atualizarTexto("porcentagemTotal", `${porcentagemTotal}%`);
   atualizarTexto("tentativasGastas", totalTentativasGastas);
 
+  // VERIFICAR - POSSIVEL FALHA DE SEGURANÇA (INFORMAÇÕES DE TAELAS DO BD)
   console.log("Módulos recebidos no Burning Down:", modulos);
   console.table(modulos);
 

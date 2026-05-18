@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// ✅ IMPORTAÇÃO CORRETA
 const {
     verificarBarraDesbloqueada,
     desbloquearBarraNavegacao
