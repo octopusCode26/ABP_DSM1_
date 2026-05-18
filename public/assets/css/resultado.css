@@ -14,59 +14,38 @@
   background-color: #0f0a05;
     min-height: 100vh;
   background-image:
-    linear-gradient(180deg, rgba(6, 5, 4, 0.2) 0%, rgba(6, 5, 4, 0.8) 52%),
-    url("../img/parede_de_tijolos.png");
-  background-repeat: repeat-y;
-  background-size: 154rem;
-  background-position: center top;
-  background-color: #0f0a05;
 }
 
 .resultado-box {
-     background: linear-gradient(
-    175deg,
-    rgba(237, 214, 166, 0.98),
-    rgba(232, 198, 131, 0.95)
-  );
-     background: linear-gradient(
-    175deg,
-    rgba(237, 214, 166, 0.98),
-    rgba(232, 198, 131, 0.95)
-  );
+    background-color: rgba(237, 214, 166, 0.98);
     border: 4px solid #BA9961; 
     color: #ffffff;
-    margin: 1rem;
     color: #121214;
-    margin: 0rem;
     border-radius: 1.5rem;
-    height: 46rem;
-    width: 68rem;
-
-    height: 26rem;
-    width: 68rem;
-
+    max-height: 46rem;
+    width: 99rem;
+    margin-left: -15rem;
 }
 
-.corvo-posicao {
+.heroi-posicao {
     display: inline-block;
     position: absolute;
-    top: 12rem;
-    left: 80rem;
+    top: 11rem;
+    left: 72rem;
 }
 
-.corvo {
-    width: 18rem;
+.heroi {
+    width: 33rem;
 }
 
 .resultado {
     color: #17395f;
   font-family: "Cinzel", serif;
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  margin: 1.8rem 1.8rem 0;
+  margin: 0.8rem 1.8rem 0;
     color: #17395f;
   font-family: "Cinzel", serif;
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  margin: 1.8rem 1.8rem 0;
+  font-weight: 700;
 }
 
 .linha {
@@ -77,142 +56,117 @@
     margin-top: 1rem;
     margin-left: 1.8rem;
     margin-right: 1.8rem;
-    margin-top: 1rem;
+    margin-top: 2px;
 }
 
 .quadro {
-    background-colorr: #1b1b1b;
+    background-color: #dabd85;
     margin-top: 20px;
-    borderr: 3px solid #F59E0B;
+    border: 3px solid #F59E0B;
     border-radius: 1.5rem;
-    height: 19rem;
+    height: 15rem;
     margin-left: 5rem;
-    width: 55rem;
+    width: 44rem;
 }
 
-.quadro-conteudo-topo {
+.conteudo-topo {
     display: flex;
-    justify-content: center;
-    align-items: start;
     gap: 80px;
-    padding-top: 2rem; 
-    padding-top: 0rem; 
+    padding-top: 5rem; 
 }
 
-.quadro-conteudo-meio {
+.conteudo-meio {
     display: flex;
     justify-content: start;
     align-items: start;
-    gap: 20rem;
 }
 
 
-.quadro-total {
+.total {
     font-size: 3rem;
     font-weight: 700;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
+    margin-left: 5.6rem;
 }
 
-.quadro-nota {
-    font-size: 5rem;
+.nota {
+    font-size: 4rem;
     font-weight: 700;
     width: 14rem;
     
 }
 
-.quadro-tentativas {
+.tentativas {
     font-size: 2rem;
     font-weight: 700;
-    padding-left: 3.5rem;
+    margin-left: 5.6rem;
     margin-top: 2rem;
 }
 
-.quadro-desempenho {
+.desempenho {
     font-size: 2rem;
     font-weight: 700;
-    padding-left: 3.5rem;
+    margin-left: 5.6rem;
 }
 
-.quadro-conteudo-fundo {
+#resultadoDesempenho {
+    margin-left: 3rem;
+}
+
+.conteudo-fundo {
     display: flex;
     justify-content: start;
     align-items: start;
-    gap: 15rem;
+    gap: 2rem;
     
 }
 
-.quadro-numero {
+.numero {
     font-size: 5rem;
-    font-weight: 700;
-    padding-left: 12rem;
-    margin-top: 0rem;
+    font-weight: 600;
 }
 
-.quadro-texto {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 500;
+.texto {
+    font-family: "Cinzel";
+    font-weight: 700;
     text-transform: none;
+    font-size: 1.6rem;
+
 }
 
 .texto-posicao {
-    padding: 2rem 5rem;
-    padding: 0rem rem;
+    padding: 2rem 19px;
+
 }
 
 .button-posicao {
 display: flex;
-justify-content: space-around;
+justify-content: end;
 align-items: center;
-height: 7rem;
-margin-right: 8rem;
-margin-top: 4rem;
-height: 1rem;
-margin-right: 2rem;
-margin-top: 4rem;
-}
-
-.revisar {
-border: 1px solid #1A3A5C;
-color: #1A3A5C;
-border-radius: 2rem;
-background: none;
-height: 2.5rem;
-width: 6rem;
-font-size: 1rem;
-font-weight: 500;
-cursor: pointer;
-mar
-mar
+margin-left: 42rem;
+margin-top: 1rem;
 }
 
 .tentar-novamente {
-        width: 40%;
-        min-height: 3.1rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.65rem 1rem;
-        border: 1px solid rgba(244, 208, 63, 1);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.025);
-        color: rgba(249, 237, 215, 0.72);
-        font-family: "Source Serif 4", serif;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        opacity: 1;
-        transition: 0.4s ease;
+      border: 2px solid rgba(244, 211, 94, 0.85);
+  background: linear-gradient(180deg, #3a1d10, #160b07);
+  color: #f7e6aa;
 
-        box-shadow:
-        0 0 5px rgba(255, 204, 0, 0.8),
-        0 0 15px rgba(255, 204, 0, 0.5),
-        inset 0 0 10px rgba(255, 204, 0, 0.15);
+  min-height: 70px;
+  border-radius: 12px;
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 2  rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: 0.2s ease;
+  min-width: 400px;
 }
 
 .tentar-novamente:hover,
-.confirmar:focus-visible {''
-  background: #f4d03f;
-  color: #1b1308;
+.tentar-novamente:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(244, 211, 94, 0.25);
 }
 
 .texto-botao {
@@ -224,6 +178,13 @@ mar
     transform: translateY(-2px);
 }
 
-.revisar:hover {
-    transform: translateY(-2px);
+.batalha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 18rem;
+    left: 65rem;
+    font-weight: 700;
+    font-size: 2.8rem;
 }

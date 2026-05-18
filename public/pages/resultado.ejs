@@ -15,50 +15,46 @@
 
   <main class="tela">
     <section class="resultado-box" aria-labelledby="titulo-resultado">
-      <p id="titulo-resultado" class="resultado">RESULTADO</p>
-      <div class="linha"></div>
+      <p id="titulo-resultado" class="resultado">RESULTADO DA BATALHA</p>
 
-      <div class="corvo-posicao">
-        <img src="/assets/img/corvo_feliz.png" alt="Corvo feliz" class="corvo" id="corvoResultado" />
+      <div class="linha"></div>
+      <div><p class="batalha" id="resultadoBatalha">VOCÊ VENCEU</p></div>
+
+      <div class="heroi-posicao">
+        <img src="/assets/img/Resultado/resultado_venceu.png" alt="heroi vitoria" class="heroi" id="heroiResultado" />
       </div>
 
       <div class="quadro">
-        <div class="quadro-conteudo-topo">
-          <p class="quadro-total">Total de Acertos:</p>
-          <p class="quadro-nota" id="resultadoAcertos">--/--</p>
-        </div>
-
-        <!-- 
-        <div class="quadro-info-extra">
-          <p id="resultadoRespondidas">Total respondidas: --</p>
-          <p id="resultadoNotaFinal">Nota final: --%</p>
-        </div>
-         -->
-
-        <div class="quadro-conteudo-meio">
-          <p class="quadro-desempenho">Desempenho:</p>
-          <p class="quadro-desempenho" id="resultadoDesempenho">Carregando...</p>
-        </div>
-
-        <div class="quadro-conteudo-fundo">
-          <p class="quadro-tentativas">Tentativas:</p>
-          <p class="quadro-numero" id="resultadoTentativas">--</p>
-        </div>
-
+        
         <div class="texto-posicao">
-          <p class="quadro-texto" id="resultadoMensagem">
+          <p class="texto" id="resultadoMensagem">
             Carregando o resultado da sua aventura...
           </p>
         </div>
       </div>
 
-      
-    </section>
-    <div class="button-posicao">
+      <div class="conteudo-topo">
+          <p class="total">Total de Acertos:</p>
+          <p class="nota" id="resultadoAcertos">--/--</p>
+        </div>
+
+      <div class="conteudo-meio">
+          <p class="desempenho">Desempenho:</p>
+          <p class="desempenho" id="resultadoDesempenho">Carregando...</p>
+        </div>
+
+        <div class="conteudo-fundo">
+          <p class="tentativas">Tentativas:</p>
+          <p class="numero" id="resultadoTentativas">--</p>
+
+          <div class="button-posicao">
       <button class="tentar-novamente" id="btnAcaoResultado" type="button" disabled>
         <span class="texto-botao">Carregando...</span>
       </button>
     </div>
+        </div>
+      
+    </section>
   </main>
   
  <%- include('partials/navegacao_inferior') %>
