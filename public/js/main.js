@@ -17,72 +17,54 @@ window.__progressoSessao = window.__progressoSessao || {};
 ========================================================= */
 
 (function () {
-
-  const menuToggle = document.getElementById('menuToggle');
-  const menuPrincipal = document.getElementById('menuPrincipal');
+  const menuToggle = document.getElementById("menuToggle");
+  const menuPrincipal = document.getElementById("menuPrincipal");
 
   // Encerra caso o menu não exista na página
   if (!menuToggle || !menuPrincipal) {
-      return;
+    return;
   }
 
   /* =========================================
      ABRIR / FECHAR MENU MOBILE
   ========================================= */
 
-  menuToggle.addEventListener('click', function () {
+  menuToggle.addEventListener("click", function () {
+    const aberto = menuPrincipal.classList.toggle("ativo");
 
-      const aberto = menuPrincipal.classList.toggle('ativo');
-
-      menuToggle.setAttribute(
-          'aria-expanded',
-          aberto ? 'true' : 'false'
-      );
+    menuToggle.setAttribute("aria-expanded", aberto ? "true" : "false");
   });
 
   /* =========================================
      FECHAR MENU AO CLICAR EM UM LINK
   ========================================= */
 
-  menuPrincipal.querySelectorAll('a').forEach(function (link) {
+  menuPrincipal.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      menuPrincipal.classList.remove("ativo");
 
-      link.addEventListener('click', function () {
-
-          menuPrincipal.classList.remove('ativo');
-
-          menuToggle.setAttribute(
-              'aria-expanded',
-              'false'
-          );
-      });
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
   });
 
   /* =========================================
      RESETAR MENU AO VOLTAR PARA DESKTOP
   ========================================= */
 
-  window.addEventListener('resize', function () {
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 768) {
+      menuPrincipal.classList.remove("ativo");
 
-      if (window.innerWidth > 768) {
-
-          menuPrincipal.classList.remove('ativo');
-
-          menuToggle.setAttribute(
-              'aria-expanded',
-              'false'
-          );
-      }
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
   });
-
 })();
-
 
 /* =========================================================
  HEADER ATIVO POR SEÇÃO
 ========================================================= */
 
 function atualizarMenuAtivo() {
-
   const inicio = document.getElementById("inicio");
   const sobre = document.getElementById("sobre");
 
@@ -91,7 +73,7 @@ function atualizarMenuAtivo() {
 
   // Encerra caso os elementos não existam
   if (!inicio || !sobre || !linkInicio || !linkSobre) {
-      return;
+    return;
   }
 
   const scrollPos = window.scrollY;
@@ -105,9 +87,9 @@ function atualizarMenuAtivo() {
 
   // Define qual item ficará ativo
   if (scrollPos >= pontoSobre) {
-      linkSobre.classList.add("ativo");
+    linkSobre.classList.add("ativo");
   } else {
-      linkInicio.classList.add("ativo");
+    linkInicio.classList.add("ativo");
   }
 }
 
@@ -115,13 +97,11 @@ function atualizarMenuAtivo() {
 window.addEventListener("scroll", atualizarMenuAtivo);
 window.addEventListener("load", atualizarMenuAtivo);
 
-
 /* =========================================================
  NAVEGAÇÃO INFERIOR ATIVA
 ========================================================= */
 
 function marcarItemAtivoDaNavegacaoInferior() {
-
   const itens = document.querySelectorAll(".navegacao-inferior__item");
 
   // Encerra caso não existam itens
@@ -131,28 +111,23 @@ function marcarItemAtivoDaNavegacaoInferior() {
   const rotaAtual = window.location.pathname.replace(/\/$/, "");
 
   itens.forEach((item) => {
+    const rotaItem = item.dataset.rota?.replace(/\/$/, "");
 
-      const rotaItem = item.dataset.rota?.replace(/\/$/, "");
+    item.classList.remove("ativo");
 
-      item.classList.remove("ativo");
-
-      if (rotaAtual === rotaItem) {
-          item.classList.add("ativo");
-      }
+    if (rotaAtual === rotaItem) {
+      item.classList.add("ativo");
+    }
   });
 }
 
 // Eventos
 document.addEventListener(
   "DOMContentLoaded",
-  marcarItemAtivoDaNavegacaoInferior
+  marcarItemAtivoDaNavegacaoInferior,
 );
 
-window.addEventListener(
-  "load",
-  marcarItemAtivoDaNavegacaoInferior
-);
-
+window.addEventListener("load", marcarItemAtivoDaNavegacaoInferior);
 
 /* =========================================================
  ALERTA CUSTOMIZADO
@@ -165,53 +140,41 @@ window.addEventListener(
 */
 
 function mostrarAlerta(mensagem, tipo) {
-
-  const alerta = document.getElementById('custom-alert');
-  const texto = document.getElementById('custom-alert-message');
+  const alerta = document.getElementById("custom-alert");
+  const texto = document.getElementById("custom-alert-message");
 
   // Define mensagem
   texto.innerText = mensagem;
 
   // Remove estados antigos
-  alerta.classList.remove(
-      'hidden',
-      'sucesso',
-      'erro'
-  );
+  alerta.classList.remove("hidden", "sucesso", "erro");
 
   // Aplica novo tipo
   alerta.classList.add(tipo);
 
   // Exibe alerta
-  alerta.style.display = 'flex';
+  alerta.style.display = "flex";
 }
-
 
 /* =========================================
  FECHAR ALERTA
 ========================================= */
 
 function fecharAlerta() {
+  const alerta = document.getElementById("custom-alert");
 
-  const alerta = document.getElementById('custom-alert');
+  alerta.classList.add("hidden");
 
-  alerta.classList.add('hidden');
+  alerta.classList.remove("sucesso", "erro");
 
-  alerta.classList.remove(
-      'sucesso',
-      'erro'
-  );
-
-  alerta.style.display = 'none';
+  alerta.style.display = "none";
 }
-
 
 /* =========================================================
  ALTURA DINÂMICA DO FOOTER
 ========================================================= */
 
 function atualizarAlturaFooter() {
-
   const footer = document.querySelector("footer");
 
   // Encerra caso não exista footer
@@ -220,18 +183,16 @@ function atualizarAlturaFooter() {
   const alturaFooter = footer.offsetHeight;
 
   document.documentElement.style.setProperty(
-      "--footer-height",
-      `${alturaFooter}px`
+    "--footer-height",
+    `${alturaFooter}px`,
   );
 }
-
 
 /* =========================================================
  ALTURA DINÂMICA DO HEADER
 ========================================================= */
 
 function atualizarAlturaHeader() {
-
   const header = document.querySelector("header");
 
   // Encerra caso não exista header
@@ -240,8 +201,8 @@ function atualizarAlturaHeader() {
   const alturaHeader = header.offsetHeight;
 
   document.documentElement.style.setProperty(
-      "--header-height",
-      `${alturaHeader}px`
+    "--header-height",
+    `${alturaHeader}px`,
   );
 }
 
@@ -250,11 +211,7 @@ function atualizarAlturaHeader() {
 ========================================================= */
 
 // páginas que NÃO devem entrar no histórico de retorno
-const paginasBloqueadas = [
-  "/questionario1",
-  "/resultado",
-  "desafio1",
-];
+const paginasBloqueadas = ["/questionario1", "/resultado", "desafio1"];
 
 // página atual
 const paginaAtual = window.location.pathname;
@@ -263,28 +220,19 @@ const paginaAtual = window.location.pathname;
 const paginaAnterior = sessionStorage.getItem("paginaAtual");
 
 // salva como "última válida" apenas se NÃO for bloqueada
-if (
-  paginaAnterior &&
-  !paginasBloqueadas.includes(paginaAnterior)
-) {
-  sessionStorage.setItem(
-    "ultimaPaginaValida",
-    paginaAnterior
-  );
+if (paginaAnterior && !paginasBloqueadas.includes(paginaAnterior)) {
+  sessionStorage.setItem("ultimaPaginaValida", paginaAnterior);
 }
 
 // atualiza a página atual
 sessionStorage.setItem("paginaAtual", paginaAtual);
-
 
 /* =========================================================
  BOTÃO VOLTAR INTELIGENTE
 ========================================================= */
 
 function voltarPagina() {
-
-  const ultimaPaginaValida =
-    sessionStorage.getItem("ultimaPaginaValida");
+  const ultimaPaginaValida = sessionStorage.getItem("ultimaPaginaValida");
 
   // se existir uma página salva, usa ela
   if (ultimaPaginaValida) {
@@ -296,37 +244,36 @@ function voltarPagina() {
   window.location.href = "/mapa";
 }
 
-
 /* =========================================================
  EVENTOS GLOBAIS
 ========================================================= */
 
 // Quando a página termina de carregar
-window.addEventListener(
-  "load",
-  atualizarAlturaFooter
-);
+window.addEventListener("load", atualizarAlturaFooter);
 
-window.addEventListener(
-  "load",
-  atualizarAlturaHeader
-);
+window.addEventListener("load", atualizarAlturaHeader);
 
 // Quando a tela é redimensionada
-window.addEventListener(
-  "resize",
-  atualizarAlturaFooter
-);
+window.addEventListener("resize", atualizarAlturaFooter);
 
-window.addEventListener(
-  "resize",
-  atualizarAlturaHeader
-);
+window.addEventListener("resize", atualizarAlturaHeader);
 
 /* =========================================================
    NAVBAR PERMANENTE — CONTROLE POR USUÁRIO
    Usa localStorage com chave única por token para evitar conflitos
 ========================================================= */
+
+function controlarVisibilidadeNavbar() {
+  const navbar = document.querySelector(".navegacao-inferior");
+  if (!navbar) return;
+
+  const capitulo1Concluido = localStorage.getItem("capitulo1_concluido");
+
+  if (capitulo1Concluido === "true") {
+    navbar.classList.remove("bloqueada");
+  }
+  return `capitulo1_concluido_${Math.abs(hash)}`;
+}
 
 /**
  * Gera chave única de progresso baseada no token do usuário
@@ -344,6 +291,35 @@ function getChaveProgressoUsuario() {
   return `capitulo1_concluido_${Math.abs(hash)}`;
 }
 
+// Executa quando o DOM estiver pronto
+document.addEventListener("DOMContentLoaded", controlarVisibilidadeNavbar);
+// Garante execução após load completo (caso haja renderização dinâmica)
+window.addEventListener("load", controlarVisibilidadeNavbar);
+
+/*========FUNÇAO LOGOUT===========*/
+document.addEventListener("DOMContentLoaded", () => {
+  const botaoLogout = document.getElementById("botao-logout");
+
+  if (!botaoLogout) return;
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    botaoLogout.hidden = false;
+  }
+
+  botaoLogout.addEventListener("click", logout);
+});
+
+function logout() {
+  // Remove os dados de autenticacao salvos no navegador.
+  localStorage.removeItem("token");
+  localStorage.removeItem("nome");
+  localStorage.removeItem("cpf");
+  localStorage.removeItem("usuario");
+
+  window.location.href = "/";
+}
 /**
  * Marca capítulo 1 como concluído para o usuário atual
  */

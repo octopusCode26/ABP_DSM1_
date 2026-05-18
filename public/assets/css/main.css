@@ -479,6 +479,10 @@ footer{
     object-fit: contain;
 }
 
+.botao-logout{
+   
+}
+
 /* ================= RESPONSIVO (4 BREAKPOINTS) ================= */
 @media (max-width: 1200px) {
     .nav_header ul {
