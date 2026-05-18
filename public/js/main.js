@@ -267,12 +267,19 @@ function controlarVisibilidadeNavbar() {
   const navbar = document.querySelector(".navegacao-inferior");
   if (!navbar) return;
 
-  const capitulo1Concluido = localStorage.getItem("capitulo1_concluido");
+  // Usa a função que gera a chave correta baseada no token
+  const chave = getChaveProgressoUsuario();
+  const capitulo1Concluido = localStorage.getItem(chave);
 
   if (capitulo1Concluido === "true") {
     navbar.classList.remove("bloqueada");
+    navbar.classList.remove("hidden");
+    navbar.style.display = "flex";
+  } else {
+    navbar.classList.add("bloqueada");
+    navbar.classList.add("hidden");
+    navbar.style.display = "none";
   }
-  return `capitulo1_concluido_${Math.abs(hash)}`;
 }
 
 /**
@@ -368,7 +375,7 @@ async function verificarEAtualizarNavbar() {
   const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
 
-  // ✅ Prioriza buscar do backend se houver token
+  // Prioriza buscar do backend se houver token
   const token = localStorage.getItem('token');
   let barraDesbloqueada = false;
 
@@ -395,7 +402,7 @@ async function buscarStatusNavbarDoBackend() {
   if (!token) return null;
 
   try {
-    // ✅ URL correta conforme sua estrutura
+    // URL correta conforme sua estrutura
     const response = await fetch('/api/navbar/status', {
       headers: {
         'Authorization': `Bearer ${token}`,
