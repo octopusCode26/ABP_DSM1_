@@ -27,54 +27,60 @@
 
 .certificado-base {
   font-family: 'Cinzel', serif;
-  width: min(90vw, 700px);
-  min-height: 550px;
-  margin: -30px auto 48px;
+  width: min(95vw, 980px);
+  min-height: 680px;
+  margin: 24px auto 48px;
+  padding: 24px 48px 40px;
   background-image: url("../img/papel_texturizado.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-position: center top;
+  background-position: center center;
 }
 
 .cabecalho {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.escudo {
-  width: 125%;
-  display: flex;
-  justify-content: flex-start; 
-  padding: 0;
-}
-
-.escudo img {
-  display: block;
-  width: 125%;
-  height: auto;
-  transform: translate(-65px, -35px);
-
-}
-
-.logo {
+  display: grid;
+  grid-template-columns: 140px 1fr 140px;
+  align-items: start;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: var(--cor-card-texto);
-  padding-top: 17px; 
+  gap: 20px;
+}
+
+main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.escudo{
+  width:140px;
+  display:flex;
+  justify-content:center;
+}
+
+.escudo img{
+  width:100%;
+  height:auto;
+}
+
+.logo{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  color:var(--cor-card-texto);
 }
 
 .logo img {
-  width: 70%;
+  width: min(260px, 80%);
   height: auto;
 }
 
 .titulo-certificado {
-  font-size: 2.5rem;
-  margin-top: 0.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0.4rem 0 0;
+  text-align: center;
 }
 
 p{
@@ -84,21 +90,23 @@ p{
 }
 
 .nome-certificado {
-  font-size: 1.5rem;
-  margin-top: 1rem;
-  padding: 0 0 16px 0;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  margin: 0.8rem 0 1rem;
+  padding: 0;
+  text-align: center;
 }
 
 .corvo-certificado {
-  width: 125%;
+  width: 190px;
   display: flex;
-  justify-content: right;
-  padding-top: 0;
+  justify-content: center;
+  transform: translateY(0);
 }
+
 .corvo-certificado img {
-  width: 100%;
+  width: 180%;
   height: auto;
-} 
+}
 
 .certificado-botoes-area {
     width: 100%;
@@ -133,7 +141,7 @@ p{
   flex-direction: column;
   border: 2px solid #ba9961;
   border-radius: 15px;
-  width: 450px;
+  width:min(80%, 520px);
   height: 105px;
   margin: 0 auto; 
 }
@@ -169,12 +177,13 @@ p{
   height: 1.5rem;
 }
 
-.media{
-  color: var(--cor-card-texto);
+.media {
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: center;
-  padding: 15px;
+  gap: 15px;
+  margin: 24px 0 20px;
+  color: var(--cor-card-texto);
 }
 
 .mediaFinal{
@@ -200,7 +209,7 @@ p{
 
 .container-desempenho{
     font-family: 'Cinzel', serif;
-    width: 520px;
+    width: min(90%, 620px);
     color: var(--cor-fundo-escuro);
     margin: 3px auto;
     padding: 5px;
@@ -252,11 +261,66 @@ p{
     background-color: #ba9961;
 }
 
-.carimbo{
+.carimbo {
   position: absolute;
-  right: 45px;
-  width: 65px;
+  right: 7%;
+  bottom: 8px;
+  width: 72px;
   height: auto;
-
+  transform: rotate(-12deg);
+  opacity: 0.85;
 }
 
+.certificado-base {
+  position: relative;
+  overflow: visible;
+  color: var(--cor-card-texto);
+}
+
+.certificado-base * {
+  position: relative;
+  z-index: 1;
+}
+
+.cabecalho,
+.formulario,
+.media,
+.desempenho-carimbo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.botao-voltar {
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  z-index: 20;
+}
+
+.formulario strong,
+.formulario span {
+  color: var(--cor-card-texto);
+}
+
+.mediaFinal {
+  justify-content: center;
+  font-weight: bold;
+}
+
+.nivel .linha {
+  color: var(--cor-card-texto);
+  background: transparent;
+  height: auto;
+  font-weight: bold;
+}
+
+.mediaFinal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-card-texto);
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+}

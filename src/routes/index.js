@@ -7,16 +7,17 @@ const questoes = require("./questoes.routes");
 const auth = require("./auth.routes")
 const certificados = require("./certificados.routes");
 const progresso = require("./progresso.routes");
-
+const navbarRoutes = require('./navbar.routes');
 const router = Router();
 
 // agrupa rotas do usuário.
+router.use("/auth", auth);
+
 router.use("/usuarios", usuarios);
 router.use("/questoes", questoes);
 router.use("/certificados", certificados);
 router.use("/progresso", progresso);
-
-router.use("/auth", auth);
+router.use('/navbar', navbarRoutes);
 
 // rota 404, caso a página não for encontrada.
 router.use(function(__req,res){

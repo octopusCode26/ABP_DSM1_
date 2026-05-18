@@ -548,48 +548,86 @@ function configurarPortaDesafio() {
   });
 }
 
-/* =========================================================
-   DESBLOQUEAR NAVBAR AO CONCLUIR CAPÍTULO - precisamos rever
-========================================================= 
+/**
+ * Desbloqueia navbar ao rolar até o final do capítulo - VERSÃO DEBUG
+ */
+function configurarDesbloqueioPorScroll() {
+  console.log('🔍 [DEBUG] configurarDesbloqueioPorScroll iniciado');
 
-(function() {
-  const btnConcluir = document.getElementById('btnConcluirHistoria');
-  const btnIrDesafio = document.getElementById('btnIrDesafio');
-  const statusHistoria = document.getElementById('statusHistoria');
-  
-  if (!btnConcluir) return; // Só executa se estiver na página do capítulo 1
+  const secaoFinal = document.getElementById('porta');
 
-  btnConcluir.addEventListener('click', function() {
-      // ✅ Salva progresso permanentemente no navegador do usuário
-      localStorage.setItem('capitulo1_concluido', 'true');
-      
-      // ✅ Mostra a navbar imediatamente (sem precisar recarregar)
-      const navbar = document.querySelector('.navegacao-inferior');
-      if (navbar) {
-          navbar.classList.remove('bloqueada');
+  if (!secaoFinal) {
+    console.error('❌ [DEBUG] Elemento #porta NÃO encontrado!');
+    return;
+  }
+
+  console.log('✅ [DEBUG] Elemento #porta encontrado:', secaoFinal);
+
+  // Verifica se funções do main.js estão disponíveis
+  if (typeof usuarioConcluiuCapitulo1 !== 'function') {
+    console.error('❌ [DEBUG] Função usuarioConcluiuCapitulo1 NÃO encontrada! main.js carregou depois?');
+  }
+
+  if (typeof marcarCapitulo1Concluido !== 'function') {
+    console.error('❌ [DEBUG] Função marcarCapitulo1Concluido NÃO encontrada! main.js carregou depois?');
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      console.log('👁️ [DEBUG] IntersectionObserver acionado:', entries);
+
+      // Verifica se já concluiu
+      if (typeof usuarioConcluiuCapitulo1 === 'function' && usuarioConcluiuCapitulo1()) {
+        console.log('✅ [DEBUG] Usuário já concluiu capítulo - observer desconectado');
+        observer.disconnect();
+        return;
       }
-      
-      // ✅ Atualiza UI dos botões (conforme seu fluxo existente)
-      btnConcluir.classList.add('hidden');
-      if (btnIrDesafio) {
-          btnIrDesafio.classList.remove('hidden');
-      }
-      
-      // ✅ Feedback visual ao usuário
-      if (statusHistoria) {
-          statusHistoria.textContent = '✓ História concluída! Navegação desbloqueada.';
-          statusHistoria.style.color = '#4CAF50';
-          statusHistoria.style.fontWeight = '600';
-      }
-      
-      // ✅ Alerta customizado (se a função existir no main.js)
-      if (typeof mostrarAlerta === 'function') {
-          mostrarAlerta('Capítulo 1 concluído! Navegação inferior desbloqueada.', 'sucesso');
-      }
+
+      entries.forEach((entry) => {
+        console.log('📊 [DEBUG] Entry:', {
+          isIntersecting: entry.isIntersecting,
+          intersectionRatio: entry.intersectionRatio,
+          target: entry.target.id
+        });
+
+        if (entry.isIntersecting) {
+          console.log('🎯 [DEBUG] Seção final visível! Desbloqueando navbar...');
+
+          if (typeof marcarCapitulo1Concluido === 'function') {
+            marcarCapitulo1Concluido(); // localStorage
+            desbloquearNavbarNoBackend().then((sucesso) => {
+              if (sucesso) {
+                console.log('✅ [DEBUG] Navbar desbloqueada no backend');
+                mostrarNavbarInferior(); // Mostra imediatamente
+              }
+            });
+          } else {
+            console.error('❌ [DEBUG] marcarCapitulo1Concluido NÃO é uma função!');
+          }
+
+          observer.disconnect();
+          console.log('🔌 [DEBUG] Observer desconectado após desbloqueio');
+        }
+      });
+    },
+    {
+      threshold: 0.5 // Reduzido para 50% para facilitar o teste
+    }
+  );
+
+  observer.observe(secaoFinal);
+  console.log('👁️ [DEBUG] Observer observando elemento #porta');
+}
+
+// Exemplo: quando completar o capítulo
+function aoConcluirCapitulo1() {
+  marcarCapitulo1Concluido(); // localStorage
+  desbloquearNavbarNoBackend().then((sucesso) => {
+    if (sucesso) {
+      mostrarNavbarInferior();
+    }
   });
-})();*/
-
-// Verifica no BACK-END se a história já foi concluída pelo usuário logado.
+}
 
 // isso resolve o problema de o progresso "sumir" quando o usuário atualiza a página.
 async function carregarEstadoHistoria() {
@@ -680,5 +718,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   configurarConclusaoHistoria();
   configurarFogueiraBurningdown();
   configurarBacklogVivo();
-  configurarPortaDesafio();
+
+  // ✅ NOVO: Desbloqueio por scroll até o final (só na primeira vez)
+  configurarDesbloqueioPorScroll();
+
+  // Verifica navbar após inicialização
+  if (typeof verificarEAtualizarNavbar === 'function') {
+    verificarEAtualizarNavbar();
+  }
 });

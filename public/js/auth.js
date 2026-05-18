@@ -3,15 +3,30 @@
 const formCadastroPopup = document.getElementById("formCadastroPopup");
 const formLoginPopup = document.getElementById("formLoginPopup");
 
+function normalizarCpf(cpf) {
+  return String(cpf || "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
+}
+
+function cpfValido(cpf) {
+  return normalizarCpf(cpf).length === 11;
+}
+
 if (formCadastroPopup) {
   formCadastroPopup.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const nome = document.getElementById("cadastroNome").value;
-    const cpf = document.getElementById("cadastroCpf").value;
+    const cpf = normalizarCpf(document.getElementById("cadastroCpf").value);
     const email = document.getElementById("cadastroEmail").value;
     const senha = document.getElementById("cadastroSenha").value;
     const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
+
+    if (!cpfValido(cpf)) {
+      mostrarAlerta("Digite um CPF válido com 11 números.");
+      return;
+    }
 
     if (senha !== confirmarSenha) {
       mostrarAlerta("As senhas não coincidem!");
@@ -31,9 +46,7 @@ if (formCadastroPopup) {
       const cadastroData = await cadastroResponse.json();
 
       if (!cadastroResponse.ok) {
-        mostrarAlerta(
-          cadastroData.message || "Erro ao cadastrar aventureiro",
-        );
+        mostrarAlerta(cadastroData.message || "Erro ao cadastrar aventureiro");
         return;
       }
 
@@ -66,7 +79,6 @@ if (formCadastroPopup) {
       } else {
         window.location.href = "/mapa";
       }
-
     } catch (error) {
       console.error(error);
       mostrarAlerta("Erro ao conectar com o servidor");
@@ -78,8 +90,14 @@ if (formLoginPopup) {
   formLoginPopup.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const cpf = document.getElementById("loginCpf").value;
+    const cpf = normalizarCpf(document.getElementById("loginCpf").value,
+    );
     const senha = document.getElementById("loginSenha").value;
+
+    if (!cpfValido(cpf)) {
+      mostrarAlerta("Digite um CPF válido com 11 números.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -109,10 +127,50 @@ if (formLoginPopup) {
       } else {
         window.location.href = "/mapa";
       }
-
     } catch (error) {
       console.error(error);
       mostrarAlerta("Erro ao conectar com o servidor");
     }
   });
 }
+
+// -------- MÁSCARA DE CPF --------
+// formata automaticamente enquanto o usuário digita
+// remove tudo que não é número e adiciona . e - nas posições certas
+function aplicarMascaraCpf(input) {
+  // pega só os números do que foi digitado
+  let valor = input.value.replace(/\D/g, "");
+
+  // limita a 11 dígitos (tamanho do CPF)
+  valor = valor.slice(0, 11);
+
+  // adiciona a formatação conforme o usuário digita
+  // ex: 123 -> 123
+  // ex: 1234 -> 123.4
+  // ex: 12345678901 -> 123.456.789-01
+  if (valor.length > 9) {
+    valor = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+  } else if (valor.length > 6) {
+    valor = valor.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+  } else if (valor.length > 3) {
+    valor = valor.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+  }
+
+  input.value = valor;
+}
+
+// aplica a máscara em todos os inputs de CPF da página
+document.querySelectorAll("#cadastroCpf, #loginCpf").forEach(function (input) {
+  input.addEventListener("input", function () {
+    aplicarMascaraCpf(input);
+  });
+});
+
+// -------- PLACEHOLDER DINÂMICO DA SENHA --------
+// troca o placeholder quando o input ganha foco
+// assim não polui visualmente quando está vazio
+document
+  .querySelectorAll("#cadastroSenha, #loginSenha")
+  .forEach(function (input) {
+    input.setAttribute("placeholder", "Mínimo 6 caracteres");
+  });

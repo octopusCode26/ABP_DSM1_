@@ -1,12 +1,13 @@
 // importando os respectivos arquivos que está dentro de um json.
 const { Router } = require("express");
 const authMiddleware = require("../middlewares/auth.middleware");
-const { createUsuario, 
-        updateUsuarioCpf, 
-        findUsuarioById, 
-        updateUsuarioNome, 
-        updateUsuarioEmail,
-        updateUsuarioSenha
+const {
+  createUsuario,
+  updateUsuarioCpf,
+  findUsuarioById,
+  updateUsuarioNome,
+  updateUsuarioEmail,
+  updateUsuarioSenha,
 } = require("../repositories/usuarios.repositories");
 
 // importando as respectivas bibliotecas.
@@ -14,13 +15,22 @@ const router = Router();
 
 // define o cadastro do usuário
 router.post("/cadastro", async function (req, res) {
-  const { nome, email, cpf, senha } = req.body;
+  const { nome, email, senha } = req.body;
+  const cpf = String(req.body.cpf || "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
 
   // verifica se as informações estão corretas.
   if (!cpf || !nome || !email || !senha) {
     return res
       .status(400)
       .json({ message: "Nome, e-mail, CPF e senha são obrigatórios" });
+  }
+
+  if (cpf.length !== 11) {
+    return res.status(400).json({
+      message: "CPF deve conter 11 números",
+    });
   }
 
   // verifica se a senha tem ao menos 6 caracteres.
@@ -60,23 +70,31 @@ router.patch("/cpf", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   if (!idUsuario) {
-    return res.status(400).json({ message: "id_usuario inválido" })
+    return res.status(400).json({ message: "id_usuario inválido" });
   }
 
-  const { cpf } = req.body;
+  const cpf = String(req.body.cpf || "")
+    .replace(/\D/g, "")
+    .slice(0, 11);
+
   if (!cpf) {
-    return res.status(400).json({ message: "CPF obrigatório" })
+    return res.status(400).json({ message: "CPF obrigatório" });
+  }
+
+  if (cpf.length !== 11) {
+    return res.status(400).json({
+      message: "CPF deve conter 11 números",
+    });
   }
 
   try {
     const result = await updateUsuarioCpf(idUsuario, cpf);
     if (!result) {
-      return res.status(404).json({ message: "usuário não encontrado" })
+      return res.status(404).json({ message: "usuário não encontrado" });
     }
 
     const usuario = await findUsuarioById(result.id_usuario);
     return res.status(200).json(usuario);
-
   } catch (e) {
     if (e && e.code == "23505") {
       return res.status(409).json({
@@ -90,6 +108,24 @@ router.patch("/cpf", authMiddleware, async function (req, res) {
   }
 });
 
+
+router.get("/me", authMiddleware, async function (req, res) {
+  try {
+    const usuario = await findUsuarioById(req.usuario.id_usuario);
+
+    if (!usuario) {
+      return res.status(404).json({
+        message: "usuário não encontrado",
+      });
+    }
+
+    return res.status(200).json(usuario);
+  } catch (e) {
+    return res.status(500).json({
+      message: "erro interno do servidor",
+    });
+  }
+});
 /*
 curl -X PATCH http://localhost:3000/api/usuarios/nome \
   -H "Content-Type: application/json" \
@@ -101,21 +137,19 @@ router.patch("/nome", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   const { nome } = req.body;
-  if ( !nome ) {
-    return res.status(400).json({ message: "nome é obrigatório" })
+  if (!nome) {
+    return res.status(400).json({ message: "nome é obrigatório" });
   }
 
   try {
     const result = await updateUsuarioNome(idUsuario, nome);
     if (!result) {
-      return res.status(404).json({ message: "usuário não encontrado" })
+      return res.status(404).json({ message: "usuário não encontrado" });
     }
 
     const usuario = await findUsuarioById(result.id_usuario);
     return res.status(200).json(usuario);
-
   } catch (e) {
-
     return res.status(409).json({
       message: "erro interno no servidor",
     });
@@ -133,19 +167,18 @@ router.patch("/email", authMiddleware, async function (req, res) {
   const idUsuario = req.usuario.id_usuario;
 
   const { email } = req.body;
-  if ( !email ) {
-    return res.status(400).json({ message: "email obrigatório" })
+  if (!email) {
+    return res.status(400).json({ message: "email obrigatório" });
   }
 
   try {
     const result = await updateUsuarioEmail(idUsuario, email);
     if (!result) {
-      return res.status(404).json({ message: "usuário não encontrado" })
+      return res.status(404).json({ message: "usuário não encontrado" });
     }
 
     const usuario = await findUsuarioById(result.id_usuario);
     return res.status(200).json(usuario);
-
   } catch (e) {
     if (e && e.code == "23505") {
       return res.status(409).json({
@@ -167,34 +200,32 @@ curl -X PATCH http://localhost:3000/api/usuarios/senha \
 */
 
 router.patch("/senha", authMiddleware, async function (req, res) {
-  const idUsuario = req.usuario.id_usuario
+  const idUsuario = req.usuario.id_usuario;
 
   if (!idUsuario) {
-    return res.status(400).json({ message: "id_usuario inválido" })
+    return res.status(400).json({ message: "id_usuario inválido" });
   }
 
   const { senha } = req.body;
-  if ( !senha ) {
-    return res.status(400).json({ message: "senha obrigatória" })
+  if (!senha) {
+    return res.status(400).json({ message: "senha obrigatória" });
   }
 
   if (senha.trim().length < 6) {
     return res
-   .status(400)
-   .json({ message: "a senha deve ter pelo menos 6 caracteres" });
+      .status(400)
+      .json({ message: "a senha deve ter pelo menos 6 caracteres" });
   }
 
   try {
     const result = await updateUsuarioSenha(idUsuario, senha);
     if (!result) {
-      return res.status(404).json({ message: "usuário não encontrado" })
+      return res.status(404).json({ message: "usuário não encontrado" });
     }
 
     const usuario = await findUsuarioById(result.id_usuario);
     return res.status(200).json(usuario);
-
   } catch (e) {
-
     return res.status(409).json({
       message: "erro interno no servidor",
     });
@@ -213,7 +244,6 @@ function getIdUsuario(params) {
 
 // exporta o "router" para outros arquivos.
 module.exports = router;
-
 
 // ignore o resto.
 
