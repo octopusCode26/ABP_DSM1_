@@ -2,7 +2,7 @@
 
 <br>
 
-<img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/images/logo%202.png?raw=true" width="450" alt="Scrum Dungeon"/>
+<img src="https://github.com/igoriansen/Test-Room/blob/abp/assets/images/logo%202.png?raw=true" width="400" alt="Scrum Dungeon"/>
 
 <br>
 
@@ -126,44 +126,45 @@ O **front-end** é desenvolvido com **HTML, CSS e JavaScript puro**, com **EJS**
 | Sprint | Período | Entregas | Status |
 |--------|---------|----------|--------|
 | **Sprint 1** | 13/04 — 30/04/2026 | Prototipação · Diagramas UML · Arquitetura · Nível 1 | ✔️ Finalizada |
-| **Sprint 2** | 04/05 — 21/05/2026 | Cadastro · Login · Banco de questões · Sistema de avaliação | 🔵 Em Andamento |
-| **Sprint 3** | 25/05 — 11/06/2026 | Certificado · Histórico · Resultado final | ⚪ Aguardando |
+| **Sprint 2** | 04/05 — 21/05/2026 | Cadastro · Login · Integração Front-Back · Sistema de avaliação | 🔵 Em Andamento |
+| **Sprint 3** | 25/05 — 11/06/2026 | Capítulos finais · Histórico · Resultado final | ⚪ Aguardando |
 | **Apresentação** | 22/06/2026 | Entrega e demonstração na FATEC Jacareí | ⚪ Aguardando |
+
+---
 
 <details>
 <summary>📌 Sprint 1</summary>
 <br>
 
-<div align="center"><b>Backlog de Tarefas</b>
+<div align="center">
+<b>Backlog de Tarefas</b>
 <br>
 
 [![Kanban](https://img.shields.io/badge/Acompanhar_Kanban-163451?style=plastic&logo=github&logoColor=white)](https://github.com/users/octopusCode26/projects/8)
 
-| Tarefa | Responsável | Requisitos | Iniciada | Concluída |
-|--------|-------------|:----------:|:--------:|:---------:|
-| Organizar Ambiente Virtual | Lorenzo, Igor | `RF-00` | ✔️ | ✔️ |
-| Definição de Conteúdo | Vitor | `RF-00` | ✔️ | ✔️ |
-| Fluxo Principal do Usuário | Vitor | `RNF-01` | ✔️ | ✔️ |
-| Prototipação (Figma) | Renan, Enzo, Thiago, Vitor | `RNF-01` | ✔️ | ✔️ |
-| Organizar Arquitetura | Cauã, Igor | `RF-01` `RF-02` `RNF-05` `RNF-06` | ✔️ | ✔️ |
-| Diagrama de Caso de Uso | Alef | `RNF-06` | ✔️ | ✔️ |
-| Diagrama de Classe | Alef, Igor | `RNF-06` | ✔️ | ✔️ |
-| Diagramas de Sequência | Alef, Vitor | `RNF-06` | ✔️ | ✔️ |
-| Nível 1 (Front-end) | Renan, Thiago, Lorenzo | `RNF-01` `RNF-02` | ✔️ | ✔️ |
+| Tarefa | Responsável | Requisitos | Prioridade | Dificuldade | Iniciada | Concluída |
+|--------|-------------|:----------:|:----------:|:-----------:|:--------:|:---------:|
+| Organizar Ambiente Virtual | Lorenzo, Igor | `RF-00` | Médio | Fácil | ✔️ | ✔️ |
+| Definição de Conteúdo | Vitor | `RF-00` | Alta | Fácil | ✔️ | ✔️ |
+| Fluxo Principal do Usuário | Vitor | `RNF-01` | Baixa | Médio | ✔️ | ✔️ |
+| Prototipação (Figma) | Renan, Enzo, Thiago, Vitor | `RNF-01` | Alta | Difícil | ✔️ | ✔️ |
+| Organizar Arquitetura | Cauã, Igor | `RF-01` `RF-02` `RNF-05` `RNF-06` | Médio | Médio | ✔️ | ✔️ |
+| Diagrama de Caso de Uso | Alef | `RNF-06` | Alta | Médio | ✔️ | ✔️ |
+| Diagrama de Classe | Alef, Igor | `RNF-06` | Médio | Médio | ✔️ | ✔️ |
+| Diagramas de Sequência | Alef, Vitor | `RNF-06` | Baixa | Médio | ✔️ | ✔️ |
+| Nível 1 (Front-end) | Renan, Thiago, Lorenzo | `RNF-01` `RNF-02` | Baixa | Fácil | ✔️ | ✔️ |
 
 </div>
 
-<h5>🗃️ Burndown da 1° Sprint</h5>
-<h5>📌 Acesse o burndown do que foi desenvolvido nessa 1° Sprint:</h5>
-<h5><a href="https://github.com/octopusCode26/ABP_DSM1_/blob/develop/docs/first%20sprint%20burndown.png">Clique aqui</a></h5>
+### 📉 Burndown da 2° Sprint
+📌 Acesse o burndown do que foi desenvolvido nessa 1° Sprint:
+<a href="">Clique aqui</a>
 
-<h5>📺 Vídeo da 1° Sprint</h5>
-<h5>📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint:</h5>
-<h5><a href="https://youtu.be/0MVQDj3I3wc">Clique aqui</a></h5>
+### 🎬 Vídeo da 2° Sprint
+📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint:
+<a href="">Clique aqui</a>
 
 </details>
-
-<br>
 
 <details>
 <summary>📌 Sprint 2</summary>
@@ -193,8 +194,17 @@ O **front-end** é desenvolvido com **HTML, CSS e JavaScript puro**, com **EJS**
 | Sistema Emissão de Certificado | — | `RF-09` `RNF-04` | Média | Fácil | ✔️ | ✔️ |
 | Tela de Emissão de Certificado | Patricia, Alef | `RF-09` `RNF-04` | Média | Fácil | ✔️ | ✔️ |
 
-</details>
 </div>
+
+### 📉 Burndown da 2° Sprint
+📌 Acesse o burndown do que foi desenvolvido nessa 1° Sprint:
+<a href="">Clique aqui</a>
+
+### 🎬 Vídeo da 2° Sprint
+📌 Acesse o vídeo com informações do que foi desenvolvido na 1° Sprint:
+<a href="">Clique aqui</a>
+
+</details>
 
 ---
 
