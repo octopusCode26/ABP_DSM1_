@@ -51,10 +51,11 @@ main{
   align-items:center;
 }
 
-.escudo{
-  width:140px;
-  display:flex;
-  justify-content:center;
+.escudo {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  transform: translate(-95px, -15px);
 }
 
 .escudo img{
@@ -91,20 +92,30 @@ p{
 
 .nome-certificado {
   font-size: clamp(1.3rem, 3vw, 2rem);
-  margin: 0.8rem 0 1rem;
+  margin: 0.5rem 0 0.4rem;
   padding: 0;
   text-align: center;
 }
 
+.descricao-certificado {
+  max-width: 620px;
+  margin: 0.4rem auto 1.2rem;
+  color: var(--cor-card-texto);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  text-align: center;
+}
+
 .corvo-certificado {
-  width: 190px;
+  width: 175px;
   display: flex;
   justify-content: center;
-  transform: translateY(0);
+  transform: translate(-50px, -7px);
 }
 
 .corvo-certificado img {
-  width: 180%;
+  width: 175%;
   height: auto;
 }
 
@@ -204,6 +215,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translateX(60px);
 }
 
 
@@ -263,12 +275,12 @@ p{
 
 .carimbo {
   position: absolute;
-  right: 7%;
-  bottom: 8px;
-  width: 72px;
+  right: 4%;
+  bottom: 4px;
+  width: 125px;
   height: auto;
-  transform: rotate(-12deg);
-  opacity: 0.85;
+  transform: rotate(-35deg);
+  opacity: 0.9;
 }
 
 .certificado-base {
@@ -323,4 +335,21 @@ p{
   font-size: 1rem;
   line-height: 1;
   text-align: center;
+}
+
+.certificado-botoes-area {
+  position: relative;
+  z-index: 20;
+  padding-right: 24px;
+  margin-top: 8px;
+}
+
+.certificado-botoes {
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.certificado-botoes:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: brightness(1.15);
 }

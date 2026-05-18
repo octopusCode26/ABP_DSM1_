@@ -15,7 +15,6 @@
 
     <main class="desafio1-main">
       <section class="desafio1-wrapper">
-
         <header class="desafio1-title reveal-step step-1">
           <div class="title-box">
             <h1>Capítulo 1: Boss Fight</h1>
@@ -46,12 +45,13 @@
           </button>
 
           <div class="boss-lives-box">
-            <span class="boss-lives-label">Tentativas</span>
+            <span class="boss-lives-label">Vidas da run</span>
 
-            <div class="boss-lives-icons">
-              <img src="/assets/img/vida-icon.png" alt="Vida 1" />
-              <img src="/assets/img/vida-icon.png" alt="Vida 2" />
-            </div>
+            <div
+              id="vidasDesafio"
+              class="boss-lives-icons vidas-container"
+              aria-label="Tentativas restantes"
+            ></div>
           </div>
         </section>
 
@@ -64,13 +64,18 @@
             <ul>
               <li>Você enfrentará 10 questões.</li>
               <li>O desafio terá tempo limite de 30 minutos.</li>
-              <li>Ao sair antes do fim, o desafio poderá ser reiniciado futuramente.</li>
-              <li>Quando o tempo acabar, questões não respondidas contarão como erradas.</li>
+              <li>
+                Ao sair antes do fim, o desafio poderá ser reiniciado
+                futuramente.
+              </li>
+              <li>
+                Quando o tempo acabar, questões não respondidas contarão como
+                erradas.
+              </li>
               <li>Você possui 2 tentativas para derrotar este boss.</li>
             </ul>
           </div>
         </section>
-
       </section>
     </main>
 

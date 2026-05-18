@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   animarEntrada();
   carregarResumoBurningDown();
   configurarRetornoAventura();
+  carregarVidasBurningdown();
 });
 
 function animarEntrada() {
@@ -89,11 +90,11 @@ function preencherResumo(modulos) {
 
  const falhasNoModulo = Number(moduloDesafioAtual?.falhas_no_modulo || 0);
 
-const totalTentativasGastas = modulos.reduce((total, modulo) => {
-  return total + Number(modulo.falhas_no_modulo || 0);
-}, 0);
-
 const tentativaAtual = Math.min(falhasNoModulo + 1, 2);
+
+// Por enquanto, sem histórico persistente no banco,
+// tentativasGastas representa apenas as falhas da run atual.
+const totalTentativasGastas = falhasNoModulo;
 
   const conteudosConcluidos = historiasConcluidas + desafiosConcluidos;
   const totalConteudos = totalModulos * 2;
@@ -106,7 +107,6 @@ const tentativaAtual = Math.min(falhasNoModulo + 1, 2);
   atualizarTexto("historiasCompletas", `${historiasConcluidas}/${totalModulos}`);
   atualizarTexto("desafiosCompletos", `${desafiosConcluidos}/${totalModulos}`);
   atualizarTexto("porcentagemTotal", `${porcentagemTotal}%`);
-  atualizarTexto("tentativaAtual", `${tentativaAtual}/2`);
   atualizarTexto("tentativasGastas", totalTentativasGastas);
 
   console.log("Módulos recebidos no Burning Down:", modulos);
@@ -140,4 +140,39 @@ function configurarRetornoAventura() {
 
     window.location.href = "/mapa";
   });
+}
+
+async function carregarVidasBurningdown() {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "/";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/progresso/mapa", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return;
+    }
+
+    const moduloAtual = data.modulos.find(function (modulo) {
+      return modulo.desafio_atual;
+    });
+
+    if (!moduloAtual) return;
+
+    const container = document.getElementById("vidasBurningdown");
+
+    renderizarVidas(container, moduloAtual.falhas_no_modulo);
+  } catch (error) {
+    console.error(error);
+  }
 }
