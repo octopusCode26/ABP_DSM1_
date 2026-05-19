@@ -47,9 +47,9 @@ window.__progressoSessao = window.__progressoSessao || {};
     });
   });
 
-  /* =========================================
-     RESETAR MENU AO VOLTAR PARA DESKTOP
-  ========================================= */
+/* =========================================
+    RESETAR MENU AO VOLTAR PARA DESKTOP
+========================================= */
 
   window.addEventListener("resize", function () {
     if (window.innerWidth > 768) {
@@ -121,13 +121,72 @@ function marcarItemAtivoDaNavegacaoInferior() {
   });
 }
 
+/* ----------- EVITAR SOBREPOSIÇÃO: NAVBAR INFERIOR + FOOTER -----------  */
+
+function controlarSobreposicaoNavbarFooter() {
+  const navbar = document.querySelector(".navegacao-inferior");
+  const footer = document.querySelector("footer");
+  
+  if (!navbar || !footer) return;
+
+  // Função que verifica a sobreposição
+  function verificarSobreposicao() {
+    // Se navbar estiver escondida, não faz nada
+    if (navbar.classList.contains('bloqueada') || navbar.style.display === 'none') {
+      return;
+    }
+    
+    // Garante que --footer-height está atualizado
+    atualizarAlturaFooter();
+    
+    const footerRect = footer.getBoundingClientRect();
+    const navbarHeight = navbar.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    
+    // Pega o bottom real da navbar (valor computado do clamp)
+    const navbarComputedStyle = getComputedStyle(navbar);
+    const navbarBottomOffset = parseFloat(navbarComputedStyle.bottom) || 24;
+    const buffer = 10;
+    
+    // Zona de perigo: onde a navbar ocuparia espaço
+    const navbarOccupiedSpace = navbarHeight + navbarBottomOffset + buffer;
+    const dangerZoneStart = viewportHeight - navbarOccupiedSpace;
+    
+    // Se qualquer parte do footer entrar na zona onde a navbar fica, ajusta
+    if (footerRect.bottom > dangerZoneStart && footerRect.top <= viewportHeight) {
+      navbar.classList.add("ajustada-ao-footer");
+    } else {
+      navbar.classList.remove("ajustada-ao-footer");
+    }
+  }
+
+  // Delay inicial para garantir que a navbar já está renderizada
+  setTimeout(() => {
+    verificarSobreposicao();
+    
+    // Scroll com debounce
+    let timeout;
+    window.addEventListener("scroll", () => {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(verificarSobreposicao, 50);
+    }, { passive: true });
+    
+    // Resize
+    window.addEventListener("resize", () => {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(verificarSobreposicao, 50);
+    });
+  }, 100);
+}
+
 // Eventos
-document.addEventListener(
-  "DOMContentLoaded",
-  marcarItemAtivoDaNavegacaoInferior,
-);
+function inicializarNavegacaoInferior() {
+  marcarItemAtivoDaNavegacaoInferior();
+  controlarSobreposicaoNavbarFooter();
+}
 
 window.addEventListener("load", marcarItemAtivoDaNavegacaoInferior);
+document.addEventListener("DOMContentLoaded", inicializarNavegacaoInferior);
 
 /* =========================================================
  ALERTA CUSTOMIZADO
@@ -249,9 +308,11 @@ function voltarPagina() {
 ========================================================= */
 
 // Quando a página termina de carregar
-window.addEventListener("load", atualizarAlturaFooter);
-
-window.addEventListener("load", atualizarAlturaHeader);
+window.addEventListener("load", () => {
+  atualizarAlturaFooter();
+  atualizarAlturaHeader();
+  marcarItemAtivoDaNavegacaoInferior();
+});
 
 // Quando a tela é redimensionada
 window.addEventListener("resize", atualizarAlturaFooter);
@@ -263,22 +324,49 @@ window.addEventListener("resize", atualizarAlturaHeader);
    Usa localStorage com chave única por token para evitar conflitos
 ========================================================= */
 
-function controlarVisibilidadeNavbar() {
+async function controlarVisibilidadeNavbar() {
   const navbar = document.querySelector(".navegacao-inferior");
   if (!navbar) return;
 
-  // Usa a função que gera a chave correta baseada no token
-  const chave = getChaveProgressoUsuario();
-  const capitulo1Concluido = localStorage.getItem(chave);
+  let deveMostrar = false;
+  const token = localStorage.getItem('token');
 
-  if (capitulo1Concluido === "true") {
-    navbar.classList.remove("bloqueada");
-    navbar.classList.remove("hidden");
-    navbar.style.display = "flex";
+  // Tenta backend primeiro
+  if (token) {
+    try {
+      const res = await fetch('/api/navbar/status', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.barra_desbloqueada === 'boolean') {
+          deveMostrar = data.barra_desbloqueada;
+          localStorage.setItem(getChaveProgressoUsuario(), deveMostrar ? 'true' : 'false');
+        }
+      }
+    } catch (e) {
+      console.warn('Fallback localStorage', e);
+    }
+  }
+
+  // Fallback localStorage
+  if (!token || typeof deveMostrar !== 'boolean') {
+    const chave = getChaveProgressoUsuario();
+    deveMostrar = localStorage.getItem(chave) === 'true';
+  }
+
+  // Aplica estado final
+  if (deveMostrar) {
+    navbar.classList.remove('bloqueada', 'hidden');
+    navbar.classList.add('navbar-visivel');
+    navbar.style.display = 'flex';
   } else {
-    navbar.classList.add("bloqueada");
-    navbar.classList.add("hidden");
-    navbar.style.display = "none";
+    navbar.classList.add('bloqueada', 'hidden');
+    navbar.classList.remove('navbar-visivel');
+    navbar.style.display = 'none';
   }
 }
 
@@ -300,22 +388,31 @@ function getChaveProgressoUsuario() {
 
 // Executa quando o DOM estiver pronto
 document.addEventListener("DOMContentLoaded", controlarVisibilidadeNavbar);
-// Garante execução após load completo (caso haja renderização dinâmica)
-window.addEventListener("load", controlarVisibilidadeNavbar);
 
 /*========FUNÇAO LOGOUT===========*/
-document.addEventListener("DOMContentLoaded", () => {
-  const botaoLogout = document.getElementById("botao-logout");
-
-  if (!botaoLogout) return;
-
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    botaoLogout.hidden = false;
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1️⃣ Calcula alturas primeiro
+  atualizarAlturaFooter();
+  atualizarAlturaHeader();
+  
+  // 2️⃣ AGUARDA a visibilidade da navbar ser definida
+  await controlarVisibilidadeNavbar();
+  
+  // 3️⃣ Só agora inicializa o scroll listener (navbar já está visível ou não)
+  const navbar = document.querySelector(".navegacao-inferior");
+  if (navbar && !navbar.classList.contains('bloqueada')) {
+    controlarSobreposicaoNavbarFooter();
   }
-
-  botaoLogout.addEventListener("click", logout);
+  
+  // 4️⃣ Marca item ativo
+  marcarItemAtivoDaNavegacaoInferior();
+  
+  // 5️⃣ Botão logout
+  const botaoLogout = document.getElementById("botao-logout");
+  if (botaoLogout && localStorage.getItem("token")) {
+    botaoLogout.hidden = false;
+    botaoLogout.addEventListener("click", logout);
+  }
 });
 
 function logout() {
@@ -451,17 +548,19 @@ async function desbloquearNavbarNoBackend() {
 window.desbloquearNavbarNoBackend = desbloquearNavbarNoBackend;
 
 // Inicialização automática da navbar em todas as páginas
-(function inicializarNavbarGlobal() {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      verificarEAtualizarNavbar();
-    });
-  } else {
-    verificarEAtualizarNavbar();
+(async function inicializarNavbarGlobal() {
+  atualizarAlturaFooter();
+  atualizarAlturaHeader();
+  await controlarVisibilidadeNavbar();
+  
+  const navbar = document.querySelector(".navegacao-inferior");
+  if (navbar && !navbar.classList.contains('bloqueada')) {
+    // controlarSobreposicaoNavbarFooter();  ← COMENTE ESTA LINHA (já está no DOMContentLoaded)
   }
   
-  window.addEventListener('popstate', verificarEAtualizarNavbar);
-  window.addEventListener('load', verificarEAtualizarNavbar);
+  window.addEventListener('popstate', async () => {
+    await controlarVisibilidadeNavbar();
+  });
 })();
 
 function renderizarVidas(container, falhasNoModulo, totalTentativas = 2) {
