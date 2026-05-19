@@ -17,6 +17,8 @@
           id="btnDownloadCertificado"
           class="certificado-botoes"
           type="button"
+          aria-label="Baixar certificado como PDF"
+          title="Baixar certificado como PDF"
         >
           <img
             class="icon"
@@ -38,6 +40,7 @@
         </button>
       </div>
 
+      <div id="certificadoVisualizacao" class="certificado-visualizacao">
       <div id="certificadoParaDownload" class="certificado-base">
         <div class="cabecalho">
           <div class="escudo">
@@ -80,7 +83,7 @@
               src="/assets/img/icon_certificado_aluno.PNG"
               alt=""
             />
-            <span>CPF:&nbsp;</span>
+            <span>CPF:</span>
             <strong id="certificadoCpf">Carregando...</strong>
           </div>
 
@@ -90,7 +93,7 @@
               src="/assets/img/icon_certificado_email.PNG"
               alt=""
             />
-            <span>E-mail:&nbsp;</span>
+            <span>E-mail:</span>
             <strong id="certificadoEmail">Carregando...</strong>
           </div>
 
@@ -100,7 +103,7 @@
               src="/assets/img/icon_certificado_data.PNG"
               alt=""
             />
-            <span>Data de emissão:&nbsp;</span>
+            <span>Data de emissão:</span>
             <strong id="certificadoData">--/--/----</strong>
           </div>
         </div>
@@ -149,6 +152,7 @@
           />
         </div>
       </div>
+      </div>
     </main>
 
     <%- include('partials/navegacao_inferior') %> <%- include('partials/footer')
@@ -156,6 +160,7 @@
 
     <script src="/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
     <script src="/js/certificado.js"></script>
   </body>
 </html>
