@@ -7,6 +7,8 @@
   --cor-card-texto: #2c2318;
   --cor-azul-escuro: #0d1b2a;
   --sombra-card: 0 18px 32px rgba(0, 0, 0, 0.35);
+  --certificado-largura: 1123px;
+  --certificado-altura: 794px;
 }
 
 * {
@@ -14,12 +16,15 @@
 }
 
 .pagina-certificado {
-  min-height: 100vh;  
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-image:
     linear-gradient(180deg, rgba(6, 5, 4, 0.2) 0%, rgba(6, 5, 4, 0.8) 25%),
     url("../img/parede_de_tijolos.png");
-  background-repeat: repeat-y;
-  background-size: 110% auto;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-position: center top;
   background-color: #0f0a05;
   color:#fff;
@@ -27,14 +32,26 @@
 
 .certificado-base {
   font-family: 'Cinzel', serif;
-  width: min(95vw, 980px);
-  min-height: 680px;
-  margin: 24px auto 48px;
-  padding: 24px 48px 40px;
+  width: var(--certificado-largura);
+  height: var(--certificado-altura);
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 28px 58px 44px;
   background-image: url("../img/papel_texturizado.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center center;
+  transform: scale(var(--certificado-escala, 1));
+  transform-origin: top left;
+  transition: transform 0.2s ease;
+}
+
+.certificado-visualizacao {
+  width: var(--certificado-largura);
+  height: var(--certificado-altura);
+  flex: 0 0 auto;
+  margin: 16px auto 0;
+  position: relative;
 }
 
 .cabecalho {
@@ -49,6 +66,19 @@ main{
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content: center;
+  height: calc(100vh - var(--altura-header, clamp(3rem, 8vh, 4rem)));
+  height: calc(100dvh - var(--altura-header, clamp(3rem, 8vh, 4rem)));
+  min-height: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 16px 24px 88px;
+}
+
+.pagina-certificado footer {
+  margin-top: 0;
+  flex-shrink: 0;
 }
 
 .escudo {
@@ -79,7 +109,7 @@ main{
 }
 
 .titulo-certificado {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: 3rem;
   margin: 0.4rem 0 0;
   text-align: center;
 }
@@ -91,7 +121,7 @@ p{
 }
 
 .nome-certificado {
-  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-size: 2rem;
   margin: 0.5rem 0 0.4rem;
   padding: 0;
   text-align: center;
@@ -120,7 +150,7 @@ p{
 }
 
 .certificado-botoes-area {
-    width: 100%;
+    width: min(100%, var(--certificado-largura));
     display: flex;
     justify-content: end;
 }
@@ -130,6 +160,11 @@ p{
     background: none;
     border: none;
     border-radius: 8px;    
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icon {
@@ -166,6 +201,7 @@ p{
   border-bottom: 1px solid #ba9961;
   padding-left: 8px;
   padding-top: 4px;
+  gap: 4px
   
 }
 .email{
@@ -175,7 +211,7 @@ p{
   padding: 5px 0 5px 0;
   border-bottom: 1px solid #ba9961;
   padding-left: 8px;
-    
+  gap: 4px    
 }
 .dataDeEmissao{
   color: var(--cor-card-texto);
@@ -183,6 +219,7 @@ p{
   align-items: center;
   padding: 5px 0 5px 0;
   padding-left: 8px;
+  gap: 4px 
 }
 .icon2{
   height: 1.5rem;
@@ -289,6 +326,15 @@ p{
   color: var(--cor-card-texto);
 }
 
+.certificado-base.certificado-exportando {
+  position: fixed;
+  top: 0;
+  left: -12000px;
+  transform: none !important;
+  transition: none;
+  pointer-events: none;
+}
+
 .certificado-base * {
   position: relative;
   z-index: 1;
@@ -340,8 +386,9 @@ p{
 .certificado-botoes-area {
   position: relative;
   z-index: 20;
-  padding-right: 24px;
-  margin-top: 8px;
+  gap: 8px;
+  padding-right: 0;
+  margin: 0 auto;
 }
 
 .certificado-botoes {
@@ -352,4 +399,57 @@ p{
 .certificado-botoes:hover {
   transform: translateY(-2px) scale(1.05);
   filter: brightness(1.15);
+}
+
+@media (max-width: 1180px) {
+  main {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .certificado-botoes-area {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    height: calc(100vh - clamp(3rem, 7vh, 4rem));
+    height: calc(100dvh - clamp(3rem, 7vh, 4rem));
+  }
+}
+
+@media (max-width: 640px) {
+  .pagina-certificado {
+    background-size: cover;
+  }
+
+  main {
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-bottom: 84px;
+  }
+
+  .certificado-botoes-area {
+    gap: 12px;
+  }
+
+  .certificado-botoes {
+    background-color: rgba(15, 10, 5, 0.58);
+    border: 1px solid rgba(244, 208, 63, 0.25);
+  }
+
+  .icon {
+    height: 1.75rem;
+  }
+
+  .certificado-visualizacao {
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+
+  .botao-voltar {
+    top: 74px;
+    left: 12px;
+  }
 }

@@ -102,6 +102,56 @@ function preencherDesempenho(desempenho) {
     `${media.toFixed(2)}%`;
 }
 
+function ajustarEscalaCertificado() {
+  const visualizacao = document.getElementById("certificadoVisualizacao");
+  const certificado = document.getElementById("certificadoParaDownload");
+  const main = document.querySelector(".pagina-certificado main");
+  const botoes = document.querySelector(".certificado-botoes-area");
+
+  if (!visualizacao || !certificado || !main) {
+    return;
+  }
+
+  const larguraCertificado = certificado.offsetWidth;
+  const alturaCertificado = certificado.offsetHeight;
+  const estilosMain = getComputedStyle(main);
+  const estilosVisualizacao = getComputedStyle(visualizacao);
+  const paddingHorizontal =
+    obterNumeroCss(estilosMain.paddingLeft) +
+    obterNumeroCss(estilosMain.paddingRight);
+  const paddingVertical =
+    obterNumeroCss(estilosMain.paddingTop) +
+    obterNumeroCss(estilosMain.paddingBottom);
+  const margemVertical =
+    obterNumeroCss(estilosVisualizacao.marginTop) +
+    obterNumeroCss(estilosVisualizacao.marginBottom);
+  const alturaBotoes = botoes ? botoes.offsetHeight : 0;
+
+  const larguraDisponivel = Math.max(1, main.clientWidth - paddingHorizontal);
+  const alturaDisponivel = Math.max(
+    1,
+    main.clientHeight - paddingVertical - alturaBotoes - margemVertical
+  );
+  const escala = Math.min(
+    1,
+    larguraDisponivel / larguraCertificado,
+    alturaDisponivel / alturaCertificado
+  );
+
+  document.documentElement.style.setProperty(
+    "--certificado-escala",
+    escala.toFixed(4)
+  );
+
+  visualizacao.style.width = `${larguraCertificado * escala}px`;
+  visualizacao.style.height = `${alturaCertificado * escala}px`;
+}
+
+function obterNumeroCss(valor) {
+  const numero = parseFloat(valor);
+  return Number.isFinite(numero) ? numero : 0;
+}
+
 function configurarDownloadCertificado() {
   const botaoDownload = document.getElementById("btnDownloadCertificado");
   const certificado = document.getElementById("certificadoParaDownload");
@@ -119,19 +169,42 @@ function configurarDownloadCertificado() {
 
       const nomeArquivo = `certificado-scrum-dungeon-${normalizarNomeArquivo(
         nomeUsuario
-      )}.png`;
+      )}.pdf`;
 
-      const canvas = await html2canvas(certificado, {
+      const certificadoExportacao = certificado.cloneNode(true);
+      certificadoExportacao.id = "certificadoParaDownloadExportacao";
+      certificadoExportacao.classList.add("certificado-exportando");
+      document.body.appendChild(certificadoExportacao);
+
+      const canvas = await html2canvas(certificadoExportacao, {
         backgroundColor: null,
         scale: 2,
         useCORS: true,
+        width: certificadoExportacao.offsetWidth,
+        height: certificadoExportacao.offsetHeight,
+        windowWidth: certificadoExportacao.scrollWidth,
+        windowHeight: certificadoExportacao.scrollHeight,
       });
 
-      const link = document.createElement("a");
-      link.download = nomeArquivo;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+      certificadoExportacao.remove();
+
+      const jsPdf = window.jspdf?.jsPDF;
+
+      if (!jsPdf) {
+        throw new Error("Biblioteca jsPDF nao carregada.");
+      }
+
+      const pdf = new jsPdf({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const imagem = canvas.toDataURL("image/png");
+      pdf.addImage(imagem, "PNG", 0, 0, 297, 210);
+      pdf.save(nomeArquivo);
     } catch (error) {
+      document.getElementById("certificadoParaDownloadExportacao")?.remove();
       console.error(error);
       alert("Não foi possível baixar o certificado.");
     } finally {
@@ -148,6 +221,11 @@ function normalizarNomeArquivo(nome) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
+
+ajustarEscalaCertificado();
+window.addEventListener("resize", ajustarEscalaCertificado);
+window.addEventListener("load", ajustarEscalaCertificado);
+window.visualViewport?.addEventListener("resize", ajustarEscalaCertificado);
 
 carregarCertificado();
 configurarDownloadCertificado();
