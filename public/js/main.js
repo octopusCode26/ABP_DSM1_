@@ -131,36 +131,32 @@ function controlarSobreposicaoNavbarFooter() {
   let isTicking = false;
 
   function calcularPosicao() {
-    // Ignora se navbar está oculta
+    // Desktop: ignora e limpa estilos inline para não conflitar
+    if (window.innerWidth > 520) {
+      navbar.style.removeProperty('bottom');
+      return;
+    }
+
+    // Se está oculta, não calcula
     if (navbar.classList.contains('bloqueada') || navbar.style.display === 'none') return;
 
     const footerRect = footer.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-    
-    //  RESPEITA O BREAKPOINT DO SEU CSS (@media max-width: 520px)
-    const isMobile = window.innerWidth <= 520;
-    const defaultBottom = isMobile ? 0 : Math.min(Math.max(viewportHeight * 0.025, 16), 24);
-    
-    const gapSeguranca = isMobile ? 0 : 0; // Gap levemente menor no mobile
+    const gapSeguranca = 0;
 
-    // Verifica se o footer está visível na viewport
-    const footerNaTela = footerRect.top < viewportHeight && footerRect.bottom > 0;
+    // Footer está na parte inferior da tela?
+    const footerVisivel = footerRect.bottom > 0 && footerRect.top < viewportHeight;
 
-    if (footerNaTela) {
-      // Calcula quantos pixels do footer estão aparecendo a partir do fundo da tela
-      const alturaVisivelDoFooter = viewportHeight - footerRect.top;
-      
-      // Define o bottom para ficar exatamente acima do footer + gap
-      // Math.max garante que nunca desça abaixo do limite original do CSS
-      const novoBottom = Math.max(alturaVisivelDoFooter + gapSeguranca, defaultBottom);
+    if (footerVisivel) {
+      const alturaVisivel = viewportHeight - footerRect.top;
+      const novoBottom = Math.max(alturaVisivel + gapSeguranca, 0);
+      // ✅ Força sobrescrever o CSS !important
       navbar.style.setProperty('bottom', `${novoBottom}px`, 'important');
     } else {
-      // Footer não visível: restaura a posição original do CSS
-      navbar.style.setProperty('bottom', `${defaultBottom}px`, 'important');
+      navbar.style.setProperty('bottom', '0px', 'important');
     }
   }
 
-  // Listener otimizado com requestAnimationFrame
   function onScroll() {
     if (!isTicking) {
       window.requestAnimationFrame(() => {
@@ -171,12 +167,10 @@ function controlarSobreposicaoNavbarFooter() {
     }
   }
 
+  // Anexa eventos UMA VEZ
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", calcularPosicao);
-  
-  // Executa na carga inicial e em mudanças de orientação (mobile)
-  calcularPosicao();
-  window.addEventListener("orientationchange", calcularPosicao);
+  calcularPosicao(); // Executa imediatamente no load
 }
 
 // Eventos
@@ -391,23 +385,16 @@ document.addEventListener("DOMContentLoaded", controlarVisibilidadeNavbar);
 
 /*========FUNÇAO LOGOUT===========*/
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1️⃣ Calcula alturas primeiro
   atualizarAlturaFooter();
   atualizarAlturaHeader();
-
-  // 2️⃣ AGUARDA a visibilidade da navbar ser definida
+  
   await controlarVisibilidadeNavbar();
-
-  // 3️⃣ Só agora inicializa o scroll listener (navbar já está visível ou não)
-  const navbar = document.querySelector(".navegacao-inferior");
-  if (navbar && !navbar.classList.contains('bloqueada')) {
-    controlarSobreposicaoNavbarFooter();
-  }
-
-  // 4️⃣ Marca item ativo
+  
+  // ✅ CHAMA SEMPRE, independente se está visível ou não
+  controlarSobreposicaoNavbarFooter();
+  
   marcarItemAtivoDaNavegacaoInferior();
-
-  // 5️⃣ Botão logout
+  
   const botaoLogout = document.getElementById("botao-logout");
   if (botaoLogout && localStorage.getItem("token")) {
     botaoLogout.hidden = false;
