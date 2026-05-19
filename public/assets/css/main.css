@@ -280,7 +280,7 @@ footer{
     border-radius: 18px !important;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(153, 107, 15, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03) !important;
     padding: 0.7rem 1rem !important;
-    transition: opacity 0.35s ease, visibility 0.35s ease !important;
+    transition: opacity 0.35s ease, visibility 0.35s ease, bottom 0.3s ease !important;
     overflow: visible !important;
     display: none !important;
     opacity: 0 !important;
@@ -440,6 +440,21 @@ footer{
 .navegacao-inferior.bloqueada {
     display: none !important;
 }
+
+/* ----------- CLASSE PARA EVITAR SOBREPOSIÇÃO COM FOOTER ----------- */
+
+/* Desktop: navbar centralizada com bottom dinâmico */
+.navegacao-inferior.ajustada-ao-footer {
+    bottom: calc(clamp(1rem, 2.5vh, 1.5rem) + var(--footer-height, 0px) + 10px) !important;
+  }
+  
+  /* Mobile (≤520px): navbar ocupa largura total, ajusta bottom */
+  @media (max-width: 520px) {
+    .navegacao-inferior.ajustada-ao-footer {
+      bottom: calc(var(--footer-height, 0px) + 10px) !important;
+    }
+  }
+  
 /* ================= FIM DA NAVEGAÇÃO INFERIOR ================= */
 
 /* ================= BOTÃO VOLTAR ================= */
