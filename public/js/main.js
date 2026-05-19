@@ -129,54 +129,72 @@ function controlarSobreposicaoNavbarFooter() {
   
   if (!navbar || !footer) return;
 
-  // Função que verifica a sobreposição
-  function verificarSobreposicao() {
-    // Se navbar estiver escondida, não faz nada
+  // Defina aqui quanto do footer o navbar pode cobrir antes de subir
+  // 0 = Sobe assim que toca.
+  // 50 = Sobe depois de cobrir 50px do footer (recomendado para ficar natural).
+  const toleranciaDeSobreposicao = 40; 
+
+  // Função principal de cálculo
+  function calcularPosicao() {
+    // Se navbar estiver escondida, ignora
     if (navbar.classList.contains('bloqueada') || navbar.style.display === 'none') {
       return;
     }
-    
-    // Garante que --footer-height está atualizado
+
+    // Atualiza CSS var de altura do footer
     atualizarAlturaFooter();
-    
+
     const footerRect = footer.getBoundingClientRect();
-    const navbarHeight = navbar.offsetHeight;
     const viewportHeight = window.innerHeight;
+    const navbarHeight = navbar.offsetHeight;
     
-    // Pega o bottom real da navbar (valor computado do clamp)
-    const navbarComputedStyle = getComputedStyle(navbar);
-    const navbarBottomOffset = parseFloat(navbarComputedStyle.bottom) || 24;
-    const buffer = 10;
+    // Valor base do seu CSS (aproximado do clamp)
+    const defaultBottom = 24; 
     
-    // Zona de perigo: onde a navbar ocuparia espaço
-    const navbarOccupiedSpace = navbarHeight + navbarBottomOffset + buffer;
-    const dangerZoneStart = viewportHeight - navbarOccupiedSpace;
-    
-    // Se qualquer parte do footer entrar na zona onde a navbar fica, ajusta
-    if (footerRect.bottom > dangerZoneStart && footerRect.top <= viewportHeight) {
-      navbar.classList.add("ajustada-ao-footer");
+    // Distância do TOPO do footer até o FINAL da tela
+    // Se footerRect.top for 900 e tela for 1000, dist = 100
+    const distanciaFooterFundo = viewportHeight - footerRect.top;
+
+    // Ponto onde o navbar colidiria com o footer
+    // Zona segura = Altura do Navbar + Espaço do Fundo + Tolerância
+    const zonaDeColisao = navbarHeight + defaultBottom + toleranciaDeSobreposicao;
+
+    // Se o footer está longe (distancia > zona), navbar fica no fundo
+    if (distanciaFooterFundo > zonaDeColisao) {
+      navbar.style.bottom = `${defaultBottom}px`;
     } else {
-      navbar.classList.remove("ajustada-ao-footer");
+      // O footer está empurrando o navbar para cima
+      // Calculamos o novo bottom para o navbar ficar "sentado" no footer
+      // Novo Bottom = Distância até o fundo - Tolerância (para manter a sobreposição visual)
+      let novoBottom = distanciaFooterFundo - toleranciaDeSobreposicao;
+
+      // Garante que não desça abaixo do limite padrão
+      if (novoBottom < defaultBottom) {
+        novoBottom = defaultBottom;
+      }
+
+      navbar.style.bottom = `${novoBottom}px`;
     }
   }
 
-  // Delay inicial para garantir que a navbar já está renderizada
-  setTimeout(() => {
-    verificarSobreposicao();
-    
-    // Scroll com debounce
-    let timeout;
-    window.addEventListener("scroll", () => {
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(verificarSobreposicao, 50);
-    }, { passive: true });
-    
-    // Resize
-    window.addEventListener("resize", () => {
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(verificarSobreposicao, 50);
-    });
-  }, 100);
+  // Usa requestAnimationFrame para acompanhar o scroll sem lag
+  let isTicking = false;
+  
+  window.addEventListener("scroll", () => {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        calcularPosicao();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
+
+  // Executa também no resize
+  window.addEventListener("resize", calcularPosicao);
+  
+  // Executa uma vez ao iniciar
+  calcularPosicao();
 }
 
 // Eventos
