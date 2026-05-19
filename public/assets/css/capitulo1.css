@@ -60,7 +60,8 @@
 
 .chapter-progress-wrap {
   position: sticky;
-  top: var(--header-height, 72px);
+  /* top: var(--header-height, 72px); */
+  top: 0;
   z-index: 30;
   padding: 1rem 0;
 }
