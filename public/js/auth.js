@@ -24,12 +24,12 @@ if (formCadastroPopup) {
     const confirmarSenha = document.getElementById("cadastroSenhaConf").value;
 
     if (!cpfValido(cpf)) {
-      mostrarAlerta("Digite um CPF válido com 11 números.");
+      mostrarAlerta("Digite um CPF válido com 11 números.", "erro");
       return;
     }
 
     if (senha !== confirmarSenha) {
-      mostrarAlerta("As senhas não coincidem!");
+      mostrarAlerta("As senhas não coincidem!", "erro");
       return;
     }
 
@@ -46,7 +46,7 @@ if (formCadastroPopup) {
       const cadastroData = await cadastroResponse.json();
 
       if (!cadastroResponse.ok) {
-        mostrarAlerta(cadastroData.message || "Erro ao cadastrar aventureiro");
+        mostrarAlerta(cadastroData.message || "Erro ao cadastrar aventureiro", "erro");
         return;
       }
 
@@ -62,7 +62,7 @@ if (formCadastroPopup) {
       const loginData = await loginResponse.json();
 
       if (!loginResponse.ok) {
-        mostrarAlerta(loginData.message || "Erro ao fazer login automático");
+        mostrarAlerta(loginData.message || "Erro ao fazer login automático", "erro");
         return;
       }
 
@@ -70,7 +70,7 @@ if (formCadastroPopup) {
       localStorage.setItem("token", loginData.token);
       localStorage.setItem("nome", loginData.nome);
 
-      mostrarAlerta("Cadastro realizado com sucesso!");
+      mostrarAlerta("Cadastro realizado com sucesso!", "sucesso");
 
       // primeiro acesso -> capítulo 1
       // demais acessos -> mapa
@@ -81,7 +81,7 @@ if (formCadastroPopup) {
       }
     } catch (error) {
       console.error(error);
-      mostrarAlerta("Erro ao conectar com o servidor");
+      mostrarAlerta("Erro ao conectar com o servidor", "erro");
     }
   });
 }
@@ -95,7 +95,7 @@ if (formLoginPopup) {
     const senha = document.getElementById("loginSenha").value;
 
     if (!cpfValido(cpf)) {
-      mostrarAlerta("Digite um CPF válido com 11 números.");
+      mostrarAlerta("Digite um CPF válido com 11 números.", "erro");
       return;
     }
 
@@ -113,7 +113,7 @@ if (formLoginPopup) {
       console.log(data);
 
       if (!response.ok) {
-        mostrarAlerta(data.message || "Erro ao fazer login");
+        mostrarAlerta(data.message || "Erro ao fazer login", "erro");
         return;
       }
 
@@ -129,7 +129,7 @@ if (formLoginPopup) {
       }
     } catch (error) {
       console.error(error);
-      mostrarAlerta("Erro ao conectar com o servidor");
+      mostrarAlerta("Erro ao conectar com o servidor","erro");
     }
   });
 }

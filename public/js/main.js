@@ -387,14 +387,14 @@ document.addEventListener("DOMContentLoaded", controlarVisibilidadeNavbar);
 document.addEventListener("DOMContentLoaded", async () => {
   atualizarAlturaFooter();
   atualizarAlturaHeader();
-  
+
   await controlarVisibilidadeNavbar();
-  
+
   // ✅ CHAMA SEMPRE, independente se está visível ou não
   controlarSobreposicaoNavbarFooter();
-  
+
   marcarItemAtivoDaNavegacaoInferior();
-  
+
   const botaoLogout = document.getElementById("botao-logout");
   if (botaoLogout && localStorage.getItem("token")) {
     botaoLogout.hidden = false;
@@ -521,12 +521,23 @@ async function desbloquearNavbarNoBackend() {
     });
 
     if (!response.ok) throw new Error('Falha ao desbloquear');
-
+    
     const data = await response.json();
+    
+    // 👇 MOSTRA O ALERTA (antes do return!)
+    if (data.alerta) {
+      mostrarAlerta(data.alerta.mensagem, data.alerta.tipo);
+    }
+    
     console.log('Navbar desbloqueada:', data.mensagem);
-    return true;
+    return data.sucesso !== false; // retorna true se sucesso for true ou undefined
+    
   } catch (error) {
     console.error('Erro ao desbloquear navbar:', error);
+    
+    // 👇 Mostra alerta de erro também
+    mostrarAlerta('Erro ao desbloquear navbar', 'erro');
+    
     return false;
   }
 }

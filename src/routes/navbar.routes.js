@@ -33,17 +33,24 @@ router.get('/status', authMiddleware, async (req, res) => {
  */
 router.post('/desbloquear', authMiddleware, async (req, res) => {
     try {
-        await desbloquearBarraNavegacao(req.usuario.id_usuario);
-
+        const resultado = await desbloquearBarraNavegacao(req.usuario.id_usuario);
+        
         res.json({
             sucesso: true,
-            mensagem: 'Navbar desbloqueada com sucesso'
+            dados: resultado,
+            alerta: {
+                mensagem: 'Barra de navegação inferior desbloqueada com sucesso! Olhe Abaixo para acessar as novas funcionalidades.',
+                tipo: 'sucesso' // 'sucesso', 'erro', 'info', 'aviso'
+            }
         });
     } catch (erro) {
-        console.error('Erro ao desbloquear navbar:', erro);
         res.status(500).json({
             sucesso: false,
-            error: 'Erro interno ao desbloquear navbar'
+            erro: erro.message,
+            alerta: {
+                mensagem: 'Erro ao desbloquear barra de navegação inferior',
+                tipo: 'erro'
+            }
         });
     }
 });

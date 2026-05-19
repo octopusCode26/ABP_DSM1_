@@ -171,7 +171,7 @@
       }
 
       if (!response.ok) {
-        mostrarAlerta(data.message || "Erro ao carregar questão");
+        mostrarAlerta(data.message || "Erro ao carregar questão", "erro");
         window.location.href = "/mapa";
         return;
       }
@@ -179,7 +179,7 @@
       renderizarQuestao(data);
     } catch (error) {
       console.error(error);
-      mostrarAlerta("Erro de conexão ao carregar questão");
+      mostrarAlerta("Erro de conexão ao carregar questão", "erro");
       habilitarRespostas(true);
     }
   }
@@ -190,7 +190,7 @@
     if (!token || !questaoAtual) return;
 
     if (!alternativaSelecionada) {
-      mostrarAlerta("Escolha uma alternativa antes de confirmar.");
+      mostrarAlerta("Escolha uma alternativa antes de confirmar.", "erro");
       return;
     }
 
@@ -213,7 +213,7 @@
       const data = await response.json();
 
       if (!response.ok && response.status !== 409) {
-        mostrarAlerta(data.message || "Erro ao responder questão");
+        mostrarAlerta(data.message || "Erro ao responder questão", "erro");
         habilitarRespostas(true);
         return;
       }

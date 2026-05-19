@@ -210,7 +210,7 @@
       renderizarResultado(data);
     } catch (error) {
       console.error(error);
-      mostrarAlerta("Erro de conexao ao carregar resultado");
+      mostrarAlerta("Erro de conexao ao carregar resultado", "erro");
     }
   }
 

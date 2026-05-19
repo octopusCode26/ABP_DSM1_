@@ -24,7 +24,7 @@ async function carregarMapa() {
     const data = await response.json();
 
     if (!response.ok) {
-      mostrarAlerta(data.message || "Erro ao carregar mapa");
+      mostrarAlerta(data.message || "Erro ao carregar mapa", "erro");
       return;
     }
 
@@ -32,7 +32,7 @@ async function carregarMapa() {
     atualizarAtalhos(data.modulos);
   } catch (error) {
     console.error(error);
-    mostrarAlerta("Erro de conexão ao carregar mapa");
+    mostrarAlerta("Erro de conexão ao carregar mapa", "erro");
   }
 }
 
