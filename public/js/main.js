@@ -47,9 +47,9 @@ window.__progressoSessao = window.__progressoSessao || {};
     });
   });
 
-/* =========================================
-    RESETAR MENU AO VOLTAR PARA DESKTOP
-========================================= */
+  /* =========================================
+      RESETAR MENU AO VOLTAR PARA DESKTOP
+  ========================================= */
 
   window.addEventListener("resize", function () {
     if (window.innerWidth > 768) {
@@ -126,57 +126,57 @@ function marcarItemAtivoDaNavegacaoInferior() {
 function controlarSobreposicaoNavbarFooter() {
   const navbar = document.querySelector(".navegacao-inferior");
   const footer = document.querySelector("footer");
-  
   if (!navbar || !footer) return;
 
-  // Função que verifica a sobreposição
-  function verificarSobreposicao() {
-    // Se navbar estiver escondida, não faz nada
-    if (navbar.classList.contains('bloqueada') || navbar.style.display === 'none') {
-      return;
-    }
-    
-    // Garante que --footer-height está atualizado
-    atualizarAlturaFooter();
-    
+  let isTicking = false;
+
+  function calcularPosicao() {
+    // Ignora se navbar está oculta
+    if (navbar.classList.contains('bloqueada') || navbar.style.display === 'none') return;
+
     const footerRect = footer.getBoundingClientRect();
-    const navbarHeight = navbar.offsetHeight;
     const viewportHeight = window.innerHeight;
     
-    // Pega o bottom real da navbar (valor computado do clamp)
-    const navbarComputedStyle = getComputedStyle(navbar);
-    const navbarBottomOffset = parseFloat(navbarComputedStyle.bottom) || 24;
-    const buffer = 10;
+    //  RESPEITA O BREAKPOINT DO SEU CSS (@media max-width: 520px)
+    const isMobile = window.innerWidth <= 520;
+    const defaultBottom = isMobile ? 0 : Math.min(Math.max(viewportHeight * 0.025, 16), 24);
     
-    // Zona de perigo: onde a navbar ocuparia espaço
-    const navbarOccupiedSpace = navbarHeight + navbarBottomOffset + buffer;
-    const dangerZoneStart = viewportHeight - navbarOccupiedSpace;
-    
-    // Se qualquer parte do footer entrar na zona onde a navbar fica, ajusta
-    if (footerRect.bottom > dangerZoneStart && footerRect.top <= viewportHeight) {
-      navbar.classList.add("ajustada-ao-footer");
+    const gapSeguranca = isMobile ? 0 : 0; // Gap levemente menor no mobile
+
+    // Verifica se o footer está visível na viewport
+    const footerNaTela = footerRect.top < viewportHeight && footerRect.bottom > 0;
+
+    if (footerNaTela) {
+      // Calcula quantos pixels do footer estão aparecendo a partir do fundo da tela
+      const alturaVisivelDoFooter = viewportHeight - footerRect.top;
+      
+      // Define o bottom para ficar exatamente acima do footer + gap
+      // Math.max garante que nunca desça abaixo do limite original do CSS
+      const novoBottom = Math.max(alturaVisivelDoFooter + gapSeguranca, defaultBottom);
+      navbar.style.setProperty('bottom', `${novoBottom}px`, 'important');
     } else {
-      navbar.classList.remove("ajustada-ao-footer");
+      // Footer não visível: restaura a posição original do CSS
+      navbar.style.setProperty('bottom', `${defaultBottom}px`, 'important');
     }
   }
 
-  // Delay inicial para garantir que a navbar já está renderizada
-  setTimeout(() => {
-    verificarSobreposicao();
-    
-    // Scroll com debounce
-    let timeout;
-    window.addEventListener("scroll", () => {
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(verificarSobreposicao, 50);
-    }, { passive: true });
-    
-    // Resize
-    window.addEventListener("resize", () => {
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(verificarSobreposicao, 50);
-    });
-  }, 100);
+  // Listener otimizado com requestAnimationFrame
+  function onScroll() {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        calcularPosicao();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", calcularPosicao);
+  
+  // Executa na carga inicial e em mudanças de orientação (mobile)
+  calcularPosicao();
+  window.addEventListener("orientationchange", calcularPosicao);
 }
 
 // Eventos
@@ -376,7 +376,7 @@ async function controlarVisibilidadeNavbar() {
 function getChaveProgressoUsuario() {
   const token = localStorage.getItem('token');
   if (!token) return 'capitulo1_concluido_anon';
-  
+
   // Cria hash simples do token para chave única
   let hash = 0;
   for (let i = 0; i < token.length; i++) {
@@ -394,19 +394,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1️⃣ Calcula alturas primeiro
   atualizarAlturaFooter();
   atualizarAlturaHeader();
-  
+
   // 2️⃣ AGUARDA a visibilidade da navbar ser definida
   await controlarVisibilidadeNavbar();
-  
+
   // 3️⃣ Só agora inicializa o scroll listener (navbar já está visível ou não)
   const navbar = document.querySelector(".navegacao-inferior");
   if (navbar && !navbar.classList.contains('bloqueada')) {
     controlarSobreposicaoNavbarFooter();
   }
-  
+
   // 4️⃣ Marca item ativo
   marcarItemAtivoDaNavegacaoInferior();
-  
+
   // 5️⃣ Botão logout
   const botaoLogout = document.getElementById("botao-logout");
   if (botaoLogout && localStorage.getItem("token")) {
@@ -447,7 +447,7 @@ function usuarioConcluiuCapitulo1() {
 function mostrarNavbarInferior() {
   const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
-  
+
   navbar.classList.remove('hidden', 'bloqueada');
   navbar.classList.add('navbar-visivel');
   navbar.style.display = 'flex';
@@ -459,7 +459,7 @@ function mostrarNavbarInferior() {
 function esconderNavbarInferior() {
   const navbar = document.getElementById('navbarPrincipal');
   if (!navbar) return;
-  
+
   navbar.classList.remove('navbar-visivel');
   navbar.classList.add('bloqueada');
   navbar.style.display = 'none';
@@ -508,7 +508,7 @@ async function buscarStatusNavbarDoBackend() {
     });
 
     if (!response.ok) throw new Error('Falha ao buscar status');
-    
+
     const data = await response.json();
     return data.barra_desbloqueada;
   } catch (error) {
@@ -534,7 +534,7 @@ async function desbloquearNavbarNoBackend() {
     });
 
     if (!response.ok) throw new Error('Falha ao desbloquear');
-    
+
     const data = await response.json();
     console.log('Navbar desbloqueada:', data.mensagem);
     return true;
@@ -552,12 +552,12 @@ window.desbloquearNavbarNoBackend = desbloquearNavbarNoBackend;
   atualizarAlturaFooter();
   atualizarAlturaHeader();
   await controlarVisibilidadeNavbar();
-  
+
   const navbar = document.querySelector(".navegacao-inferior");
   if (navbar && !navbar.classList.contains('bloqueada')) {
     // controlarSobreposicaoNavbarFooter();  ← COMENTE ESTA LINHA (já está no DOMContentLoaded)
   }
-  
+
   window.addEventListener('popstate', async () => {
     await controlarVisibilidadeNavbar();
   });
